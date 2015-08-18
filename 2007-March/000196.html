@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Kiki window position Fix
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Kiki%20window%20position%20Fix&In-Reply-To=%3C45F947F2.2010001%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000192.html">
+   <LINK REL="Next"  HREF="000191.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Kiki window position Fix</H1>
+    <B>Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Kiki%20window%20position%20Fix&In-Reply-To=%3C45F947F2.2010001%40gmail.com%3E"
+       TITLE="[spe-dev] Kiki window position Fix">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Thu Mar 15 14:19:46 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000192.html">[spe-dev] Pychecker: there are *two* hotkey descriptions for	pychecker
+</A></li>
+        <LI>Next message: <A HREF="000191.html">[spe-dev] Testing version 216: MacBook Pro, Mac OS X 10.4.8
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#196">[ date ]</a>
+              <a href="thread.html#196">[ thread ]</a>
+              <a href="subject.html#196">[ subject ]</a>
+              <a href="author.html#196">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Seems to work ok, although I didn't test on dual screen, etc... 
+Implemented in svn 217.
+Stani
+
+John Finch wrote:
+&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be/blog/sm_donate">http://pythonide.stani.be/blog/sm_donate</A>
+</I>&gt;<i> <A HREF="svn://svn.berlios.de/python/spe/trunk">svn://svn.berlios.de/python/spe/trunk</A>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i>   
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> Been working on this problem tonight. I have a good fix for the Kiki 
+</I>&gt;<i> window bug now for both Windows, OSX and Ubuntu
+</I>&gt;<i> Changes below are for Kiki.py. Here's loadSettings with changes 
+</I>&gt;<i> highlighted. Tested in OSX and Windows and Ubuntu. 
+</I>&gt;<i> To test I deleted the kiki configuration file in .spe so it acted as 
+</I>&gt;<i> though spe was first installed.
+</I>&gt;<i>
+</I>&gt;<i> Please confirm fix works for you.
+</I>&gt;<i>
+</I>&gt;<i> Changes........
+</I>&gt;<i>
+</I>&gt;<i>     def loadSettings(self):
+</I>&gt;<i>         &quot;&quot;&quot;Loads GUI settings from the settings system.&quot;&quot;&quot;
+</I>&gt;<i>         # load some size settings
+</I>&gt;<i>         # set window size and position; make sure it's on screen
+</I>&gt;<i>         # and has a reasonable size
+</I>&gt;<i>         system = wx.SystemSettings_GetMetric
+</I>&gt;<i>         pos = list(settings.get(WINDOWPOSITION, (-1,-1)))
+</I>&gt;<i>         x = system(wx.SYS_SCREEN_X)
+</I>&gt;<i>         y = system(wx.SYS_SCREEN_Y)
+</I>&gt;<i>         if pos[0]&lt;=-1: pos[0] = (x/2)-320
+</I>&gt;<i>         if pos[1]&lt;=-1: pos[1] = (y/2)-240
+</I>&gt;<i>         if pos[0]&gt;system(wx.SYS_SCREEN_X)-50:
+</I>&gt;<i>             pos[0] = 0
+</I>&gt;<i>         if pos[1]&gt;system(wx.SYS_SCREEN_Y)-50:
+</I>&gt;<i>             pos[1] = 0
+</I>&gt;<i>         self.SetPosition(pos)
+</I>&gt;<i>         size = list(settings.get(WINDOWSIZE, (-1, -1)))
+</I>&gt;<i>         if size[0]&gt;system(wx.SYS_SCREEN_X):
+</I>&gt;<i>             size[0] = 640
+</I>&gt;<i>         if size[1]&gt;system(wx.SYS_SCREEN_Y):
+</I>&gt;<i>             size[1] = 480
+</I>&gt;<i>         size[0] = max(size[0], 640)
+</I>&gt;<i>         size[1] = max(size[1], 480)
+</I>&gt;<i>         self.SetSize(size)
+</I>&gt;<i>
+</I>&gt;<i>            
+</I>&gt;<i>
+</I>&gt;<i>         # load the sample text and regex last used
+</I>&gt;<i>         self.SampleText.SetValue(settings.get(SAMPLETEXT, &quot;&quot;))
+</I>&gt;<i>         self.RegexBox.SetValue(settings.get(REGEX, &quot;&quot;))
+</I>&gt;<i>
+</I>&gt;<i>            
+</I>&gt;<i>
+</I>&gt;<i>         # load the flags and desired type of re functionality
+</I>&gt;<i>         for flag in self.flagmapper.keys():
+</I>&gt;<i>             self.flagmapper[flag].SetValue(settings.get(flag, False))
+</I>&gt;<i>         self.MethodBox.SetSelection(settings.get(SEARCHTYPE, 0))
+</I>&gt;<i>
+</I>&gt;<i>            
+</I>&gt;<i>
+</I>&gt;<i>         # other settings
+</I>&gt;<i>         self.SplitterWindow.SetSashPosition(settings.get(SASHPOSITION, 
+</I>&gt;<i> 100))
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Here's speCreate in full. Changed speCreate *by removing * 
+</I>&gt;<i> *Kiki.CentreOnParent(wx.BOTH)* :
+</I>&gt;<i>
+</I>&gt;<i> def speCreate(parent, info=None):
+</I>&gt;<i>     &quot;&quot;&quot;Integration of Kiki into spe ( <A HREF="http://spe.pycs.net">http://spe.pycs.net</A> 
+</I>&gt;<i> &lt;<A HREF="http://spe.pycs.net/">http://spe.pycs.net/</A>&gt;)&quot;&quot;&quot;
+</I>&gt;<i>     global settings
+</I>&gt;<i>     settings = Settings(dirname=&quot;.spe&quot;, filename=&quot;kikicfg.py&quot;, 
+</I>&gt;<i> debugfile=&quot;kikidebug&quot;)       
+</I>&gt;<i>     Kiki = MyFrameWithEvents(parent, -1, &quot;&quot;)
+</I>&gt;<i>     Kiki.SetTitle(Kiki.GetTitle() + &quot; - the ferret in your Spe&quot;)
+</I>&gt;<i>     if info and info.has_key('kikiPath'):
+</I>&gt;<i>         kikipath = info['kikiPath']
+</I>&gt;<i>     else:
+</I>&gt;<i>         kikipath = os.path.join(os.path.dirname(sys.argv[0]), 
+</I>&gt;<i> &quot;framework/contributions&quot;)
+</I>&gt;<i>     Kiki.icon(kikipath)
+</I>&gt;<i>     Kiki.Show(1)
+</I>&gt;<i>     return Kiki
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Python-spe-dev mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i>   
+</I>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070315/d55d323c/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070315/d55d323c/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000192.html">[spe-dev] Pychecker: there are *two* hotkey descriptions for	pychecker
+</A></li>
+	<LI>Next message: <A HREF="000191.html">[spe-dev] Testing version 216: MacBook Pro, Mac OS X 10.4.8
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#196">[ date ]</a>
+              <a href="thread.html#196">[ thread ]</a>
+              <a href="subject.html#196">[ subject ]</a>
+              <a href="author.html#196">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

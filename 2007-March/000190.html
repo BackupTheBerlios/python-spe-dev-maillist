@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Kiki window position Fix
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Kiki%20window%20position%20Fix&In-Reply-To=%3CAC159230-F63C-46AC-9F0F-FD0C4964F7F2%40mac.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000187.html">
+   <LINK REL="Next"  HREF="000192.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Kiki window position Fix</H1>
+    <B>John Finch</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Kiki%20window%20position%20Fix&In-Reply-To=%3CAC159230-F63C-46AC-9F0F-FD0C4964F7F2%40mac.com%3E"
+       TITLE="[spe-dev] Kiki window position Fix">johnfinch at mac.com
+       </A><BR>
+    <I>Thu Mar 15 04:24:51 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000187.html">[spe-dev] PyChecker, WinPdb &amp; XRCed updated
+</A></li>
+        <LI>Next message: <A HREF="000192.html">[spe-dev] Pychecker: there are *two* hotkey descriptions for	pychecker
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#190">[ date ]</a>
+              <a href="thread.html#190">[ thread ]</a>
+              <a href="subject.html#190">[ subject ]</a>
+              <a href="author.html#190">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Been working on this problem tonight. I have a good fix for the Kiki  
+window bug now for both Windows, OSX and Ubuntu
+Changes below are for Kiki.py. Here's loadSettings with changes  
+highlighted. Tested in OSX and Windows and Ubuntu.
+To test I deleted the kiki configuration file in .spe so it acted as  
+though spe was first installed.
+
+Please confirm fix works for you.
+
+Changes........
+
+     def loadSettings(self):
+         &quot;&quot;&quot;Loads GUI settings from the settings system.&quot;&quot;&quot;
+         # load some size settings
+         # set window size and position; make sure it's on screen
+         # and has a reasonable size
+         system = wx.SystemSettings_GetMetric
+         pos = list(settings.get(WINDOWPOSITION, (-1,-1)))
+         x = system(wx.SYS_SCREEN_X)
+         y = system(wx.SYS_SCREEN_Y)
+         if pos[0]&lt;=-1: pos[0] = (x/2)-320
+         if pos[1]&lt;=-1: pos[1] = (y/2)-240
+         if pos[0]&gt;system(wx.SYS_SCREEN_X)-50:
+             pos[0] = 0
+         if pos[1]&gt;system(wx.SYS_SCREEN_Y)-50:
+             pos[1] = 0
+         self.SetPosition(pos)
+         size = list(settings.get(WINDOWSIZE, (-1, -1)))
+         if size[0]&gt;system(wx.SYS_SCREEN_X):
+             size[0] = 640
+         if size[1]&gt;system(wx.SYS_SCREEN_Y):
+             size[1] = 480
+         size[0] = max(size[0], 640)
+         size[1] = max(size[1], 480)
+         self.SetSize(size)
+
+         # load the sample text and regex last used
+         self.SampleText.SetValue(settings.get(SAMPLETEXT, &quot;&quot;))
+         self.RegexBox.SetValue(settings.get(REGEX, &quot;&quot;))
+
+         # load the flags and desired type of re functionality
+         for flag in self.flagmapper.keys():
+             self.flagmapper[flag].SetValue(settings.get(flag, False))
+         self.MethodBox.SetSelection(settings.get(SEARCHTYPE, 0))
+
+         # other settings
+         self.SplitterWindow.SetSashPosition(settings.get 
+(SASHPOSITION, 100))
+
+
+
+
+Here's speCreate in full. Changed speCreate by removing  
+Kiki.CentreOnParent(wx.BOTH):
+
+def speCreate(parent, info=None):
+     &quot;&quot;&quot;Integration of Kiki into spe (<A HREF="http://spe.pycs.net">http://spe.pycs.net</A>)&quot;&quot;&quot;
+     global settings
+     settings = Settings(dirname=&quot;.spe&quot;, filename=&quot;kikicfg.py&quot;,  
+debugfile=&quot;kikidebug&quot;)
+     Kiki = MyFrameWithEvents(parent, -1, &quot;&quot;)
+     Kiki.SetTitle(Kiki.GetTitle() + &quot; - the ferret in your Spe&quot;)
+     if info and info.has_key('kikiPath'):
+         kikipath = info['kikiPath']
+     else:
+         kikipath = os.path.join(os.path.dirname(sys.argv[0]),  
+&quot;framework/contributions&quot;)
+     Kiki.icon(kikipath)
+     Kiki.Show(1)
+     return Kiki
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070314/01fd12d6/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070314/01fd12d6/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000187.html">[spe-dev] PyChecker, WinPdb &amp; XRCed updated
+</A></li>
+	<LI>Next message: <A HREF="000192.html">[spe-dev] Pychecker: there are *two* hotkey descriptions for	pychecker
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#190">[ date ]</a>
+              <a href="thread.html#190">[ thread ]</a>
+              <a href="subject.html#190">[ subject ]</a>
+              <a href="author.html#190">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

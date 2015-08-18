@@ -1,0 +1,269 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Configurable keyboard shortcuts (emac style)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2005-December/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Configurable%20keyboard%20shortcuts%20%28emac%20style%29&In-Reply-To=%3C2078a7ad0512041254q1d3b1de4nca7d1037812bbcb3%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000076.html">
+   <LINK REL="Next"  HREF="000077.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Configurable keyboard shortcuts (emac style)</H1>
+    <B>SPE Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Configurable%20keyboard%20shortcuts%20%28emac%20style%29&In-Reply-To=%3C2078a7ad0512041254q1d3b1de4nca7d1037812bbcb3%40mail.gmail.com%3E"
+       TITLE="[spe-dev] Configurable keyboard shortcuts (emac style)">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Sun Dec  4 21:54:18 CET 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000076.html">[spe-dev] Cmd-D in MacOS version
+</A></li>
+        <LI>Next message: <A HREF="000077.html">[spe-dev] Cmd-D in MacOS version
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#75">[ date ]</a>
+              <a href="thread.html#75">[ thread ]</a>
+              <a href="subject.html#75">[ subject ]</a>
+              <a href="author.html#75">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Toni,
+
+Nice you take this initiative.
+
+What is important first: let's define our design goals: what do we want?
+Once that's clear, we can implement it. I prefer to have it fully
+implemented, rather then half. What SPE needs is a:
+- dialog to configure keyboard shortcuts (this could be launched by a button
+in the preferences tab):
+     - maybe look to other IDEs to look for the best proposal
+     - should support multi-keystrokes
+     - users should be able to save keyboard shortcuts (the most important
+ones could be collected and be bundled with SPE)
+- during keyboard shortcuts there should be feedback on the statusBar
+(field1,not field 0, which is used for icons)
+
+How to get around wxGlade? It is easy, I think. In fact I already
+implemented it. Maybe you noticed the _spe/shortcuts folder. There you'll
+see there are different files for Mac and Windows. So in this way it is
+possible to define already one keystroke shortcuts. But with the recipee...
+this could be extended. You define keys by the raw menu label in
+dictionaries, eg for mac (Macintosh.py):
+&quot;&quot;&quot;Mac shortcuts for SPE&quot;&quot;&quot;
+keys = {
+    'Save As'       : 'Ctrl+Shift+S',
+    'Redo'          : 'Ctrl+Shift+Z',
+    'Find Next'     : 'Ctrl+G', # not very logical, but usual on the Mac
+    'Go to line'    : 'Ctrl+J', # &quot;Jump&quot;
+}
+
+The code which translates that into the menu is in SPE.py, line 133:
+####Shortcuts
+class Translate:
+    def __init__(self,keys):
+        self.keys = keys
+
+    def __call__(self,entry):
+        entry           = entry.split('\t')
+        if len(entry)==2:
+            label, shortcut = entry
+        else:
+            label           = entry[0]
+            shortcut        = ''
+        l               = self.strip(label)
+        if self.keys.has_key(l):
+            shortcut    = self.keys[l]
+        if shortcut:
+            return '%s\t%s'%(label,shortcut)
+        else:
+            return label
+
+    def strip(self,x):
+        return x.replace('&amp;','').replace('.','')
+
+shortcuts    = config.get(&quot;DEFAULT&quot;,&quot;shortcuts&quot;)
+if shortcuts == smdi.DEFAULT:
+    if smdi.DARWIN:
+        _shortcuts  = 'Macintosh'
+    else:
+        _shortcuts  = 'Windows'
+else:
+    _shortcuts      = shortcuts
+import _spe.shortcuts as sc
+execfile(os.path.join(os.path.dirname(sc.__file__),'%s.py'%_shortcuts))
+import wxgMenu
+wxgMenu._   = Translate(keys)
+
+So the trick is to overwrite the 'def _(x)' function which is normally used
+for internationalization (another future feature for SPE). wxGlade supports
+to insert labels automatically as _(label) Now there is even a combobox in
+the preferences&gt;general, this could later be replaced if we have a dialog to
+define keyboard shortcuts.
+
+So hopefully it is possible to implement the keyboard shortcuts by the
+combination of a file in _spe/shortcuts and the recipee of Josiah. This
+would make all menu entries configurable. At first sight that all things
+which should be keyboard configurable, should also be in the menu. So if is
+not yet in the menu, it will be added to the menu. People are also asking
+for code folding keyboards etc...
+
+One last remarks, this conversation should be held on spe-dev mailing list.
+So please subscribe to this list and answer there. I cc'd this mail already
+to spe-dev. It's always good to get feedback.
+
+Thanks for your support, as these shortcuts are a much requested feature...
+
+Stani
+
+On 12/4/05, Toni Brkic &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Toni.Brkic at switchcore.com</A>&gt; wrote:
+&gt;<i>
+</I>&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i> I took a look at the source code and I am interested to
+</I>&gt;<i> add a patch for adding emacs keybindings.
+</I>&gt;<i>
+</I>&gt;<i> I searched on google and found that you asked about
+</I>&gt;<i> how to add emasc keybindings.
+</I>&gt;<i>
+</I>&gt;<i> From the thread  I got to this python recipe:
+</I>&gt;<i> <A HREF="http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/457407">http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/457407</A>
+</I>&gt;<i>
+</I>&gt;<i> So something like that needs to be incorparated into SPE.
+</I>&gt;<i> I looked at SPE source code and it uses wxGlade. So
+</I>&gt;<i> you automatically add all the meny items. But the recipe
+</I>&gt;<i> requires that you do your own bindings.
+</I>&gt;<i> I have looked for an hour if there is some easy
+</I>&gt;<i> way to put it on top but I can see it.
+</I>&gt;<i>
+</I>&gt;<i> The easiaset way I see of implementing it is something:
+</I>&gt;<i>
+</I>&gt;<i> class Menu(wx.Menu)
+</I>&gt;<i>
+</I>&gt;<i>         def Append(self, id, string, *args, **kwds):
+</I>&gt;<i>             text, shortcut = splitString
+</I>&gt;<i>           menuItem = wx.Menu.Append(id, self, *args, **kwds)
+</I>&gt;<i>           menuItem.shorcut = shortcut
+</I>&gt;<i>
+</I>&gt;<i> Then in Menu
+</I>&gt;<i>
+</I>&gt;<i>   def Bind(self, evt, fcn, *arg, **keyw):
+</I>&gt;<i>       menuID = keyw['id']
+</I>&gt;<i>       menuItem = self.FindItemById(menuID)
+</I>&gt;<i>       self.addHotkey(menuItem, shortcut, fcn) * from python recipe
+</I>&gt;<i>       self.frame.Bind(evt, fcn, *arg, **keyw)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> But this requires a wxglade work and a little bit
+</I>&gt;<i> more effort than I want to do without you saying
+</I>&gt;<i> what how you want to have it first.
+</I>&gt;<i>
+</I>&gt;<i> /T
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> &gt; -----Original Message-----
+</I>&gt;<i> &gt; From: SPE Stani's Python Editor [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">spe.stani.be at gmail.com</A>]
+</I>&gt;<i> &gt; Sent: Friday, December 02, 2005 6:30 PM
+</I>&gt;<i> &gt; To: <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">wxPython-users at lists.wxwidgets.org</A>
+</I>&gt;<i> &gt; Subject: [wxPython-users] Re: SPE 0.8.0.b Python IDE (Mac support, doc
+</I>&gt;<i> &gt; viewer and workspaces)
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Hi Toni, Michele and Tacao,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Thanks for your interest. I'd like to invite everyone who is familiar
+</I>&gt;<i> &gt; with wxPython to join the spe-dev mailing list to fuel SPE's
+</I>&gt;<i> &gt; development:
+</I>&gt;<i> &gt; <A HREF="http://lists.berlios.de/mailman/listinfo/python-spe-dev">http://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I have bugfixed and integrated Andrea Gavana's NotebookCtrl into SPE.
+</I>&gt;<i> &gt; This will soon be available as SPE 0.8.0.c It is already in SVN for
+</I>&gt;<i> &gt; those who can't wait:
+</I>&gt;<i> &gt; <A HREF="svn://svn.berlios.de/python/spe/trunk">svn://svn.berlios.de/python/spe/trunk</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I'll answer all questions at once:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Toni Brkic:
+</I>&gt;<i> &gt; &gt; So it would be very cool if one could set
+</I>&gt;<i> &gt; &gt; what keybindings one would use.
+</I>&gt;<i> &gt; I agree, this is on my todo list. However there are still things with
+</I>&gt;<i> &gt; higher priority.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; &gt; Is copy-cut-paste rectangle.
+</I>&gt;<i> &gt; &gt; This is very handy when you code and you
+</I>&gt;<i> &gt; &gt; want to uncomment or add some list over
+</I>&gt;<i> &gt; &gt; several lines.
+</I>&gt;<i> &gt; File this as a feature request.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Toni, if you are experienced with wxPython, then I'd like to invite
+</I>&gt;<i> &gt; you to contact me.  So I can help you writing these patches, which
+</I>&gt;<i> &gt; shouldn't be too difficult. A lot of SPE users get their favorite
+</I>&gt;<i> &gt; features very fast in SPE in this way.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Michele Petrazzo:
+</I>&gt;<i> &gt; &gt; is there the possibility to automatic set the focus on the search
+</I>&gt;<i> &gt; &gt; dialog, when press the short-cut Ctrl-F ?
+</I>&gt;<i> &gt; This is fixed in this release, so let me know if you mean
+</I>&gt;<i> &gt; something else.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Tacao:
+</I>&gt;<i> &gt; I think I'd like to use your metamenus sooner or later in SPE. How
+</I>&gt;<i> &gt; fast is it in swapping Menus? (Unfortunately it crashes on the Mac.
+</I>&gt;<i> &gt; I'll send you the traceback.)
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; --
+</I>&gt;<i> &gt; <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> &gt; <A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; ---------------------------------------------------------------------
+</I>&gt;<i> &gt; To unsubscribe, e-mail: <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">wxPython-users-unsubscribe at lists.wxwidgets.org</A>
+</I>&gt;<i> &gt; For additional commands, e-mail:
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">wxPython-users-help at lists.wxwidgets.org</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I>
+
+
+--
+<A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+<A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051204/31521d1d/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051204/31521d1d/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000076.html">[spe-dev] Cmd-D in MacOS version
+</A></li>
+	<LI>Next message: <A HREF="000077.html">[spe-dev] Cmd-D in MacOS version
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#75">[ date ]</a>
+              <a href="thread.html#75">[ thread ]</a>
+              <a href="subject.html#75">[ subject ]</a>
+              <a href="author.html#75">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

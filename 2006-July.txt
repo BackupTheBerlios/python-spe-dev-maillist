@@ -1,0 +1,20 @@
+From eblennerhassett at audioscience.com  Sat Jul  1 12:01:01 2006
+From: eblennerhassett at audioscience.com (Eliot Blennerhassett)
+Date: Sat, 01 Jul 2006 22:01:01 +1200
+Subject: [spe-dev] Where to submit patches
+In-Reply-To: <2078a7ad0606301120o39feee8fxb9562f7fc82582bb@mail.gmail.com>
+References: <44A451CF.5010809@audioscience.com> <2078a7ad0606301120o39feee8fxb9562f7fc82582bb@mail.gmail.com>
+Message-ID: <44A647DD.6010007@audioscience.com>
+
+> Please submit as a patch on the berlios site. In july I'll try to
+> implement all registered patches.
+
+Can you be more explicit - where on Berlios can I submit a patch.
+
+OK, I finally found it
+
+http://developer.berlios.de/patch/?group_id=4161
+
+http://developer.berlios.de/projects/python/
+
+

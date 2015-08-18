@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] remembering files out of order, patch to fix file reloading
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2005-November/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20remembering%20files%20out%20of%20order%2C%20patch%20to%20fix%20file%20reloading&In-Reply-To=%3C2078a7ad0511071017u68d60462l4ac3698fb6d3572%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000029.html">
+   <LINK REL="Next"  HREF="000031.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] remembering files out of order, patch to fix file reloading</H1>
+    <B>SPE Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20remembering%20files%20out%20of%20order%2C%20patch%20to%20fix%20file%20reloading&In-Reply-To=%3C2078a7ad0511071017u68d60462l4ac3698fb6d3572%40mail.gmail.com%3E"
+       TITLE="[spe-dev] remembering files out of order, patch to fix file reloading">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Mon Nov  7 19:17:56 CET 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000029.html">[spe-dev] remembering files out of order, patch to fix file reloading
+</A></li>
+        <LI>Next message: <A HREF="000031.html">[spe-dev] realtime.py &amp; mini-roadmap &amp; patches
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#30">[ date ]</a>
+              <a href="thread.html#30">[ thread ]</a>
+              <a href="subject.html#30">[ subject ]</a>
+              <a href="author.html#30">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Glenn,
+&gt;<i> Why is it that the active tab is moved to the last tab when saving the
+</I>&gt;<i> remembered files? (see lines 644 and 645 of Parent.py)  Since it
+</I>&gt;<i> actually took work to do this (as opposed to forgetting not to do it),
+</I>&gt;<i> I can only assume this is a feature.  However, I find this feature to
+</I>&gt;<i> be a little annoying.  If there's a reason for this, I'd be interested
+</I>&gt;<i> in hearing it. (for now I'm satisfied with commenting those lines)
+</I>This was just a lazy trick to make sure that that the last active tab
+becomes again the active tab, when SPE is restarted. As I never gave
+importance to tab order, I didn't think further about it. But now I do
+and probably it would be better if SPE preserves the tab order and
+switches to the last active one. This shouldn't be difficult to
+implement by changing the format for remember.txt Now it is a
+str(list) of (filename,linenr, column). You could make a dictionary
+{'active':2,'files':[(x,x,x)]}
+
+&gt;<i>  Also, I would like to suggest a feature to anyone so inclined (which
+</I>&gt;<i> may be me).  It would be nice to be able to position the tabs.  I'm
+</I>&gt;<i> thinking arrows to the right and left of all the tabs, which move the
+</I>&gt;<i> active tab left or right when clicked.
+</I>The best would be to create a custom wx.NotebookCtrl independent from
+SPE. Instead of arrows, I would prefer a drag and drop mechanism, in
+which you give dragging feedback by altering colours.Adding arrows in
+every tab is an overkill. It should be central or even better with a
+context menu with option as move left,right, first,last &amp; close.In
+fact in SPE you'll find already the base code for this. Right now
+middle clicking or right clicking closes a tab.You could replace
+easily right clicking with a context menu.
+
+&gt;<i>  I've attached a patch to fix some problems with file reloading (when
+</I>&gt;<i> the file has changed on disk from a source outside the SPE editor).
+</I>&gt;<i> self.fileTime should be updated in Panel.revert() and set in
+</I>&gt;<i> Panel.__init__() if a fileName is given and not 'unnamed'.
+</I>Great, I'll look at it. Some users reported this issue. It is nice
+that you fixed it.
+
+Stani
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000029.html">[spe-dev] remembering files out of order, patch to fix file reloading
+</A></li>
+	<LI>Next message: <A HREF="000031.html">[spe-dev] realtime.py &amp; mini-roadmap &amp; patches
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#30">[ date ]</a>
+              <a href="thread.html#30">[ thread ]</a>
+              <a href="subject.html#30">[ subject ]</a>
+              <a href="author.html#30">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

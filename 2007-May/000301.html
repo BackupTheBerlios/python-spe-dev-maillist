@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] SPE v0.8.4.b Python 2.4.3 problems
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20SPE%20v0.8.4.b%20Python%202.4.3%20problems&In-Reply-To=%3C464A07B3.3070206%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000300.html">
+   <LINK REL="Next"  HREF="000302.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] SPE v0.8.4.b Python 2.4.3 problems</H1>
+    <B>Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20SPE%20v0.8.4.b%20Python%202.4.3%20problems&In-Reply-To=%3C464A07B3.3070206%40gmail.com%3E"
+       TITLE="[spe-dev] SPE v0.8.4.b Python 2.4.3 problems">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Tue May 15 21:19:15 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000300.html">[spe-dev] SPE v0.8.4.b Python 2.4.3 problems
+</A></li>
+        <LI>Next message: <A HREF="000302.html">[spe-dev] SPE v0.8.4.b Python 2.4.3 problems
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#301">[ date ]</a>
+              <a href="thread.html#301">[ thread ]</a>
+              <a href="subject.html#301">[ subject ]</a>
+              <a href="author.html#301">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Michael,
+It is not recommended to use commands which might conflict with SPE's 
+internal wxpython main loop. I presume your code is doing this. For 
+example you can not run another gtk/wxpython program in SPE's shell. You 
+need these kind of code snippets to run with Tools&gt;Run and if you want 
+introspection run it through the debugger.
+Stani
+
+Michael Lang wrote:
+&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i> i have Centos 5 running which ships with python 2.4.3. I compiled 
+</I>&gt;<i> wxPython 2.8.3 and
+</I>&gt;<i> checked out SPE 0.8.4.b from subversion. SPE starts up but when 
+</I>&gt;<i> resolving an objects function
+</I>&gt;<i> in the Shell Window the Application hangs and can only be killed and 
+</I>&gt;<i> restarted.
+</I>&gt;<i>
+</I>&gt;<i> following code was crashing the Application reproduce able:
+</I>&gt;<i>
+</I>&gt;<i> #
+</I>&gt;<i> from ZSI.client import Binding
+</I>&gt;<i> req = Binding(url='<A HREF="http://....">http://....</A>', host='127.0.0.1')
+</I>&gt;<i> print req.test()
+</I>&gt;<i> #
+</I>&gt;<i>
+</I>&gt;<i> ZSI is a SOAP Module and the code works when written as Script in the 
+</I>&gt;<i> Editor and run or works
+</I>&gt;<i> when run in interactive Python Shell. The last line isn't complete 
+</I>&gt;<i> able as before the '.' the applications
+</I>&gt;<i> hangs. I attached the trace file to this email, but wasn't able myself 
+</I>&gt;<i> to see what's hanging.
+</I>&gt;<i>
+</I>&gt;<i> the function 'test' is only defined when resolved through SOAP ...
+</I>&gt;<i>
+</I>&gt;<i> &gt;&gt;&gt; dir(req)
+</I>&gt;<i> ['AddHeader', 'IsAFault', 'IsSOAP', 'RPC', 'Receive', 'ReceiveFault', 
+</I>&gt;<i> 'ReceiveRaw', 'ReceiveSOAP', 'ResetHeaders', 'Send', 'SetAuth', 
+</I>&gt;<i> 'SetNS', 'SetURL', '_Binding__parse', '__doc__', '__getattr__', 
+</I>&gt;<i> '__init__', '__module__', '__repr__', 'auth_pass', 'auth_style', 
+</I>&gt;<i> 'auth_user', 'data', 'host', 'ns', 'nsdict', 'op_ns', 'port', 'ps', 
+</I>&gt;<i> 'readerclass', 'soapaction', 'ssl', 'trace', 'typesmodule', 'url', 
+</I>&gt;<i> 'user_headers']
+</I>&gt;<i>
+</I>&gt;<i> i can provide this SOAP interface for debugging if needed.
+</I>&gt;<i> Kind regards
+</I>&gt;<i>
+</I>&gt;<i> Michael Lang
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i>   
+</I>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070515/369628f8/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070515/369628f8/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000300.html">[spe-dev] SPE v0.8.4.b Python 2.4.3 problems
+</A></li>
+	<LI>Next message: <A HREF="000302.html">[spe-dev] SPE v0.8.4.b Python 2.4.3 problems
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#301">[ date ]</a>
+              <a href="thread.html#301">[ thread ]</a>
+              <a href="subject.html#301">[ subject ]</a>
+              <a href="author.html#301">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

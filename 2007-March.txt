@@ -1,0 +1,4632 @@
+From spe.stani.be at gmail.com  Tue Mar  6 14:05:14 2007
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Tue, 6 Mar 2007 14:05:14 +0100
+Subject: [spe-dev] Please test SPE 0.8.4 from subversion (new release soon)
+Message-ID: <2078a7ad0703060505u2c22afd9xaee089b0b98f521f@mail.gmail.com>
+
+Hi all,
+
+I've been working a lot on fixing SPE and upgrading it with the latest
+plugins. The winpdb debugger no longer fails and wxGlade crashes are
+history. Is that not great? Are you eager to try it out yourself?
+Please do! Get it from subversion and test it for any critical bug, so
+I can iron it out. I have been patching a lot for Ubuntu users, who
+will be very pleased with this release, and I'd like to thank Jurjen a
+lot for his work on Mac issues. This is a definitely a release
+everyone should upgrade to, wether you use windows, mac or linux!
+
+Here is an overview what has been done:
+
+The focus in this release is bugfixing, plugin upgrades and
+compatibility with wxPython 2.8, but it still works on wxPython 2.6
+
+Upgrades:
+- WinPdb to 1.0.8 (not fail in timely manner anymore)
+- wxGlade to latest cvs (support for wxWindows2.8)
+
+New features:
+- Save as copy
+- Clear output pane
+
+Read more and comment at http://pythonide.stani.be
+
+PS. Winpdb does not work well on Mac & wxpython2.8 Nir is working on
+an update. So when it comes out it will be included with SPE.
+
+
+From spe.stani.be at gmail.com  Thu Mar 15 00:28:19 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Thu, 15 Mar 2007 00:28:19 +0100
+Subject: [spe-dev] PyChecker, WinPdb & XRCed updated
+In-Reply-To: <6634263B-0111-1000-889F-C2BB8656148F-Webmail-10010@mac.com>
+References: <45F1EBB4.8030005@gmail.com>
+	<D3DE0C17-829B-442B-8058-54D4A11FAAAF@mac.com>
+	<45F1FBEB.5080709@gmail.com>
+	<B1991987-857D-492B-86D6-BBF7C39CB699@mac.com>
+	<45F203B4.10201@gmail.com>
+	<153DC91C-0812-4E9C-BBCC-11B35BB1D828@mac.com>
+	<45F2069D.4070900@gmail.com>
+	<2C2BB2A5-DE46-45A1-970F-75A2258A57D7@mac.com>
+	<45F1D9EB.4040905@gmail.com>
+	<6634263B-0111-1000-883D-C2BB8656148F-Webmail-10010@mac.com>
+	<2078a7ad0703101751x5245281eq30a006e1df9cf59d@mail.gmail.com>
+	<6634263B-0111-1000-889F-C2BB8656148F-Webmail-10010@mac.com>
+Message-ID: <45F88513.20004@gmail.com>
+
+Hi,
+
+All the major plugins of SPE are now updated to the latest version and 
+tested on Ubuntu:
+
+*WinPdb debugger version 1.0.9:
+http://pythonide.blogspot.com/2007/03/last-winpdb-debugger-109-in-spe.html
+
+*XRCed: latest version from cvs is now included with SPE as often 
+python-wxpython-tools contains an older version.
+
+*PyChecker:
+I managed to update pychecker to the latest version and get it working. 
+The problem was if SPE was not installed in the site-packages dir that 
+pychecker was not starting. Now everything should be ok. Please check 
+pychecker on windows and mac.
+
+Please keep on testing subversion:
+
+svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+http://pythonide.blogspot.com/2007/02/how-to-download-latest-spe-from_26.html
+
+A known issue is that the links in the menu to SPE webpages don't work 
+for the simple reason I have to choose a host and put up the SPE website.
+
+Stani
+
+John Finch wrote:
+> Ubuntu
+>
+> Pychecker does not show text in left tab pane. Text seems to very quickly flash up the pane but then leaves it blank. There seems to be no pychecker responses printed in the pane even when there is something wrong with the file it is checking.
+>
+>   
+
+
+
+From johnfinch at mac.com  Thu Mar 15 04:34:20 2007
+From: johnfinch at mac.com (John Finch)
+Date: Wed, 14 Mar 2007 23:34:20 -0400
+Subject: [spe-dev] Pychecker hot key description still wrong OSX
+Message-ID: <080E8E70-4A50-44AC-BDA8-194B7B285864@mac.com>
+
+OSX
+Should say Cmd_Alt_C for shortcut
+
+
+From johnfinch at mac.com  Thu Mar 15 04:39:57 2007
+From: johnfinch at mac.com (John Finch)
+Date: Wed, 14 Mar 2007 23:39:57 -0400
+Subject: [spe-dev] Fuzzy icons OSX
+Message-ID: <B900DD4C-8D38-4977-B0F7-331EE674571F@mac.com>
+
+Does anyone else think the icons are fuzzy on OSX?
+I think it is because they are only 16x16. Need to be 64x64.
+
+The tiny icons are good.
+
+
+From johnfinch at mac.com  Thu Mar 15 04:24:51 2007
+From: johnfinch at mac.com (John Finch)
+Date: Wed, 14 Mar 2007 23:24:51 -0400
+Subject: [spe-dev] Kiki window position Fix
+In-Reply-To: <45F88513.20004@gmail.com>
+References: <45F1EBB4.8030005@gmail.com>
+	<D3DE0C17-829B-442B-8058-54D4A11FAAAF@mac.com>
+	<45F1FBEB.5080709@gmail.com>
+	<B1991987-857D-492B-86D6-BBF7C39CB699@mac.com>
+	<45F203B4.10201@gmail.com>
+	<153DC91C-0812-4E9C-BBCC-11B35BB1D828@mac.com>
+	<45F2069D.4070900@gmail.com>
+	<2C2BB2A5-DE46-45A1-970F-75A2258A57D7@mac.com>
+	<45F1D9EB.4040905@gmail.com>
+	<6634263B-0111-1000-883D-C2BB8656148F-Webmail-10010@mac.com>
+	<2078a7ad0703101751x5245281eq30a006e1df9cf59d@mail.gmail.com>
+	<6634263B-0111-1000-889F-C2BB8656148F-Webmail-10010@mac.com>
+	<45F88513.20004@gmail.com>
+Message-ID: <AC159230-F63C-46AC-9F0F-FD0C4964F7F2@mac.com>
+
+Been working on this problem tonight. I have a good fix for the Kiki  
+window bug now for both Windows, OSX and Ubuntu
+Changes below are for Kiki.py. Here's loadSettings with changes  
+highlighted. Tested in OSX and Windows and Ubuntu.
+To test I deleted the kiki configuration file in .spe so it acted as  
+though spe was first installed.
+
+Please confirm fix works for you.
+
+Changes........
+
+     def loadSettings(self):
+         """Loads GUI settings from the settings system."""
+         # load some size settings
+         # set window size and position; make sure it's on screen
+         # and has a reasonable size
+         system = wx.SystemSettings_GetMetric
+         pos = list(settings.get(WINDOWPOSITION, (-1,-1)))
+         x = system(wx.SYS_SCREEN_X)
+         y = system(wx.SYS_SCREEN_Y)
+         if pos[0]<=-1: pos[0] = (x/2)-320
+         if pos[1]<=-1: pos[1] = (y/2)-240
+         if pos[0]>system(wx.SYS_SCREEN_X)-50:
+             pos[0] = 0
+         if pos[1]>system(wx.SYS_SCREEN_Y)-50:
+             pos[1] = 0
+         self.SetPosition(pos)
+         size = list(settings.get(WINDOWSIZE, (-1, -1)))
+         if size[0]>system(wx.SYS_SCREEN_X):
+             size[0] = 640
+         if size[1]>system(wx.SYS_SCREEN_Y):
+             size[1] = 480
+         size[0] = max(size[0], 640)
+         size[1] = max(size[1], 480)
+         self.SetSize(size)
+
+         # load the sample text and regex last used
+         self.SampleText.SetValue(settings.get(SAMPLETEXT, ""))
+         self.RegexBox.SetValue(settings.get(REGEX, ""))
+
+         # load the flags and desired type of re functionality
+         for flag in self.flagmapper.keys():
+             self.flagmapper[flag].SetValue(settings.get(flag, False))
+         self.MethodBox.SetSelection(settings.get(SEARCHTYPE, 0))
+
+         # other settings
+         self.SplitterWindow.SetSashPosition(settings.get 
+(SASHPOSITION, 100))
+
+
+
+
+Here's speCreate in full. Changed speCreate by removing  
+Kiki.CentreOnParent(wx.BOTH):
+
+def speCreate(parent, info=None):
+     """Integration of Kiki into spe (http://spe.pycs.net)"""
+     global settings
+     settings = Settings(dirname=".spe", filename="kikicfg.py",  
+debugfile="kikidebug")
+     Kiki = MyFrameWithEvents(parent, -1, "")
+     Kiki.SetTitle(Kiki.GetTitle() + " - the ferret in your Spe")
+     if info and info.has_key('kikiPath'):
+         kikipath = info['kikiPath']
+     else:
+         kikipath = os.path.join(os.path.dirname(sys.argv[0]),  
+"framework/contributions")
+     Kiki.icon(kikipath)
+     Kiki.Show(1)
+     return Kiki
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070314/01fd12d6/attachment.html>
+
+From pietjepuk314 at yahoo.co.uk  Thu Mar 15 09:10:26 2007
+From: pietjepuk314 at yahoo.co.uk (Pietje Puk)
+Date: Thu, 15 Mar 2007 09:10:26 +0100
+Subject: [spe-dev] Testing version 216: MacBook Pro, Mac OS X 10.4.8
+In-Reply-To: <45F88513.20004@gmail.com>
+References: <45F1EBB4.8030005@gmail.com>
+	<D3DE0C17-829B-442B-8058-54D4A11FAAAF@mac.com>
+	<45F1FBEB.5080709@gmail.com>
+	<B1991987-857D-492B-86D6-BBF7C39CB699@mac.com>
+	<45F203B4.10201@gmail.com>
+	<153DC91C-0812-4E9C-BBCC-11B35BB1D828@mac.com>
+	<45F2069D.4070900@gmail.com>
+	<2C2BB2A5-DE46-45A1-970F-75A2258A57D7@mac.com>
+	<45F1D9EB.4040905@gmail.com>
+	<6634263B-0111-1000-883D-C2BB8656148F-Webmail-10010@mac.com>
+	<2078a7ad0703101751x5245281eq30a006e1df9cf59d@mail.gmail.com>
+	<6634263B-0111-1000-889F-C2BB8656148F-Webmail-10010@mac.com>
+	<45F88513.20004@gmail.com>
+Message-ID: <C3DA27A9-F2B8-4E15-AE53-4E48B2DC7FF7@yahoo.co.uk>
+
+PyChecker: looks OK. Filename gets chopped off at the right instead  
+of at the left, so that the actual file cannot be found. (Looks like  
+a non-Mac specific bug. I made a small function that can be used to  
+get a shortened path:)
+def clip_filename(path, number_of_directories = 2):
+     """
+     Clips a pathname string to only used the last two subdirectories.
+     These examples assume a UNIX environment:
+     >>> print os.sep
+     '/'
+     >>> clip_filename("home/file.py")
+     home/file.py
+     >>> clip_filename("this/a/path/file.py")
+     .../a/path/file.py
+     >>> clip_filename("/a/path/file.py")
+     /a/path/file.py
+     """
+
+     # We only clip if there are more slashes (or whatever sep is)
+     # than the number of directories to be shown.
+     # Find the clipping point by counting back.
+
+     if path[3:].count(os.sep) <= number_of_directories:
+         return path
+
+     slashpos = path.rfind(os.sep)
+     for i in range(number_of_directories):
+         slashpos = path.rfind(os.sep, 0, slashpos)
+
+     return '...' + path[slashpos:]
+
+------------------------------
+Hotkey for Pychecker: OK in toolbar
+-------------------------------
+Fuzzy icons on toolbar: yes that's true. Designing 64*64 icons should  
+be left to a professional (Stani?!)
+------------------------------
+Kiki: I'll pass here, since I never used Kiki.
+---------------------------------
+Hope this helps.
+- Jurjen
+
+		
+___________________________________________________________ 
+The all-new Yahoo! Mail goes wherever you go - free your email address from your Internet provider. http://uk.docs.yahoo.com/nowyoucan.html
+
+
+From pietjepuk314 at yahoo.co.uk  Thu Mar 15 09:12:28 2007
+From: pietjepuk314 at yahoo.co.uk (Pietje Puk)
+Date: Thu, 15 Mar 2007 09:12:28 +0100
+Subject: [spe-dev] Pychecker: there are *two* hotkey descriptions for
+	pychecker
+In-Reply-To: <AC159230-F63C-46AC-9F0F-FD0C4964F7F2@mac.com>
+References: <45F1EBB4.8030005@gmail.com>
+	<D3DE0C17-829B-442B-8058-54D4A11FAAAF@mac.com>
+	<45F1FBEB.5080709@gmail.com>
+	<B1991987-857D-492B-86D6-BBF7C39CB699@mac.com>
+	<45F203B4.10201@gmail.com>
+	<153DC91C-0812-4E9C-BBCC-11B35BB1D828@mac.com>
+	<45F2069D.4070900@gmail.com>
+	<2C2BB2A5-DE46-45A1-970F-75A2258A57D7@mac.com>
+	<45F1D9EB.4040905@gmail.com>
+	<6634263B-0111-1000-883D-C2BB8656148F-Webmail-10010@mac.com>
+	<2078a7ad0703101751x5245281eq30a006e1df9cf59d@mail.gmail.com>
+	<6634263B-0111-1000-889F-C2BB8656148F-Webmail-10010@mac.com>
+	<45F88513.20004@gmail.com>
+	<AC159230-F63C-46AC-9F0F-FD0C4964F7F2@mac.com>
+Message-ID: <10FF9F70-572C-4164-89CD-5DD8476FBECB@yahoo.co.uk>
+
+I just discovered that one hotkey description is OK (the one on the  
+toolbar), but the other isn't (the one in the top line of the empty  
+check output window).
+- Jurjen
+
+		
+___________________________________________________________ 
+Try the all-new Yahoo! Mail. "The New Version is radically easier to use" ? The Wall Street Journal 
+http://uk.docs.yahoo.com/nowyoucan.html
+
+
+From tarkawebfoot at charter.net  Thu Mar 15 09:28:28 2007
+From: tarkawebfoot at charter.net (Brian Myers)
+Date: Thu, 15 Mar 2007 01:28:28 -0700
+Subject: [spe-dev] Python-spe-dev Digest, Vol 5, Issue 2
+In-Reply-To: <mailman.10244.1173946856.30659.python-spe-dev@lists.berlios.de>
+References: <mailman.10244.1173946856.30659.python-spe-dev@lists.berlios.de>
+Message-ID: <E3BEF95C-3E31-4EDC-AC1F-1B5B87F5DAFB@charter.net>
+
+I don't know what's going on here, but I've had some trouble getting  
+the right versions of wxWindows, wxPython, and python working  
+together on OSX. Everything is finally installed through DarwinPorts,  
+but the following message comes up when I try to start SPE:
+
+defaults-powerbook-g4-17:~ Tarka$ /opt/local/lib/python2.4/site- 
+packages/wx-2.8-mac-unicode/wx/_core.py:13698: UserWarning: wxPython/ 
+wxWidgets release number mismatch
+   warnings.warn("wxPython/wxWidgets release number mismatch")
+Traceback (most recent call last):
+   File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+bin/spe", line 3, in ?
+     import _spe.SPE
+   File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+lib/python2.4/site-packages/_spe/SPE.py", line 209, in ?
+     style           = style)
+   File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 1278, in __init__
+     wx.App.__init__(self,redirect=not debug)
+   File "/opt/local/lib/python2.4/site-packages/wx-2.8-mac-unicode/wx/ 
+_core.py", line 7757, in __init__
+     self._BootstrapApp()
+   File "/opt/local/lib/python2.4/site-packages/wx-2.8-mac-unicode/wx/ 
+_core.py", line 7354, in _BootstrapApp
+     return _core_.PyApp__BootstrapApp(*args, **kwargs)
+   File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 1297, in OnInit
+     style   = self.style,
+   File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 801, in __init__
+     Parent.__init__(self,app=app,page=page,**options)
+   File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 595, in __init__
+     parentFrame     = self,
+   File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 326, in __init__
+     self.__finish__()
+   File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 599, in  
+__finish__
+     Framework.__finish__(self)
+   File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 424, in  
+__finish__
+     self.panel.__finish__()
+   File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+lib/python2.4/site-packages/_spe/Parent.py", line 121, in __finish__
+     self.__frame__()
+   File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+lib/python2.4/site-packages/_spe/Parent.py", line 169, in __frame__
+     self.__remember__(openFiles=self._openFiles)
+   File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+lib/python2.4/site-packages/_spe/Parent.py", line 189, in __remember__
+     self.loadWorkspace()
+   File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+lib/python2.4/site-packages/_spe/Parent.py", line 322, in loadWorkspace
+     verbose     = True)
+   File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+lib/python2.4/site-packages/_spe/Parent.py", line 867, in openList
+     child=self.new(name=fileName,source=source,maximize=maximize)
+   File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+lib/python2.4/site-packages/_spe/Parent.py", line 379, in new
+     maximize    = maximize)
+   File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 1125, in __init__
+     extra       = extra,
+   File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 889, in __init__
+     extra           = extra,
+   File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 326, in __init__
+     self.__finish__()
+   File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 899, in  
+__finish__
+     Framework.__finish__(self)
+   File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 422, in  
+__finish__
+     self.setTitle(self.page,self.extra)
+   File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 1150, in setTitle
+     Child.setTitle(self,page,extra,new)
+   File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 991, in setTitle
+     self.SetTitle(self.pageTitle)
+AttributeError: 'MdiSplitChildFrame' object has no attribute 'SetTitle'
+Exception exceptions.TypeError: "'NoneType' object is not callable"  
+in <wx.lib.pubsub._NodeCallback instance at 0x530c350> ignored
+
+What's going on here?
+
+Brian
+
+On Mar 15, 2007, at 1:20 AM, python-spe-dev-request at lists.berlios.de  
+wrote:
+
+> Send Python-spe-dev mailing list submissions to
+> 	python-spe-dev at lists.berlios.de
+>
+> To subscribe or unsubscribe via the World Wide Web, visit
+> 	https://lists.berlios.de/mailman/listinfo/python-spe-dev
+> or, via email, send a message with subject or body 'help' to
+> 	python-spe-dev-request at lists.berlios.de
+>
+> You can reach the person managing the list at
+> 	python-spe-dev-owner at lists.berlios.de
+>
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of Python-spe-dev digest..."
+>
+>
+> _______________________________________________
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate  
+> _______________________________________________
+>
+>
+> Today's Topics:
+>
+>    1. PyChecker, WinPdb & XRCed updated (Stani's Python Editor)
+>    2. Pychecker hot key description still wrong OSX (John Finch)
+>    3. Fuzzy icons OSX (John Finch)
+>    4. Kiki window position Fix (John Finch)
+>    5. Testing version 216: MacBook Pro, Mac OS X 10.4.8 (Pietje Puk)
+>    6. Pychecker: there are *two* hotkey descriptions for	pychecker
+>       (Pietje Puk)
+>
+>
+> ----------------------------------------------------------------------
+>
+> Message: 1
+> Date: Thu, 15 Mar 2007 00:28:19 +0100
+> From: Stani's Python Editor <spe.stani.be at gmail.com>
+> Subject: [spe-dev] PyChecker, WinPdb & XRCed updated
+> To: python-spe-dev at lists.berlios.de
+> Message-ID: <45F88513.20004 at gmail.com>
+> Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+>
+> Hi,
+>
+> All the major plugins of SPE are now updated to the latest version and
+> tested on Ubuntu:
+>
+> *WinPdb debugger version 1.0.9:
+> http://pythonide.blogspot.com/2007/03/last-winpdb-debugger-109-in- 
+> spe.html
+>
+> *XRCed: latest version from cvs is now included with SPE as often
+> python-wxpython-tools contains an older version.
+>
+> *PyChecker:
+> I managed to update pychecker to the latest version and get it  
+> working.
+> The problem was if SPE was not installed in the site-packages dir that
+> pychecker was not starting. Now everything should be ok. Please check
+> pychecker on windows and mac.
+>
+> Please keep on testing subversion:
+>
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> http://pythonide.blogspot.com/2007/02/how-to-download-latest-spe- 
+> from_26.html
+>
+> A known issue is that the links in the menu to SPE webpages don't work
+> for the simple reason I have to choose a host and put up the SPE  
+> website.
+>
+> Stani
+>
+> John Finch wrote:
+>> Ubuntu
+>>
+>> Pychecker does not show text in left tab pane. Text seems to very  
+>> quickly flash up the pane but then leaves it blank. There seems to  
+>> be no pychecker responses printed in the pane even when there is  
+>> something wrong with the file it is checking.
+>>
+>>
+>
+>
+>
+> ------------------------------
+>
+> Message: 2
+> Date: Wed, 14 Mar 2007 23:34:20 -0400
+> From: John Finch <johnfinch at mac.com>
+> Subject: [spe-dev] Pychecker hot key description still wrong OSX
+> To: Mailing list for spe developpers <python-spe-dev at lists.berlios.de>
+> Message-ID: <080E8E70-4A50-44AC-BDA8-194B7B285864 at mac.com>
+> Content-Type: text/plain; charset=US-ASCII; format=flowed
+>
+> OSX
+> Should say Cmd_Alt_C for shortcut
+>
+>
+> ------------------------------
+>
+> Message: 3
+> Date: Wed, 14 Mar 2007 23:39:57 -0400
+> From: John Finch <johnfinch at mac.com>
+> Subject: [spe-dev] Fuzzy icons OSX
+> To: Mailing list for spe developpers <python-spe-dev at lists.berlios.de>
+> Message-ID: <B900DD4C-8D38-4977-B0F7-331EE674571F at mac.com>
+> Content-Type: text/plain; charset=US-ASCII; format=flowed
+>
+> Does anyone else think the icons are fuzzy on OSX?
+> I think it is because they are only 16x16. Need to be 64x64.
+>
+> The tiny icons are good.
+>
+>
+> ------------------------------
+>
+> Message: 4
+> Date: Wed, 14 Mar 2007 23:24:51 -0400
+> From: John Finch <johnfinch at mac.com>
+> Subject: [spe-dev] Kiki window position Fix
+> To: Mailing list for spe developpers <python-spe-dev at lists.berlios.de>
+> Message-ID: <AC159230-F63C-46AC-9F0F-FD0C4964F7F2 at mac.com>
+> Content-Type: text/plain; charset="us-ascii"
+>
+> Been working on this problem tonight. I have a good fix for the Kiki
+> window bug now for both Windows, OSX and Ubuntu
+> Changes below are for Kiki.py. Here's loadSettings with changes
+> highlighted. Tested in OSX and Windows and Ubuntu.
+> To test I deleted the kiki configuration file in .spe so it acted as
+> though spe was first installed.
+>
+> Please confirm fix works for you.
+>
+> Changes........
+>
+>      def loadSettings(self):
+>          """Loads GUI settings from the settings system."""
+>          # load some size settings
+>          # set window size and position; make sure it's on screen
+>          # and has a reasonable size
+>          system = wx.SystemSettings_GetMetric
+>          pos = list(settings.get(WINDOWPOSITION, (-1,-1)))
+>          x = system(wx.SYS_SCREEN_X)
+>          y = system(wx.SYS_SCREEN_Y)
+>          if pos[0]<=-1: pos[0] = (x/2)-320
+>          if pos[1]<=-1: pos[1] = (y/2)-240
+>          if pos[0]>system(wx.SYS_SCREEN_X)-50:
+>              pos[0] = 0
+>          if pos[1]>system(wx.SYS_SCREEN_Y)-50:
+>              pos[1] = 0
+>          self.SetPosition(pos)
+>          size = list(settings.get(WINDOWSIZE, (-1, -1)))
+>          if size[0]>system(wx.SYS_SCREEN_X):
+>              size[0] = 640
+>          if size[1]>system(wx.SYS_SCREEN_Y):
+>              size[1] = 480
+>          size[0] = max(size[0], 640)
+>          size[1] = max(size[1], 480)
+>          self.SetSize(size)
+>
+>          # load the sample text and regex last used
+>          self.SampleText.SetValue(settings.get(SAMPLETEXT, ""))
+>          self.RegexBox.SetValue(settings.get(REGEX, ""))
+>
+>          # load the flags and desired type of re functionality
+>          for flag in self.flagmapper.keys():
+>              self.flagmapper[flag].SetValue(settings.get(flag, False))
+>          self.MethodBox.SetSelection(settings.get(SEARCHTYPE, 0))
+>
+>          # other settings
+>          self.SplitterWindow.SetSashPosition(settings.get
+> (SASHPOSITION, 100))
+>
+>
+>
+>
+> Here's speCreate in full. Changed speCreate by removing
+> Kiki.CentreOnParent(wx.BOTH):
+>
+> def speCreate(parent, info=None):
+>      """Integration of Kiki into spe (http://spe.pycs.net)"""
+>      global settings
+>      settings = Settings(dirname=".spe", filename="kikicfg.py",
+> debugfile="kikidebug")
+>      Kiki = MyFrameWithEvents(parent, -1, "")
+>      Kiki.SetTitle(Kiki.GetTitle() + " - the ferret in your Spe")
+>      if info and info.has_key('kikiPath'):
+>          kikipath = info['kikiPath']
+>      else:
+>          kikipath = os.path.join(os.path.dirname(sys.argv[0]),
+> "framework/contributions")
+>      Kiki.icon(kikipath)
+>      Kiki.Show(1)
+>      return Kiki
+>
+> -------------- next part --------------
+> An HTML attachment was scrubbed...
+> URL: https://lists.berlios.de/pipermail/python-spe-dev/attachments/ 
+> 20070314/01fd12d6/attachment-0001.html
+>
+> ------------------------------
+>
+> Message: 5
+> Date: Thu, 15 Mar 2007 09:10:26 +0100
+> From: Pietje Puk <pietjepuk314 at yahoo.co.uk>
+> Subject: [spe-dev] Testing version 216: MacBook Pro, Mac OS X 10.4.8
+> To: Mailing list for spe developpers <python-spe-dev at lists.berlios.de>
+> Message-ID: <C3DA27A9-F2B8-4E15-AE53-4E48B2DC7FF7 at yahoo.co.uk>
+> Content-Type: text/plain; charset=US-ASCII; delsp=yes; format=flowed
+>
+> PyChecker: looks OK. Filename gets chopped off at the right instead
+> of at the left, so that the actual file cannot be found. (Looks like
+> a non-Mac specific bug. I made a small function that can be used to
+> get a shortened path:)
+> def clip_filename(path, number_of_directories = 2):
+>      """
+>      Clips a pathname string to only used the last two subdirectories.
+>      These examples assume a UNIX environment:
+>>>> print os.sep
+>      '/'
+>>>> clip_filename("home/file.py")
+>      home/file.py
+>>>> clip_filename("this/a/path/file.py")
+>      .../a/path/file.py
+>>>> clip_filename("/a/path/file.py")
+>      /a/path/file.py
+>      """
+>
+>      # We only clip if there are more slashes (or whatever sep is)
+>      # than the number of directories to be shown.
+>      # Find the clipping point by counting back.
+>
+>      if path[3:].count(os.sep) <= number_of_directories:
+>          return path
+>
+>      slashpos = path.rfind(os.sep)
+>      for i in range(number_of_directories):
+>          slashpos = path.rfind(os.sep, 0, slashpos)
+>
+>      return '...' + path[slashpos:]
+>
+> ------------------------------
+> Hotkey for Pychecker: OK in toolbar
+> -------------------------------
+> Fuzzy icons on toolbar: yes that's true. Designing 64*64 icons should
+> be left to a professional (Stani?!)
+> ------------------------------
+> Kiki: I'll pass here, since I never used Kiki.
+> ---------------------------------
+> Hope this helps.
+> - Jurjen
+>
+> 		
+> ___________________________________________________________
+> The all-new Yahoo! Mail goes wherever you go - free your email  
+> address from your Internet provider. http://uk.docs.yahoo.com/ 
+> nowyoucan.html
+>
+>
+> ------------------------------
+>
+> Message: 6
+> Date: Thu, 15 Mar 2007 09:12:28 +0100
+> From: Pietje Puk <pietjepuk314 at yahoo.co.uk>
+> Subject: [spe-dev] Pychecker: there are *two* hotkey descriptions for
+> 	pychecker
+> To: Mailing list for spe developpers <python-spe-dev at lists.berlios.de>
+> Message-ID: <10FF9F70-572C-4164-89CD-5DD8476FBECB at yahoo.co.uk>
+> Content-Type: text/plain; charset=US-ASCII; delsp=yes; format=flowed
+>
+> I just discovered that one hotkey description is OK (the one on the
+> toolbar), but the other isn't (the one in the top line of the empty
+> check output window).
+> - Jurjen
+>
+> 		
+> ___________________________________________________________
+> Try the all-new Yahoo! Mail. "The New Version is radically easier  
+> to use" ? The Wall Street Journal
+> http://uk.docs.yahoo.com/nowyoucan.html
+>
+>
+> ------------------------------
+>
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>
+> End of Python-spe-dev Digest, Vol 5, Issue 2
+> ********************************************
+
+
+
+From spe.stani.be at gmail.com  Thu Mar 15 12:33:00 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Thu, 15 Mar 2007 12:33:00 +0100
+Subject: [spe-dev] Python-spe-dev Digest, Vol 5, Issue 2
+In-Reply-To: <E3BEF95C-3E31-4EDC-AC1F-1B5B87F5DAFB@charter.net>
+References: <mailman.10244.1173946856.30659.python-spe-dev@lists.berlios.de>
+	<E3BEF95C-3E31-4EDC-AC1F-1B5B87F5DAFB@charter.net>
+Message-ID: <45F92EEC.70307@gmail.com>
+
+Hi Brian,
+You are using wxPython2.8. You should remove the previous SPE (which 
+only works with wxPython2.6). Make sure this folder is *completely* removed:
+
+/opt/local/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/_spe/
+
+and download SPE from subversion:
+
+svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+http://pythonide.blogspot.com/2007/02/how-to-download-latest-spe-from_26.html
+
+You can put it back in site-packages, but it also runs fine from any 
+location with:
+pythonw SPE.py (pythonw is mac only)
+
+Stani
+
+
+Brian Myers wrote:
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> I don't know what's going on here, but I've had some trouble getting  
+> the right versions of wxWindows, wxPython, and python working  
+> together on OSX. Everything is finally installed through DarwinPorts,  
+> but the following message comes up when I try to start SPE:
+>
+> defaults-powerbook-g4-17:~ Tarka$ /opt/local/lib/python2.4/site- 
+> packages/wx-2.8-mac-unicode/wx/_core.py:13698: UserWarning: wxPython/ 
+> wxWidgets release number mismatch
+>    warnings.warn("wxPython/wxWidgets release number mismatch")
+> Traceback (most recent call last):
+>    File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+> bin/spe", line 3, in ?
+>      import _spe.SPE
+>    File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+> lib/python2.4/site-packages/_spe/SPE.py", line 209, in ?
+>      style           = style)
+>    File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 1278, in __init__
+>      wx.App.__init__(self,redirect=not debug)
+>    File "/opt/local/lib/python2.4/site-packages/wx-2.8-mac-unicode/wx/ 
+> _core.py", line 7757, in __init__
+>      self._BootstrapApp()
+>    File "/opt/local/lib/python2.4/site-packages/wx-2.8-mac-unicode/wx/ 
+> _core.py", line 7354, in _BootstrapApp
+>      return _core_.PyApp__BootstrapApp(*args, **kwargs)
+>    File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 1297, in OnInit
+>      style   = self.style,
+>    File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 801, in __init__
+>      Parent.__init__(self,app=app,page=page,**options)
+>    File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 595, in __init__
+>      parentFrame     = self,
+>    File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 326, in __init__
+>      self.__finish__()
+>    File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 599, in  
+> __finish__
+>      Framework.__finish__(self)
+>    File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 424, in  
+> __finish__
+>      self.panel.__finish__()
+>    File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+> lib/python2.4/site-packages/_spe/Parent.py", line 121, in __finish__
+>      self.__frame__()
+>    File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+> lib/python2.4/site-packages/_spe/Parent.py", line 169, in __frame__
+>      self.__remember__(openFiles=self._openFiles)
+>    File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+> lib/python2.4/site-packages/_spe/Parent.py", line 189, in __remember__
+>      self.loadWorkspace()
+>    File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+> lib/python2.4/site-packages/_spe/Parent.py", line 322, in loadWorkspace
+>      verbose     = True)
+>    File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+> lib/python2.4/site-packages/_spe/Parent.py", line 867, in openList
+>      child=self.new(name=fileName,source=source,maximize=maximize)
+>    File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+> lib/python2.4/site-packages/_spe/Parent.py", line 379, in new
+>      maximize    = maximize)
+>    File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 1125, in __init__
+>      extra       = extra,
+>    File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 889, in __init__
+>      extra           = extra,
+>    File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 326, in __init__
+>      self.__finish__()
+>    File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 899, in  
+> __finish__
+>      Framework.__finish__(self)
+>    File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 422, in  
+> __finish__
+>      self.setTitle(self.page,self.extra)
+>    File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 1150, in setTitle
+>      Child.setTitle(self,page,extra,new)
+>    File "/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 991, in setTitle
+>      self.SetTitle(self.pageTitle)
+> AttributeError: 'MdiSplitChildFrame' object has no attribute 'SetTitle'
+> Exception exceptions.TypeError: "'NoneType' object is not callable"  
+> in <wx.lib.pubsub._NodeCallback instance at 0x530c350> ignored
+>
+> What's going on here?
+>
+> Brian
+>
+> On Mar 15, 2007, at 1:20 AM, python-spe-dev-request at lists.berlios.de  
+> wrote:
+>
+>   
+>> Send Python-spe-dev mailing list submissions to
+>> 	python-spe-dev at lists.berlios.de
+>>
+>> To subscribe or unsubscribe via the World Wide Web, visit
+>> 	https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>> or, via email, send a message with subject or body 'help' to
+>> 	python-spe-dev-request at lists.berlios.de
+>>
+>> You can reach the person managing the list at
+>> 	python-spe-dev-owner at lists.berlios.de
+>>
+>> When replying, please edit your Subject line so it is more specific
+>> than "Re: Contents of Python-spe-dev digest..."
+>>
+>>
+>> _______________________________________________
+>> http://pythonide.stani.be
+>> http://pythonide.stani.be/manual/html/manual.html
+>> http://pythonide.stani.be/blog/sm_donate  
+>> _______________________________________________
+>>
+>>
+>> Today's Topics:
+>>
+>>    1. PyChecker, WinPdb & XRCed updated (Stani's Python Editor)
+>>    2. Pychecker hot key description still wrong OSX (John Finch)
+>>    3. Fuzzy icons OSX (John Finch)
+>>    4. Kiki window position Fix (John Finch)
+>>    5. Testing version 216: MacBook Pro, Mac OS X 10.4.8 (Pietje Puk)
+>>    6. Pychecker: there are *two* hotkey descriptions for	pychecker
+>>       (Pietje Puk)
+>>
+>>
+>> ----------------------------------------------------------------------
+>>
+>> Message: 1
+>> Date: Thu, 15 Mar 2007 00:28:19 +0100
+>> From: Stani's Python Editor <spe.stani.be at gmail.com>
+>> Subject: [spe-dev] PyChecker, WinPdb & XRCed updated
+>> To: python-spe-dev at lists.berlios.de
+>> Message-ID: <45F88513.20004 at gmail.com>
+>> Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+>>
+>> Hi,
+>>
+>> All the major plugins of SPE are now updated to the latest version and
+>> tested on Ubuntu:
+>>
+>> *WinPdb debugger version 1.0.9:
+>> http://pythonide.blogspot.com/2007/03/last-winpdb-debugger-109-in- 
+>> spe.html
+>>
+>> *XRCed: latest version from cvs is now included with SPE as often
+>> python-wxpython-tools contains an older version.
+>>
+>> *PyChecker:
+>> I managed to update pychecker to the latest version and get it  
+>> working.
+>> The problem was if SPE was not installed in the site-packages dir that
+>> pychecker was not starting. Now everything should be ok. Please check
+>> pychecker on windows and mac.
+>>
+>> Please keep on testing subversion:
+>>
+>> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+>> http://pythonide.blogspot.com/2007/02/how-to-download-latest-spe- 
+>> from_26.html
+>>
+>> A known issue is that the links in the menu to SPE webpages don't work
+>> for the simple reason I have to choose a host and put up the SPE  
+>> website.
+>>
+>> Stani
+>>
+>> John Finch wrote:
+>>     
+>>> Ubuntu
+>>>
+>>> Pychecker does not show text in left tab pane. Text seems to very  
+>>> quickly flash up the pane but then leaves it blank. There seems to  
+>>> be no pychecker responses printed in the pane even when there is  
+>>> something wrong with the file it is checking.
+>>>
+>>>
+>>>       
+>>
+>> ------------------------------
+>>
+>> Message: 2
+>> Date: Wed, 14 Mar 2007 23:34:20 -0400
+>> From: John Finch <johnfinch at mac.com>
+>> Subject: [spe-dev] Pychecker hot key description still wrong OSX
+>> To: Mailing list for spe developpers <python-spe-dev at lists.berlios.de>
+>> Message-ID: <080E8E70-4A50-44AC-BDA8-194B7B285864 at mac.com>
+>> Content-Type: text/plain; charset=US-ASCII; format=flowed
+>>
+>> OSX
+>> Should say Cmd_Alt_C for shortcut
+>>
+>>
+>> ------------------------------
+>>
+>> Message: 3
+>> Date: Wed, 14 Mar 2007 23:39:57 -0400
+>> From: John Finch <johnfinch at mac.com>
+>> Subject: [spe-dev] Fuzzy icons OSX
+>> To: Mailing list for spe developpers <python-spe-dev at lists.berlios.de>
+>> Message-ID: <B900DD4C-8D38-4977-B0F7-331EE674571F at mac.com>
+>> Content-Type: text/plain; charset=US-ASCII; format=flowed
+>>
+>> Does anyone else think the icons are fuzzy on OSX?
+>> I think it is because they are only 16x16. Need to be 64x64.
+>>
+>> The tiny icons are good.
+>>
+>>
+>> ------------------------------
+>>
+>> Message: 4
+>> Date: Wed, 14 Mar 2007 23:24:51 -0400
+>> From: John Finch <johnfinch at mac.com>
+>> Subject: [spe-dev] Kiki window position Fix
+>> To: Mailing list for spe developpers <python-spe-dev at lists.berlios.de>
+>> Message-ID: <AC159230-F63C-46AC-9F0F-FD0C4964F7F2 at mac.com>
+>> Content-Type: text/plain; charset="us-ascii"
+>>
+>> Been working on this problem tonight. I have a good fix for the Kiki
+>> window bug now for both Windows, OSX and Ubuntu
+>> Changes below are for Kiki.py. Here's loadSettings with changes
+>> highlighted. Tested in OSX and Windows and Ubuntu.
+>> To test I deleted the kiki configuration file in .spe so it acted as
+>> though spe was first installed.
+>>
+>> Please confirm fix works for you.
+>>
+>> Changes........
+>>
+>>      def loadSettings(self):
+>>          """Loads GUI settings from the settings system."""
+>>          # load some size settings
+>>          # set window size and position; make sure it's on screen
+>>          # and has a reasonable size
+>>          system = wx.SystemSettings_GetMetric
+>>          pos = list(settings.get(WINDOWPOSITION, (-1,-1)))
+>>          x = system(wx.SYS_SCREEN_X)
+>>          y = system(wx.SYS_SCREEN_Y)
+>>          if pos[0]<=-1: pos[0] = (x/2)-320
+>>          if pos[1]<=-1: pos[1] = (y/2)-240
+>>          if pos[0]>system(wx.SYS_SCREEN_X)-50:
+>>              pos[0] = 0
+>>          if pos[1]>system(wx.SYS_SCREEN_Y)-50:
+>>              pos[1] = 0
+>>          self.SetPosition(pos)
+>>          size = list(settings.get(WINDOWSIZE, (-1, -1)))
+>>          if size[0]>system(wx.SYS_SCREEN_X):
+>>              size[0] = 640
+>>          if size[1]>system(wx.SYS_SCREEN_Y):
+>>              size[1] = 480
+>>          size[0] = max(size[0], 640)
+>>          size[1] = max(size[1], 480)
+>>          self.SetSize(size)
+>>
+>>          # load the sample text and regex last used
+>>          self.SampleText.SetValue(settings.get(SAMPLETEXT, ""))
+>>          self.RegexBox.SetValue(settings.get(REGEX, ""))
+>>
+>>          # load the flags and desired type of re functionality
+>>          for flag in self.flagmapper.keys():
+>>              self.flagmapper[flag].SetValue(settings.get(flag, False))
+>>          self.MethodBox.SetSelection(settings.get(SEARCHTYPE, 0))
+>>
+>>          # other settings
+>>          self.SplitterWindow.SetSashPosition(settings.get
+>> (SASHPOSITION, 100))
+>>
+>>
+>>
+>>
+>> Here's speCreate in full. Changed speCreate by removing
+>> Kiki.CentreOnParent(wx.BOTH):
+>>
+>> def speCreate(parent, info=None):
+>>      """Integration of Kiki into spe (http://spe.pycs.net)"""
+>>      global settings
+>>      settings = Settings(dirname=".spe", filename="kikicfg.py",
+>> debugfile="kikidebug")
+>>      Kiki = MyFrameWithEvents(parent, -1, "")
+>>      Kiki.SetTitle(Kiki.GetTitle() + " - the ferret in your Spe")
+>>      if info and info.has_key('kikiPath'):
+>>          kikipath = info['kikiPath']
+>>      else:
+>>          kikipath = os.path.join(os.path.dirname(sys.argv[0]),
+>> "framework/contributions")
+>>      Kiki.icon(kikipath)
+>>      Kiki.Show(1)
+>>      return Kiki
+>>
+>> -------------- next part --------------
+>> An HTML attachment was scrubbed...
+>> URL: https://lists.berlios.de/pipermail/python-spe-dev/attachments/ 
+>> 20070314/01fd12d6/attachment-0001.html
+>>
+>> ------------------------------
+>>
+>> Message: 5
+>> Date: Thu, 15 Mar 2007 09:10:26 +0100
+>> From: Pietje Puk <pietjepuk314 at yahoo.co.uk>
+>> Subject: [spe-dev] Testing version 216: MacBook Pro, Mac OS X 10.4.8
+>> To: Mailing list for spe developpers <python-spe-dev at lists.berlios.de>
+>> Message-ID: <C3DA27A9-F2B8-4E15-AE53-4E48B2DC7FF7 at yahoo.co.uk>
+>> Content-Type: text/plain; charset=US-ASCII; delsp=yes; format=flowed
+>>
+>> PyChecker: looks OK. Filename gets chopped off at the right instead
+>> of at the left, so that the actual file cannot be found. (Looks like
+>> a non-Mac specific bug. I made a small function that can be used to
+>> get a shortened path:)
+>> def clip_filename(path, number_of_directories = 2):
+>>      """
+>>      Clips a pathname string to only used the last two subdirectories.
+>>      These examples assume a UNIX environment:
+>>     
+>>>>> print os.sep
+>>>>>           
+>>      '/'
+>>     
+>>>>> clip_filename("home/file.py")
+>>>>>           
+>>      home/file.py
+>>     
+>>>>> clip_filename("this/a/path/file.py")
+>>>>>           
+>>      .../a/path/file.py
+>>     
+>>>>> clip_filename("/a/path/file.py")
+>>>>>           
+>>      /a/path/file.py
+>>      """
+>>
+>>      # We only clip if there are more slashes (or whatever sep is)
+>>      # than the number of directories to be shown.
+>>      # Find the clipping point by counting back.
+>>
+>>      if path[3:].count(os.sep) <= number_of_directories:
+>>          return path
+>>
+>>      slashpos = path.rfind(os.sep)
+>>      for i in range(number_of_directories):
+>>          slashpos = path.rfind(os.sep, 0, slashpos)
+>>
+>>      return '...' + path[slashpos:]
+>>
+>> ------------------------------
+>> Hotkey for Pychecker: OK in toolbar
+>> -------------------------------
+>> Fuzzy icons on toolbar: yes that's true. Designing 64*64 icons should
+>> be left to a professional (Stani?!)
+>> ------------------------------
+>> Kiki: I'll pass here, since I never used Kiki.
+>> ---------------------------------
+>> Hope this helps.
+>> - Jurjen
+>>
+>> 		
+>> ___________________________________________________________
+>> The all-new Yahoo! Mail goes wherever you go - free your email  
+>> address from your Internet provider. http://uk.docs.yahoo.com/ 
+>> nowyoucan.html
+>>
+>>
+>> ------------------------------
+>>
+>> Message: 6
+>> Date: Thu, 15 Mar 2007 09:12:28 +0100
+>> From: Pietje Puk <pietjepuk314 at yahoo.co.uk>
+>> Subject: [spe-dev] Pychecker: there are *two* hotkey descriptions for
+>> 	pychecker
+>> To: Mailing list for spe developpers <python-spe-dev at lists.berlios.de>
+>> Message-ID: <10FF9F70-572C-4164-89CD-5DD8476FBECB at yahoo.co.uk>
+>> Content-Type: text/plain; charset=US-ASCII; delsp=yes; format=flowed
+>>
+>> I just discovered that one hotkey description is OK (the one on the
+>> toolbar), but the other isn't (the one in the top line of the empty
+>> check output window).
+>> - Jurjen
+>>
+>> 		
+>> ___________________________________________________________
+>> Try the all-new Yahoo! Mail. "The New Version is radically easier  
+>> to use" ? The Wall Street Journal
+>> http://uk.docs.yahoo.com/nowyoucan.html
+>>
+>>
+>> ------------------------------
+>>
+>> _______________________________________________
+>> Python-spe-dev mailing list
+>> Python-spe-dev at lists.berlios.de
+>> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>
+>>
+>> End of Python-spe-dev Digest, Vol 5, Issue 2
+>> ********************************************
+>>     
+>
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>   
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070315/04bb3d2d/attachment.html>
+
+From spe.stani.be at gmail.com  Thu Mar 15 12:43:41 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Thu, 15 Mar 2007 12:43:41 +0100
+Subject: [spe-dev] Fuzzy icons OSX
+In-Reply-To: <B900DD4C-8D38-4977-B0F7-331EE674571F@mac.com>
+References: <B900DD4C-8D38-4977-B0F7-331EE674571F@mac.com>
+Message-ID: <45F9316D.1010904@gmail.com>
+
+Jurjen reported this to me also. I'll have to ask this on the wxPython 
+mailing list. I think have screenshots already, so I'll collect them? 
+What size are they displayed exactly in the Mac? 24x24, 32x32, 64x64?
+Stani
+
+John Finch wrote:
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> Does anyone else think the icons are fuzzy on OSX?
+> I think it is because they are only 16x16. Need to be 64x64.
+>
+> The tiny icons are good.
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>   
+
+
+
+From spe.stani.be at gmail.com  Thu Mar 15 14:19:46 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Thu, 15 Mar 2007 14:19:46 +0100
+Subject: [spe-dev] Kiki window position Fix
+In-Reply-To: <AC159230-F63C-46AC-9F0F-FD0C4964F7F2@mac.com>
+References: <45F1EBB4.8030005@gmail.com>	<D3DE0C17-829B-442B-8058-54D4A11FAAAF@mac.com>	<45F1FBEB.5080709@gmail.com>	<B1991987-857D-492B-86D6-BBF7C39CB699@mac.com>	<45F203B4.10201@gmail.com>	<153DC91C-0812-4E9C-BBCC-11B35BB1D828@mac.com>	<45F2069D.4070900@gmail.com>	<2C2BB2A5-DE46-45A1-970F-75A2258A57D7@mac.com>	<45F1D9EB.4040905@gmail.com>	<6634263B-0111-1000-883D-C2BB8656148F-Webmail-10010@mac.com>	<2078a7ad0703101751x5245281eq30a006e1df9cf59d@mail.gmail.com>	<6634263B-0111-1000-889F-C2BB8656148F-Webmail-10010@mac.com>	<45F88513.20004@gmail.com>
+	<AC159230-F63C-46AC-9F0F-FD0C4964F7F2@mac.com>
+Message-ID: <45F947F2.2010001@gmail.com>
+
+Seems to work ok, although I didn't test on dual screen, etc... 
+Implemented in svn 217.
+Stani
+
+John Finch wrote:
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+>   
+>
+> ------------------------------------------------------------------------
+>
+> Been working on this problem tonight. I have a good fix for the Kiki 
+> window bug now for both Windows, OSX and Ubuntu
+> Changes below are for Kiki.py. Here's loadSettings with changes 
+> highlighted. Tested in OSX and Windows and Ubuntu. 
+> To test I deleted the kiki configuration file in .spe so it acted as 
+> though spe was first installed.
+>
+> Please confirm fix works for you.
+>
+> Changes........
+>
+>     def loadSettings(self):
+>         """Loads GUI settings from the settings system."""
+>         # load some size settings
+>         # set window size and position; make sure it's on screen
+>         # and has a reasonable size
+>         system = wx.SystemSettings_GetMetric
+>         pos = list(settings.get(WINDOWPOSITION, (-1,-1)))
+>         x = system(wx.SYS_SCREEN_X)
+>         y = system(wx.SYS_SCREEN_Y)
+>         if pos[0]<=-1: pos[0] = (x/2)-320
+>         if pos[1]<=-1: pos[1] = (y/2)-240
+>         if pos[0]>system(wx.SYS_SCREEN_X)-50:
+>             pos[0] = 0
+>         if pos[1]>system(wx.SYS_SCREEN_Y)-50:
+>             pos[1] = 0
+>         self.SetPosition(pos)
+>         size = list(settings.get(WINDOWSIZE, (-1, -1)))
+>         if size[0]>system(wx.SYS_SCREEN_X):
+>             size[0] = 640
+>         if size[1]>system(wx.SYS_SCREEN_Y):
+>             size[1] = 480
+>         size[0] = max(size[0], 640)
+>         size[1] = max(size[1], 480)
+>         self.SetSize(size)
+>
+>            
+>
+>         # load the sample text and regex last used
+>         self.SampleText.SetValue(settings.get(SAMPLETEXT, ""))
+>         self.RegexBox.SetValue(settings.get(REGEX, ""))
+>
+>            
+>
+>         # load the flags and desired type of re functionality
+>         for flag in self.flagmapper.keys():
+>             self.flagmapper[flag].SetValue(settings.get(flag, False))
+>         self.MethodBox.SetSelection(settings.get(SEARCHTYPE, 0))
+>
+>            
+>
+>         # other settings
+>         self.SplitterWindow.SetSashPosition(settings.get(SASHPOSITION, 
+> 100))
+>
+>
+>
+>
+> Here's speCreate in full. Changed speCreate *by removing * 
+> *Kiki.CentreOnParent(wx.BOTH)* :
+>
+> def speCreate(parent, info=None):
+>     """Integration of Kiki into spe ( http://spe.pycs.net 
+> <http://spe.pycs.net/>)"""
+>     global settings
+>     settings = Settings(dirname=".spe", filename="kikicfg.py", 
+> debugfile="kikidebug")       
+>     Kiki = MyFrameWithEvents(parent, -1, "")
+>     Kiki.SetTitle(Kiki.GetTitle() + " - the ferret in your Spe")
+>     if info and info.has_key('kikiPath'):
+>         kikipath = info['kikiPath']
+>     else:
+>         kikipath = os.path.join(os.path.dirname(sys.argv[0]), 
+> "framework/contributions")
+>     Kiki.icon(kikipath)
+>     Kiki.Show(1)
+>     return Kiki
+>
+> ------------------------------------------------------------------------
+>
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>   
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070315/d55d323c/attachment.html>
+
+From spe.stani.be at gmail.com  Thu Mar 15 14:26:05 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Thu, 15 Mar 2007 14:26:05 +0100
+Subject: [spe-dev] Pychecker hot key description still wrong OSX
+In-Reply-To: <080E8E70-4A50-44AC-BDA8-194B7B285864@mac.com>
+References: <080E8E70-4A50-44AC-BDA8-194B7B285864@mac.com>
+Message-ID: <45F9496D.8020902@gmail.com>
+
+Fixed in svn 218. Jurjen, did this solve also you remark about the two 
+hotkeys?
+
+Stani
+
+John Finch wrote:
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> OSX
+> Should say Cmd_Alt_C for shortcut
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>   
+
+
+
+From spe.stani.be at gmail.com  Thu Mar 15 14:38:05 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Thu, 15 Mar 2007 14:38:05 +0100
+Subject: [spe-dev] Testing version 216: MacBook Pro, Mac OS X 10.4.8
+In-Reply-To: <C3DA27A9-F2B8-4E15-AE53-4E48B2DC7FF7@yahoo.co.uk>
+References: <45F1EBB4.8030005@gmail.com>	<D3DE0C17-829B-442B-8058-54D4A11FAAAF@mac.com>	<45F1FBEB.5080709@gmail.com>	<B1991987-857D-492B-86D6-BBF7C39CB699@mac.com>	<45F203B4.10201@gmail.com>	<153DC91C-0812-4E9C-BBCC-11B35BB1D828@mac.com>	<45F2069D.4070900@gmail.com>	<2C2BB2A5-DE46-45A1-970F-75A2258A57D7@mac.com>	<45F1D9EB.4040905@gmail.com>	<6634263B-0111-1000-883D-C2BB8656148F-Webmail-10010@mac.com>	<2078a7ad0703101751x5245281eq30a006e1df9cf59d@mail.gmail.com>	<6634263B-0111-1000-889F-C2BB8656148F-Webmail-10010@mac.com>	<45F88513.20004@gmail.com>
+	<C3DA27A9-F2B8-4E15-AE53-4E48B2DC7FF7@yahoo.co.uk>
+Message-ID: <45F94C3D.5030303@gmail.com>
+
+Hi Jurjen,
+You should be able to drag the columns to make more visible and get rid 
+of the '...'. However I found it a right remark and I hope to have fixed 
+it in a better way. Now pychecker has an extra column for path, so that 
+file and path are split. Updated in svn 219.
+
+Stani
+
+Pietje Puk wrote:
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> PyChecker: looks OK. Filename gets chopped off at the right instead  
+> of at the left, so that the actual file cannot be found. (Looks like  
+> a non-Mac specific bug. I made a small function that can be used to  
+> get a shortened path:)
+> def clip_filename(path, number_of_directories = 2):
+>      """
+>      Clips a pathname string to only used the last two subdirectories.
+>      These examples assume a UNIX environment:
+>      >>> print os.sep
+>      '/'
+>      >>> clip_filename("home/file.py")
+>      home/file.py
+>      >>> clip_filename("this/a/path/file.py")
+>      .../a/path/file.py
+>      >>> clip_filename("/a/path/file.py")
+>      /a/path/file.py
+>      """
+>
+>      # We only clip if there are more slashes (or whatever sep is)
+>      # than the number of directories to be shown.
+>      # Find the clipping point by counting back.
+>
+>      if path[3:].count(os.sep) <= number_of_directories:
+>          return path
+>
+>      slashpos = path.rfind(os.sep)
+>      for i in range(number_of_directories):
+>          slashpos = path.rfind(os.sep, 0, slashpos)
+>
+>      return '...' + path[slashpos:]
+>
+> ------------------------------
+> Hotkey for Pychecker: OK in toolbar
+> -------------------------------
+> Fuzzy icons on toolbar: yes that's true. Designing 64*64 icons should  
+> be left to a professional (Stani?!)
+> ------------------------------
+> Kiki: I'll pass here, since I never used Kiki.
+> ---------------------------------
+> Hope this helps.
+> - Jurjen
+>
+> 		
+> ___________________________________________________________ 
+> The all-new Yahoo! Mail goes wherever you go - free your email address from your Internet provider. http://uk.docs.yahoo.com/nowyoucan.html
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>   
+
+
+
+From spe.stani.be at gmail.com  Thu Mar 15 19:44:18 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Thu, 15 Mar 2007 19:44:18 +0100
+Subject: [spe-dev] winpdb update
+In-Reply-To: <E3BEF95C-3E31-4EDC-AC1F-1B5B87F5DAFB@charter.net>
+References: <mailman.10244.1173946856.30659.python-spe-dev@lists.berlios.de>
+	<E3BEF95C-3E31-4EDC-AC1F-1B5B87F5DAFB@charter.net>
+Message-ID: <45F99402.4000604@gmail.com>
+
+Thanks to Nir Aides (author of winpdb), some bugs regarding winpdb were 
+fixed. Can everyone use run/stop with winpdb to see if its working thanks?
+Stani
+
+
+From pietjepuk314 at yahoo.co.uk  Thu Mar 15 20:10:21 2007
+From: pietjepuk314 at yahoo.co.uk (Pietje Puk)
+Date: Thu, 15 Mar 2007 20:10:21 +0100
+Subject: [spe-dev] Pychecker hot key description still wrong OSX
+In-Reply-To: <45F9496D.8020902@gmail.com>
+References: <080E8E70-4A50-44AC-BDA8-194B7B285864@mac.com>
+	<45F9496D.8020902@gmail.com>
+Message-ID: <C1E5B5EF-F4DF-4B6C-86CC-5D6644D3ECCD@yahoo.co.uk>
+
+> Fixed in svn 218. Jurjen, did this solve also you remark about the two
+> hotkeys?
+Yep, everything works as expected.
+- Jurjen
+>
+> Stani
+>
+> John Finch wrote:
+>> http://pythonide.stani.be
+>> http://pythonide.stani.be/manual/html/manual.html
+>> http://pythonide.stani.be/blog/sm_donate
+>> svn://svn.berlios.de/python/spe/trunk
+>> _______________________________________________
+>> OSX
+>> Should say Cmd_Alt_C for shortcut
+>> _______________________________________________
+>> Python-spe-dev mailing list
+>> Python-spe-dev at lists.berlios.de
+>> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>
+>>
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+
+
+
+From spe.stani.be at gmail.com  Thu Mar 15 20:34:03 2007
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Thu, 15 Mar 2007 20:34:03 +0100
+Subject: [spe-dev] winpdb update
+In-Reply-To: <45F99402.4000604@gmail.com>
+References: <mailman.10244.1173946856.30659.python-spe-dev@lists.berlios.de>
+	<E3BEF95C-3E31-4EDC-AC1F-1B5B87F5DAFB@charter.net>
+	<45F99402.4000604@gmail.com>
+Message-ID: <2078a7ad0703151234t1c74f45fsdd851589acceb892@mail.gmail.com>
+
+Forget it, it is still not working properly. I try to figure it
+further out with Nir. "Debug with winpdb" works, but "Run/stop with
+winpdb" still has issues.
+
+Stani
+
+
+On 3/15/07, Stani's Python Editor <spe.stani.be at gmail.com> wrote:
+> Thanks to Nir Aides (author of winpdb), some bugs regarding winpdb were
+> fixed. Can everyone use run/stop with winpdb to see if its working thanks?
+> Stani
+>
+
+
+-- 
+http://pythonide.stani.be
+
+
+From spe.stani.be at gmail.com  Fri Mar 16 01:29:02 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Fri, 16 Mar 2007 01:29:02 +0100
+Subject: [spe-dev] [Fwd: Re: [wxPython-users] toolbar on Mac with 16x16
+ pixels not possible on 2.8?]
+Message-ID: <45F9E4CE.4020601@gmail.com>
+
+Nothing much to do about it, unless using 24x24 bitmaps maybe. I 
+postpone this bug. John, can you make a bug report about this on the spe 
+berlios website?
+Stani
+
+-------- Original Message --------
+Subject: 	Re: [wxPython-users] toolbar on Mac with 16x16 pixels not 
+possible on 2.8?
+Date: 	Thu, 15 Mar 2007 17:17:47 -0700
+From: 	Kevin Ollivier <kevino at theolliviers.com>
+Reply-To: 	wxPython-users at lists.wxwidgets.org
+To: 	wxPython-users at lists.wxwidgets.org
+References: 	<2078a7ad0703151151s56ba11d0md95890a084697b25 at mail.gmail.com>
+
+
+
+Hi Stani,
+
+On Mar 15, 2007, at 11:51 AM, SPE Stani's Python Editor wrote:
+
+> Hi,
+> SPE mac users report that the toolbar icons of SPE look blurred.
+> Investigating the issue, showed that wxPython2.8 (this does not happen
+> on 2.6) forces 24x24 pixels although in my code I have:
+> self.SetToolBitmapSize((16,16))
+>
+> Is there no way to let mac use 16x16 as I prefer not to start shipping
+> 24x24 pixels icons. At the moment I have no access to my Mac myself,
+> so I couldn't verify it. If you want to try out, get SPE from
+> subversion:
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+
+This is a result of using the native Mac toolbar control, which  
+scales up icons below it's minimum threshold. There's an option to  
+turn it off, but unfortunately I'm pretty sure you have to turn it  
+off when you compile wxPython. ;-/
+
+Regards,
+
+Kevin
+
+> Stani
+>
+> ---------------------------------------------------------------------
+> To unsubscribe, e-mail: wxPython-users-unsubscribe at lists.wxwidgets.org
+> For additional commands, e-mail: wxPython-users- 
+> help at lists.wxwidgets.org
+>
+
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: wxPython-users-unsubscribe at lists.wxwidgets.org
+For additional commands, e-mail: wxPython-users-help at lists.wxwidgets.org
+
+
+
+
+
+-------- Original Message --------
+Subject: 	Re: [wxPython-users] toolbar on Mac with 16x16 pixels not 
+possible on 2.8?
+Date: 	Thu, 15 Mar 2007 21:07:01 +0100
+From: 	Frank Niessink <frank at niessink.com>
+Reply-To: 	wxPython-users at lists.wxwidgets.org
+To: 	wxPython-users at lists.wxwidgets.org
+References: 	<2078a7ad0703151151s56ba11d0md95890a084697b25 at mail.gmail.com>
+
+
+
+Hi Stani,
+
+2007/3/15, SPE Stani's Python Editor <spe.stani.be at gmail.com>:
+> Hi,
+> SPE mac users report that the toolbar icons of SPE look blurred.
+> Investigating the issue, showed that wxPython2.8 (this does not happen
+> on 2.6) forces 24x24 pixels although in my code I have:
+> self.SetToolBitmapSize((16,16))
+
+I have a similar issue with Task Coach on the Mac. Small 16x16 toolbar
+icons are displayed 24x24 (or maybe 22x22) and 22x22 icons are
+displayed as 16x16 icons. 32x32 icons are fine. I don't have a
+solution, sorry.
+
+Cheers, Frank
+
+PS: Your Jakarta book was reviewed in the Volkskrant today. Congratulations.
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: wxPython-users-unsubscribe at lists.wxwidgets.org
+For additional commands, e-mail: wxPython-users-help at lists.wxwidgets.org
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070316/8edd2f9e/attachment.html>
+
+From johnfinch at mac.com  Fri Mar 16 02:16:23 2007
+From: johnfinch at mac.com (John Finch)
+Date: Thu, 15 Mar 2007 18:16:23 -0700
+Subject: [spe-dev] [Fwd: Re: [wxPython-users] toolbar on Mac with 16x16
+ pixels not possible on 2.8?]
+In-Reply-To: <45F9E4CE.4020601@gmail.com>
+References: <45F9E4CE.4020601@gmail.com>
+Message-ID: <7301393B-0111-1000-ECA3-0367ECB835B2-Webmail-10017@mac.com>
+
+Bug report made.
+
+
+
+
+From johnfinch at mac.com  Sat Mar 17 16:43:19 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sat, 17 Mar 2007 11:43:19 -0400
+Subject: [spe-dev] Status bar Bug
+In-Reply-To: <45F9E4CE.4020601@gmail.com>
+References: <45F9E4CE.4020601@gmail.com>
+Message-ID: <CFF3F947-854E-417E-86BF-53531EA57C96@mac.com>
+
+When first open the status bar shows a couple of letters that seem to  
+be cut off before the copyright sign. See below
+OSX wxpython2.8.1 Python2.5 SVN225
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: spe bug.tiff
+Type: image/tiff
+Size: 30944 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070317/6d480728/attachment.tiff>
+
+From johnfinch at mac.com  Sat Mar 17 16:46:59 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sat, 17 Mar 2007 11:46:59 -0400
+Subject: [spe-dev] Exceptions on exit Bug
+In-Reply-To: <45F9E4CE.4020601@gmail.com>
+References: <45F9E4CE.4020601@gmail.com>
+Message-ID: <E2FA7AA7-7BCC-4773-A879-9652DC182BE7@mac.com>
+
+I have a completely new install of OSX with fresh install of P2.5  
+wx2.8.1 only. Whenever I exit SPE I get the following exceptions.  
+There are more than just these but they all follow a similar pattern.  
+There's probably about 40 of them. Somethings not quite right?
+
+
+Exception exceptions.TypeError: "'NoneType' object is not callable"  
+in <wx.lib.pubsub._NodeCallback instance at 0x12483800> ignored
+Exception exceptions.TypeError: "'NoneType' object is not callable"  
+in <wx.lib.pubsub._NodeCallback instance at 0x124839b8> ignored
+Exception exceptions.TypeError: "'NoneType' object is not callable"  
+in <wx.lib.pubsub._NodeCallback instance at 0x10a9d710> ignored
+Exception exceptions.TypeError: "'NoneType' object is not callable"  
+in <wx.lib.pubsub._NodeCallback instance at 0x1196bbc0> ignored
+Exception exceptions.TypeError: "'NoneType' object is not callable"  
+in <wx.lib.pubsub._NodeCallback instance at 0x11940b70> ignored
+Exception exceptions.TypeError: "'NoneType' object is not callable"  
+in <wx.lib.pubsub._NodeCallback instance at 0x11930f30> ignored
+
+
+
+From johnfinch at mac.com  Sat Mar 17 16:49:13 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sat, 17 Mar 2007 11:49:13 -0400
+Subject: [spe-dev] Copyright dates need bringing up to 2007?
+In-Reply-To: <45F9E4CE.4020601@gmail.com>
+References: <45F9E4CE.4020601@gmail.com>
+Message-ID: <A0A9B018-4224-4092-970B-775AD982972E@mac.com>
+
+When SPE starts, the copyright is shown in terminal. Date needs  
+updating to 2007?
+
+
+
+
+From johnfinch at mac.com  Sat Mar 17 16:58:16 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sat, 17 Mar 2007 11:58:16 -0400
+Subject: [spe-dev] Bug: Open Workspace crash
+In-Reply-To: <45F9E4CE.4020601@gmail.com>
+References: <45F9E4CE.4020601@gmail.com>
+Message-ID: <BD549CA0-29DC-4147-89C4-2395A5ABFC04@mac.com>
+
+OSX P2.5 wx2.8.1 SVN225
+
+When I try to open a workspace I am offered the default (I never  
+saved one before). I try to open the default and the open box re- 
+appears again. I try open the default a second time and SPE sometimes  
+crashes with a bus error or seg fault.
+
+Note: I tried to reproduce this a few times but could not, until I  
+realised that it seems to work ok with double clicking but fails when  
+I use the Open Button!
+
+Two debug scripts below.
+
+Bus Error:
+
+Spe is running in debugging mode with this configuration:
+- platform  : darwin
+- python    : 2.5
+- wxPython  : 2.8.1.1
+- interface : <default>
+- encoding  : mac-roman
+
+Launching application...
+Create: Framework: menu.
+Create: Framework: toolbar.
+Create: Framework: statusbar.
+Creating tabs...
+         Shell
+         Locals
+         Session
+         Output
+         Find
+         Browser
+         Recent
+         Todo
+         Index
+         Notes
+         Donate
+Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'> wxnaj.py / 
+Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(True)
+Event:  Parent: <class 'Parent.Panel'>.onActivate
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(True)
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Size
+Event:  Parent: <class 'Parent.Panel'>.onSize
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Size
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Size
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Size
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(False)
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(True)
+Event:  Parent: <class 'Parent.Panel'>.onActivate
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(True)
+Event<: Child: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close  
+returns True
+Event>: Child: <class 'wx._core._wxPyDeadObject'>.Close returns True
+Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'> wxnaj.py / 
+Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(False)
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(True)
+Event:  Parent: <class 'Parent.Panel'>.onActivate
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(True)
+Event<: Child: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close  
+returns True
+Event>: Child: <class 'wx._core._wxPyDeadObject'>.Close returns True
+Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'> wxnaj.py / 
+Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(False)
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(True)
+Event:  Parent: <class 'Parent.Panel'>.onActivate
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(True)
+Event<: Child: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close  
+returns True
+Event>: Child: <class 'wx._core._wxPyDeadObject'>.Close returns True
+Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'> wxnaj.py / 
+Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(False)
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(True)
+Event:  Parent: <class 'Parent.Panel'>.onActivate
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(True)
+Event<: Child: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close  
+returns True
+Event>: Child: <class 'wx._core._wxPyDeadObject'>.Close returns True
+Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'> wxnaj.py / 
+Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Bus error
+
+
+Seg fault:
+
+Spe is running in debugging mode with this configuration:
+- platform  : darwin
+- python    : 2.5
+- wxPython  : 2.8.1.1
+- interface : <default>
+- encoding  : mac-roman
+
+Launching application...
+Create: Framework: menu.
+Create: Framework: toolbar.
+Create: Framework: statusbar.
+Creating tabs...
+         Shell
+         Locals
+         Session
+         Output
+         Find
+         Browser
+         Recent
+         Todo
+         Index
+         Notes
+         Donate
+Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'> wxnaj.py / 
+Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(True)
+Event:  Parent: <class 'Parent.Panel'>.onActivate
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(True)
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Size
+Event:  Parent: <class 'Parent.Panel'>.onSize
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Size
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Size
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Size
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(False)
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(True)
+Event:  Parent: <class 'Parent.Panel'>.onActivate
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(True)
+Event<: Child: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close  
+returns True
+Event>: Child: <class 'wx._core._wxPyDeadObject'>.Close returns True
+Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'> wxnaj.py / 
+Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(False)
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(True)
+Event:  Parent: <class 'Parent.Panel'>.onActivate
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(True)
+Event<: Child: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close  
+returns True
+Event>: Child: <class 'wx._core._wxPyDeadObject'>.Close returns True
+Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'> wxnaj.py / 
+Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(False)
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(True)
+Event:  Parent: <class 'Parent.Panel'>.onActivate
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(True)
+Event<: Child: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close  
+returns True
+Event>: Child: <class 'wx._core._wxPyDeadObject'>.Close returns True
+Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'> wxnaj.py / 
+Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(False)
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(True)
+Event:  Parent: <class 'Parent.Panel'>.onActivate
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(True)
+Event<: Child: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close  
+returns True
+Event>: Child: <class 'wx._core._wxPyDeadObject'>.Close returns True
+Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'> wxnaj.py / 
+Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Segmentation fault
+
+
+
+
+From johnfinch at mac.com  Sat Mar 17 17:17:56 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sat, 17 Mar 2007 12:17:56 -0400
+Subject: [spe-dev] PyChecker bug now fixed SVN 225 OSX
+In-Reply-To: <45F9E4CE.4020601@gmail.com>
+References: <45F9E4CE.4020601@gmail.com>
+Message-ID: <5EB6E524-B193-44AB-BF96-3B1813C6A2B6@mac.com>
+
+PyChecker now works in OSX. Confirmed that all shortcuts for  
+PyChecker are now correct.
+
+
+From johnfinch at mac.com  Sat Mar 17 17:21:28 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sat, 17 Mar 2007 12:21:28 -0400
+Subject: [spe-dev] Bottom panel does not fit screen bug fixed SVN225
+In-Reply-To: <45F9E4CE.4020601@gmail.com>
+References: <45F9E4CE.4020601@gmail.com>
+Message-ID: <D985676D-536C-4D1E-A6CD-FDF10DEDCC3C@mac.com>
+
+The bug I reported where the bottom panel did not fit the screen (was  
+too big) is fixed in 225. Also bug where Find Results button was  
+displayed beneath screen is fixed.
+
+
+From johnfinch at mac.com  Sat Mar 17 17:25:19 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sat, 17 Mar 2007 12:25:19 -0400
+Subject: [spe-dev] Possible bool naming issue?
+In-Reply-To: <45F9E4CE.4020601@gmail.com>
+References: <45F9E4CE.4020601@gmail.com>
+Message-ID: <7D0747C8-FBDC-4768-852B-F3A0990B079B@mac.com>
+
+Looking through the Locals list using bottom pane I noticed two  
+variable, both bool, that may be meant to be the same? Of course this  
+might be deliberate. If so apologies for this report:
+
+Active
+active
+
+
+
+
+From johnfinch at mac.com  Sat Mar 17 17:42:22 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sat, 17 Mar 2007 12:42:22 -0400
+Subject: [spe-dev] Possible highlighting bug in ToDos
+In-Reply-To: <45F9E4CE.4020601@gmail.com>
+References: <45F9E4CE.4020601@gmail.com>
+Message-ID: <E26C7FBF-423B-4DC0-9512-4F04695CE94B@mac.com>
+
+If I use:
+####functions
+Then it is diplayed in the explore and highlighted when I double  
+click it in explore.
+
+If I have a :
+# TODO: Add more functions!!
+It is displayed in the ToDo tab. However, when I double click it the  
+line is not highlighted like the functions are above.
+
+Two things. Should it be highlighted to be the same as functions etc  
+(I think it probably should).
+
+And, should ToDos be shown in Explore as well as just in the ToDo  
+tab. Maybe explore should show _all_ these special entries and not  
+hide the ToDo lists. I think it is useful to have a separate ToDo tab  
+though, very useful.
+
+
+From johnfinch at mac.com  Sat Mar 17 17:47:56 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sat, 17 Mar 2007 12:47:56 -0400
+Subject: [spe-dev] Bug. Indent tab deletes entry
+In-Reply-To: <45F9E4CE.4020601@gmail.com>
+References: <45F9E4CE.4020601@gmail.com>
+Message-ID: <C66008E5-7861-46D7-BC3D-F9A205EF2D3E@mac.com>
+
+Using UML_Example.py
+
+Double clicked on ---public in explore
+	Highlighted #---public
+
+Clicked indent button on toolbar
+	#---public was deleted instead of indented
+
+This seems to happen whenever something is selected before the indent  
+button is clicked.
+
+Un-indent works ok.
+
+
+From spe.stani.be at gmail.com  Sat Mar 17 21:29:30 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Sat, 17 Mar 2007 21:29:30 +0100
+Subject: [spe-dev] Copyright dates need bringing up to 2007?
+In-Reply-To: <A0A9B018-4224-4092-970B-775AD982972E@mac.com>
+References: <45F9E4CE.4020601@gmail.com>
+	<A0A9B018-4224-4092-970B-775AD982972E@mac.com>
+Message-ID: <45FC4FAA.50003@gmail.com>
+
+Fixed.
+
+John Finch wrote:
+> When SPE starts, the copyright is shown in terminal. Date needs  
+> updating to 2007?
+>
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>   
+
+
+
+From spe.stani.be at gmail.com  Sat Mar 17 21:39:46 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Sat, 17 Mar 2007 21:39:46 +0100
+Subject: [spe-dev] Status bar Bug
+In-Reply-To: <CFF3F947-854E-417E-86BF-53531EA57C96@mac.com>
+References: <45F9E4CE.4020601@gmail.com>
+	<CFF3F947-854E-417E-86BF-53531EA57C96@mac.com>
+Message-ID: <45FC5212.3080207@gmail.com>
+
+I can not reproduce this on Ubuntu. In order to solve this, I need to 
+know what is the error message being displayed. Can you tweak 
+_spe/Menu.py on line 747 and change the statuswidth to eg 
+[200,-1,90,90,90,100]? Or make the first number big enough to read the 
+error message and report it back.
+Stani
+
+John Finch wrote:
+> When first open the status bar shows a couple of letters that seem to 
+> be cut off before the copyright sign. See below
+> OSX wxpython2.8.1 Python2.5 SVN225
+>
+>
+> ------------------------------------------------------------------------
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>   
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070317/d4f47569/attachment.html>
+
+From spe.stani.be at gmail.com  Sat Mar 17 21:42:41 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Sat, 17 Mar 2007 21:42:41 +0100
+Subject: [spe-dev] Bug: Open Workspace crash
+In-Reply-To: <BD549CA0-29DC-4147-89C4-2395A5ABFC04@mac.com>
+References: <45F9E4CE.4020601@gmail.com>
+	<BD549CA0-29DC-4147-89C4-2395A5ABFC04@mac.com>
+Message-ID: <45FC52C1.4030005@gmail.com>
+
+Workspaces were not implemented by me but by Thurston Stone. Thurston, 
+can you answer on this?
+Stani
+
+John Finch wrote:
+> OSX P2.5 wx2.8.1 SVN225
+>
+> When I try to open a workspace I am offered the default (I never  
+> saved one before). I try to open the default and the open box re- 
+> appears again. I try open the default a second time and SPE sometimes  
+> crashes with a bus error or seg fault.
+>
+> Note: I tried to reproduce this a few times but could not, until I  
+> realised that it seems to work ok with double clicking but fails when  
+> I use the Open Button!
+>
+> Two debug scripts below.
+>
+> Bus Error:
+>
+> Spe is running in debugging mode with this configuration:
+> - platform  : darwin
+> - python    : 2.5
+> - wxPython  : 2.8.1.1
+> - interface : <default>
+> - encoding  : mac-roman
+>
+> Launching application...
+> Create: Framework: menu.
+> Create: Framework: toolbar.
+> Create: Framework: statusbar.
+> Creating tabs...
+>          Shell
+>          Locals
+>          Session
+>          Output
+>          Find
+>          Browser
+>          Recent
+>          Todo
+>          Index
+>          Notes
+>          Donate
+> Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+> Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'> wxnaj.py / 
+> Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+> Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (True)
+> Event:  Parent: <class 'Parent.Panel'>.onActivate
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (True)
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Size
+> Event:  Parent: <class 'Parent.Panel'>.onSize
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Size
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Size
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Size
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (False)
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (True)
+> Event:  Parent: <class 'Parent.Panel'>.onActivate
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (True)
+> Event<: Child: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close  
+> returns True
+> Event>: Child: <class 'wx._core._wxPyDeadObject'>.Close returns True
+> Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+> Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'> wxnaj.py / 
+> Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+> Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (False)
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (True)
+> Event:  Parent: <class 'Parent.Panel'>.onActivate
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (True)
+> Event<: Child: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close  
+> returns True
+> Event>: Child: <class 'wx._core._wxPyDeadObject'>.Close returns True
+> Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+> Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'> wxnaj.py / 
+> Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+> Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (False)
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (True)
+> Event:  Parent: <class 'Parent.Panel'>.onActivate
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (True)
+> Event<: Child: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close  
+> returns True
+> Event>: Child: <class 'wx._core._wxPyDeadObject'>.Close returns True
+> Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+> Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'> wxnaj.py / 
+> Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+> Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (False)
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (True)
+> Event:  Parent: <class 'Parent.Panel'>.onActivate
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (True)
+> Event<: Child: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close  
+> returns True
+> Event>: Child: <class 'wx._core._wxPyDeadObject'>.Close returns True
+> Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+> Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'> wxnaj.py / 
+> Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+> Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Bus error
+>
+>
+> Seg fault:
+>
+> Spe is running in debugging mode with this configuration:
+> - platform  : darwin
+> - python    : 2.5
+> - wxPython  : 2.8.1.1
+> - interface : <default>
+> - encoding  : mac-roman
+>
+> Launching application...
+> Create: Framework: menu.
+> Create: Framework: toolbar.
+> Create: Framework: statusbar.
+> Creating tabs...
+>          Shell
+>          Locals
+>          Session
+>          Output
+>          Find
+>          Browser
+>          Recent
+>          Todo
+>          Index
+>          Notes
+>          Donate
+> Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+> Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'> wxnaj.py / 
+> Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+> Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (True)
+> Event:  Parent: <class 'Parent.Panel'>.onActivate
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (True)
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Size
+> Event:  Parent: <class 'Parent.Panel'>.onSize
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Size
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Size
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Size
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (False)
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (True)
+> Event:  Parent: <class 'Parent.Panel'>.onActivate
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (True)
+> Event<: Child: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close  
+> returns True
+> Event>: Child: <class 'wx._core._wxPyDeadObject'>.Close returns True
+> Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+> Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'> wxnaj.py / 
+> Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+> Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (False)
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (True)
+> Event:  Parent: <class 'Parent.Panel'>.onActivate
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (True)
+> Event<: Child: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close  
+> returns True
+> Event>: Child: <class 'wx._core._wxPyDeadObject'>.Close returns True
+> Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+> Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'> wxnaj.py / 
+> Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+> Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (False)
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (True)
+> Event:  Parent: <class 'Parent.Panel'>.onActivate
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (True)
+> Event<: Child: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close  
+> returns True
+> Event>: Child: <class 'wx._core._wxPyDeadObject'>.Close returns True
+> Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+> Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'> wxnaj.py / 
+> Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+> Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (False)
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (True)
+> Event:  Parent: <class 'Parent.Panel'>.onActivate
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (True)
+> Event<: Child: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close  
+> returns True
+> Event>: Child: <class 'wx._core._wxPyDeadObject'>.Close returns True
+> Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+> Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'> wxnaj.py / 
+> Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+> Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Segmentation fault
+>
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>   
+
+
+
+From johnfinch at mac.com  Sat Mar 17 21:47:18 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sat, 17 Mar 2007 16:47:18 -0400
+Subject: [spe-dev] Status bar Bug
+In-Reply-To: <45FC5212.3080207@gmail.com>
+References: <45F9E4CE.4020601@gmail.com>
+	<CFF3F947-854E-417E-86BF-53531EA57C96@mac.com>
+	<45FC5212.3080207@gmail.com>
+Message-ID: <40484C48-F8B8-4611-95F8-5E69A7718007@mac.com>
+
+Ok, I've set the new size.
+It's not there right now!
+I'll monitor
+
+On Mar 17, 2007, at 4:39 PM, Stani's Python Editor wrote:
+
+> [200,-1,90,90,90,100]
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070317/f17ea1e5/attachment.html>
+
+From spe.stani.be at gmail.com  Sat Mar 17 21:49:15 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Sat, 17 Mar 2007 21:49:15 +0100
+Subject: [spe-dev] Possible bool naming issue?
+In-Reply-To: <7D0747C8-FBDC-4768-852B-F3A0990B079B@mac.com>
+References: <45F9E4CE.4020601@gmail.com>
+	<7D0747C8-FBDC-4768-852B-F3A0990B079B@mac.com>
+Message-ID: <45FC544B.2030402@gmail.com>
+
+They are not the same. Active is new in wxPython 2.7 as a shortcut for 
+.GetActive(), active existed before in spe.
+Stani
+
+John Finch wrote:
+> Looking through the Locals list using bottom pane I noticed two  
+> variable, both bool, that may be meant to be the same? Of course this  
+> might be deliberate. If so apologies for this report:
+>
+> Active
+> active
+>
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>   
+
+
+
+From johnfinch at mac.com  Sat Mar 17 21:56:06 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sat, 17 Mar 2007 16:56:06 -0400
+Subject: [spe-dev] Bug. File Menu - Page UML Setup causes Traceback
+In-Reply-To: <45F9E4CE.4020601@gmail.com>
+References: <45F9E4CE.4020601@gmail.com>
+Message-ID: <E894D8CF-F78E-4701-8D30-64D5AC3F6B63@mac.com>
+
+Using  Page UML Setup causes an error:
+
+
+Spe is running in debugging mode with this configuration:
+- platform  : darwin
+- python    : 2.5
+- wxPython  : 2.8.1.1
+- interface : <default>
+- encoding  : mac-roman
+
+Launching application...
+Create: Framework: menu.
+Create: Framework: toolbar.
+Create: Framework: statusbar.
+Creating tabs...
+         Shell
+         Locals
+         Session
+         Output
+         Find
+         Browser
+         Recent
+         Todo
+         Index
+         Notes
+         Donate
+Opening /Users/johnfinch/_spe/examples/uml_example.py
+Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'>  
+uml_example.py /Users/johnfinch/_spe/examples/uml_example.py
+Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Opening /Users/johnfinch/_spe/examples/signature.py
+Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'>  
+signature.py /Users/johnfinch/_spe/examples/signature.py
+Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+Event:  Child: /Users/johnfinch/_spe/examples/uml_example.py: <class  
+'Child.Panel'>.onKillFocus(dead=False)
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(True)
+Event:  Parent: <class 'Parent.Panel'>.onActivate
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(True)
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Size
+Event:  Parent: <class 'Parent.Panel'>.onSize
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Size
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Size
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Size
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event:  Child: /Users/johnfinch/_spe/examples/signature.py: <class  
+'Child.Panel'>.onKillFocus(dead=False)
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Size
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Size
+Event:  Child: /Users/johnfinch/_spe/examples/uml_example.py: <class  
+'Child.Panel'>.onKillFocus(dead=False)
+Event<: Child: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close  
+returns True
+Event>: Child: <class 'wx._core._wxPyDeadObject'>.Close returns True
+Event:  Child: /Users/johnfinch/_spe/examples/uml_example.py: <class  
+'Child.Panel'>.onKillFocus(dead=False)
+Traceback (most recent call last):
+   File "/Users/johnfinch/_spe/Menu.py", line 301, in  
+menu_print_uml_setup
+     self.app.childActive.printUmlSetup()
+   File "/Users/johnfinch/_spe/Child.py", line 424, in printUmlSetup
+     self.uml.OnPrintSetup()
+   File "/Users/johnfinch/_spe/sm/uml.py", line 146, in OnPrintSetup
+     printerDialog.GetPrintDialogData().SetSetupDialog(True)
+AttributeError: 'PrintDialogData' object has no attribute  
+'SetSetupDialog'
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(False)
+
+
+
+From spe.stani.be at gmail.com  Sat Mar 17 21:59:20 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Sat, 17 Mar 2007 21:59:20 +0100
+Subject: [spe-dev] Possible highlighting bug in ToDos
+In-Reply-To: <E26C7FBF-423B-4DC0-9512-4F04695CE94B@mac.com>
+References: <45F9E4CE.4020601@gmail.com>
+	<E26C7FBF-423B-4DC0-9512-4F04695CE94B@mac.com>
+Message-ID: <45FC56A8.8020608@gmail.com>
+
+I added highlighting for the todo and index sidebar. Unfortunately I 
+disagree that todo items clutter the explore pane. svn 227
+Stani
+
+John Finch wrote:
+> If I use:
+> ####functions
+> Then it is diplayed in the explore and highlighted when I double  
+> click it in explore.
+>
+> If I have a :
+> # TODO: Add more functions!!
+> It is displayed in the ToDo tab. However, when I double click it the  
+> line is not highlighted like the functions are above.
+>
+> Two things. Should it be highlighted to be the same as functions etc  
+> (I think it probably should).
+>
+> And, should ToDos be shown in Explore as well as just in the ToDo  
+> tab. Maybe explore should show _all_ these special entries and not  
+> hide the ToDo lists. I think it is useful to have a separate ToDo tab  
+> though, very useful.
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>   
+
+
+
+From johnfinch at mac.com  Sat Mar 17 22:00:55 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sat, 17 Mar 2007 17:00:55 -0400
+Subject: [spe-dev] Bug: Save UML As... Error dialog loop
+In-Reply-To: <45F9E4CE.4020601@gmail.com>
+References: <45F9E4CE.4020601@gmail.com>
+Message-ID: <27BD4A22-827A-46D3-ADD5-8FC1028946CF@mac.com>
+
+On intially trying to save a uml as a bmp I did not enter the .bmp  
+extension.
+
+Error dialog says I should add extension.
+
+Extension added but now error dialog just keeps coming back in a loop  
+asking for the extension.
+
+
+From spe.stani.be at gmail.com  Sat Mar 17 22:03:15 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Sat, 17 Mar 2007 22:03:15 +0100
+Subject: [spe-dev] Exceptions on exit Bug
+In-Reply-To: <E2FA7AA7-7BCC-4773-A879-9652DC182BE7@mac.com>
+References: <45F9E4CE.4020601@gmail.com>
+	<E2FA7AA7-7BCC-4773-A879-9652DC182BE7@mac.com>
+Message-ID: <45FC5793.2090106@gmail.com>
+
+I guess it is because I do not destroy all the child windows one by one 
+to shut down SPE faster. These leaves some events trying to interact 
+with the dissappearing children. Of course SPE checks if all files are 
+saved and vetoes if not. Please file a bug report about this. It won't 
+be a release stopper.
+Stani
+
+John Finch wrote:
+> I have a completely new install of OSX with fresh install of P2.5  
+> wx2.8.1 only. Whenever I exit SPE I get the following exceptions.  
+> There are more than just these but they all follow a similar pattern.  
+> There's probably about 40 of them. Somethings not quite right?
+>
+>
+> Exception exceptions.TypeError: "'NoneType' object is not callable"  
+> in <wx.lib.pubsub._NodeCallback instance at 0x12483800> ignored
+> Exception exceptions.TypeError: "'NoneType' object is not callable"  
+> in <wx.lib.pubsub._NodeCallback instance at 0x124839b8> ignored
+> Exception exceptions.TypeError: "'NoneType' object is not callable"  
+> in <wx.lib.pubsub._NodeCallback instance at 0x10a9d710> ignored
+> Exception exceptions.TypeError: "'NoneType' object is not callable"  
+> in <wx.lib.pubsub._NodeCallback instance at 0x1196bbc0> ignored
+> Exception exceptions.TypeError: "'NoneType' object is not callable"  
+> in <wx.lib.pubsub._NodeCallback instance at 0x11940b70> ignored
+> Exception exceptions.TypeError: "'NoneType' object is not callable"  
+> in <wx.lib.pubsub._NodeCallback instance at 0x11930f30> ignored
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>   
+
+
+
+From johnfinch at mac.com  Sat Mar 17 22:05:09 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sat, 17 Mar 2007 17:05:09 -0400
+Subject: [spe-dev] Bug: Print UML Preview produces error
+In-Reply-To: <45F9E4CE.4020601@gmail.com>
+References: <45F9E4CE.4020601@gmail.com>
+Message-ID: <1DCCC96B-D52E-48A1-9992-A3EBB462CCC8@mac.com>
+
+OSX
+
+Attempted to preview the UML as it would print. Main pane changes to  
+UML view but nothing else happens. Noted the following error in debug  
+output.
+
+
+
+Spe is running in debugging mode with this configuration:
+- platform  : darwin
+- python    : 2.5
+- wxPython  : 2.8.1.1
+- interface : <default>
+- encoding  : mac-roman
+
+Launching application...
+Create: Framework: menu.
+Create: Framework: toolbar.
+Create: Framework: statusbar.
+Creating tabs...
+         Shell
+         Locals
+         Session
+         Output
+         Find
+         Browser
+         Recent
+         Todo
+         Index
+         Notes
+         Donate
+Opening /Users/johnfinch/_spe/examples/uml_example.py
+Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'>  
+uml_example.py /Users/johnfinch/_spe/examples/uml_example.py
+Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'> wxnaj.py / 
+Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+Event:  Child: /Users/johnfinch/_spe/examples/uml_example.py: <class  
+'Child.Panel'>.onKillFocus(dead=False)
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(True)
+Event:  Parent: <class 'Parent.Panel'>.onActivate
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(True)
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Size
+Event:  Parent: <class 'Parent.Panel'>.onSize
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Size
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Size
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Size
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event:  Child: /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py:  
+<class 'Child.Panel'>.onKillFocus(dead=False)
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+(True)
+Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Size
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Size
+Event:  Child: /Users/johnfinch/_spe/examples/uml_example.py: <class  
+'Child.Panel'>.onKillFocus(dead=False)
+Traceback (most recent call last):
+   File "/Users/johnfinch/_spe/Menu.py", line 298, in  
+menu_print_uml_preview
+     self.app.childActive.printUmlPreview()
+   File "/Users/johnfinch/_spe/Child.py", line 420, in printUmlPreview
+     self.uml.OnPrintPreview()
+   File "/Users/johnfinch/_spe/sm/uml.py", line 156, in OnPrintPreview
+     self._checkPrintSetup()
+   File "/Users/johnfinch/_spe/sm/uml.py", line 141, in _checkPrintSetup
+     if not self.printSetup: self.OnPrintSetup()
+   File "/Users/johnfinch/_spe/sm/uml.py", line 146, in OnPrintSetup
+     printerDialog.GetPrintDialogData().SetSetupDialog(True)
+AttributeError: 'PrintDialogData' object has no attribute  
+'SetSetupDialog'
+Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+(False)
+
+
+
+From johnfinch at mac.com  Sat Mar 17 22:09:36 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sat, 17 Mar 2007 17:09:36 -0400
+Subject: [spe-dev] Possible bool naming issue?
+In-Reply-To: <45FC544B.2030402@gmail.com>
+References: <45F9E4CE.4020601@gmail.com>
+	<7D0747C8-FBDC-4768-852B-F3A0990B079B@mac.com>
+	<45FC544B.2030402@gmail.com>
+Message-ID: <318BE569-026B-4FE4-807E-2CD7EAB0AD9F@mac.com>
+
+Sorry, just checking :)
+
+
+On Mar 17, 2007, at 4:49 PM, Stani's Python Editor wrote:
+
+> They are not the same. Active is new in wxPython 2.7 as a shortcut for
+> .GetActive(), active existed before in spe.
+> Stani
+>
+> John Finch wrote:
+>> Looking through the Locals list using bottom pane I noticed two
+>> variable, both bool, that may be meant to be the same? Of course this
+>> might be deliberate. If so apologies for this report:
+>>
+>> Active
+>> active
+>>
+>>
+>> --
+>> http://pythonide.stani.be
+>> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+>> Python-spe-dev at lists.berlios.de
+>> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>
+>>
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+
+
+
+From johnfinch at mac.com  Sat Mar 17 22:17:03 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sat, 17 Mar 2007 17:17:03 -0400
+Subject: [spe-dev] Exceptions on exit Bug
+In-Reply-To: <45FC5793.2090106@gmail.com>
+References: <45F9E4CE.4020601@gmail.com>
+	<E2FA7AA7-7BCC-4773-A879-9652DC182BE7@mac.com>
+	<45FC5793.2090106@gmail.com>
+Message-ID: <D0EBC992-2869-4592-9253-808BB0307229@mac.com>
+
+Bug report filed
+
+
+On Mar 17, 2007, at 5:03 PM, Stani's Python Editor wrote:
+
+> I guess it is because I do not destroy all the child windows one by  
+> one
+> to shut down SPE faster. These leaves some events trying to interact
+> with the dissappearing children. Of course SPE checks if all files are
+> saved and vetoes if not. Please file a bug report about this. It won't
+> be a release stopper.
+> Stani
+>
+> John Finch wrote:
+>> I have a completely new install of OSX with fresh install of P2.5
+>> wx2.8.1 only. Whenever I exit SPE I get the following exceptions.
+>> There are more than just these but they all follow a similar pattern.
+>> There's probably about 40 of them. Somethings not quite right?
+>>
+>>
+>> Exception exceptions.TypeError: "'NoneType' object is not callable"
+>> in <wx.lib.pubsub._NodeCallback instance at 0x12483800> ignored
+
+
+
+From johnfinch at mac.com  Sat Mar 17 22:36:21 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sat, 17 Mar 2007 17:36:21 -0400
+Subject: [spe-dev] Bug: Print UML... prints UML twice
+In-Reply-To: <45FC52C1.4030005@gmail.com>
+References: <45F9E4CE.4020601@gmail.com>
+	<BD549CA0-29DC-4147-89C4-2395A5ABFC04@mac.com>
+	<45FC52C1.4030005@gmail.com>
+Message-ID: <4B0399D3-D2BD-4B6B-BD38-FDDC4489EBB8@mac.com>
+
+OSX
+
+For some reason print UML prints the thing twice. Now, I have only an  
+epson print driver on this macbook pro and am using the preview  
+button in the print dialog to see what would have printed.
+
+Could someone check on OSX to see if UML prints twice for real?
+
+
+
+
+From spe.stani.be at gmail.com  Sat Mar 17 22:45:08 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Sat, 17 Mar 2007 22:45:08 +0100
+Subject: [spe-dev] Bug. File Menu - Page UML Setup causes Traceback
+In-Reply-To: <E894D8CF-F78E-4701-8D30-64D5AC3F6B63@mac.com>
+References: <45F9E4CE.4020601@gmail.com>
+	<E894D8CF-F78E-4701-8D30-64D5AC3F6B63@mac.com>
+Message-ID: <45FC6164.80403@gmail.com>
+
+Good one!
+Fixed,
+Stani
+
+John Finch wrote:
+> Using  Page UML Setup causes an error:
+>
+>
+> Spe is running in debugging mode with this configuration:
+> - platform  : darwin
+> - python    : 2.5
+> - wxPython  : 2.8.1.1
+> - interface : <default>
+> - encoding  : mac-roman
+>
+> Launching application...
+> Create: Framework: menu.
+> Create: Framework: toolbar.
+> Create: Framework: statusbar.
+> Creating tabs...
+>          Shell
+>          Locals
+>          Session
+>          Output
+>          Find
+>          Browser
+>          Recent
+>          Todo
+>          Index
+>          Notes
+>          Donate
+> Opening /Users/johnfinch/_spe/examples/uml_example.py
+> Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'>  
+> uml_example.py /Users/johnfinch/_spe/examples/uml_example.py
+> Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Opening /Users/johnfinch/_spe/examples/signature.py
+> Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'>  
+> signature.py /Users/johnfinch/_spe/examples/signature.py
+> Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+> Event:  Child: /Users/johnfinch/_spe/examples/uml_example.py: <class  
+> 'Child.Panel'>.onKillFocus(dead=False)
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (True)
+> Event:  Parent: <class 'Parent.Panel'>.onActivate
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (True)
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Size
+> Event:  Parent: <class 'Parent.Panel'>.onSize
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Size
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Size
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Size
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event:  Child: /Users/johnfinch/_spe/examples/signature.py: <class  
+> 'Child.Panel'>.onKillFocus(dead=False)
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Size
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Size
+> Event:  Child: /Users/johnfinch/_spe/examples/uml_example.py: <class  
+> 'Child.Panel'>.onKillFocus(dead=False)
+> Event<: Child: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Close  
+> returns True
+> Event>: Child: <class 'wx._core._wxPyDeadObject'>.Close returns True
+> Event:  Child: /Users/johnfinch/_spe/examples/uml_example.py: <class  
+> 'Child.Panel'>.onKillFocus(dead=False)
+> Traceback (most recent call last):
+>    File "/Users/johnfinch/_spe/Menu.py", line 301, in  
+> menu_print_uml_setup
+>      self.app.childActive.printUmlSetup()
+>    File "/Users/johnfinch/_spe/Child.py", line 424, in printUmlSetup
+>      self.uml.OnPrintSetup()
+>    File "/Users/johnfinch/_spe/sm/uml.py", line 146, in OnPrintSetup
+>      printerDialog.GetPrintDialogData().SetSetupDialog(True)
+> AttributeError: 'PrintDialogData' object has no attribute  
+> 'SetSetupDialog'
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (False)
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>   
+
+
+
+From johnfinch at mac.com  Sat Mar 17 22:59:53 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sat, 17 Mar 2007 17:59:53 -0400
+Subject: [spe-dev] Bug: Unable to Save Workspace as..
+In-Reply-To: <45FC6164.80403@gmail.com>
+References: <45F9E4CE.4020601@gmail.com>
+	<E894D8CF-F78E-4701-8D30-64D5AC3F6B63@mac.com>
+	<45FC6164.80403@gmail.com>
+Message-ID: <87E1C8E5-1993-444B-8B10-D33B067E9B92@mac.com>
+
+OSX SVN225
+
+Attempted to use Workspace save as...
+
+After entering name of new workspace to save SPE goes into a loop  
+dialog asking for the name. As it is doing this it keeps adding to  
+the name in the dialog entry area.
+Amusing but not good for saving workspaces.
+
+
+From johnfinch at mac.com  Sat Mar 17 23:01:26 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sat, 17 Mar 2007 18:01:26 -0400
+Subject: [spe-dev] Minor Bug: Menu naming
+In-Reply-To: <45FC6164.80403@gmail.com>
+References: <45F9E4CE.4020601@gmail.com>
+	<E894D8CF-F78E-4701-8D30-64D5AC3F6B63@mac.com>
+	<45FC6164.80403@gmail.com>
+Message-ID: <DE9C9377-CD24-4CA6-8294-ED5995C4DC4B@mac.com>
+
+On File menu Save workspace has a small w and not a capital W as the  
+other Workspace entries.
+
+
+From johnfinch at mac.com  Sat Mar 17 23:05:14 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sat, 17 Mar 2007 18:05:14 -0400
+Subject: [spe-dev] Bug: View indentation guides does not
+In-Reply-To: <45FC6164.80403@gmail.com>
+References: <45F9E4CE.4020601@gmail.com>
+	<E894D8CF-F78E-4701-8D30-64D5AC3F6B63@mac.com>
+	<45FC6164.80403@gmail.com>
+Message-ID: <9F70B925-C395-4185-9861-C3EBA35DEEFE@mac.com>
+
+OSX
+
+View indentation guides does not show indentation guides.
+
+View whitespace ,View Right edge indicator and View eol markers all  
+work well.
+
+
+From spe.stani.be at gmail.com  Sat Mar 17 23:08:55 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Sat, 17 Mar 2007 23:08:55 +0100
+Subject: [spe-dev] Bug: Save UML As... Error dialog loop
+In-Reply-To: <27BD4A22-827A-46D3-ADD5-8FC1028946CF@mac.com>
+References: <45F9E4CE.4020601@gmail.com>
+	<27BD4A22-827A-46D3-ADD5-8FC1028946CF@mac.com>
+Message-ID: <45FC66F7.3020402@gmail.com>
+
+Fixed. If the user doesn't give an extension, the extension of the 
+filter will be chosen and added to the filename. svn229
+Stani
+
+John Finch wrote:
+> On intially trying to save a uml as a bmp I did not enter the .bmp  
+> extension.
+>
+> Error dialog says I should add extension.
+>
+> Extension added but now error dialog just keeps coming back in a loop  
+> asking for the extension.
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>   
+
+
+
+From spe.stani.be at gmail.com  Sat Mar 17 23:13:09 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Sat, 17 Mar 2007 23:13:09 +0100
+Subject: [spe-dev] Minor Bug: Menu naming
+In-Reply-To: <DE9C9377-CD24-4CA6-8294-ED5995C4DC4B@mac.com>
+References: <45F9E4CE.4020601@gmail.com>	<E894D8CF-F78E-4701-8D30-64D5AC3F6B63@mac.com>	<45FC6164.80403@gmail.com>
+	<DE9C9377-CD24-4CA6-8294-ED5995C4DC4B@mac.com>
+Message-ID: <45FC67F5.6060906@gmail.com>
+
+Fixed
+Stani
+
+John Finch wrote:
+> On File menu Save workspace has a small w and not a capital W as the  
+> other Workspace entries.
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>   
+
+
+
+From spe.stani.be at gmail.com  Sat Mar 17 23:27:00 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Sat, 17 Mar 2007 23:27:00 +0100
+Subject: [spe-dev] Bug: View indentation guides does not
+In-Reply-To: <9F70B925-C395-4185-9861-C3EBA35DEEFE@mac.com>
+References: <45F9E4CE.4020601@gmail.com>	<E894D8CF-F78E-4701-8D30-64D5AC3F6B63@mac.com>	<45FC6164.80403@gmail.com>
+	<9F70B925-C395-4185-9861-C3EBA35DEEFE@mac.com>
+Message-ID: <45FC6B34.2040005@gmail.com>
+
+Fixed.
+Stani
+
+John Finch wrote:
+> OSX
+>
+> View indentation guides does not show indentation guides.
+>
+> View whitespace ,View Right edge indicator and View eol markers all  
+> work well.
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>   
+
+
+
+From spe.stani.be at gmail.com  Sat Mar 17 23:34:09 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Sat, 17 Mar 2007 23:34:09 +0100
+Subject: [spe-dev] Bug: Print UML Preview produces error
+In-Reply-To: <1DCCC96B-D52E-48A1-9992-A3EBB462CCC8@mac.com>
+References: <45F9E4CE.4020601@gmail.com>
+	<1DCCC96B-D52E-48A1-9992-A3EBB462CCC8@mac.com>
+Message-ID: <45FC6CE1.9010503@gmail.com>
+
+Fixed
+Stani
+
+John Finch wrote:
+> OSX
+>
+> Attempted to preview the UML as it would print. Main pane changes to  
+> UML view but nothing else happens. Noted the following error in debug  
+> output.
+>
+>
+>
+> Spe is running in debugging mode with this configuration:
+> - platform  : darwin
+> - python    : 2.5
+> - wxPython  : 2.8.1.1
+> - interface : <default>
+> - encoding  : mac-roman
+>
+> Launching application...
+> Create: Framework: menu.
+> Create: Framework: toolbar.
+> Create: Framework: statusbar.
+> Creating tabs...
+>          Shell
+>          Locals
+>          Session
+>          Output
+>          Find
+>          Browser
+>          Recent
+>          Todo
+>          Index
+>          Notes
+>          Donate
+> Opening /Users/johnfinch/_spe/examples/uml_example.py
+> Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'>  
+> uml_example.py /Users/johnfinch/_spe/examples/uml_example.py
+> Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+> Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'> wxnaj.py / 
+> Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+> Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+> Event:  Child: /Users/johnfinch/_spe/examples/uml_example.py: <class  
+> 'Child.Panel'>.onKillFocus(dead=False)
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (True)
+> Event:  Parent: <class 'Parent.Panel'>.onActivate
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (True)
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Size
+> Event:  Parent: <class 'Parent.Panel'>.onSize
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Size
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Size
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Size
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event:  Child: /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py:  
+> <class 'Child.Panel'>.onKillFocus(dead=False)
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Activate 
+> (True)
+> Event<: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Size
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitChildFrame'>.Size
+> Event:  Child: /Users/johnfinch/_spe/examples/uml_example.py: <class  
+> 'Child.Panel'>.onKillFocus(dead=False)
+> Traceback (most recent call last):
+>    File "/Users/johnfinch/_spe/Menu.py", line 298, in  
+> menu_print_uml_preview
+>      self.app.childActive.printUmlPreview()
+>    File "/Users/johnfinch/_spe/Child.py", line 420, in printUmlPreview
+>      self.uml.OnPrintPreview()
+>    File "/Users/johnfinch/_spe/sm/uml.py", line 156, in OnPrintPreview
+>      self._checkPrintSetup()
+>    File "/Users/johnfinch/_spe/sm/uml.py", line 141, in _checkPrintSetup
+>      if not self.printSetup: self.OnPrintSetup()
+>    File "/Users/johnfinch/_spe/sm/uml.py", line 146, in OnPrintSetup
+>      printerDialog.GetPrintDialogData().SetSetupDialog(True)
+> AttributeError: 'PrintDialogData' object has no attribute  
+> 'SetSetupDialog'
+> Event>: Framework: <class 'sm.wxp.smdi.MdiSplitParentFrame'>.Activate 
+> (False)
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>   
+
+
+
+From johnfinch at mac.com  Sat Mar 17 23:35:19 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sat, 17 Mar 2007 18:35:19 -0400
+Subject: [spe-dev] Bug: Bottom of window still outside screen - again
+In-Reply-To: <45FC67F5.6060906@gmail.com>
+References: <45F9E4CE.4020601@gmail.com>
+	<E894D8CF-F78E-4701-8D30-64D5AC3F6B63@mac.com>
+	<45FC6164.80403@gmail.com>
+	<DE9C9377-CD24-4CA6-8294-ED5995C4DC4B@mac.com>
+	<45FC67F5.6060906@gmail.com>
+Message-ID: <B2F147FF-6E16-449A-BD8C-B8AD247DD4D5@mac.com>
+
+OSX SVN 231
+
+
+The bottom of the bottom panel - with the buttons for Shell, Locals  
+Session etc is still starting off the screen. This one is driving me  
+crazy. It _was_ fixed for a while but (and without downloading the  
+new SVN version) it goes bad again. Now it starts off the screen again.
+
+Seems this fault is intermittent.
+
+
+
+
+From johnfinch at mac.com  Sat Mar 17 23:36:12 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sat, 17 Mar 2007 18:36:12 -0400
+Subject: [spe-dev] Copyright dates need bringing up to 2007?
+In-Reply-To: <45FC4FAA.50003@gmail.com>
+References: <45F9E4CE.4020601@gmail.com>
+	<A0A9B018-4224-4092-970B-775AD982972E@mac.com>
+	<45FC4FAA.50003@gmail.com>
+Message-ID: <8CDCE679-25B8-4737-AB2A-65CED94D9B6A@mac.com>
+
+Not on latest SVN 231. see below:
+
+john-finchs-computer:~/_spe johnfinch$ python SPE.py --debug
+
+SPE v0.8.4.a (c)2003-2005 www.stani.be
+
+If spe fails to start:
+- type "pythonw SPE.py --debug > debug.txt 2>&1" at the command prompt
+    (or if you use tcsh: "pythonw SPE.py --debug >& debug.txt")
+- send debug.txt with some info to spe.stani.be[at]gmail.com
+
+
+On Mar 17, 2007, at 4:29 PM, Stani's Python Editor wrote:
+
+> Fixed.
+>
+> John Finch wrote:
+>> When SPE starts, the copyright is shown in terminal. Date needs
+>> updating to 2007?
+>>
+>>
+>> --
+>> http://pythonide.stani.be
+>> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+>> Python-spe-dev at lists.berlios.de
+>> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>
+>>
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+
+
+
+From johnfinch at mac.com  Sat Mar 17 23:47:08 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sat, 17 Mar 2007 18:47:08 -0400
+Subject: [spe-dev] Status bar Bug
+In-Reply-To: <45FC5212.3080207@gmail.com>
+References: <45F9E4CE.4020601@gmail.com>
+	<CFF3F947-854E-417E-86BF-53531EA57C96@mac.com>
+	<45FC5212.3080207@gmail.com>
+Message-ID: <DF81EB74-64D1-4FE6-96CD-437CF5C5EB2F@mac.com>
+
+OSX
+
+Got it! This was a hard on to reproduce. Seems to just 'sometimes'  
+happen. I didn't do anything to make this happen, just started SPE.  
+Perhaps folder names on OSX?
+
+
+Seems to be a workspace bug. Intermittent error on Status Bar.  
+Appears after starting SPE
+Thurston, think it might be associated with other Workspace problems  
+reported.
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: spe_error.tiff
+Type: image/tiff
+Size: 23486 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070317/7dc3d720/attachment.tiff>
+
+From johnfinch at mac.com  Sat Mar 17 23:57:10 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sat, 17 Mar 2007 18:57:10 -0400
+Subject: [spe-dev] Bug: View as notebook/columns/rows
+In-Reply-To: <45FC6D98.5050609@gmail.com>
+References: <45FC6D98.5050609@gmail.com>
+Message-ID: <B5C9EC4A-4316-4D03-A9CE-53C15B93D727@mac.com>
+
+OSX
+
+View as notebook does work. Once user clicks view as columns the  
+filename tabs cannot be brought back.
+
+On further investigation, View as Notebook doesn't seem to do  
+anything at all.
+
+Also, when viewing as columns. Should the explore pane be collapsed  
+by default? It takes up all the room and hides most of the code  
+anyway? Works well in View as rows but not so good in columns.
+Just an observation. Great idea to have the views!
+
+
+From johnfinch at mac.com  Sun Mar 18 00:07:05 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sat, 17 Mar 2007 19:07:05 -0400
+Subject: [spe-dev] Browse object with PyFilling
+In-Reply-To: <45FC6CE1.9010503@gmail.com>
+References: <45F9E4CE.4020601@gmail.com>
+	<1DCCC96B-D52E-48A1-9992-A3EBB462CCC8@mac.com>
+	<45FC6CE1.9010503@gmail.com>
+Message-ID: <E08F4FC8-461B-49AE-B558-8D6096FD0CB1@mac.com>
+
+You know, I cannot figure out what this command supposed to do?
+I cannot get it to do anything at the moment. It opens an entry  
+dialog, but any object I enter from my code get the "Object not  
+defined" message in the status bar.
+
+
+From spe.stani.be at gmail.com  Sun Mar 18 00:32:20 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Sun, 18 Mar 2007 00:32:20 +0100
+Subject: [spe-dev] Copyright dates need bringing up to 2007?
+In-Reply-To: <8CDCE679-25B8-4737-AB2A-65CED94D9B6A@mac.com>
+References: <45F9E4CE.4020601@gmail.com>	<A0A9B018-4224-4092-970B-775AD982972E@mac.com>	<45FC4FAA.50003@gmail.com>
+	<8CDCE679-25B8-4737-AB2A-65CED94D9B6A@mac.com>
+Message-ID: <45FC7A84.7030608@gmail.com>
+
+Should be now fixed in svn 232
+Thanks,
+Stani
+
+John Finch wrote:
+> Not on latest SVN 231. see below:
+>
+> john-finchs-computer:~/_spe johnfinch$ python SPE.py --debug
+>
+> SPE v0.8.4.a (c)2003-2005 www.stani.be
+>
+> If spe fails to start:
+> - type "pythonw SPE.py --debug > debug.txt 2>&1" at the command prompt
+>     (or if you use tcsh: "pythonw SPE.py --debug >& debug.txt")
+> - send debug.txt with some info to spe.stani.be[at]gmail.com
+>
+>
+> On Mar 17, 2007, at 4:29 PM, Stani's Python Editor wrote:
+>
+>   
+>> Fixed.
+>>
+>> John Finch wrote:
+>>     
+>>> When SPE starts, the copyright is shown in terminal. Date needs
+>>> updating to 2007?
+>>>
+>>>
+>>> --
+>>> http://pythonide.stani.be
+>>> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+>>> Python-spe-dev at lists.berlios.de
+>>> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>>
+>>>
+>>>       
+>> --
+>> http://pythonide.stani.be
+>> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+>> Python-spe-dev at lists.berlios.de
+>> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>     
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>   
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070318/1ef30c6b/attachment.html>
+
+From spe.stani.be at gmail.com  Sun Mar 18 00:36:22 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Sun, 18 Mar 2007 00:36:22 +0100
+Subject: [spe-dev] Browse object with PyFilling
+In-Reply-To: <E08F4FC8-461B-49AE-B558-8D6096FD0CB1@mac.com>
+References: <45F9E4CE.4020601@gmail.com>	<1DCCC96B-D52E-48A1-9992-A3EBB462CCC8@mac.com>	<45FC6CE1.9010503@gmail.com>
+	<E08F4FC8-461B-49AE-B558-8D6096FD0CB1@mac.com>
+Message-ID: <45FC7B76.1000302@gmail.com>
+
+With this feature you can browse objects which are defined in the shell. 
+For example try SPEapp or any other object which appears under Locals. 
+Maybe this should be renamed in something better. Do you or someone else 
+as a native speaker has a proposal?
+Stani
+
+John Finch wrote:
+> You know, I cannot figure out what this command supposed to do?
+> I cannot get it to do anything at the moment. It opens an entry  
+> dialog, but any object I enter from my code get the "Object not  
+> defined" message in the status bar.
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>   
+
+
+
+From spe.stani.be at gmail.com  Sun Mar 18 00:45:50 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Sun, 18 Mar 2007 00:45:50 +0100
+Subject: [spe-dev] Bug: View as notebook/columns/rows
+In-Reply-To: <B5C9EC4A-4316-4D03-A9CE-53C15B93D727@mac.com>
+References: <45FC6D98.5050609@gmail.com>
+	<B5C9EC4A-4316-4D03-A9CE-53C15B93D727@mac.com>
+Message-ID: <45FC7DAE.4020706@gmail.com>
+
+Can you check with the NotebookCtrlDemo from Andrea Gavana if that works 
+ok to switch back to notebook. The code in SPE is in Parent.py on line 560
+tabs.Tile(False)
+tabs is the NotebookCtrl from Andrea (Tile is defined on line 5463). So 
+if it works in the demo, it should work in SPE as well. Maybe something 
+else or more is required than tabs.Tile(False)
+On Ubuntu SPE uses the native gtk NotebookCtrl and not Andrea's one for 
+stability reasons. So I can't verify this myself now. I hope on your 
+support.
+Stani
+
+John Finch wrote:
+> OSX
+>
+> View as notebook does work. Once user clicks view as columns the  
+> filename tabs cannot be brought back.
+>
+> On further investigation, View as Notebook doesn't seem to do  
+> anything at all.
+>
+> Also, when viewing as columns. Should the explore pane be collapsed  
+> by default? It takes up all the room and hides most of the code  
+> anyway? Works well in View as rows but not so good in columns.
+> Just an observation. Great idea to have the views!
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>   
+
+
+
+From johnfinch at mac.com  Sun Mar 18 00:58:19 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sat, 17 Mar 2007 19:58:19 -0400
+Subject: [spe-dev] Copyright dates need bringing up to 2007?
+In-Reply-To: <45FC7A84.7030608@gmail.com>
+References: <45F9E4CE.4020601@gmail.com>
+	<A0A9B018-4224-4092-970B-775AD982972E@mac.com>
+	<45FC4FAA.50003@gmail.com>
+	<8CDCE679-25B8-4737-AB2A-65CED94D9B6A@mac.com>
+	<45FC7A84.7030608@gmail.com>
+Message-ID: <53F37EA4-EC08-48CE-A94C-7C2A321AAAE4@mac.com>
+
+Confirmed
+
+On Mar 17, 2007, at 7:32 PM, Stani's Python Editor wrote:
+
+> Should be now fixed in svn 232
+> Thanks,
+> Stani
+>
+> John Finch wrote:
+>> Not on latest SVN 231. see below:
+>>
+>> john-finchs-computer:~/_spe johnfinch$ python SPE.py --debug
+>>
+>> SPE v0.8.4.a (c)2003-2005 www.stani.be
+>>
+>> If spe fails to start:
+>> - type "pythonw SPE.py --debug > debug.txt 2>&1" at the command  
+>> prompt
+>>     (or if you use tcsh: "pythonw SPE.py --debug >& debug.txt")
+>> - send debug.txt with some info to spe.stani.be[at]gmail.com
+>>
+>>
+>> On Mar 17, 2007, at 4:29 PM, Stani's Python Editor wrote:
+>>
+>>
+>>> Fixed.
+>>>
+>>> John Finch wrote:
+>>>
+>>>> When SPE starts, the copyright is shown in terminal. Date needs
+>>>> updating to 2007?
+>>>>
+>>>>
+>>>> --
+>>>> http://pythonide.stani.be
+>>>> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+>>>> Python-spe-dev at lists.berlios.de
+>>>> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>>>
+>>>>
+>>>>
+>>> --
+>>> http://pythonide.stani.be
+>>> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+>>> Python-spe-dev at lists.berlios.de
+>>> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>>
+>> --
+>> http://pythonide.stani.be
+>> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+>> Python-spe-dev at lists.berlios.de
+>> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>
+>>
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070317/f7024b39/attachment.html>
+
+From johnfinch at mac.com  Sun Mar 18 15:47:44 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sun, 18 Mar 2007 10:47:44 -0400
+Subject: [spe-dev] Bug: View as notebook/columns/rows
+In-Reply-To: <45FC7DAE.4020706@gmail.com>
+References: <45FC6D98.5050609@gmail.com>
+	<B5C9EC4A-4316-4D03-A9CE-53C15B93D727@mac.com>
+	<45FC7DAE.4020706@gmail.com>
+Message-ID: <9A7646C3-C388-495A-82C4-EC9BACA9CA89@mac.com>
+
+I need to send an event as though I have selected the first tab. How  
+can I do this. If we can do this it will fix the notebook menu bug I  
+think.
+
+If you replace the as_notebook definition with this one below you  
+will notice that it works but _only_ after clicking the first tab  
+after re-selecting View->As Notebook from another view. It seems that  
+reselecting the first tab refreshes the main pane.
+
+Anyone know how to send that event?
+
+
+     def as_notebook(self,event):
+         if hasattr(self.frame,'Tile'):
+             self.app.childActive.frame.Maximize()
+         else:
+             tabs    = getattr(self.frame,'tabs',None)
+             if tabs:
+                 tabs.ShowTabs(True)
+                 self.showSidebar()
+                 tabs.Tile(False)
+                 #event as though clicked first tab should go here
+
+
+
+
+From spe.stani.be at gmail.com  Sun Mar 18 15:56:20 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Sun, 18 Mar 2007 15:56:20 +0100
+Subject: [spe-dev] Bug: View as notebook/columns/rows
+In-Reply-To: <9A7646C3-C388-495A-82C4-EC9BACA9CA89@mac.com>
+References: <45FC6D98.5050609@gmail.com>	<B5C9EC4A-4316-4D03-A9CE-53C15B93D727@mac.com>	<45FC7DAE.4020706@gmail.com>
+	<9A7646C3-C388-495A-82C4-EC9BACA9CA89@mac.com>
+Message-ID: <45FD5314.5050505@gmail.com>
+
+Try tabs.SetSelection(0) to select the first tab.
+
+Stani
+
+John Finch wrote:
+> I need to send an event as though I have selected the first tab. How  
+> can I do this. If we can do this it will fix the notebook menu bug I  
+> think.
+>
+> If you replace the as_notebook definition with this one below you  
+> will notice that it works but _only_ after clicking the first tab  
+> after re-selecting View->As Notebook from another view. It seems that  
+> reselecting the first tab refreshes the main pane.
+>
+> Anyone know how to send that event?
+>
+>
+>      def as_notebook(self,event):
+>          if hasattr(self.frame,'Tile'):
+>              self.app.childActive.frame.Maximize()
+>          else:
+>              tabs    = getattr(self.frame,'tabs',None)
+>              if tabs:
+>                  tabs.ShowTabs(True)
+>                  self.showSidebar()
+>                  tabs.Tile(False)
+>                  #event as though clicked first tab should go here
+>
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>   
+
+
+
+From johnfinch at mac.com  Sun Mar 18 17:21:09 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sun, 18 Mar 2007 12:21:09 -0400
+Subject: [spe-dev] Bug: View as notebook/columns/rows
+In-Reply-To: <45FD5314.5050505@gmail.com>
+References: <45FC6D98.5050609@gmail.com>
+	<B5C9EC4A-4316-4D03-A9CE-53C15B93D727@mac.com>
+	<45FC7DAE.4020706@gmail.com>
+	<9A7646C3-C388-495A-82C4-EC9BACA9CA89@mac.com>
+	<45FD5314.5050505@gmail.com>
+Message-ID: <BADE9D09-A144-463D-8BA9-539B55F833CC@mac.com>
+
+Thanks Stani!
+
+That's almost done it... it works with this code but I don't seem to  
+be able to switch on the sidebar from parent.py.  It switches back  
+now to Notebook view with the tabs at the top again and refreshes the  
+window to remove the tiles :)
+
+
+     def as_notebook(self,event):
+         if hasattr(self.frame,'Tile'):
+             self.app.childActive.frame.Maximize()
+         else:
+             tabs    = getattr(self.frame,'tabs',None)
+             if tabs:
+				tabs.ShowTabs(True)
+				tabs.SetSelection(0)
+				tabs.Tile(False)
+				#--- ToDo Need to switch on sidebar here with showSidebar() ??
+
+
+
+On Mar 18, 2007, at 10:56 AM, Stani's Python Editor wrote:
+
+>  tabs.SetSelection(0)
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070318/61810647/attachment.html>
+
+From spe.stani.be at gmail.com  Sun Mar 18 18:23:57 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Sun, 18 Mar 2007 18:23:57 +0100
+Subject: [spe-dev] Bug: View as notebook/columns/rows
+In-Reply-To: <BADE9D09-A144-463D-8BA9-539B55F833CC@mac.com>
+References: <45FC6D98.5050609@gmail.com>	<B5C9EC4A-4316-4D03-A9CE-53C15B93D727@mac.com>	<45FC7DAE.4020706@gmail.com>	<9A7646C3-C388-495A-82C4-EC9BACA9CA89@mac.com>	<45FD5314.5050505@gmail.com>
+	<BADE9D09-A144-463D-8BA9-539B55F833CC@mac.com>
+Message-ID: <45FD75AD.1090806@gmail.com>
+
+Does the sidebar show up with the toolbar button or with the menu? If 
+yes, you can get your inspiration in Menu.py with:
+- check_menu: best is to retrieve the preference
+- check_sidebar: to update the menu
+- menu_sidebar: to find the method to show the sidebar
+If you need more info, let me know.
+Thanks!
+Stani
+
+John Finch wrote:
+> Thanks Stani!
+>
+> That's almost done it... it works with this code but I don't seem to 
+> be able to switch on the sidebar from parent.py.  It switches back now 
+> to Notebook view with the tabs at the top again and refreshes the 
+> window to remove the tiles :)
+>
+>
+>     def as_notebook(self,event):
+>         if hasattr(self.frame,'Tile'):
+>             self.app.childActive.frame.Maximize()
+>         else:
+>             tabs    = getattr(self.frame,'tabs',None)
+>             if tabs:
+> tabs.ShowTabs(True)
+> tabs.SetSelection(0)
+> tabs.Tile(False)
+> #--- ToDo Need to switch on sidebar here with showSidebar() ??
+>
+>
+>
+> On Mar 18, 2007, at 10:56 AM, Stani's Python Editor wrote:
+>
+>>  tabs.SetSelection(0)
+>>
+>
+> ------------------------------------------------------------------------
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>   
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070318/5b144977/attachment.html>
+
+From spe.stani.be at gmail.com  Sun Mar 18 21:36:40 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Sun, 18 Mar 2007 21:36:40 +0100
+Subject: [spe-dev] run/stop is maybe fixed, please test
+In-Reply-To: <BADE9D09-A144-463D-8BA9-539B55F833CC@mac.com>
+References: <45FC6D98.5050609@gmail.com>	<B5C9EC4A-4316-4D03-A9CE-53C15B93D727@mac.com>	<45FC7DAE.4020706@gmail.com>	<9A7646C3-C388-495A-82C4-EC9BACA9CA89@mac.com>	<45FD5314.5050505@gmail.com>
+	<BADE9D09-A144-463D-8BA9-539B55F833CC@mac.com>
+Message-ID: <45FDA2D8.5000503@gmail.com>
+
+Before stopping a running script from SPE made almost always SPE crash. 
+Maybe this is fixed now.
+Please test,
+Stani
+
+
+From spe.stani.be at gmail.com  Mon Mar 19 00:16:07 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Mon, 19 Mar 2007 00:16:07 +0100
+Subject: [spe-dev] upgrade to winpdb 1.1.0svn
+Message-ID: <45FDC837.40401@gmail.com>
+
+Hi all,
+Nir Aides has been working hard to improve WinPdb partly on my 
+suggestions. The integration of SPE and WinPdb through "run/stop with 
+winpdb" should now be better. Try to run a file with an exception and 
+you will see for yourself.
+Stani
+
+
+From johnfinch at mac.com  Mon Mar 19 00:21:23 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sun, 18 Mar 2007 19:21:23 -0400
+Subject: [spe-dev] upgrade to winpdb 1.1.0svn
+In-Reply-To: <45FDC837.40401@gmail.com>
+References: <45FDC837.40401@gmail.com>
+Message-ID: <25431F26-B37A-4A9F-BF85-82A20FCD93B0@mac.com>
+
+Great stuff! Thanks Nir and Stani!
+
+On Mar 18, 2007, at 7:16 PM, Stani's Python Editor wrote:
+
+> Hi all,
+> Nir Aides has been working hard to improve WinPdb partly on my
+> suggestions. The integration of SPE and WinPdb through "run/stop with
+> winpdb" should now be better. Try to run a file with an exception and
+> you will see for yourself.
+> Stani
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+
+
+
+From johnfinch at mac.com  Mon Mar 19 03:06:33 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sun, 18 Mar 2007 22:06:33 -0400
+Subject: [spe-dev]  Bug Fixed: View as notebook/columns/rows
+In-Reply-To: <45FD75AD.1090806@gmail.com>
+References: <45FC6D98.5050609@gmail.com>
+	<B5C9EC4A-4316-4D03-A9CE-53C15B93D727@mac.com>
+	<45FC7DAE.4020706@gmail.com>
+	<9A7646C3-C388-495A-82C4-EC9BACA9CA89@mac.com>
+	<45FD5314.5050505@gmail.com>
+	<BADE9D09-A144-463D-8BA9-539B55F833CC@mac.com>
+	<45FD75AD.1090806@gmail.com>
+Message-ID: <55E1138A-C279-4308-A14D-62C27F138737@mac.com>
+
+Notebook View fixed for OSX
+Tested with P2.5 and wx2.8.1.
+Please confirm with other versions.
+Replace as_notebook function in parent.py with below:
+
+
+     def as_notebook(self,event):
+         if hasattr(self.frame,'Tile'):
+             self.app.childActive.frame.Maximize()
+         else:
+             tabs  =  getattr(self.frame,'tabs',None)
+             if tabs:
+                 # Have to set selection to first tab and de-Tile before
+                 # starting iterations to show sidebars etc
+                 tabs.ShowTabs(True)
+                 tabs.SetSelection(0)
+                 tabs.Tile(False)
+                 for i in range(tabs.GetPageCount()):
+                     tabs.SetSelection(i)
+                     tabs.Tile(False)
+                     self.app.childActive.source.SetFocus()
+                     self.app.childActive.showSidebar()
+
+
+From johnfinch at mac.com  Mon Mar 19 03:51:11 2007
+From: johnfinch at mac.com (John Finch)
+Date: Sun, 18 Mar 2007 22:51:11 -0400
+Subject: [spe-dev] Deprecation warnings in uml.py
+In-Reply-To: <45FDC837.40401@gmail.com>
+References: <45FDC837.40401@gmail.com>
+Message-ID: <0E3B7CB7-B406-4EEE-83DD-9B197155B852@mac.com>
+
+Caught in debug output:
+
+/Users/johnfinch/_spe/sm/uml.py:254: DeprecationWarning: Please use  
+Printout.OnPreparePrinting instead.
+   self.base_OnPreparePrinting()
+/Users/johnfinch/_spe/sm/uml.py:248: DeprecationWarning: Please use  
+Printout.OnBeginPrinting instead.
+   self.base_OnBeginPrinting()
+/Users/johnfinch/_spe/sm/uml.py:242: DeprecationWarning: Please use  
+Printout.OnBeginDocument instead.
+   return self.base_OnBeginDocument(start, end)
+/Users/johnfinch/_spe/sm/uml.py:245: DeprecationWarning: Please use  
+Printout.OnEndDocument instead.
+   self.base_OnEndDocument()
+/Users/johnfinch/_spe/sm/uml.py:251: DeprecationWarning: Please use  
+Printout.OnEndPrinting instead.
+   self.base_OnEndPrinting()
+
+
+
+From pietjepuk314 at yahoo.co.uk  Mon Mar 19 09:03:39 2007
+From: pietjepuk314 at yahoo.co.uk (Pietje Puk)
+Date: Mon, 19 Mar 2007 09:03:39 +0100
+Subject: [spe-dev] Moving sashes is hard under OS X
+Message-ID: <8CE1106D-7176-4739-A1FE-63FE63803D43@yahoo.co.uk>
+
+Hi guys,
+I don't know about other OSes, but moving a sash is a bit tedious  
+under Mac OS X, since you can't see anything: I remember a vague  
+dotted line showing where the sash would end up before I release the  
+mouse.
+- Jurjen
+
+		
+___________________________________________________________ 
+Try the all-new Yahoo! Mail. "The New Version is radically easier to use" ? The Wall Street Journal 
+http://uk.docs.yahoo.com/nowyoucan.html
+
+
+From pietjepuk314 at yahoo.co.uk  Mon Mar 19 09:17:51 2007
+From: pietjepuk314 at yahoo.co.uk (Pietje Puk)
+Date: Mon, 19 Mar 2007 09:17:51 +0100
+Subject: [spe-dev] Workspaces
+Message-ID: <2134650A-AB4C-428F-BA6F-90198CA5C4F0@yahoo.co.uk>
+
+Using workspaces under OS X is, to say the least, dangerous. My guess  
+this is not unique for the Mac.
+
+As far as I know, saving a workspace puts you in an endless loop  
+where you have to save again and again. Cancel doesn't help.
+Loading a workspace also puts you in a loop, but cancel does have  
+effect: SPE crashes.
+This is a bit inconvenient :-)
+
+I haven't found a cause for this bug yet, but I did some initial  
+investigation. Maybe Stani knows enough from this.
+
+My guess is that an exception is raised somewhere, that causes the  
+routine save_workspace_as (see below) to skip the dlg.Destroy() code  
+and leave the dialog floating above everything.
+
+A quick hack using try...finally seems to work: I then get a message  
+in the Shell box:
+(I had to type this in! Stani, why can't I copy from there???)
+Traceback (most recent call last):
+   File "...Menu.py", line 662, in menu_save_workspace_as
+     self.parentPanel.save_workspace_as()
+   File "..Parent.py", line 457, in save_workspace_as
+     sdlf.Destroy()
+NameError: global 'sdlg' is not defined.
+
+My guess: there's a typo somewhere.
+- Jurjen
+
+PS
+Here's the routine:
+---------------------Panel.saveWorkspace at Parent.py: 
+435-------------------
+     def save_workspace_as(self):
+         """Save file dialog."""
+         try:
+             defaultFile = self.workspace['file']
+         except:
+             defaultFile = ''
+         if info.WIN:
+            defaultFile  = defaultFile.replace("/","\\")
+         dlg             = wx.FileDialog(self, "Save Workspace As -  
+www.stani.be",
+             defaultFile = defaultFile,
+             defaultDir  = info.dirname(defaultFile),
+             wildcard    = info.WORKSPACE_WILDCARD,
+             style       = wx.SAVE|wx.OVERWRITE_PROMPT|wx.CHANGE_DIR)
+         if dlg.ShowModal() == wx.ID_OK:
+             file = dlg.GetPath()
+             try:
+                 self.set("currentworkspace",file)
+                 self.saveWorkspace(file)
+             except Exception,e:
+                 self.message("Could not save workspace:%s\n%s"% 
+(file,e))
+         dlg.Destroy()
+
+
+	
+	
+		
+___________________________________________________________ 
+All new Yahoo! Mail "The new Interface is stunning in its simplicity and ease of use." - PC Magazine 
+http://uk.docs.yahoo.com/nowyoucan.html
+
+
+From spe.stani.be at gmail.com  Mon Mar 19 11:35:07 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Mon, 19 Mar 2007 11:35:07 +0100
+Subject: [spe-dev] Moving sashes is hard under OS X
+In-Reply-To: <8CE1106D-7176-4739-A1FE-63FE63803D43@yahoo.co.uk>
+References: <8CE1106D-7176-4739-A1FE-63FE63803D43@yahoo.co.uk>
+Message-ID: <45FE675B.2040903@gmail.com>
+
+Are you talking about the sash in the sidebar or the sash with the 
+bottom pane. I remember increasing the width for the sidebar, but maybe 
+not for the bottom pane. What is exactly the problem? Is the sash hard 
+to grab? Could you try to set the sash to a bigger width to see if that 
+solves the problem? Or would you prefer realtime feedback while 
+dragging? On Ubuntu there is no problem with grabbing the sash.
+Stani
+
+Pietje Puk wrote:
+> Hi guys,
+> I don't know about other OSes, but moving a sash is a bit tedious 
+> under Mac OS X, since you can't see anything: I remember a vague 
+> dotted line showing where the sash would end up before I release the 
+> mouse.
+> - Jurjen
+>
+>        
+> ___________________________________________________________Try the 
+> all-new Yahoo! Mail. "The New Version is radically easier to use" -- 
+> The Wall Street Journalhttp://uk.docs.yahoo.com/nowyoucan.html
+> ------------------------------------------------------------------------
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>   
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070319/a9a45701/attachment.html>
+
+From pietjepuk314 at yahoo.co.uk  Mon Mar 19 11:55:40 2007
+From: pietjepuk314 at yahoo.co.uk (Pietje Puk)
+Date: Mon, 19 Mar 2007 11:55:40 +0100
+Subject: [spe-dev] Moving sashes is hard under OS X
+In-Reply-To: <45FE675B.2040903@gmail.com>
+References: <8CE1106D-7176-4739-A1FE-63FE63803D43@yahoo.co.uk>
+	<45FE675B.2040903@gmail.com>
+Message-ID: <34FABBF5-5BB9-49FF-9AD3-98621B1EB125@yahoo.co.uk>
+
+Op 19-mrt-2007, om 11:35 heeft Stani's Python Editor het volgende  
+geschreven:
+
+> Are you talking about the sash in the sidebar or the sash with the  
+> bottom pane. I remember increasing the width for the sidebar, but  
+> maybe not for the bottom pane. What is exactly the problem? Is the  
+> sash hard to grab? Could you try to set the sash to a bigger width  
+> to see if that solves the problem? Or would you prefer realtime  
+> feedback while dragging? On Ubuntu there is no problem with  
+> grabbing the sash.
+> Stani
+I mean both that it is hard to grab, and that I can't see a line  
+while dragging.
+I find it hard to find the relevant code: is it MdiSashTabsParentFrame?
+- Jurjen
+
+		
+___________________________________________________________ 
+Now you can scan emails quickly with a reading pane. Get the new Yahoo! Mail. http://uk.docs.yahoo.com/nowyoucan.html
+
+
+From spe.stani.be at gmail.com  Mon Mar 19 12:17:08 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Mon, 19 Mar 2007 12:17:08 +0100
+Subject: [spe-dev] Moving sashes is hard under OS X
+In-Reply-To: <34FABBF5-5BB9-49FF-9AD3-98621B1EB125@yahoo.co.uk>
+References: <8CE1106D-7176-4739-A1FE-63FE63803D43@yahoo.co.uk>	<45FE675B.2040903@gmail.com>
+	<34FABBF5-5BB9-49FF-9AD3-98621B1EB125@yahoo.co.uk>
+Message-ID: <45FE7134.2030409@gmail.com>
+
+Pietje Puk wrote:
+> Op 19-mrt-2007, om 11:35 heeft Stani's Python Editor het volgende  
+> geschreven:
+>
+>   
+>> Are you talking about the sash in the sidebar or the sash with the  
+>> bottom pane. I remember increasing the width for the sidebar, but  
+>> maybe not for the bottom pane. What is exactly the problem? Is the  
+>> sash hard to grab? Could you try to set the sash to a bigger width  
+>> to see if that solves the problem? Or would you prefer realtime  
+>> feedback while dragging? On Ubuntu there is no problem with  
+>> grabbing the sash.
+>> Stani
+>>     
+> I mean both that it is hard to grab, and that I can't see a line  
+> while dragging.
+> I find it hard to find the relevant code: is it MdiSashTabsParentFrame?
+>   
+Hi Jurjen, the sash is from a wxSplitterWindow which is in the smdi.py 
+framework on line 822 (MdiSplitParentFrame,  def __stage__, self.split = 
+...). If you look up wxSplitterWindow you'll find enough resources how 
+to do it. I guess you need to experiment with the wx.SP_LIVE_UPDATE 
+style and put the border thicker. For more info:
+http://www.wxwidgets.org/manuals/2.8.0/wx_wxsplitterwindow.html
+
+Please try to find the optimal for OSX and send me the patch (with 
+platform check: wx.Platform ).
+
+Stani
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070319/1ec45d97/attachment.html>
+
+From spe.stani.be at gmail.com  Mon Mar 19 13:51:42 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Mon, 19 Mar 2007 13:51:42 +0100
+Subject: [spe-dev] Bug Fixed: View as notebook/columns/rows
+In-Reply-To: <55E1138A-C279-4308-A14D-62C27F138737@mac.com>
+References: <45FC6D98.5050609@gmail.com>	<B5C9EC4A-4316-4D03-A9CE-53C15B93D727@mac.com>	<45FC7DAE.4020706@gmail.com>	<9A7646C3-C388-495A-82C4-EC9BACA9CA89@mac.com>	<45FD5314.5050505@gmail.com>	<BADE9D09-A144-463D-8BA9-539B55F833CC@mac.com>	<45FD75AD.1090806@gmail.com>
+	<55E1138A-C279-4308-A14D-62C27F138737@mac.com>
+Message-ID: <45FE875E.4040003@gmail.com>
+
+John Finch wrote:
+> Notebook View fixed for OSX
+> Tested with P2.5 and wx2.8.1.
+> Please confirm with other versions.
+> Replace as_notebook function in parent.py with below:
+>
+>
+>   
+I've modified it a bit without testing:
+>      def as_notebook(self,event):
+>          if hasattr(self.frame,'Tile'):
+>              self.app.childActive.frame.Maximize()
+>          else:
+>              tabs  =  getattr(self.frame,'tabs',None)
+>              if tabs:
+>                  # Have to set selection to first tab and de-Tile before
+>                  # starting iterations to show sidebars etc
+>                  tabs.Tile(False)
+>                  for child in app.children:
+>                      child.showSidebar()
+>                  tabs.ShowTabs(True)
+>                  tabs.SetSelection(0)
+Thanks John!
+Can you try out the modified code above. I would prefer not to set the 
+focus on every child. Maybe you can play around with the above code 
+until it works. Does it synchronizes with the menu. Now it shows 
+probably the sidebar by default even if people decided to switch it off.
+Stani
+
+
+
+
+From johnfinch at mac.com  Mon Mar 19 23:55:00 2007
+From: johnfinch at mac.com (John Finch)
+Date: Mon, 19 Mar 2007 18:55:00 -0400
+Subject: [spe-dev] Bug Fixed: View as notebook/columns/rows
+In-Reply-To: <45FE875E.4040003@gmail.com>
+References: <45FC6D98.5050609@gmail.com>
+	<B5C9EC4A-4316-4D03-A9CE-53C15B93D727@mac.com>
+	<45FC7DAE.4020706@gmail.com>
+	<9A7646C3-C388-495A-82C4-EC9BACA9CA89@mac.com>
+	<45FD5314.5050505@gmail.com>
+	<BADE9D09-A144-463D-8BA9-539B55F833CC@mac.com>
+	<45FD75AD.1090806@gmail.com>
+	<55E1138A-C279-4308-A14D-62C27F138737@mac.com>
+	<45FE875E.4040003@gmail.com>
+Message-ID: <2ADAB7E3-9D56-4D69-9986-E2CE11A36053@mac.com>
+
+Nope, sorry but it doesn't work Stani. Here's the Traceback:
+
+Traceback (most recent call last):
+   File "/Users/johnfinch/_spe/Menu.py", line 420, in menu_as_notebook
+     self.parentPanel.as_notebook(event)
+AttributeError: 'Panel' object has no attribute 'as_notebook'
+
+On Mar 19, 2007, at 8:51 AM, Stani's Python Editor wrote:
+
+>>      def as_notebook(self,event):
+>>          if hasattr(self.frame,'Tile'):
+>>              self.app.childActive.frame.Maximize()
+>>          else:
+>>              tabs  =  getattr(self.frame,'tabs',None)
+>>              if tabs:
+>>                  # Have to set selection to first tab and de-Tile  
+>> before
+>>                  # starting iterations to show sidebars etc
+>>                  tabs.Tile(False)
+>>                  for child in app.children:
+>>                      child.showSidebar()
+>>                  tabs.ShowTabs(True)
+>>                  tabs.SetSelection(0)
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070319/dbc4efb4/attachment.html>
+
+From spe.stani.be at gmail.com  Thu Mar 22 17:29:20 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Thu, 22 Mar 2007 17:29:20 +0100
+Subject: [spe-dev] SPE on Vista
+In-Reply-To: <4DD6AB329450D847913EA76D7F3C6B8306259B7E@valkyrie.ogp.qvii.com>
+References: <4DD6AB329450D847913EA76D7F3C6B8306259B7E@valkyrie.ogp.qvii.com>
+Message-ID: <4602AEE0.4040909@gmail.com>
+
+Rooney, Mike (ext. 324) wrote:
+>
+> Hi Stani,
+>
+> I just wanted to let you know that I ran 0.8.4.b on my Vista machine 
+> last night
+> and it was a very positive experience! Certainly no show-stoppers.
+>
+Can you send me a 800x600 screenshot?
+>
+> The only
+> thing was that when attempting to do a check on my code it said unable to
+> import pychecker in the console. Does this need to be installed 
+> separately? I
+> thought it worked fine on my XP machine but maybe that already had it.
+>
+Or the opposite... SPE ships with a patched version of pychecker. SPE 
+imports the code for pychecker like this:
+import _spe.plugins.Pycheck as Pycheck
+
+Can you do this and check if Pycheck.__file__ points to the right directory.
+I also cleaned up the pychecker code, so please update from subversion. 
+This really should work.
+
+> One quick question, what is the key command to bring up the auto complete
+> or "intellisense". Often I find it starts giving me suggestions, but 
+> if I backspace
+> they all go away (maybe this behavior could be changed?), and when I 
+> continue
+> to type I would still like to see suggestions. Ctrl+Space is what I 
+> try but that
+> doesn't work, so I end up going back to the beginning and retyping.
+>
+Thanks for pointing this out. It was only working in the middle of a 
+word, but not at the end due to a stupid '+' instead of '*'. I also I 
+improved so it looks for the last dot to extend the autocomplete list. 
+Please try it out now from the latest subversion (at least 236).
+
+If you will do more reports, please subscribe to spe-dev:
+https://lists.berlios.de/mailman/listinfo/python-spe-dev
+
+Stani
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070322/62dcb79c/attachment.html>
+
+From mxr at qvii.com  Mon Mar 26 15:33:43 2007
+From: mxr at qvii.com (Rooney, Mike (ext. 324))
+Date: Mon, 26 Mar 2007 09:33:43 -0400
+Subject: [spe-dev] Opening filenames with spaces
+Message-ID: <4DD6AB329450D847913EA76D7F3C6B8306259B88@valkyrie.ogp.qvii.com>
+
+Hello,
+
+Is anyone else having a problem opening filenames containing spaces?
+For example on Windows XP the desktop is located at typically:
+C:\documents and settings\user\desktop. When I try to open a file there
+I get (in the Output window):
+
+ ""C:\Documents and Settings\mxr\Desktop\smarttree-trunk\smarttree.pyw"" 
+C:\Python25\python.exe: can't open file 'C:\Documents': [Errno 2] No such file or directory
+Script terminated.
+
+Also in reporting this I have found that copying from the Output window
+is a little awkward, Ctrl+C does not seem to work, so my next instinct
+was to right-click and select copy but no menu came up. I had to go to
+Edit -> Copy. Not a huge deal, just something I noticed.
+
+I assume this is not really system specific but my specs are SPE
+revision 236, python 2.5, wxPython 2.8.1.1, on Windows XP.
+
+Thanks for your time,
+Mike
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070326/7466462a/attachment.html>
+
+From johnfinch at mac.com  Tue Mar 27 00:59:50 2007
+From: johnfinch at mac.com (John Finch)
+Date: Mon, 26 Mar 2007 18:59:50 -0400
+Subject: [spe-dev] Opening filenames with spaces
+In-Reply-To: <4DD6AB329450D847913EA76D7F3C6B8306259B88@valkyrie.ogp.qvii.com>
+References: <4DD6AB329450D847913EA76D7F3C6B8306259B88@valkyrie.ogp.qvii.com>
+Message-ID: <E55F31F0-C936-4263-BEDD-0B09EDFBCDFB@mac.com>
+
+Interesting! I had the spaces problem on Ubuntu but Stani fixed it.  
+Must have been an OS specific fix?
+Good catch!
+
+
+On Mar 26, 2007, at 9:33 AM, Rooney, Mike (ext. 324) wrote:
+
+> Hello,
+>
+> Is anyone else having a problem opening filenames containing spaces?
+> For example on Windows XP the desktop is located at typically:
+> C:\documents and settings\user\desktop. When I try to open a file  
+> there
+> I get (in the Output window):
+>
+>  ""C:\Documents and Settings\mxr\Desktop\smarttree-trunk 
+> \smarttree.pyw""
+> C:\Python25\python.exe: can't open file 'C:\Documents': [Errno 2]  
+> No such file or directory
+> Script terminated.
+>
+> Also in reporting this I have found that copying from the Output  
+> window
+> is a little awkward, Ctrl+C does not seem to work, so my next instinct
+> was to right-click and select copy but no menu came up. I had to go to
+> Edit -> Copy. Not a huge deal, just something I noticed.
+>
+> I assume this is not really system specific but my specs are SPE
+> revision 236, python 2.5, wxPython 2.8.1.1, on Windows XP.
+>
+> Thanks for your time,
+> Mike
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070326/3421784e/attachment.html>
+
+From mrooney at gmail.com  Tue Mar 27 05:58:30 2007
+From: mrooney at gmail.com (Mike Rooney)
+Date: Mon, 26 Mar 2007 23:58:30 -0400
+Subject: [spe-dev] SPE "Explore" Tab shows commented elements
+Message-ID: <4f4806ee0703262058n73905b67qdde14ddc7abfb186@mail.gmail.com>
+
+Hello,
+
+I noticed that SPE will show imports, functions, and classes that are
+triple-quoted. Is this by design? I noticed it when making a TODO list
+of things to implement, and found it to be kind of annoying, but maybe
+it is intended. See the attached screen shot.
+
+Also, is there no way to have these lists sorted, at least the methods
+on a class? Browsing the methods of some wx classes is pretty nasty
+without alphabetical order. Personally, I think single clicking on
+anything in the Explore tab should go to its location, double-clicking
+should expand/collapse it if it has children (this will also go to it
+as a single-click will be processed), and right clicking should
+display a menu for sorting by file order or alphabetical order. The
+double clicking behavior I mentioned is consistent with most trees,
+and the single clicking is how other explorers in IDEs I have used
+behave. Any thoughts on this? Maybe it should have been a separate
+email...
+
+Anyway I have been having lots of fun with this great editor!
+
+-- 
+Mike Rooney
+mrooney at gmail.com
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: spe_comment_bug.png
+Type: image/png
+Size: 23671 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070326/b68c50ce/attachment.png>
+
+From mxr at qvii.com  Wed Mar 28 17:02:30 2007
+From: mxr at qvii.com (Mike Rooney)
+Date: Wed, 28 Mar 2007 11:02:30 -0400
+Subject: [spe-dev] Opening filenames with spaces
+In-Reply-To: <E55F31F0-C936-4263-BEDD-0B09EDFBCDFB@mac.com>
+References: <E55F31F0-C936-4263-BEDD-0B09EDFBCDFB@mac.com>
+Message-ID: <460A8386.8050802@qvii.com>
+
+John Finch wrote:
+> Interesting! I had the spaces problem on Ubuntu but Stani fixed it. 
+> Must have been an OS specific fix?
+> Good catch!
+Okay, I had trouble duplicating it but now I got it again. It seems to 
+be some weird issue with double
+quotes:
+
+ ""C:\Documents and Settings\mxr\Desktop\qvi_inspect\managetab.py""
+ C:\Python25\python.exe: can't open file 'C:\Documents': [Errno 2] No 
+such file or directory
+ Script terminated.
+
+As you might notice the string has quotes inside of itself. Windows 
+returns paths as quoted
+strings when they contain spaces, so it might be something to do with 
+that? Not sure why
+it seems to work sometimes, though. Unfortunately there was no full 
+traceback from SPE
+or it would have been super easy to follow. Oh well, I will try to find 
+it anyway!
+
+>
+>
+> On Mar 26, 2007, at 9:33 AM, Rooney, Mike (ext. 324) wrote:
+>
+>> Hello,
+>>
+>> Is anyone else having a problem opening filenames containing spaces?
+>> For example on Windows XP the desktop is located at typically:
+>> C:\documents and settings\user\desktop. When I try to open a file there
+>> I get (in the Output window):
+>>
+>>  ""C:\Documents and Settings\mxr\Desktop\smarttree-trunk\smarttree.pyw""
+>> C:\Python25\python.exe: can't open file 'C:\Documents': [Errno 2] No 
+>> such file or directory
+>> Script terminated.
+>>
+>> Also in reporting this I have found that copying from the Output window
+>> is a little awkward, Ctrl+C does not seem to work, so my next instinct
+>> was to right-click and select copy but no menu came up. I had to go to
+>> Edit -> Copy. Not a huge deal, just something I noticed.
+>>
+>> I assume this is not really system specific but my specs are SPE
+>> revision 236, python 2.5, wxPython 2.8.1.1, on Windows XP.
+>>
+>> Thanks for your time,
+>> Mike
+>>
+>> --
+>> http://pythonide.stani.be
+>> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+>> Python-spe-dev at lists.berlios.de <mailto:Python-spe-dev at lists.berlios.de>
+>> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+> ------------------------------------------------------------------------
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>   
+
+
+
+From mxr at qvii.com  Wed Mar 28 17:29:47 2007
+From: mxr at qvii.com (Mike Rooney)
+Date: Wed, 28 Mar 2007 11:29:47 -0400
+Subject: [spe-dev] Opening filenames with spaces
+In-Reply-To: <460A8386.8050802@qvii.com>
+References: <E55F31F0-C936-4263-BEDD-0B09EDFBCDFB@mac.com>
+	<460A8386.8050802@qvii.com>
+Message-ID: <460A89EB.7070303@qvii.com>
+
+Mike Rooney wrote:
+> John Finch wrote:
+>   
+>> Interesting! I had the spaces problem on Ubuntu but Stani fixed it. 
+>> Must have been an OS specific fix?
+>> Good catch!
+>>     
+> Okay, I had trouble duplicating it but now I got it again. It seems to 
+> be some weird issue with double
+> quotes:
+>
+>  ""C:\Documents and Settings\mxr\Desktop\qvi_inspect\managetab.py""
+>  C:\Python25\python.exe: can't open file 'C:\Documents': [Errno 2] No 
+> such file or directory
+>  Script terminated.
+>
+> As you might notice the string has quotes inside of itself. Windows 
+> returns paths as quoted
+> strings when they contain spaces, so it might be something to do with 
+> that? Not sure why
+> it seems to work sometimes, though. Unfortunately there was no full 
+> traceback from SPE
+> or it would have been super easy to follow. Oh well, I will try to find 
+> it anyway!
+>   
+
+I fixed it! First of all, my confusion was because I didn't understand 
+the problem. SPE can open files with spaces in their path just fine, it 
+was that it can't RUN them. That behavior is consistent for me here on 
+WinXP. The fix was changing line 680 of Parent.py to:
+
+        params          = { 'file':         
+info.path(child.fileName).strip('"'),
+
+Four lines down, in the string format, quotes are wrapped around the 
+'file' entry, so it assumes they weren't already there. But Windows puts 
+them in for you if the path contains spaces. I am not sure if this will 
+have other consequences, but I can run files with and without spaces in 
+their paths now, with that fix.
+
+- Mike
+>   
+>> On Mar 26, 2007, at 9:33 AM, Rooney, Mike (ext. 324) wrote:
+>>
+>>     
+>>> Hello,
+>>>
+>>> Is anyone else having a problem opening filenames containing spaces?
+>>> For example on Windows XP the desktop is located at typically:
+>>> C:\documents and settings\user\desktop. When I try to open a file there
+>>> I get (in the Output window):
+>>>
+>>>  ""C:\Documents and Settings\mxr\Desktop\smarttree-trunk\smarttree.pyw""
+>>> C:\Python25\python.exe: can't open file 'C:\Documents': [Errno 2] No 
+>>> such file or directory
+>>> Script terminated.
+>>>
+>>> Also in reporting this I have found that copying from the Output window
+>>> is a little awkward, Ctrl+C does not seem to work, so my next instinct
+>>> was to right-click and select copy but no menu came up. I had to go to
+>>> Edit -> Copy. Not a huge deal, just something I noticed.
+>>>
+>>> I assume this is not really system specific but my specs are SPE
+>>> revision 236, python 2.5, wxPython 2.8.1.1, on Windows XP.
+>>>
+>>> Thanks for your time,
+>>> Mike
+>>>
+>>> --
+>>> http://pythonide.stani.be
+>>> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+>>> Python-spe-dev at lists.berlios.de <mailto:Python-spe-dev at lists.berlios.de>
+>>> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>>       
+>> ------------------------------------------------------------------------
+>>
+>> --
+>> http://pythonide.stani.be
+>> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+>> Python-spe-dev at lists.berlios.de
+>> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>   
+>>     
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>   
+
+
+
+From carl at personnelware.com  Thu Mar 29 06:41:29 2007
+From: carl at personnelware.com (Carl Karsten)
+Date: Wed, 28 Mar 2007 23:41:29 -0500
+Subject: [spe-dev] v 236 crashes on launch
+Message-ID: <460B4379.7000407@personnelware.com>
+
+svn ver 158 worked, 236 crashes with the following:
+
+$ python /usr/lib/python2.4/site-packages/_spe/SPE.py --debug >spedebug.txt 2>&1
+
+(python:13871): Gdk-CRITICAL **: gdk_draw_drawable: assertion `src != NULL' failed
+$ python -V
+Python 2.4.3
+
+
+SPE v0.8.4.b (c)2003-2007 www.stani.be
+
+If spe fails to start:
+  - type "python SPE.py --debug > debug.txt 2>&1" at the command prompt
+    (or if you use tcsh: "python SPE.py --debug >& debug.txt")
+  - send debug.txt with some info to spe.stani.be[at]gmail.com
+
+Blender support disabled (run SPE inside Blender to enable).
+Encrypted debugging enabled.
+
+Spe is running in debugging mode with this configuration:
+- platform  : linux2
+- python    : 2.4.3
+- wxPython  : 2.6.1.2pre
+- interface : <default>
+- encoding  : utf-8
+
+Launching application...
+Create: Framework: menu.
+Create: Framework: toolbar.
+Create: Framework: statusbar.
+Creating tabs...
+	Shell
+	Locals
+	Session
+	Output
+	Find
+	Browser
+	Recent
+	Todo
+	Index
+	Notes
+	Donate
+Opening /home/carl/dev/apps/uloop/uloop3.py
+Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'> uloop3.py 
+/home/carl/dev/apps/uloop/uloop3.py
+Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+Traceback (most recent call last):
+   File "/usr/lib/python2.4/site-packages/_spe/SPE.py", line 227, in ?
+     style           = style)
+   File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 1323, in 
+__init__
+     wx.App.__init__(self,redirect=not debug)
+   File "/usr/lib/python2.4/site-packages/wx-2.6-gtk2-unicode/wx/_core.py", line 
+7473, in __init__
+     self._BootstrapApp()
+   File "/usr/lib/python2.4/site-packages/wx-2.6-gtk2-unicode/wx/_core.py", line 
+7125, in _BootstrapApp
+     return _core_.PyApp__BootstrapApp(*args, **kwargs)
+   File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 1342, in OnInit
+     style   = self.style,
+   File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 819, in 
+__init__
+     Parent.__init__(self,app=app,page=page,**options)
+   File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 613, in 
+__init__
+     parentFrame     = self,
+   File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 341, in 
+__init__
+     self.__finish__()
+   File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 617, in 
+__finish__
+     Framework.__finish__(self)
+   File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 439, in 
+__finish__
+     self.panel.__finish__()
+   File "/usr/lib/python2.4/site-packages/_spe/Parent.py", line 125, in __finish__
+     self.__frame__()
+   File "/usr/lib/python2.4/site-packages/_spe/Parent.py", line 173, in __frame__
+     self.__remember__(openFiles=self._openFiles)
+   File "/usr/lib/python2.4/site-packages/_spe/Parent.py", line 193, in __remember__
+     self.loadWorkspace()
+   File "/usr/lib/python2.4/site-packages/_spe/Parent.py", line 326, in 
+loadWorkspace
+     verbose     = True)
+   File "/usr/lib/python2.4/site-packages/_spe/Parent.py", line 897, in openList
+     child=self.new(name=fileName,source=source,maximize=maximize)
+   File "/usr/lib/python2.4/site-packages/_spe/Parent.py", line 385, in new
+     maximize    = maximize)
+   File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 1160, in 
+__init__
+     extra       = extra,
+   File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 917, in 
+__init__
+     extra           = extra,
+   File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 341, in 
+__init__
+     self.__finish__()
+   File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 927, in 
+__finish__
+     Framework.__finish__(self)
+   File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 439, in 
+__finish__
+     self.panel.__finish__()
+   File "/usr/lib/python2.4/site-packages/_spe/Child.py", line 129, in __finish__
+     self.__source__(self._fileName,self._source)
+   File "/usr/lib/python2.4/site-packages/_spe/Child.py", line 246, in __source__
+     menu        = self.parentFrame.menuBar.edit)
+   File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/stc.py", line 95, in __init__
+     self.update()
+   File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/stc.py", line 415, in update
+     if self.getint('ViewLineNumbers'):
+   File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/stc.py", line 389, in getint
+     if eval(self.config.get('Default',name)):
+   File "/usr/lib/python2.4/ConfigParser.py", line 520, in get
+     raise NoOptionError(option, section)
+ConfigParser.NoOptionError: No option 'viewlinenumbers' in section: 'Default'
+
+Carl K
+
+

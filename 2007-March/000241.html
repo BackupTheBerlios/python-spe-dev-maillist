@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Bug: View as notebook/columns/rows
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%3A%20View%20as%20notebook/columns/rows&In-Reply-To=%3C45FC7DAE.4020706%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000237.html">
+   <LINK REL="Next"  HREF="000243.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Bug: View as notebook/columns/rows</H1>
+    <B>Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%3A%20View%20as%20notebook/columns/rows&In-Reply-To=%3C45FC7DAE.4020706%40gmail.com%3E"
+       TITLE="[spe-dev] Bug: View as notebook/columns/rows">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Sun Mar 18 00:45:50 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000237.html">[spe-dev] Bug: View as notebook/columns/rows
+</A></li>
+        <LI>Next message: <A HREF="000243.html">[spe-dev] Bug: View as notebook/columns/rows
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#241">[ date ]</a>
+              <a href="thread.html#241">[ thread ]</a>
+              <a href="subject.html#241">[ subject ]</a>
+              <a href="author.html#241">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Can you check with the NotebookCtrlDemo from Andrea Gavana if that works 
+ok to switch back to notebook. The code in SPE is in Parent.py on line 560
+tabs.Tile(False)
+tabs is the NotebookCtrl from Andrea (Tile is defined on line 5463). So 
+if it works in the demo, it should work in SPE as well. Maybe something 
+else or more is required than tabs.Tile(False)
+On Ubuntu SPE uses the native gtk NotebookCtrl and not Andrea's one for 
+stability reasons. So I can't verify this myself now. I hope on your 
+support.
+Stani
+
+John Finch wrote:
+&gt;<i> OSX
+</I>&gt;<i>
+</I>&gt;<i> View as notebook does work. Once user clicks view as columns the  
+</I>&gt;<i> filename tabs cannot be brought back.
+</I>&gt;<i>
+</I>&gt;<i> On further investigation, View as Notebook doesn't seem to do  
+</I>&gt;<i> anything at all.
+</I>&gt;<i>
+</I>&gt;<i> Also, when viewing as columns. Should the explore pane be collapsed  
+</I>&gt;<i> by default? It takes up all the room and hides most of the code  
+</I>&gt;<i> anyway? Works well in View as rows but not so good in columns.
+</I>&gt;<i> Just an observation. Great idea to have the views!
+</I>&gt;<i> --
+</I>&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000237.html">[spe-dev] Bug: View as notebook/columns/rows
+</A></li>
+	<LI>Next message: <A HREF="000243.html">[spe-dev] Bug: View as notebook/columns/rows
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#241">[ date ]</a>
+              <a href="thread.html#241">[ thread ]</a>
+              <a href="subject.html#241">[ subject ]</a>
+              <a href="author.html#241">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

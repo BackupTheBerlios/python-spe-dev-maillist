@@ -1,0 +1,244 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Testing SVN Version
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2006-January/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Testing%20SVN%20Version&In-Reply-To=%3C2078a7ad0601060554l79843ed8r78b0a435e561a7f6%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000134.html">
+   <LINK REL="Next"  HREF="000132.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Testing SVN Version</H1>
+    <B>SPE Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Testing%20SVN%20Version&In-Reply-To=%3C2078a7ad0601060554l79843ed8r78b0a435e561a7f6%40mail.gmail.com%3E"
+       TITLE="[spe-dev] Testing SVN Version">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Fri Jan  6 14:54:29 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000134.html">[spe-dev] Testing SVN Version
+</A></li>
+        <LI>Next message: <A HREF="000132.html">[spe-dev] Testing SVN Version
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#130">[ date ]</a>
+              <a href="thread.html#130">[ thread ]</a>
+              <a href="subject.html#130">[ subject ]</a>
+              <a href="author.html#130">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 1/6/06, Fuzzyman &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">fuzzyman at voidspace.org.uk</A>&gt; wrote:
+&gt;<i>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be/blog/sm_donate">http://pythonide.stani.be/blog/sm_donate</A>
+</I>&gt;<i> <A HREF="svn://svn.berlios.de/python/spe/trunk">svn://svn.berlios.de/python/spe/trunk</A>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Hello Stani,
+</I>&gt;<i>
+</I>&gt;<i> I've played around with the version of SPE from SVN. There are a couple
+</I>&gt;<i> of minor issues.
+</I>
+
+Always good to know them before releasing ;-)
+
+SPE.pyw doesn't work. Copying spe.py and renaming works.
+&gt;<i> If you wrap everything in spe.py in a main function and just call main,
+</I>&gt;<i> spe.pyw could just import main from spe.py and run it - this would save
+</I>&gt;<i> you
+</I>&gt;<i> having to maintain both.
+</I>
+
+The behaviour now makes it more easy (with Blender users in my mind) to run
+spe from python: just type import spe.SPE I'll look into it.
+
+Shift-ctrl-E now brings up a dialog saying 'are you sure you want to run
+&gt;<i> whole script'
+</I>&gt;<i> It doesn't now just run the whole script without raising *another* dialog.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>I can use ctrl-shift-R instead - with the redirected output, which is nice.
+&gt;<i>
+</I>&gt;<i> Even with shift-Ctrl-R I still would like to run some stuff in the shell
+</I>&gt;<i> (stuff
+</I>&gt;<i> that uses raw_input for simple interaction).
+</I>
+
+I don't know if this is possible. File it as a bug report.
+
+Would it be possible to
+&gt;<i> turn this
+</I>&gt;<i> dialog off with a preference ?
+</I>
+
+Dear fuzzyman, it is already a preference, check editor preferences.
+
+When I hit F9 I got the following error (I was running spe.pyw using
+&gt;<i> pythonw.exe )
+</I>&gt;<i>
+</I>&gt;<i> &gt;&gt;&gt; Traceback (most recent call last):
+</I>&gt;<i>   File &quot;C:\Python24\Lib\site-packages\_spe\Menu.py&quot;, line 442, in
+</I>&gt;<i> menu_run_terminal
+</I>&gt;<i>     self.app.childActive.run()
+</I>&gt;<i>   File &quot;C:\Python24\Lib\site-packages\_spe\Child.py&quot;, line 528, in run
+</I>&gt;<i>     from _spe.dialogs.runTerminalDialog import RunTerminalDialog
+</I>&gt;<i> ImportError: No module named runTerminalDialog
+</I>&gt;<i>
+</I>&gt;<i> When run from pythonw.exe (as I always do), then shift-F9 opens a
+</I>&gt;<i> console box,
+</I>&gt;<i> but because sys.executable is used - the program is run using
+</I>&gt;<i> pythonw.exe - so
+</I>&gt;<i> no output is displayed.
+</I>&gt;<i>
+</I>&gt;<i> What you probably want to do is patch the following file. This would
+</I>&gt;<i> sort the
+</I>&gt;<i> same problem for SPE *and* Movable Python :
+</I>&gt;<i>
+</I>&gt;<i> info.py line 17 becomes :
+</I>&gt;<i>
+</I>&gt;<i> PYTHON_EXEC                 = sys.executable
+</I>&gt;<i> if WIN:
+</I>&gt;<i>     if PYTHON_EXEC.endswith('w.exe'):
+</I>&gt;<i>         PYTHON_EXEC = PYTHON_EXEC[:-5] + '.exe'
+</I>&gt;<i>
+</I>&gt;<i> This fix is *already* made in rpd2.py
+</I>
+
+Right.
+
+Recent files (which I've only just discovered) is good. Single clicking on
+&gt;<i> files opens them and right clicking runs them ! IMHO this is
+</I>&gt;<i> anti-intuitive.
+</I>&gt;<i>
+</I>&gt;<i> Double clicking should open. Single clicking should select them,
+</I>&gt;<i> allowing me to
+</I>&gt;<i> delete items from the list. Right clicking should open a context menu
+</I>&gt;<i> allowing
+</I>&gt;<i> me to delete or run. I'll file this as a feature request.
+</I>
+
+Ok,  I changed right click into double click or pressing ENTER.
+
+It also freezes up (stops working) after right clicking - sometimes this
+&gt;<i> freezes SPE altogether. The problem is *probably* related to launching
+</I>&gt;<i> programs
+</I>&gt;<i> using pythonw or the way programs terminate (or don't) if they have an
+</I>&gt;<i> event loop - I'm not sure yet.
+</I>
+
+Oops, they still use the old run methods. I'll change it to the new methods.
+
+
+Error seen once on startup :
+&gt;<i>
+</I>&gt;<i>   File &quot;C:\Python24\Lib\site-packages\_spe\sm\wxp\NotebookCtrl.py&quot;, line
+</I>&gt;<i> 1867, in OnMouseMotion
+</I>&gt;<i>     dx = abs(pt.x - self._dragstartpos.x)
+</I>&gt;<i> AttributeError: 'TabCtrl' object has no attribute '_dragstartpos'
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Error seen once running from movpy.exe on startup :
+</I>&gt;<i>
+</I>&gt;<i>   File &quot;F:\Python Projects\modules in
+</I>&gt;<i> progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py&quot;, line 1893,
+</I>&gt;<i> in OnMouseMotion
+</I>&gt;<i>     insidex = self.GetInsideX(pt)
+</I>&gt;<i>   File &quot;F:\Python Projects\modules in
+</I>&gt;<i> progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py&quot;, line 1678,
+</I>&gt;<i> in GetInsideX
+</I>&gt;<i>     if rects.Inside(pt):
+</I>&gt;<i> AttributeError: 'int' object has no attribute 'Inside'
+</I>&gt;<i> Traceback (most recent call last):
+</I>&gt;<i>   File &quot;F:\Python Projects\modules in
+</I>&gt;<i> progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py&quot;, line 1893,
+</I>&gt;<i> in OnMouseMotion
+</I>&gt;<i>     insidex = self.GetInsideX(pt)
+</I>&gt;<i>   File &quot;F:\Python Projects\modules in
+</I>&gt;<i> progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py&quot;, line 1678,
+</I>&gt;<i> in GetInsideX
+</I>&gt;<i>     if rects.Inside (pt):
+</I>&gt;<i> AttributeError: 'int' object has no attribute 'Inside'
+</I>&gt;<i> Traceback (most recent call last):
+</I>&gt;<i>   File &quot;F:\Python Projects\modules in
+</I>&gt;<i> progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py&quot;, line 1893,
+</I>&gt;<i> in OnMouseMotion
+</I>&gt;<i>     insidex = self.GetInsideX(pt)
+</I>&gt;<i>   File &quot;F:\Python Projects\modules in
+</I>&gt;<i> progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py&quot;, line 1678,
+</I>&gt;<i> in GetInsideX
+</I>&gt;<i>     if rects.Inside (pt):
+</I>&gt;<i> AttributeError: 'int' object has no attribute 'Inside'
+</I>&gt;<i> Traceback (most recent call last):
+</I>&gt;<i>   File &quot;F:\Python Projects\modules in
+</I>&gt;<i> progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py&quot;, line 1893,
+</I>&gt;<i> in OnMouseMotion
+</I>&gt;<i>     insidex = self.GetInsideX(pt)
+</I>&gt;<i>   File &quot;F:\Python Projects\modules in
+</I>&gt;<i> progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py&quot;, line 1678,
+</I>&gt;<i> in GetInsideX
+</I>&gt;<i>     if rects.Inside (pt):
+</I>&gt;<i> AttributeError: 'int' object has no attribute 'Inside'
+</I>
+
+Hi Andrea, I applied your latest version you send me. I recognize this
+error. You can reproduce it easily when running _sm/wxp/smdi.py as a stand
+alone file. Probably this can help you. I get always this error when no tabs
+are added yet.
+
+Running a script with raw_input() using Ctrl-R causes an error (it
+&gt;<i> hangs). Press
+</I>&gt;<i> Ctrl-R again and it offers to kill the script (warning you SPE might
+</I>&gt;<i> die). I then
+</I>&gt;<i> get a core dump. (The instruction 0x0.... referenced memory that could
+</I>&gt;<i> not be read).
+</I>
+
+Does it crash SPE? Bug report as above.
+
+I get the same error with F9 when running from movpy.
+
+
+Thanks, this was really useful.
+Stani
+
+
+
+
+--
+<A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+<A HREF="http://pythonide.stani.be/screenshots">http://pythonide.stani.be/screenshots</A>
+<A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060106/cb9c59cf/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060106/cb9c59cf/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000134.html">[spe-dev] Testing SVN Version
+</A></li>
+	<LI>Next message: <A HREF="000132.html">[spe-dev] Testing SVN Version
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#130">[ date ]</a>
+              <a href="thread.html#130">[ thread ]</a>
+              <a href="subject.html#130">[ subject ]</a>
+              <a href="author.html#130">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

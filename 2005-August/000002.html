@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Find bug: any volunteer?!
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2005-August/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Find%20bug%3A%20any%20volunteer%3F%21&In-Reply-To=%3C42F042C1.4030600%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000000.html">
+   <LINK REL="Next"  HREF="000001.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Find bug: any volunteer?!</H1>
+    <B>SPE - Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Find%20bug%3A%20any%20volunteer%3F%21&In-Reply-To=%3C42F042C1.4030600%40gmail.com%3E"
+       TITLE="[spe-dev] Find bug: any volunteer?!">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Wed Aug  3 06:06:25 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000000.html">[spe-dev] SPE 0.7.4.y released
+</A></li>
+        <LI>Next message: <A HREF="000001.html">[spe-dev] [Fwd: [spe-mac] Let's help Stani buy a Mac]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2">[ date ]</a>
+              <a href="thread.html#2">[ thread ]</a>
+              <a href="subject.html#2">[ subject ]</a>
+              <a href="author.html#2">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+The find dialog box is not working well. Probably it's something not too 
+hard to fix. Any volunteer? The code is in _spe/Parent.py I'm currently 
+working on other things as you can read on the blog. Please send the 
+corrected Parent.py to me and I correct the fixes.
+Thanks,
+Stani
+
+    def find_replace(self, event=None):
+        &quot;&quot;&quot;Find and Replace dialog and action.&quot;&quot;&quot;
+        #dialog already open, if yes give focus
+        if self.findDialog:
+            self.findDialog.SetFocus()
+            return
+        #find string
+        findStr = self.app.childActive.source.GetSelectedText()
+        if not findStr:
+                findStr = self.findStr
+        self.numberMessages=0
+        #find data
+        data    = wx.FindReplaceData(self.findFlags)
+        data.SetFindString(findStr)
+        data.SetReplaceString(self.replaceStr)
+        #dialog
+        self.findDialog = wx.FindReplaceDialog(self, data, &quot;Find &amp; 
+Replace&quot;,
+                wx.FR_REPLACEDIALOG|wx.FR_NOUPDOWN)
+        self.findDialog.Show(1)   
+        self.findDialog.data = data  # save a reference to it...
+          
+...
+    def onFind(self,event,message=1):
+        source=self.app.childActive.source
+        try:
+            self.findStr=event.GetFindString()
+            self.findFlags=event.GetFlags()
+            flags=0
+            if wx.FR_WHOLEWORD &amp; self.findFlags:
+                flags|=wx.stc.STC_FIND_WHOLEWORD
+            if wx.FR_MATCHCASE &amp; self.findFlags:
+                flags|=wx.stc.STC_FIND_MATCHCASE
+            self.stcFindFlags=flags
+        except:
+            pass
+        current=source.GetCurrentPos()
+        position=source.FindText(current,len(source.GetText()),self.findStr,
+                self.stcFindFlags)
+        if position==-1:#wrap around
+            self.wrapped=1
+            
+position=source.FindText(0,current+len(self.findStr),self.findStr,self.stcFindFlags)
+            self.SetActiveStatusText(&quot;Wrapped around to find 
+'%s'&quot;%self.findStr,1)
+        if position==-1 and message and self.numberMessages&lt;1:
+            self.numberMessages=1
+            self.message(&quot;'%s' not found!&quot;%self.findStr)
+            self.numberMessages=0
+        source.GotoPos(position)
+        source.SetSelection(position,position+len(self.findStr))
+        return position
+       
+    def onFindClose(self,event):
+        event.GetDialog().Destroy()
+        self.numberMessages=0
+
+    def onReplace(self,event,message=1):
+        ## Next line avoid infinite loop
+        findStr=event.GetFindString()
+        self.replaceStr=event.GetReplaceString()
+        if findStr==self.replaceStr:
+            return -1
+        source=self.app.childActive.source
+        selection=source.GetSelectedText()
+        if not(event.GetFlags() &amp; wx.FR_WHOLEWORD):
+            findStr=findStr.lower()
+            selection=selection.lower()
+            if findStr==self.replaceStr.lower():
+                return -1
+        if selection==findStr:
+            position=source.GetSelectionStart()
+            source.ReplaceSelection(self.replaceStr)
+            source.SetSelection(position,position+len(self.replaceStr))
+        position=self.onFind(event,message=message)
+        return position
+
+    def onReplaceAll(self,event):
+        source=self.app.childActive.source
+        count=0
+        self.wrapped=0
+        position=start=source.GetCurrentPos()
+        while position&gt;-1 and ((not self.wrapped) or position&lt;start):
+            position=self.onReplace(event,message=0)
+            if position != -1: count+=1
+        if count:
+            self.SetActiveStatusText(&quot;'%s' is %s times replaced with '%s'&quot;%\
+                (event.GetFindString(),count,event.GetReplaceString()),1)
+        elif not count and self.numberMessages&lt;1:
+            self.numberMessages=1
+            self.message(&quot;'%s' not found!&quot;%event.GetFindString())
+            self.numberMessages=0
+       
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000000.html">[spe-dev] SPE 0.7.4.y released
+</A></li>
+	<LI>Next message: <A HREF="000001.html">[spe-dev] [Fwd: [spe-mac] Let's help Stani buy a Mac]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2">[ date ]</a>
+              <a href="thread.html#2">[ thread ]</a>
+              <a href="subject.html#2">[ subject ]</a>
+              <a href="author.html#2">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

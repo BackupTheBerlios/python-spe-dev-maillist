@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] patch: fix for bug 4627
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2005-November/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20patch%3A%20fix%20for%20bug%204627&In-Reply-To=%3C20051104214727.7e7f04a5%40laptop%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000020.html">
+   <LINK REL="Next"  HREF="000026.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] patch: fix for bug 4627</H1>
+    <B>Glenn Washburn</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20patch%3A%20fix%20for%20bug%204627&In-Reply-To=%3C20051104214727.7e7f04a5%40laptop%3E"
+       TITLE="[spe-dev] patch: fix for bug 4627">crass at berlios.de
+       </A><BR>
+    <I>Sat Nov  5 04:47:27 CET 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000020.html">[spe-dev] patch: fix for bug 4627
+</A></li>
+        <LI>Next message: <A HREF="000026.html">[spe-dev] patch: fix for bug 4627
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#24">[ date ]</a>
+              <a href="thread.html#24">[ thread ]</a>
+              <a href="subject.html#24">[ subject ]</a>
+              <a href="author.html#24">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I believe I would need authorization to do so.  I have a berlios
+account, but I don't have svn access.  I'm not sure I'll be
+contributing enough to warrant svn access either.  I'm just fixing bugs
+that hinder my using spe.
+
+Glenn
+
+On Fri, 4 Nov 2005 18:35:12 +0100
+Tarek Ziad&#233; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">ziade.tarek at gmail.com</A>&gt; wrote:
+
+&gt;<i> _______________________________________________
+</I>&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be/blog/sm_donate">http://pythonide.stani.be/blog/sm_donate</A>
+</I>&gt;<i> _______________________________________________ Hello,
+</I>&gt;<i> 
+</I>&gt;<i> This would be simpler to commit the bugfix in svn for the current
+</I>&gt;<i> trunk so we can just do a &quot;svn up&quot; to get your fix
+</I>&gt;<i> 
+</I>&gt;<i> Regards
+</I>&gt;<i> 
+</I>&gt;<i> Tarek
+</I>&gt;<i> 
+</I>&gt;<i> On 11/4/05, Glenn Washburn &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">crass at berlios.de</A>&gt; wrote:
+</I>&gt;<i> &gt; Bug 4627 occurs in updateTodo because the
+</I>&gt;<i> &gt; self.previousTodoHighlights contains some stale items (that is
+</I>&gt;<i> &gt; items not actually in the ListCtrl anymore).  When trying to
+</I>&gt;<i> &gt; retrieve these items a ValueError exception is thrown from
+</I>&gt;<i> &gt; ListItem.wx, since the item has already be removed from its parents
+</I>&gt;<i> &gt; children list. Since the item should already be Deleted it can be
+</I>&gt;<i> &gt; ignored. I recommend also that ListItem.children be renamed to
+</I>&gt;<i> &gt; ListItem.siblings, as then the name would actually have a correct
+</I>&gt;<i> &gt; meaning. Note, this patch contains my previous patch spe.Child.py.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Glenn
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Python-spe-dev mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="http://lists.berlios.de/mailman/listinfo/python-spe-dev">http://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000020.html">[spe-dev] patch: fix for bug 4627
+</A></li>
+	<LI>Next message: <A HREF="000026.html">[spe-dev] patch: fix for bug 4627
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#24">[ date ]</a>
+              <a href="thread.html#24">[ thread ]</a>
+              <a href="subject.html#24">[ subject ]</a>
+              <a href="author.html#24">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

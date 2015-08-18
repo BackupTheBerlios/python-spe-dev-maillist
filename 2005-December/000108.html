@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] SVN 109: fixes
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2005-December/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20SVN%20109%3A%20fixes&In-Reply-To=%3C2078a7ad0512161222t47b2d6f8n7eddba437f76c041%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000107.html">
+   <LINK REL="Next"  HREF="000109.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] SVN 109: fixes</H1>
+    <B>SPE Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20SVN%20109%3A%20fixes&In-Reply-To=%3C2078a7ad0512161222t47b2d6f8n7eddba437f76c041%40mail.gmail.com%3E"
+       TITLE="[spe-dev] SVN 109: fixes">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Fri Dec 16 21:22:09 CET 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000107.html">[spe-dev] python 2.3
+</A></li>
+        <LI>Next message: <A HREF="000109.html">[spe-dev] SVN 110: Realtime error indicating
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#108">[ date ]</a>
+              <a href="thread.html#108">[ thread ]</a>
+              <a href="subject.html#108">[ subject ]</a>
+              <a href="author.html#108">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 12/16/05, Fuzzyman &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">fuzzyman at voidspace.org.uk</A>&gt; wrote:
+&gt;<i>
+</I>&gt;<i> Hello Stani,
+</I>&gt;<i>
+</I>&gt;<i> Shift-Ctrl-E (for running blocks of code) is working for me.
+</I>&gt;<i>
+</I>&gt;<i> *Except* - that most of my code contains a line like :
+</I>&gt;<i>
+</I>&gt;<i>     if __name__ == '__main__':
+</I>&gt;<i>
+</I>&gt;<i> When running in the pycrust shell, ``__name__`` is ``__builtin__``. I
+</I>&gt;<i> can rebind it myself - but I just thought I'd flag it up.
+</I>
+
+
+
+It looks like the new run system has 'python' hardwired into the command
+&gt;<i> line that is run.
+</I>&gt;<i>
+</I>&gt;<i> With movable Python the executable isn't called 'python' (or necessarily
+</I>&gt;<i> on the path). Using ``sys.executable`` instead would solve this.
+</I>
+
+Hi Fuzzy,
+It is all fixed in subversion release 109.
+Stani
+
+fixes:
+- run with sys.executable (movable python)
+- info.PYTHON_EXEC to pythonw for Mac
+- __name__ in shell is now &quot;__main__&quot; for executing scripts
+
+
+
+--
+<A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+<A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051216/b699f098/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051216/b699f098/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000107.html">[spe-dev] python 2.3
+</A></li>
+	<LI>Next message: <A HREF="000109.html">[spe-dev] SVN 110: Realtime error indicating
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#108">[ date ]</a>
+              <a href="thread.html#108">[ thread ]</a>
+              <a href="subject.html#108">[ subject ]</a>
+              <a href="author.html#108">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

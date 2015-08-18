@@ -1,0 +1,3247 @@
+From spe.stani.be at gmail.com  Wed Nov  2 04:43:49 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Wed, 2 Nov 2005 04:43:49 +0100
+Subject: [spe-dev] Configuration of your system
+Message-ID: <2078a7ad0511011943r2cbaaecbjb0024ca0f0432235@mail.gmail.com>
+
+Hi,
+Welcome and nice that you all subscribed! Could everyone on this list
+mail me privately which system you use (os, python, wxpython
+version,...)?
+Thanks,
+Stani
+
+BTW SPE 0.7.5.e is under way...
+
+
+From spe.stani.be at gmail.com  Wed Nov  2 18:05:26 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Wed, 2 Nov 2005 18:05:26 +0100
+Subject: [spe-dev] Subversion
+Message-ID: <2078a7ad0511020905w4cb7e28ak505cebf561887016@mail.gmail.com>
+
+Hi,
+I hope most of you have subversion to follow the latest developments
+in SPE. The url is:
+http://svn.berlios.de/svnroot/repos/python/spe/trunk
+
+Stani
+
+
+From spe.stani.be at gmail.com  Thu Nov  3 06:51:53 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Thu, 3 Nov 2005 06:51:53 +0100
+Subject: [spe-dev] SPE & pyDoc
+Message-ID: <2078a7ad0511022151w2fbe7ff5gefb7dfb148cb9751@mail.gmail.com>
+
+Hi,
+
+Not that I plan to release the next days, but I added a new feature
+that I needed to SPE. It's a pydoc documentation browser. It's next to
+UML in the tab. Please try it out and see if there are any bugs. If
+you press on:
+- most links: open documentation about that module
+- index: show an overview of all available modules on your system
+- a filename: opens this file in SPE
+
+One thing to be careful of is that pydoc needs to import the file to
+generate the documentation. Therefore SPE warns you to save files, in
+case you didn't.
+
+Stani
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From spe.stani.be at gmail.com  Thu Nov  3 06:53:02 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Thu, 3 Nov 2005 06:53:02 +0100
+Subject: [spe-dev] SPE roadmap
+Message-ID: <2078a7ad0511022153h3b6491cmf591f80290a9443f@mail.gmail.com>
+
+The roadmap for SPE remains the same:
+- port SPE to the mac (try to fix all the critcal bugs)
+- reorganize SPE in core+plugins like FireFox
+
+Concerning Mac:
+- the GenericDirCtrl seems to cause problems. So if there is no other
+solution I'll have to disable that feature for Mac only. This is
+probably easy to do, but a pitty
+
+Stani
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From spe.stani.be at gmail.com  Thu Nov  3 06:54:44 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Thu, 3 Nov 2005 06:54:44 +0100
+Subject: [spe-dev] Bug 4856 on *nix: class crash
+Message-ID: <2078a7ad0511022154x37921bebpb67b79d4587d3ef1@mail.gmail.com>
+
+This bug is gaving me headaches:
+http://developer.berlios.de/bugs/?func=detailbug&bug_id=4856&group_id=4161
+
+This bug does *not* happen on Windows.
+
+
+Thanks to Bill Scherer, a SPE Linux user, we could come quite clause
+to where it happens:
+ 	
+"OK. After several rides through with the debugger, I've found that it
+segfaults on line 442 of
+/usr/lib/python2.4/site-packages/wx-2.6-gtk2-ansi/wx/lib/evtmgr.py,
+which looks like this:
+
+
+438    def handleEvent(self, event):
+439        """
+440        In response to a wxWindows event, send a PS message
+441        """
+442        self.publisher.sendMessage(topic=self.topic, data=event)
+
+
+What I did was to start winpdb, and launch spe. I pressed F5 to let it
+complete startup by itself. I had previously lauched spe to open
+evtmgr.py, and had it set to remember files. In winpdb, I chose
+File...Open Source, and entered evtmgr.py. I put a break point on line
+438. speedometer.py was also remembered, and was in the topmost tab. I
+clicked into the middle of the speedometer class name, and then when
+back to winpdb and F6'd until all events were processed. I then
+brought the focus back to spe and, noting that the insertion cursor
+was in the middle of the class name, I hit the spacebar. Focusing back
+to winpdb, I F6'd until segfault. The call path progressed through the
+handleEvent code in evtmgr.py several times. The bottommost call in
+your code was from the onUpdateUI method of the PythonBaseSTC class,
+starting on or about line 283. Code from several other files in
+/usr/lib/python2.4/site-packages/wx-2.6-gtk2-ansi/wx/lib was also run.
+On about the fifth or sixth time through line 442, it segfaults. This
+is repeatable.
+
+Let me know what steps I can take from here to isolate the fault."
+
+I wrote my own version of TreeCtrl and ListCtrl in sm.wxp.realtime and
+I am quite sure they are the root of the problem. These classes are
+developped to be able to easily replace only small items of the
+control, without the need of emptying them first, which is to slow and
+cpu consuming. Also it remembers what's open folded and what not. So
+maybe we need to develop some test framework for them.
+
+Maybe replacing the custom Tree control with the original wx.TreeCtrl
+could prove its guilt, if this bug is not occuring anymore. Same for
+the list control.
+
+Stani
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From spe.stani.be at gmail.com  Fri Nov  4 01:26:37 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Fri, 4 Nov 2005 01:26:37 +0100
+Subject: [spe-dev] Bug 4856 on *nix: class crash -> FIXED: URGENT PLEASE CHECK!!
+Message-ID: <2078a7ad0511031626xdc4db08k19e8446dcd69845f@mail.gmail.com>
+
+Hi,
+This patch from Glenn Washburn is hopefully very good news. It seemed
+he solved the terrible bug which causes segfaults on SPE. Please try
+out the patch _spe/sm/wxp/realtime.py
+I'm very curious if this works. Please test it asap and let me knows
+on which platform it solved the bug.
+Big thanks to Glenn!
+Stani
+
+
+---------- Forwarded message ----------
+From: Glenn Washburn <crass at berlios.de>
+Date: Nov 3, 2005 6:53 PM
+Subject: hack around bug in wxPython in deleting TreeItemIds from TreeCtrl
+To: spe.stani.be at gmail.com
+
+
+Stan,
+
+Thanks for spe, it seems to be one of the better python IDEs out
+there.  I've run across a bug in wxPython under gtk which causes a
+segfault (it should be a problem on other platforms).  After a fair
+amount of debugging, I narrowed the problem to the line "self.wx.Delete
+(item.wx)" in Tree.Clean() in _spe/sm/wxp/realtime.py. The problem is
+that wxTreeCtrl::Delete(wxTreeItemId id) deletes recursively the
+children of id, so any references to these children should not be
+deleted again (or it would be deleted twice).  However, in Tree.Clean()
+this is precisely what happens, since the tree items are not looped
+over in any particular order.  I have created a simple patch for this
+and attached it.  I have not reported this to wxPython, so you might
+want to forward this to their mailing list.  Thanks again, and I'd love
+to get a reply indicating your acceptance/rejection.
+
+Glenn
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: realtime.py
+Type: text/x-python
+Size: 10422 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051104/c59ededa/attachment.py>
+
+From bill.scherer at verizonwireless.com  Fri Nov  4 13:12:07 2005
+From: bill.scherer at verizonwireless.com (Bill Scherer)
+Date: Fri, 04 Nov 2005 07:12:07 -0500
+Subject: [spe-dev] Bug 4856 on *nix: class crash -> FIXED: URGENT PLEASE
+ CHECK!!
+In-Reply-To: <78E6A2FC276AD8428A8E2DBBB540855E01C690C0@NYOBGCEXMB21.uswin.ad.vzwcorp.com>
+References: <78E6A2FC276AD8428A8E2DBBB540855E01C690C0@NYOBGCEXMB21.uswin.ad.vzwcorp.com>
+Message-ID: <436B5017.4090408@verizonwireless.com>
+
+SPE Stani's Python Editor wrote:
+
+> Hi,
+> This patch from Glenn Washburn is hopefully very good news. It seemed
+> he solved the terrible bug which causes segfaults on SPE. Please try
+> out the patch _spe/sm/wxp/realtime.py
+> I'm very curious if this works. Please test it asap and let me knows
+> on which platform it solved the bug.
+>
+It's not helping with 0.7.5.d on FC4.  :-(
+
+I guess I should try it with .e...
+
+> Big thanks to Glenn!
+> Stani
+>
+>
+> ---------- Forwarded message ----------
+> From: Glenn Washburn <crass at berlios.de>
+> Date: Nov 3, 2005 6:53 PM
+> Subject: hack around bug in wxPython in deleting TreeItemIds from 
+> TreeCtrl
+> To: spe.stani.be at gmail.com
+>
+>
+> Stan,
+>
+> Thanks for spe, it seems to be one of the better python IDEs out
+> there.  I've run across a bug in wxPython under gtk which causes a
+> segfault (it should be a problem on other platforms).  After a fair
+> amount of debugging, I narrowed the problem to the line "self.wx.Delete
+> (item.wx)" in Tree.Clean() in _spe/sm/wxp/realtime.py. The problem is
+> that wxTreeCtrl::Delete(wxTreeItemId id) deletes recursively the
+> children of id, so any references to these children should not be
+> deleted again (or it would be deleted twice).  However, in Tree.Clean()
+> this is precisely what happens, since the tree items are not looped
+> over in any particular order.  I have created a simple patch for this
+> and attached it.  I have not reported this to wxPython, so you might
+> want to forward this to their mailing list.  Thanks again, and I'd love
+> to get a reply indicating your acceptance/rejection.
+>
+> Glenn
+>
+>
+> -- 
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+>
+>------------------------------------------------------------------------
+>
+>#(c)www.stani.be
+>
+>import wx
+>
+>class TreeItem:
+>    def __init__(self,text,id):
+>        self.id                 = id
+>        self.text               = text
+>        #
+>        self.backgroundColour   = (255,255,255)
+>        self.bold               = 0
+>        self.children           = []
+>        self.data               = None
+>        self.image              = {}
+>        self.textColour         = (0,0,0)
+>        self.confirmed          = 1
+>        self.deleted            = 0
+>        self.wx                 = None
+>        
+>    def DeleteChildren(self):
+>        for child in self.children:
+>            if child.children:
+>                child.DeleteChildren();
+>            child.deleted = 1;
+>
+>class Base:
+>    def GetPyData(self,item):
+>        return self.wx.GetPyData(item)
+>        
+>    def Refresh(self):
+>        self.wx.Refresh()
+>        
+>    def SetImageList(self,*args,**kwds):
+>        self.wx.SetImageList(*args,**kwds)
+>        
+>    def SetPyData(self,item,data):
+>        if item.data != data:
+>            item.data = data
+>            self.wx.SetPyData(item.wx,data)
+>
+>    def SetHelpText(self,*args,**kwds):
+>        self.wx.SetHelpText(*args,**kwds)
+>        
+>"""
+># TODO: Fix this bug!!! May be the reason why it crashes on mac.
+>  File "d:\Data\Python\_spe\Menu.py", line 424, in menu_save
+>    self.parentPanel.childActive.save()
+>  File "d:\Data\Python\_spe\Child.py", line 205, in save
+>    if self.encoding:
+>  File "d:\Data\Python\_spe\Child.py", line 435, in updateSidebar
+>    def updateSidebar(self,event=None):
+>  File "d:\Data\Python\_spe\Child.py", line 599, in updateExplore
+>    if rest[-1] == ':':l+= rest
+>  File "D:\Data\Python\sm\wxp\realtime.py", line 32, in SetPyData
+>    self.wx.SetPyData(item.wx,data)
+>  File "C:\Python23\Lib\site-packages\wx-2.5.3-msw-ansi\wx\_controls.py", line 5166, in SetItemPyData
+>    return _controls_.TreeCtrl_SetItemPyData(*args, **kwargs)
+>wx._core.PyAssertionError: C++ assertion "wxAssertFailure" failed in ..\..\src\msw\treectrl.cpp(1166): invalid tree item
+>"""
+>
+>class Tree(Base):
+>    def __init__(self,*args,**kwds):
+>        self.items          = {}
+>        self.wx             = wx.TreeCtrl(*args,**kwds)
+>        self.Connect        = self.wx.Connect
+>        self.GetId          = self.wx.GetId
+>        self.SetBackgroundColour = self.wx.SetBackgroundColour
+>        
+>    def AddRoot(self,text):
+>        self.root           = TreeItem(text=text,id=text)
+>        self.items[text]    = self.root
+>        self.root.wx        = self.wx.AddRoot(text)
+>        self.wx.Expand(self.root.wx)
+>        return self.root
+>        
+>    def AppendItem(self,parent,text):
+>        id                  = '%s|%s'%(parent.id,text)
+>        children            = parent.children
+>        #try to find item
+>        item            = None
+>        if id in self.items.keys() or id[:-1] in self.items.keys():
+>            i               = 0
+>            while i<len(children) and not item:
+>                child       = children[i]
+>                if child.confirmed:
+>                    i       +=1
+>                else:
+>                    if id == child.id:
+>                        item            = child
+>                        item.confirmed  = 1
+>                    elif id[:-1] == child.id:
+>                        item            = child
+>                        item.id         = id
+>                        item.confirmed  = 1
+>                        self.wx.SetItemText(item.wx,text)
+>                        self.items[id]  = item
+>                        del self.items[id[:-1]]
+>                    else:
+>                        self.wx.Delete(child.wx)
+>                        if self.items.has_key(child.id):
+>                            del self.items[child.id]
+>                        del children[i]
+>        if not item:
+>            item            = TreeItem(text=text,id=id)
+>            self.items[id]  = item
+>            i = 0
+>            n = len(children)
+>            while i<n and children[i].confirmed:
+>                i+=1
+>            if i>0:
+>                item.wx         = self.wx.InsertItem(parent.wx,children[i-1].wx,text)
+>            else:
+>                item.wx         = self.wx.PrependItem(parent.wx,text)
+>            parent.children.insert(i,item)
+>        return item
+>        
+>    def Clean(self):
+>        self.root.confirmed = 1
+>        for id,item in self.items.items():
+>            if not item.confirmed:
+>                try:
+>                    if not item.deleted:
+>                        item.DeleteChildren();
+>                        self.wx.Delete(item.wx)
+>                except:
+>                    print 'Warning: Tree.clean: please contact spe.stani.be at gmail.com'
+>                del self.items[id]
+>##        self.root.confirmed = 1
+>##        clear_id = []
+>##        clear_item = []
+>##        for id,item in self.items.items():
+>##            if not item.confirmed:
+>##                clear_id.append(id)
+>##                clear_item.append(item)
+>##        for i in range(len(clear_id)):
+>##            del (clear_id[i])
+>##            del (clear_item[i])
+>
+>        
+>    def Collapse(self,item):
+>        if self.wx.IsExpanded(item.wx):
+>            self.wx.Collapse(item.wx)
+>            
+>    def CollapseAndReset(self,item):
+>        """Recursively"""
+>        item.confirmed      = 0
+>        for child in item.children:
+>            self.CollapseAndReset(child)
+>           
+>    def Expand(self,item):
+>        if not self.wx.IsExpanded(item.wx):
+>            self.wx.Expand(item.wx)
+>            
+>            
+>    def SetItemBackgroundColour(self,item,color):
+>        if item.backgroundColour != color:
+>            item.backgroundColour = color
+>            self.wx.SetItemBackgroundColour(item.wx,color)
+>            
+>    def SetItemBold(self,item):
+>        if not item.bold:
+>            item.bold = 1
+>            self.wx.SetItemBold(item.wx)
+>        
+>    def SetItemImage(self,item,image,which=wx.TreeItemIcon_Normal):
+>        if not item.image.has_key(which) or item.image[which]!= image:
+>            item.image[which] = image
+>            self.wx.SetItemImage(item.wx,image,which)
+>        
+>    def SetItemTextColour(self,item,color):
+>        if item.textColour != color:
+>            item.textColour = color
+>            self.wx.SetItemTextColour(item.wx,color)
+>            
+>        
+>class ListItem:
+>    def __init__(self,parent,row,*text):
+>        self.listCtrl           = parent.wx
+>        self.children           = parent.children
+>        self.row                = row
+>        self.text               = text
+>        #
+>        self.id                 = '|'.join(text)
+>        self.image              = None
+>        self.backgroundColour   = wx.Colour(255,255,255)
+>        self.confirmed          = 1
+>        self.data               = None
+>        self.textColour         = None
+>        
+>    def wx(self):
+>        return self.children.index(self)
+>        
+>class ListCtrl(Base):
+>    def __init__(self,*args,**kwds):
+>        self.items          = {}
+>        self.children       = []
+>        self.wx             = wx.ListCtrl(*args,**kwds)
+>        self.Connect        = self.wx.Connect
+>        self.GetId          = self.wx.GetId
+>        self.InsertColumn   = self.wx.InsertColumn
+>        
+>    def Clean(self):
+>        for id,item in self.items.items():
+>            if not item.confirmed:
+>                try:
+>                    self.wx.DeleteItem(self.children.index(item))
+>                except:
+>                    print 'Warning: List.clean: please contact s_t_a_n_i at yahoo.com'
+>                self.children.remove(item)
+>                del self.items[id]
+>                
+>    def DeleteAllItems(self):
+>        for child in self.children:
+>            child.confirmed = 0
+>            
+>    def DeleteItem(self,item):
+>        self.wx.DeleteItem(item.wx)
+>        self.children.remove(item)
+>        del self.items[item.id]
+>    
+>    def GetItem(self,item):
+>        return self.wx.GetItem(item.wx())
+>        
+>    def GetItemData(self,item):
+>        return self.wx.GetPyData(item)
+>        
+>    def InsertStringItem(self,row,*text):
+>        item            = None
+>        id              = '|'.join(text)
+>        if id in self.items.keys() or id[:-1] in self.items.keys():
+>            i               = 0
+>            while i<len(self.children) and not item:
+>                child       = self.children[i]
+>                if child.confirmed:
+>                    i       +=1
+>                else:
+>                    if id == child.id:
+>                        item            = child
+>                        item.confirmed  = 1
+>                    elif id[:-1] == child.id:
+>                        item            = child
+>                        item.id         = id
+>                        item.text       = text
+>                        item.confirmed  = 1
+>                        column          = 0
+>                        for t in item.text:
+>                            self.wx.SetStringItem(item.wx(),column,t)
+>                            column      += 1
+>                        self.items[id]   = item
+>                        del self.items[id[:-1]]
+>                    else:
+>                        self.wx.DeleteItem(child.wx())
+>                        self.children.remove(child)
+>                        del self.items[child.id]
+>        if not item:
+>            item    = ListItem(self,row,*text)
+>            w       = self.wx.InsertStringItem(row,text[0])
+>            i       = 0
+>            for t in text[1:]:
+>                i   += 1
+>                self.wx.SetStringItem(w,i,t)
+>            self.children.insert(row,item)
+>            self.items[id]=item
+>        return item
+>        
+>    def InsertImageStringItem(self,row,icon,*text):
+>        item = self.InsertStringItem(row,*text)
+>        self.SetItemImage(item,icon,icon)
+>        return item
+>        
+>    def SetItemImage(self,item,*image):
+>        if item.image != image:
+>            item.image = image
+>            self.wx.SetItemImage(item.wx(),*image)
+>        
+>    def SetHelpText(self,*args,**kwds):
+>        self.wx.SetHelpText(*args,**kwds)
+>        
+>    def SetItem(self,item):
+>        self.wx.SetItem(item)
+>        
+>    def SetItemData(self,item,data):
+>        if item.data != data:
+>            item.data = data
+>            self.wx.SetItemData(item.wx(),data)
+>        
+>    def SetItemTextColour(self,item,colour):
+>        if item.textColour != colour:
+>            item.textColour = colour
+>            i = self.wx.GetItem(item.wx())
+>            i.SetTextColour(colour)
+>            self.wx.SetItem(i)
+>
+>
+>  
+>
+
+
+
+From spe.stani.be at gmail.com  Fri Nov  4 14:57:17 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Fri, 4 Nov 2005 14:57:17 +0100
+Subject: [spe-dev] Bug 4856 on *nix: class crash -> FIXED: URGENT PLEASE CHECK!!
+In-Reply-To: <436B5017.4090408@verizonwireless.com>
+References: <78E6A2FC276AD8428A8E2DBBB540855E01C690C0@NYOBGCEXMB21.uswin.ad.vzwcorp.com>
+	 <436B5017.4090408@verizonwireless.com>
+Message-ID: <2078a7ad0511040557i6d91b701nd08cc423b5f9e272@mail.gmail.com>
+
+On 11/4/05, Bill Scherer <bill.scherer at verizonwireless.com> wrote:
+>
+>
+> It's not helping with 0.7.5.d on FC4. :-(
+>
+> I guess I should try it with .e...
+
+
+Or better with subversion!
+
+I looked deeper in the subject and I almost completely rewrote the
+realtime.Tree control, which should now be much more stable than before and
+even avoid flickering. Please use the latest subversion or overwrite these
+two files _spe/Child.py and _spe/sm/wxp/realtime.py
+Check only for this specific bug. I have to rewrite the realtime.List in a
+similar way. So only try the class explorer, todo and index might now be
+buggy. But if the class explorer works well, I can solve the rest.
+
+If it doesn't work please send the debug.txt.
+
+Stani
+
+PS If you reply, only quote relevant portions and remove the attachments.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051104/089097e0/attachment.html>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: realtime.py
+Type: text/x-python
+Size: 11751 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051104/089097e0/attachment.py>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: Child.py
+Type: text/x-python
+Size: 44926 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051104/089097e0/attachment-0001.py>
+
+From crass at berlios.de  Fri Nov  4 16:58:13 2005
+From: crass at berlios.de (Glenn Washburn)
+Date: Fri, 4 Nov 2005 09:58:13 -0600
+Subject: [spe-dev] fixes to new realtime.py
+Message-ID: <20051104095813.5a31740e@laptop>
+
+I haven't done much explicit testing of the new code in realtime.py.
+But I did find a couple bugs during usage.  The fixes are in
+spe.realtime.patch, and are self explanatory.  I've also included a
+patch to Child.y, which provides the which tab update function was
+called to trigger to the exception in updateSidebar.  Also, I haven't
+changed, but thing should be changed, the error message.  Not all
+exceptions are going to be Bug #4627.  I haven't looked into it, but I
+think that error message could be more appropriately/accurately placed.
+
+Glenn
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: spe.Child.patch
+Type: application/octet-stream
+Size: 988 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051104/1365a8a3/attachment.obj>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: spe.realtime.patch
+Type: application/octet-stream
+Size: 783 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051104/1365a8a3/attachment-0001.obj>
+
+From crass at berlios.de  Fri Nov  4 18:17:57 2005
+From: crass at berlios.de (Glenn Washburn)
+Date: Fri, 4 Nov 2005 11:17:57 -0600
+Subject: [spe-dev] patch: fix for bug 4627
+Message-ID: <20051104111757.6aac4643@laptop>
+
+Bug 4627 occurs in updateTodo because the self.previousTodoHighlights
+contains some stale items (that is items not actually in the ListCtrl
+anymore).  When trying to retrieve these items a ValueError exception
+is thrown from ListItem.wx, since the item has already be removed from
+its parents children list. Since the item should already be Deleted it
+can be ignored. I recommend also that ListItem.children be renamed to
+ListItem.siblings, as then the name would actually have a correct
+meaning. Note, this patch contains my previous patch spe.Child.py.
+
+Glenn
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: spe.bug4627.patch
+Type: application/octet-stream
+Size: 1637 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051104/7b7a1bae/attachment.obj>
+
+From ziade.tarek at gmail.com  Fri Nov  4 18:35:12 2005
+From: ziade.tarek at gmail.com (=?ISO-8859-1?Q?Tarek_Ziad=E9?=)
+Date: Fri, 4 Nov 2005 18:35:12 +0100
+Subject: [spe-dev] patch: fix for bug 4627
+In-Reply-To: <20051104111757.6aac4643@laptop>
+References: <20051104111757.6aac4643@laptop>
+Message-ID: <94bdd2610511040935u4fac6db3sce623656e26cdba3@mail.gmail.com>
+
+Hello,
+
+This would be simpler to commit the bugfix in svn for the current trunk
+so we can just do a "svn up" to get your fix
+
+Regards
+
+Tarek
+
+On 11/4/05, Glenn Washburn <crass at berlios.de> wrote:
+> Bug 4627 occurs in updateTodo because the self.previousTodoHighlights
+> contains some stale items (that is items not actually in the ListCtrl
+> anymore).  When trying to retrieve these items a ValueError exception
+> is thrown from ListItem.wx, since the item has already be removed from
+> its parents children list. Since the item should already be Deleted it
+> can be ignored. I recommend also that ListItem.children be renamed to
+> ListItem.siblings, as then the name would actually have a correct
+> meaning. Note, this patch contains my previous patch spe.Child.py.
+>
+> Glenn
+>
+>
+
+
+From spe.stani.be at gmail.com  Fri Nov  4 19:26:37 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Fri, 4 Nov 2005 19:26:37 +0100
+Subject: [spe-dev] patch: fix for bug 4627
+In-Reply-To: <20051104111757.6aac4643@laptop>
+References: <20051104111757.6aac4643@laptop>
+Message-ID: <2078a7ad0511041026u4597c6d7rdc9bcd2b02692d8b@mail.gmail.com>
+
+Hi,
+
+Thanks Glenn, but right now I don't have time to dive into it. However
+a fast reaction...
+
+As I said before I DO expect bugs for updateTodo and updateIndex. I
+will rewrite the whole code for todo and index (sm/wxp/realtime.List &
+ListItem), but first I need to know if the updateExplore
+(realtime.Tree) works ok. When I rewrite the code I'll look to Glens
+patches, but I know already what has to be done.
+
+So try out SPE without touching the sidebar (= switching to todo or
+index), type eg class something and press backspace and see if SPE
+crashes.
+
+I think whe sm/wxp/realtime.py is fine, a major step has been set.
+
+Stani
+
+On 11/4/05, Glenn Washburn <crass at berlios.de> wrote:
+> Bug 4627 occurs in updateTodo because the self.previousTodoHighlights
+> contains some stale items (that is items not actually in the ListCtrl
+> anymore).  When trying to retrieve these items a ValueError exception
+> is thrown from ListItem.wx, since the item has already be removed from
+> its parents children list. Since the item should already be Deleted it
+> can be ignored. I recommend also that ListItem.children be renamed to
+> ListItem.siblings, as then the name would actually have a correct
+> meaning. Note, this patch contains my previous patch spe.Child.py.
+>
+> Glenn
+>
+>
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From czhang.cmu at gmail.com  Sat Nov  5 03:22:24 2005
+From: czhang.cmu at gmail.com (Cheng Zhang)
+Date: Sat, 5 Nov 2005 10:22:24 +0800
+Subject: Fwd: [spe-dev] Configuration of your system
+References: <2078a7ad0511041014t63acdfe3y46784879d56b2b2b@mail.gmail.com>
+Message-ID: <01230063-C4CE-4D87-9E9C-B40AB7BD80CF@gmail.com>
+
+Begin forwarded message:
+
+> From: SPE Stani's Python Editor <spe.stani.be at gmail.com>
+> Date: November 5, 2005 2:14:30 AM CST
+> To: Cheng Zhang <czhang.cmu at gmail.com>
+> Subject: Re: [spe-dev] Configuration of your system
+>
+> Something we can explore later is it wxMac crashes with all  
+> wxGenericDirCtrl or specifically with the filtered one which SPE  
+> uses. So there might be still an option. Does anybody know who  
+> works on wxMac at the moment? Maybe it might help to get in contact  
+> with them.
+> Stani
+>
+> On 11/4/05, Cheng Zhang <czhang.cmu at gmail.com> wrote: Yes, I  
+> reported the bug to wxWidgets as bug 1348373 (http://
+> sourceforge.net/tracker/index.php?
+> func=detail&aid=1348373&group_id=9863&atid=109863).
+>
+> I agree that "disable the dircontrol for the Mac" is a temporary
+> solution until the bug is fixed upstream, at least people can run
+> latest SPE code on Mac instead of nothing.
+>
+> - Cheng
+>
+> On Nov 3, 2005, at 12:59 PM, SPE Stani's Python Editor wrote:
+>
+> > So, what should I do, disable the dircontrol for the Mac ;-( ? Is
+> > this reported as a bug already?
+> > Stani
+> >
+> > On 11/3/05, Cheng Zhang <czhang.cmu at gmail.com > wrote: The
+> > GenericDirCtrl doesn't always works. It seems to me that has
+> > something to do with the order I run the demos.
+> > For example, if I run Editor or GenericButtons first, GenericDirCtrl
+> > definitely works; but if I run ColourSelect first, it definitely
+> > doesn't work, with the same assertion error I reported before. So
+> > this should be a bug of wxPython on Mac, instead of SPE's.
+
+
+
+
+From czhang.cmu at gmail.com  Sat Nov  5 04:01:59 2005
+From: czhang.cmu at gmail.com (Cheng Zhang)
+Date: Sat, 5 Nov 2005 11:01:59 +0800
+Subject: [spe-dev] Configuration of your system
+In-Reply-To: <2078a7ad0511041014t63acdfe3y46784879d56b2b2b@mail.gmail.com>
+References: <2078a7ad0511011943r2cbaaecbjb0024ca0f0432235@mail.gmail.com> <09340283-A81F-4F03-9B65-158F69108ED8@gmail.com> <2078a7ad0511021004q6dcfc32cxab268f61a3b526a8@mail.gmail.com> <3EA81E6B-97CC-4881-A127-447EE6FFEEEA@gmail.com> <2078a7ad0511021041r46deabe4u50339374316bfdbf@mail.gmail.com> <A939282A-13F3-4B86-9A7B-3DC92C48B5D5@gmail.com> <2078a7ad0511022059o43077a3ejbee765378d0ff9a6@mail.gmail.com> <FF304A81-3141-40AA-81E7-972750C61F6D@gmail.com> <2078a7ad0511041014t63acdfe3y46784879d56b2b2b@mail.gmail.com>
+Message-ID: <38FF0B99-45FB-4269-ABCF-706B9BCA340F@gmail.com>
+
+Stani
+
+If I understand you correctly, all three styles of wxGenericDirCtrl  
+crash with same C++ assertion exception.
+The demo code from wxPython demo is:
+[code]
+txt1 = wx.StaticText(self, -1, "style=0")
+dir1 = wx.GenericDirCtrl(self, -1, size=(200,225), style=0)
+
+txt2 = wx.StaticText(self, -1, "wx.DIRCTRL_DIR_ONLY")
+dir2 = wx.GenericDirCtrl(self, -1, size=(200,225),  
+style=wx.DIRCTRL_DIR_ONLY)
+
+txt3 = wx.StaticText(self, -1, "wx.DIRCTRL_SHOW_FILTERS")
+dir3 = wx.GenericDirCtrl(self, -1, size=(200,225),  
+style=wx.DIRCTRL_SHOW_FILTERS,
+                         filter="All files (*.*)|*.*|Python files  
+(*.py)|*.py")
+[/code]
+Each time I commented out any two of them to test, but the exception  
+was always there while initializing wxGenericDirCtrl object.
+
+- Cheng
+
+On Nov 5, 2005, at 2:14 AM, SPE Stani's Python Editor wrote:
+
+> Something we can explore later is it wxMac crashes with all  
+> wxGenericDirCtrl or specifically with the filtered one which SPE  
+> uses. So there might be still an option. Does anybody know who  
+> works on wxMac at the moment? Maybe it might help to get in contact  
+> with them.
+> Stani
+
+
+
+
+From crass at berlios.de  Sat Nov  5 04:47:27 2005
+From: crass at berlios.de (Glenn Washburn)
+Date: Fri, 4 Nov 2005 21:47:27 -0600
+Subject: [spe-dev] patch: fix for bug 4627
+In-Reply-To: <94bdd2610511040935u4fac6db3sce623656e26cdba3@mail.gmail.com>
+References: <20051104111757.6aac4643@laptop>
+	<94bdd2610511040935u4fac6db3sce623656e26cdba3@mail.gmail.com>
+Message-ID: <20051104214727.7e7f04a5@laptop>
+
+I believe I would need authorization to do so.  I have a berlios
+account, but I don't have svn access.  I'm not sure I'll be
+contributing enough to warrant svn access either.  I'm just fixing bugs
+that hinder my using spe.
+
+Glenn
+
+On Fri, 4 Nov 2005 18:35:12 +0100
+Tarek Ziad? <ziade.tarek at gmail.com> wrote:
+
+> _______________________________________________
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> _______________________________________________ Hello,
+> 
+> This would be simpler to commit the bugfix in svn for the current
+> trunk so we can just do a "svn up" to get your fix
+> 
+> Regards
+> 
+> Tarek
+> 
+> On 11/4/05, Glenn Washburn <crass at berlios.de> wrote:
+> > Bug 4627 occurs in updateTodo because the
+> > self.previousTodoHighlights contains some stale items (that is
+> > items not actually in the ListCtrl anymore).  When trying to
+> > retrieve these items a ValueError exception is thrown from
+> > ListItem.wx, since the item has already be removed from its parents
+> > children list. Since the item should already be Deleted it can be
+> > ignored. I recommend also that ListItem.children be renamed to
+> > ListItem.siblings, as then the name would actually have a correct
+> > meaning. Note, this patch contains my previous patch spe.Child.py.
+> >
+> > Glenn
+> >
+> >
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+
+
+From csomor at advancedconcepts.ch  Sat Nov  5 07:07:22 2005
+From: csomor at advancedconcepts.ch (Stefan Csomor)
+Date: Sat, 5 Nov 2005 07:07:22 +0100
+Subject: [spe-dev] Configuration of your system
+Message-ID: <834A07D804766B43A535AC6861D6D86742A1F6@advanced-3ynlwj.advancedconcepts.ch>
+
+Hi 
+
+> > Something we can explore later is it wxMac crashes with all 
+> > wxGenericDirCtrl or specifically with the filtered one 
+> which SPE uses. 
+> > So there might be still an option. Does anybody know who works on 
+> > wxMac at the moment? Maybe it might help to get in contact 
+> with them.
+> > Stani
+
+wxMac is still mostly me... I have checked the wxGenericDirDialog which
+also uses the wxGenericDirCtrl and it still works correctly, could you
+please send me a trace log, this perhaps helps to find out, what goes
+wrong and where ...
+
+Thanks,
+
+Stefan
+
+
+From spe.stani.be at gmail.com  Sat Nov  5 12:24:17 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Sat, 5 Nov 2005 12:24:17 +0100
+Subject: [spe-dev] patch: fix for bug 4627
+In-Reply-To: <20051104214727.7e7f04a5@laptop>
+References: <20051104111757.6aac4643@laptop>
+	 <94bdd2610511040935u4fac6db3sce623656e26cdba3@mail.gmail.com>
+	 <20051104214727.7e7f04a5@laptop>
+Message-ID: <2078a7ad0511050324p184b9dd2i69a97b7db199437b@mail.gmail.com>
+
+I like very much that people send patches and I would like to stimulate that
+as much as possible. However I believe for now it is better if I apply them
+in the SVN. I hope later I could give other people as well SVN rights, but
+the patches now still need my revision.
+
+Stani
+
+On 11/5/05, Glenn Washburn <crass at berlios.de> wrote:
+>
+> _______________________________________________
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate_______________________________________________
+> I believe I would need authorization to do so. I have a berlios
+> account, but I don't have svn access. I'm not sure I'll be
+> contributing enough to warrant svn access either. I'm just fixing bugs
+> that hinder my using spe.
+>
+> Glenn
+>
+> On Fri, 4 Nov 2005 18:35:12 +0100
+> Tarek Ziad? <ziade.tarek at gmail.com> wrote:
+>
+> > _______________________________________________
+> > http://pythonide.stani.be
+> > http://pythonide.stani.be/manual/html/manual.html
+> > http://pythonide.stani.be/blog/sm_donate
+> > _______________________________________________ Hello,
+> >
+> > This would be simpler to commit the bugfix in svn for the current
+> > trunk so we can just do a "svn up" to get your fix
+> >
+> > Regards
+> >
+> > Tarek
+> >
+> > On 11/4/05, Glenn Washburn <crass at berlios.de> wrote:
+> > > Bug 4627 occurs in updateTodo because the
+> > > self.previousTodoHighlights contains some stale items (that is
+> > > items not actually in the ListCtrl anymore). When trying to
+> > > retrieve these items a ValueError exception is thrown from
+> > > ListItem.wx, since the item has already be removed from its parents
+> > > children list. Since the item should already be Deleted it can be
+> > > ignored. I recommend also that ListItem.children be renamed to
+> > > ListItem.siblings, as then the name would actually have a correct
+> > > meaning. Note, this patch contains my previous patch spe.Child.py<http://spe.Child.py>
+> .
+> > >
+> > > Glenn
+> > >
+> > >
+> > _______________________________________________
+> > Python-spe-dev mailing list
+> > Python-spe-dev at lists.berlios.de
+> > http://lists.berlios.de/mailman/listinfo/python-spe-dev
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051105/df115fe2/attachment.html>
+
+From czhang.cmu at gmail.com  Sat Nov  5 16:38:55 2005
+From: czhang.cmu at gmail.com (Cheng Zhang)
+Date: Sat, 5 Nov 2005 23:38:55 +0800
+Subject: [spe-dev] Configuration of your system
+In-Reply-To: <834A07D804766B43A535AC6861D6D86742A1F6@advanced-3ynlwj.advancedconcepts.ch>
+References: <834A07D804766B43A535AC6861D6D86742A1F6@advanced-3ynlwj.advancedconcepts.ch>
+Message-ID: <014F6E74-E07B-4C1F-8E0F-1C6B4C957CD1@gmail.com>
+
+Stefan
+
+I couldn't find a GenericDirDialog demo in the wxPython demo. There  
+is only a DirDialog in "Common Dialogs" category, which uses OS'  
+native dir dialog, while GenericDirCtrl looks like a custom-drawn  
+widget instead of a native one.
+
+I reported this as SPE bug#5508. The SPE debug.txt is posted there,  
+if that is trace log you are talking about. If not, please tell me  
+how to generate it.
+I also reported this as wxWidgets bug#1348373 after feedback from  
+Stani. I noticed that you have responded to it. Now I just need to  
+figure out how to make a wxPython build to test it.
+It will be better if you can point out some pointers on how to debug  
+such problem, I'd happy to learn that.
+
+Thanks.
+- Cheng
+
+On Nov 5, 2005, at 2:07 PM, Stefan Csomor wrote:
+
+> wxMac is still mostly me... I have checked the wxGenericDirDialog  
+> which
+> also uses the wxGenericDirCtrl and it still works correctly, could you
+> please send me a trace log, this perhaps helps to find out, what goes
+> wrong and where ...
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051105/b65d4663/attachment.html>
+
+From csomor at advancedconcepts.ch  Sat Nov  5 16:26:29 2005
+From: csomor at advancedconcepts.ch (Stefan Csomor)
+Date: Sat, 5 Nov 2005 16:26:29 +0100
+Subject: [spe-dev] Configuration of your system
+Message-ID: <834A07D804766B43A535AC6861D6D86742A1F9@advanced-3ynlwj.advancedconcepts.ch>
+
+Hi Cheng
+ 
+the best thing for me always is a stack-trace together with the assert,
+this helps me to figure out on the C++ what might be going on. So the
+trace log as posted in the SPE bug report is the best help for me.
+ 
+Thanks,
+ 
+Stefan
+
+
+  _____  
+
+	From: python-spe-dev-admin at berlios.de
+[mailto:python-spe-dev-admin at berlios.de] On Behalf Of Cheng Zhang
+	Sent: Samstag, 5. November 2005 16:39
+	To: python-spe-dev at berlios.de
+	Subject: Re: [spe-dev] Configuration of your system
+	
+	
+	Stefan
+
+	I couldn't find a GenericDirDialog demo in the wxPython demo.
+There is only a DirDialog in "Common Dialogs" category, which uses OS'
+native dir dialog, while GenericDirCtrl looks like a custom-drawn widget
+instead of a native one.
+
+	I reported this as SPE bug#5508
+<http://developer.berlios.de/bugs/?func=detailbug&bug_id=5508&group_id=4
+161> . The SPE debug.txt is posted there, if that is trace log you are
+talking about. If not, please tell me how to generate it.
+	I also reported this as wxWidgets bug#1348373
+<http://sourceforge.net/tracker/?func=detail&atid=109863&aid=1348373&gro
+up_id=9863>  after feedback from Stani. I noticed that you have
+responded to it. Now I just need to figure out how to make a wxPython
+build to test it.
+	It will be better if you can point out some pointers on how to
+debug such problem, I'd happy to learn that.
+
+	Thanks.
+	- Cheng
+
+	On Nov 5, 2005, at 2:07 PM, Stefan Csomor wrote:
+
+
+		wxMac is still mostly me... I have checked the
+wxGenericDirDialog which
+		also uses the wxGenericDirCtrl and it still works
+correctly, could you
+		please send me a trace log, this perhaps helps to find
+out, what goes
+		wrong and where ...
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051105/55df9b1a/attachment.html>
+
+From crass at berlios.de  Mon Nov  7 16:49:01 2005
+From: crass at berlios.de (Glenn Washburn)
+Date: Mon, 7 Nov 2005 09:49:01 -0600
+Subject: [spe-dev] remembering files out of order, patch to fix file reloading
+Message-ID: <20051107094901.4ffe8730@laptop>
+
+Why is it that the active tab is moved to the last tab when saving the
+remembered files? (see lines 644 and 645 of Parent.py)  Since it
+actually took work to do this (as opposed to forgetting not to do it),
+I can only assume this is a feature.  However, I find this feature to
+be a little annoying.  If there's a reason for this, I'd be interested
+in hearing it. (for now I'm satisfied with commenting those lines)
+
+  Also, I would like to suggest a feature to anyone so inclined (which
+may be me).  It would be nice to be able to position the tabs.  I'm
+thinking arrows to the right and left of all the tabs, which move the
+active tab left or right when clicked.
+
+  I've attached a patch to fix some problems with file reloading (when
+the file has changed on disk from a source outside the SPE editor).
+self.fileTime should be updated in Panel.revert() and set in
+Panel.__init__() if a fileName is given and not 'unnamed'.
+
+Glenn
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: spe.filereload.patch
+Type: application/octet-stream
+Size: 820 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051107/0fa9d196/attachment.obj>
+
+From spe.stani.be at gmail.com  Mon Nov  7 19:17:56 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Mon, 7 Nov 2005 19:17:56 +0100
+Subject: [spe-dev] remembering files out of order, patch to fix file reloading
+In-Reply-To: <20051107094901.4ffe8730@laptop>
+References: <20051107094901.4ffe8730@laptop>
+Message-ID: <2078a7ad0511071017u68d60462l4ac3698fb6d3572@mail.gmail.com>
+
+Hi Glenn,
+> Why is it that the active tab is moved to the last tab when saving the
+> remembered files? (see lines 644 and 645 of Parent.py)  Since it
+> actually took work to do this (as opposed to forgetting not to do it),
+> I can only assume this is a feature.  However, I find this feature to
+> be a little annoying.  If there's a reason for this, I'd be interested
+> in hearing it. (for now I'm satisfied with commenting those lines)
+This was just a lazy trick to make sure that that the last active tab
+becomes again the active tab, when SPE is restarted. As I never gave
+importance to tab order, I didn't think further about it. But now I do
+and probably it would be better if SPE preserves the tab order and
+switches to the last active one. This shouldn't be difficult to
+implement by changing the format for remember.txt Now it is a
+str(list) of (filename,linenr, column). You could make a dictionary
+{'active':2,'files':[(x,x,x)]}
+
+>  Also, I would like to suggest a feature to anyone so inclined (which
+> may be me).  It would be nice to be able to position the tabs.  I'm
+> thinking arrows to the right and left of all the tabs, which move the
+> active tab left or right when clicked.
+The best would be to create a custom wx.NotebookCtrl independent from
+SPE. Instead of arrows, I would prefer a drag and drop mechanism, in
+which you give dragging feedback by altering colours.Adding arrows in
+every tab is an overkill. It should be central or even better with a
+context menu with option as move left,right, first,last & close.In
+fact in SPE you'll find already the base code for this. Right now
+middle clicking or right clicking closes a tab.You could replace
+easily right clicking with a context menu.
+
+>  I've attached a patch to fix some problems with file reloading (when
+> the file has changed on disk from a source outside the SPE editor).
+> self.fileTime should be updated in Panel.revert() and set in
+> Panel.__init__() if a fileName is given and not 'unnamed'.
+Great, I'll look at it. Some users reported this issue. It is nice
+that you fixed it.
+
+Stani
+
+
+From spe.stani.be at gmail.com  Tue Nov  8 03:00:59 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Tue, 8 Nov 2005 03:00:59 +0100
+Subject: [spe-dev] realtime.py & mini-roadmap & patches
+Message-ID: <2078a7ad0511071800m5616b94fn20c6189b39ed80aa@mail.gmail.com>
+
+Hi,
+SVN is down. This file _spe/sm/wxp/realtime.py fixes a bug with the
+explorer tree. More bugs with the explore tree are welcome, as this is
+at the core of SPE, as such it has to be fast & bullet proof. I need
+still to rewrite it for the listctrl. I just provide it for those who
+like to work with the latest files. This week I won't have too much
+time. My mini roadmap is now:
+- fix realtime.py
+- disable genericdirctrl in child.py for mac
+- fix smdi.py
+- test these core files on the mac
+- first alpha release 0.8.0.a
+
+If they are not well written, SPE can never be stable on any platform.
+I'll take care of them and if I need help with it, I will do. But for
+now it is ok and no patches for these files are necessary.
+and at the same time apply all patches which are brought you.
+
+This week I will be a bit less responsive till next Tuesday, but I'll
+try to work on SPE on lost moments.
+
+Glenn, don't worry all your patches will make their way to SVN. Maybe
+it's time for a more sofisticated remember state: which stores all
+possible properties of a SPE child window, like its size, position,
+... If you want to make an independent  custom wxNotebook class to
+make moving tabs possible, I will only support it and integrate it in
+SPE. Also I prefer patches as whole files. I use winmerge which is
+very easy to work with whole files and my files might have changed in
+the meantime. You could send them also privately if it would too much
+spam this list.
+
+Stani
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: realtime.py
+Type: text/x-python
+Size: 12063 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051108/6e00f79e/attachment.py>
+
+From crass at berlios.de  Wed Nov  9 21:20:11 2005
+From: crass at berlios.de (Glenn Washburn)
+Date: Wed, 9 Nov 2005 14:20:11 -0600
+Subject: [spe-dev] Bug in realtime.py
+Message-ID: <20051109142011.7c892423@laptop>
+
+There is a bug in realtime.py where a deleted wx.TreeItemId is being
+reused, causing a crash.  This can be created by creating a function
+(eg: 'def test(): pass').  Copy and paste the function in the same
+source window, such that there are now two functions of the same name
+and defined exactly the same.  Now modify the name of the copied
+function.  This causes a crash under gtk, and I would suspect other
+problems on other platforms.
+
+I've spent some time debugging this, but haven't come up with a
+satisfactory patch.  If one adds 'assert not to.deleted' at the
+beginning of Tree.CopyItemTo, then instead of a crash the exception is
+caught and the improper error message is displayed (which I've noted in
+previous emails).  This indicated that a deleted item is being reused.
+Since Tree.CopyItemTo is only called in Tree._Update, where an unused
+item is reused, but there is no check to determine is the widget has
+been deleted.  I've fixed this, however there are still problems with
+the tree not removing the old item.
+
+I believe that some where in the mix there is a problem being caused by
+the fact that Tree.items is indexed by the TreeItem.id, which is not
+unique in the above case, nor should it be assumed to be in general.  I
+think this is a problem that will require a fair amount of
+restructuring.
+
+Glenn
+
+
+From spe.stani.be at gmail.com  Thu Nov 10 17:40:42 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Thu, 10 Nov 2005 17:40:42 +0100
+Subject: [spe-dev] Bug in realtime.py
+In-Reply-To: <20051109142011.7c892423@laptop>
+References: <20051109142011.7c892423@laptop>
+Message-ID: <2078a7ad0511100840n7106cf19w97cbae78a96529b2@mail.gmail.com>
+
+Thanks, I'll try to fix that. I'm now travelling in Paris, so it will
+be only next week.
+Stani
+
+On 11/9/05, Glenn Washburn <crass at berlios.de> wrote:
+> _______________________________________________
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate _______________________________________________
+> There is a bug in realtime.py where a deleted wx.TreeItemId is being
+> reused, causing a crash.  This can be created by creating a function
+> (eg: 'def test(): pass').  Copy and paste the function in the same
+> source window, such that there are now two functions of the same name
+> and defined exactly the same.  Now modify the name of the copied
+> function.  This causes a crash under gtk, and I would suspect other
+> problems on other platforms.
+>
+> I've spent some time debugging this, but haven't come up with a
+> satisfactory patch.  If one adds 'assert not to.deleted' at the
+> beginning of Tree.CopyItemTo, then instead of a crash the exception is
+> caught and the improper error message is displayed (which I've noted in
+> previous emails).  This indicated that a deleted item is being reused.
+> Since Tree.CopyItemTo is only called in Tree._Update, where an unused
+> item is reused, but there is no check to determine is the widget has
+> been deleted.  I've fixed this, however there are still problems with
+> the tree not removing the old item.
+>
+> I believe that some where in the mix there is a problem being caused by
+> the fact that Tree.items is indexed by the TreeItem.id, which is not
+> unique in the above case, nor should it be assumed to be in general.  I
+> think this is a problem that will require a fair amount of
+> restructuring.
+>
+> Glenn
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From spe.stani.be at gmail.com  Fri Nov 11 15:51:00 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Fri, 11 Nov 2005 15:51:00 +0100
+Subject: [spe-dev] Bug in realtime.py
+In-Reply-To: <2078a7ad0511100840n7106cf19w97cbae78a96529b2@mail.gmail.com>
+References: <20051109142011.7c892423@laptop>
+	 <2078a7ad0511100840n7106cf19w97cbae78a96529b2@mail.gmail.com>
+Message-ID: <2078a7ad0511110651j37195a3dj147cbb8fbcbf6183@mail.gmail.com>
+
+I hope these patches fix the problem. I don't have acces to SVN now,
+so I send the files as an attachment:
+_spe/Child.py
+_spe/sm/wxp/realtime.py
+
+I tested it positively quickly, but more testing may be necessary.
+Still only test the Tree class through the class explorer.
+
+Glenn, thanks again for the bug report. It's important to get fast
+feedback on the code which is written now, as it is meant to make SPE
+stable.
+
+If these patches are stable I'll fix the ListCtrl for the index and todo.
+
+Stani
+
+On 11/10/05, SPE Stani's Python Editor <spe.stani.be at gmail.com> wrote:
+> Thanks, I'll try to fix that. I'm now travelling in Paris, so it will
+> be only next week.
+> Stani
+>
+> On 11/9/05, Glenn Washburn <crass at berlios.de> wrote:
+> > _______________________________________________
+> > http://pythonide.stani.be
+> > http://pythonide.stani.be/manual/html/manual.html
+> > http://pythonide.stani.be/blog/sm_donate _______________________________________________
+> > There is a bug in realtime.py where a deleted wx.TreeItemId is being
+> > reused, causing a crash.  This can be created by creating a function
+> > (eg: 'def test(): pass').  Copy and paste the function in the same
+> > source window, such that there are now two functions of the same name
+> > and defined exactly the same.  Now modify the name of the copied
+> > function.  This causes a crash under gtk, and I would suspect other
+> > problems on other platforms.
+> >
+> > I've spent some time debugging this, but haven't come up with a
+> > satisfactory patch.  If one adds 'assert not to.deleted' at the
+> > beginning of Tree.CopyItemTo, then instead of a crash the exception is
+> > caught and the improper error message is displayed (which I've noted in
+> > previous emails).  This indicated that a deleted item is being reused.
+> > Since Tree.CopyItemTo is only called in Tree._Update, where an unused
+> > item is reused, but there is no check to determine is the widget has
+> > been deleted.  I've fixed this, however there are still problems with
+> > the tree not removing the old item.
+> >
+> > I believe that some where in the mix there is a problem being caused by
+> > the fact that Tree.items is indexed by the TreeItem.id, which is not
+> > unique in the above case, nor should it be assumed to be in general.  I
+> > think this is a problem that will require a fair amount of
+> > restructuring.
+> >
+> > Glenn
+> > _______________________________________________
+> > Python-spe-dev mailing list
+> > Python-spe-dev at lists.berlios.de
+> > http://lists.berlios.de/mailman/listinfo/python-spe-dev
+> >
+>
+>
+> --
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+>
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: Child.py
+Type: application/octet-stream
+Size: 44841 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051111/ccbb9cc3/attachment.obj>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: realtime.py
+Type: application/octet-stream
+Size: 12864 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051111/ccbb9cc3/attachment-0001.obj>
+
+From crass at berlios.de  Fri Nov 11 21:53:07 2005
+From: crass at berlios.de (Glenn Washburn)
+Date: Fri, 11 Nov 2005 14:53:07 -0600
+Subject: [spe-dev] Bug in realtime.py
+In-Reply-To: <2078a7ad0511110651j37195a3dj147cbb8fbcbf6183@mail.gmail.com>
+References: <20051109142011.7c892423@laptop>
+	<2078a7ad0511100840n7106cf19w97cbae78a96529b2@mail.gmail.com>
+	<2078a7ad0511110651j37195a3dj147cbb8fbcbf6183@mail.gmail.com>
+Message-ID: <20051111145307.6bb28a97@laptop>
+
+The particular problem I addressed does not cause crashing any longer,
+however it still causes problems.  If you repeat the process, then
+double click on one of the tree items with the same parent as the
+function you duplicated and then changed the name of, an exception is
+thrown.  Somehow the data for the tree item is a string, whereas it
+should be a num (representing the line number).  Below is a backtrace,
+with the first two lines being my own output.  The first line is before
+the function duplication takes place and activating a tree item, and the
+second is after the duplication and activating a tree item.
+
+Glenn
+
+----- Back Trace -----
+onSourceFromExplore 266
+onSourceFromExplore OnNewProject(self, event)
+Traceback (most recent call last):
+  File "/usr/src/wxPython-src-2.6.1.0/wxPython/wx/lib/evtmgr.py", line
+442, in handleEvent self.publisher.sendMessage(topic=self.topic,
+data=event) File "/usr/src/wxPython-src-2.6.1.0/wxPython/wx/lib/
+pubsub.py", line 752, in sendMessage self.__deliveryCount += \
+  File "/usr/src/wxPython-src-2.6.1.0/wxPython/wx/lib/pubsub.py", line
+465, in sendMessage deliveryCount += node.sendMessage(message)
+  File "/usr/src/wxPython-src-2.6.1.0/wxPython/wx/lib/pubsub.py", line
+302, in sendMessage listener(message)
+  File "/usr/src/wxPython-src-2.6.1.0/wxPython/wx/lib/evtmgr.py", line
+480, in deliverEvent self.eventHandler(event)    # Perform the call as
+wxWindows would File "/root/spe_svn/spe/trunk/_spe/Child.py", line 896,
+in onSourceFromExplore self.scrollTo(line,select='line')
+  File "/root/spe_svn/spe/trunk/_spe/Child.py", line 1018, in scrollTo
+    source.EnsureVisible(line)
+  File "/usr/src/wxPython-src-2.6.1.0/wxPython/wx/stc.py", line 2868,
+in EnsureVisible return _stc.StyledTextCtrl_EnsureVisible(*args,
+**kwargs) TypeError: argument number 2: a 'number' is expected, 'unicode
+(OnNewProject(self, event))' is received
+
+On Fri, 11 Nov 2005 15:51:00 +0100
+"SPE Stani's Python Editor" <spe.stani.be at gmail.com> wrote:
+
+> I hope these patches fix the problem. I don't have acces to SVN now,
+> so I send the files as an attachment:
+> _spe/Child.py
+> _spe/sm/wxp/realtime.py
+> 
+> I tested it positively quickly, but more testing may be necessary.
+> Still only test the Tree class through the class explorer.
+> 
+> Glenn, thanks again for the bug report. It's important to get fast
+> feedback on the code which is written now, as it is meant to make SPE
+> stable.
+> 
+> If these patches are stable I'll fix the ListCtrl for the index and
+> todo.
+> 
+> Stani
+> 
+> On 11/10/05, SPE Stani's Python Editor <spe.stani.be at gmail.com> wrote:
+> > Thanks, I'll try to fix that. I'm now travelling in Paris, so it
+> > will be only next week.
+> > Stani
+> >
+> > On 11/9/05, Glenn Washburn <crass at berlios.de> wrote:
+> > > _______________________________________________
+> > > http://pythonide.stani.be
+> > > http://pythonide.stani.be/manual/html/manual.html
+> > > http://pythonide.stani.be/blog/sm_donate
+> > > _______________________________________________ There is a bug in
+> > > realtime.py where a deleted wx.TreeItemId is being reused,
+> > > causing a crash.  This can be created by creating a function (eg:
+> > > 'def test(): pass').  Copy and paste the function in the same
+> > > source window, such that there are now two functions of the same
+> > > name and defined exactly the same.  Now modify the name of the
+> > > copied function.  This causes a crash under gtk, and I would
+> > > suspect other problems on other platforms.
+> > >
+> > > I've spent some time debugging this, but haven't come up with a
+> > > satisfactory patch.  If one adds 'assert not to.deleted' at the
+> > > beginning of Tree.CopyItemTo, then instead of a crash the
+> > > exception is caught and the improper error message is displayed
+> > > (which I've noted in previous emails).  This indicated that a
+> > > deleted item is being reused. Since Tree.CopyItemTo is only
+> > > called in Tree._Update, where an unused item is reused, but there
+> > > is no check to determine is the widget has been deleted.  I've
+> > > fixed this, however there are still problems with the tree not
+> > > removing the old item.
+> > >
+> > > I believe that some where in the mix there is a problem being
+> > > caused by the fact that Tree.items is indexed by the TreeItem.id,
+> > > which is not unique in the above case, nor should it be assumed
+> > > to be in general.  I think this is a problem that will require a
+> > > fair amount of restructuring.
+> > >
+> > > Glenn
+> > > _______________________________________________
+> > > Python-spe-dev mailing list
+> > > Python-spe-dev at lists.berlios.de
+> > > http://lists.berlios.de/mailman/listinfo/python-spe-dev
+> > >
+> >
+> >
+> > --
+> > http://pythonide.stani.be
+> > http://pythonide.stani.be/manual/html/manual.html
+> >
+> 
+> 
+> --
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+
+
+From spe.stani.be at gmail.com  Mon Nov 14 18:50:18 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Mon, 14 Nov 2005 18:50:18 +0100
+Subject: [spe-dev] new notebookctrl
+Message-ID: <2078a7ad0511140950u6461a6bj396f420f786131a7@mail.gmail.com>
+
+Hi,
+As some people ask for a more advanced notebookctrl, this could be a
+good candidate. Only if it is stable, I'll use it for SPE. So please,
+try it it out and do some tough testing. It supports drag&drop, close
+button, ...
+Download it from here (at the bottom)
+http://xoomer.virgilio.it/infinity77
+Stani
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From czhang.cmu at gmail.com  Tue Nov 15 04:18:06 2005
+From: czhang.cmu at gmail.com (Cheng Zhang)
+Date: Tue, 15 Nov 2005 11:18:06 +0800
+Subject: [spe-dev] new notebookctrl
+In-Reply-To: <2078a7ad0511140950u6461a6bj396f420f786131a7@mail.gmail.com>
+References: <2078a7ad0511140950u6461a6bj396f420f786131a7@mail.gmail.com>
+Message-ID: <AE6F88E8-387D-4768-BB77-C643B116F290@gmail.com>
+
+It doesn't work "out-of-the-box" on Mac OS X (10.4.3) w/ wxPython  
+2.6.1.0.
+The tabs are missing, as you can see from the attached screenshot.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: notebookctrl_bug_osx.png
+Type: image/png
+Size: 125256 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051115/921f41d7/attachment.png>
+-------------- next part --------------
+
+On Nov 15, 2005, at 1:50 AM, SPE Stani's Python Editor wrote:
+
+> Hi,
+> As some people ask for a more advanced notebookctrl, this could be a
+> good candidate. Only if it is stable, I'll use it for SPE. So please,
+> try it it out and do some tough testing. It supports drag&drop, close
+> button, ...
+> Download it from here (at the bottom)
+> http://xoomer.virgilio.it/infinity77
+> Stani
+
+
+
+From spe.stani.be at gmail.com  Mon Nov 21 21:33:29 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Mon, 21 Nov 2005 21:33:29 +0100
+Subject: [spe-dev] SVN 70: realtime.py fixed? please test
+Message-ID: <2078a7ad0511211233v17c98b4bldb25a95b26c1c9f4@mail.gmail.com>
+
+Hi all,
+
+This emails is about the latest svn revision, so please check it out.
+These are the changes...
+
+1 REALTIME.PY
+I spent quite some time on completely rewriting
+_spe/sm/wxp/realtime.py It should be done now, or I hope that some
+minor bugs will easily be solved. To be short, this module is
+responsible for the smart  updating on the sidebar (explore, index &
+todo), which permits but not only 'realtime updating as you type'. As
+this file is at the core of SPE and was quickly implemented before, it
+was responsable for a big amount of segfaults. If this issue is now
+solved, it is a major step forward for SPE's stability, not only on
+Mac, but also on other platforms. At the moment I don't see much
+difference anyway between developping for the Mac or developping a
+stable version for all platforms. It is very important that this is
+100% bullet proof.
+I had to wrote two test scripts in order to tackle the issue. They are
+in _spe/tests Each file tests one class of realtime.py: TreeCtrl (for
+explore) and ListCtrl (for index & todo). Try to find bugs and please
+try to reproduce them through the test files as well.
+If realtime.py is completely fixed, it's time to take step 2: fix the
+_spe/sm/wxp/smdi.py Than SPE is probably almost as near to the Mac as
+it is to other platforms.
+
+2. GENERICDIRCTRL DISABLED ON MAC
+Unfortunately this standard wxPython control doesn't work (stable) on
+Mac. I see no other option as disabling it for the Mac. Stefan
+hopefully fixed this for wxMac. Can someone build wxPython based on
+that to see if it is solved? I lack the knowledge and time to do this,
+just for the record.
+
+3. BACKUP
+Backup files are from now on optional through the preferences.
+
+Please try to focus for bug testing on point 1. I'd like to put this
+out as a release as soon as possible as a lot of users are waiting for
+this. However I'll try to implement quick feedback.
+
+Thanks in advance,
+
+Stani
+
+
+From rob at yamaha.co.uk  Tue Nov 22 10:28:21 2005
+From: rob at yamaha.co.uk (Rob Bantin)
+Date: Tue, 22 Nov 2005 09:28:21 +0000
+Subject: [spe-dev] SVN 70: realtime.py fixed? please test
+In-Reply-To: <2078a7ad0511211233v17c98b4bldb25a95b26c1c9f4@mail.gmail.com>
+References: <2078a7ad0511211233v17c98b4bldb25a95b26c1c9f4@mail.gmail.com>
+Message-ID: <0C7A27E5-A9CC-4193-A505-9D3DFD770924@yamaha.co.uk>
+
+>
+> 2. GENERICDIRCTRL DISABLED ON MAC
+> Unfortunately this standard wxPython control doesn't work (stable) on
+> Mac. I see no other option as disabling it for the Mac. Stefan
+> hopefully fixed this for wxMac. Can someone build wxPython based on
+> that to see if it is solved? I lack the knowledge and time to do this,
+> just for the record.
+>
+>
+
+I can do this, perhaps this week. This isn't the only part of  
+wxPython for Mac that is broken!
+
+
+
+________________________________________________________________________
+This e-mail has been scanned for all viruses by Star. The
+service is powered by MessageLabs. For more information on a proactive
+anti-virus service working around the clock, around the globe, visit:
+http://www.star.net.uk
+________________________________________________________________________
+
+
+From spe.stani.be at gmail.com  Tue Nov 22 13:40:18 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Tue, 22 Nov 2005 13:40:18 +0100
+Subject: [spe-dev] SVN 70: realtime.py fixed? please test
+In-Reply-To: <0C7A27E5-A9CC-4193-A505-9D3DFD770924@yamaha.co.uk>
+References: <2078a7ad0511211233v17c98b4bldb25a95b26c1c9f4@mail.gmail.com>
+	 <0C7A27E5-A9CC-4193-A505-9D3DFD770924@yamaha.co.uk>
+Message-ID: <2078a7ad0511220440l5fbf05b0g957a11f1bbd2f007@mail.gmail.com>
+
+Hi Rob,
+
+Thanks! That would be great. Report as detailed as possible any bugs
+you encounter with wxMac to Stefan, as he is the lead developper (not
+for wxPython, that's Robin Dunn who is away till 15 december). I guess
+he'll be happy to fix any issue if he can. He prefers if you can send
+him a tracelog:
+
+"the best thing for me always is a stack-trace together with the
+assert, this helps me to figure out on the C++ what might be going on.
+So the trace log as posted in the SPE bug report
+(http://developer.berlios.de/bugs/?func=detailbug&bug_id=5508&group_id=4161)
+is the best help for me."
+
+Stefans email is (# is @):
+csomor#advancedconcepts.ch
+
+If the issues are related to SPE, you can post here, otherwise it's
+probably better to contact Stefan immediately.
+
+Thanks,
+Stani
+
+On 11/22/05, Rob Bantin <rob at yamaha.co.uk> wrote:
+> _______________________________________________
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate _______________________________________________
+> >
+> > 2. GENERICDIRCTRL DISABLED ON MAC
+> > Unfortunately this standard wxPython control doesn't work (stable) on
+> > Mac. I see no other option as disabling it for the Mac. Stefan
+> > hopefully fixed this for wxMac. Can someone build wxPython based on
+> > that to see if it is solved? I lack the knowledge and time to do this,
+> > just for the record.
+> >
+> >
+>
+> I can do this, perhaps this week. This isn't the only part of
+> wxPython for Mac that is broken!
+
+
+From czhang.cmu at gmail.com  Tue Nov 22 14:15:08 2005
+From: czhang.cmu at gmail.com (Cheng Zhang)
+Date: Tue, 22 Nov 2005 21:15:08 +0800
+Subject: [spe-dev] SVN 70: realtime.py fixed? please test
+In-Reply-To: <0C7A27E5-A9CC-4193-A505-9D3DFD770924@yamaha.co.uk>
+References: <2078a7ad0511211233v17c98b4bldb25a95b26c1c9f4@mail.gmail.com> <0C7A27E5-A9CC-4193-A505-9D3DFD770924@yamaha.co.uk>
+Message-ID: <E671A60C-7518-4335-9F8F-164E3311B71D@gmail.com>
+
+Good to hear that. :-) I was thinking to do that but was caught up by  
+other things since then.
+Looking forward to the fixes.
+Thanks.
+
+On Nov 22, 2005, at 5:28 PM, Rob Bantin wrote:
+
+> I can do this, perhaps this week. This isn't the only part of  
+> wxPython for Mac that is broken!
+
+
+
+From spe.stani.be at gmail.com  Wed Nov 23 00:34:51 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Wed, 23 Nov 2005 00:34:51 +0100
+Subject: [spe-dev] bug for mac experts
+Message-ID: <2078a7ad0511221534o4b4ad63cmcb0405e22e487416@mail.gmail.com>
+
+This is strange behaviour on Mac only:
+http://developer.berlios.de/bugs/?func=detailbug&bug_id=4817&group_id=4161
+Does anyone knows why?
+
+The popup menu is invoked in _spe/sm/wxp/stc.py by:
+def OnRightClick(self, event):
+if self.menu:
+self.PopupMenu(self.menu, event.GetPosition())
+else:
+event.Skip()
+
+It doesn't happen on Windows.
+
+Stani
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051123/6e6b1522/attachment.html>
+
+From czhang.cmu at gmail.com  Wed Nov 23 02:26:20 2005
+From: czhang.cmu at gmail.com (Cheng Zhang)
+Date: Wed, 23 Nov 2005 09:26:20 +0800
+Subject: [spe-dev] Re: [spe-mac] SPE on Mac: todo list
+In-Reply-To: <2078a7ad0511211532l24a6a789qe5440156b0460851@mail.gmail.com>
+References: <2078a7ad0511211532l24a6a789qe5440156b0460851@mail.gmail.com>
+Message-ID: <DB1A743A-3FE0-4258-882D-20FC94A42E8A@gmail.com>
+
+I confirmed that the default font (at least for the text editor) is  
+very small for me as well.
+Worse yet, just find out that I can't open the Preferences dialog via  
+menu "Python/Preferences...". The exception is:
+------
+Traceback (most recent call last):
+   File "/Users/czhang/project/oss/spe/trunk/_spe/Menu.py", line 327,  
+in menu_preferences
+     self.parentPanel.preferences()
+   File "/Users/czhang/project/oss/spe/trunk/_spe/Parent.py", line  
+288, in preferences
+     prefs=preferencesDialog.Create(self,-1,'')
+   File "/Users/czhang/project/oss/spe/trunk/_spe/dialogs/ 
+preferencesDialog.py", line 99, in __init__
+     self.__set_properties()
+   File "/Users/czhang/project/oss/spe/trunk/_spe/dialogs/ 
+preferencesDialog.py", line 131, in __set_properties
+     self.Signature.SetSelection(-1)
+   File "//Library/Frameworks/Python.framework/Versions/2.4/lib/ 
+python2.4/site-packages/wx-2.6-mac-unicode/wx/_controls.py", line  
+673, in SetSelection
+     return _controls_.ComboBox_SetSelection(*args, **kwargs)
+wx._core.PyAssertionError: C++ assertion "wxAssertFailure" failed  
+in ../src/mac/carbon/choice.cpp(217): wxChoice::GetString(): invalid  
+index
+------
+Looks like another wxPython bug, so I cross-post it to dev list as well.
+I will submit this as a bug shortly after.
+
+- Cheng
+
+On Nov 22, 2005, at 7:32 AM, SPE Stani's Python Editor wrote:
+
+> For me the characters were very small. Is that because of my screen  
+> resolution?
+
+
+
+From czhang.cmu at gmail.com  Wed Nov 23 02:27:23 2005
+From: czhang.cmu at gmail.com (Cheng Zhang)
+Date: Wed, 23 Nov 2005 09:27:23 +0800
+Subject: [spe-dev] bug for mac experts
+In-Reply-To: <2078a7ad0511221534o4b4ad63cmcb0405e22e487416@mail.gmail.com>
+References: <2078a7ad0511221534o4b4ad63cmcb0405e22e487416@mail.gmail.com>
+Message-ID: <33478565-0935-4749-A2FC-AC9B8EF57B3C@gmail.com>
+
+I confirmed such behavior as a Mac user.
+
+On Nov 23, 2005, at 7:34 AM, SPE Stani's Python Editor wrote:
+
+> This is strange behaviour on Mac only:
+> http://developer.berlios.de/bugs/? 
+> func=detailbug&bug_id=4817&group_id=4161
+
+
+
+
+From tstone2077 at hotmail.com  Wed Nov 23 02:59:02 2005
+From: tstone2077 at hotmail.com (Thurston Stone)
+Date: Tue, 22 Nov 2005 17:59:02 -0800
+Subject: [spe-dev] RE: Some remarks on workspaces to be fixed.
+In-Reply-To: <2078a7ad0511220726u42bf5d99l59889224fc97a860@mail.gmail.com>
+Message-ID: <BAY101-DAV152C3F344C930D08FC5AE2DA550@phx.gbl>
+
+Hey Stani,
+
+ 
+
+I agree about the default workspace. I'm working on making that happen.
+I've named it default.sws.  Each piece will always be save in default.sws,
+but only optionally saved in the other workspace files.  (oh, and I can
+rename them from workspaces to sessions if you want. it makes no difference
+to me).
+
+ 
+
+I set up the workspace to save only if self.remember is true, because I know
+a lot of times I'll use a workspace and add files that I don't want to be a
+part of it. then next time I open it, it's got extra files.  I figured this
+way, it would be more of a 'preference.'
+
+ 
+
+"self.remember should only influence if files are loaded at SPE startup or
+not. All the other information like recent, notes, folders should always be
+saved and reopened independent from self.remember"
+
+ 
+
+Perhaps this can be a preference. like a list box to define what is global
+and what is workspace specific.  Personally, my recents get too cluttered
+and I would like it to be workspace specific.  Each project that I have has
+its own unique set of recent files I like to look at.  The same goes for the
+Notes and Folders.  If it was a preference than that could work for both
+methods.
+
+ 
+
+I should have working fixes for the workspace soon.
+
+ 
+
+To comment on some of your other comments:
+
+1.	I was thinking of preferences very similar to firefox.  Where any
+user with a plugin can add a preferences too.  Personally, I was going to
+make a preference dialog that hid some tabs.  I'm still not sure what the
+session tab is for and I rarely use some others.  If I need them, I would
+like to turn them on in the preferences tab.  So that's where I was going
+with that idea
+2.	The current SPE doesn't have tabs spaces as a child variable, but as
+a parent variable.  So basically, I have the editor open and the files I use
+are set to 3 spaces.  SPE files are set to 4, so working with SPE files, I
+always have to add that extra space when I have a new indentation (which is
+real annoying).   I'll fix it again and send you the fix.
+
+ 
+
+I'm not going to have time to work with Nir Aides until next week some time
+(since Thanksgiving and all). After that, I'm very excited to get a working
+embedded debugger going.
+
+ 
+
+Thanks!
+
+Thurston
+
+  _____  
+
+From: SPE Stani's Python Editor [mailto:spe.stani.be at gmail.com] 
+Sent: Tuesday, November 22, 2005 7:26 AM
+To: Thurston Stone
+Subject: Some remarks on workspaces to be fixed.
+
+ 
+
+Hi Thurston,
+
+Without defining a workspace SPE should continue to work like before.
+Therefore I have the following remarks which should be fixed:
+
+- If the user uses SPE without defining a workspace, there should be a
+default one. This default working space should be saved in the user
+directory just like remember.txt, etc.. I would call it 'defaults.cfg'
+
+- Right now the workspace is only saved when self.remember is True It should
+always be saved. Right now it is disturbing to loose all your recent files
+(as I did), etc... when remember is not clicked. self.remember should only
+influence if files are loaded at SPE startup or not. All the other
+information like recent, notes, folders should always be saved and reopened
+independent from self.remember
+
+The point is that users shouldn't be forced to use workspaces. There should
+be a default one, which garantuees that SPE works as it did before.
+
+Could you please fix these issues?
+
+Stani
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051122/f4ea3e9b/attachment.html>
+
+From spe.stani.be at gmail.com  Wed Nov 23 13:20:47 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Wed, 23 Nov 2005 13:20:47 +0100
+Subject: [spe-dev] SVN71:mac fixes,workspace,smart indent+PyCon
+Message-ID: <2078a7ad0511230420r253f8d09wa88a2c4bb94461a6@mail.gmail.com>
+
+Check out latest version, mainly this is new:
+
+* mac fixes
+Got rid of a lot of segfaults, please report remaining ones.Having a mac
+myself, they are now much more easy to solve.
+
+* workspaces
+Probably in the future SPE will have a full featured project manager, but
+for now Thurston proposed to introduce 'workspaces'. A workspace is a
+collection of all open files, recent files, folders of the path browser and
+notes. They can be opened and saved in SPE. This workspace could then also
+store breakpoints, the main script and debug command line options.
+Warning: This still needs some work! The best is now if you work with SPE to
+immediately save your workspace as something and turn on remember files
+(heart icon on toolbar) otherwise you loose your recent files etc... This
+will be fixed soon.
+
+* smart indent
+SPE now dedents automatically after break, return, etc...
+
+Special thanks to Thurston Stone for his contribution!
+
+News: SPE on PyCon
+It has been brought to my attention that SPE will be presented on PyCon as
+one of the four most promising IDE's:
+http://wiki.python.org/moin/PyCon2006/Talks#19
+Anyone who thinks having advice how SPE could perform good in this review,
+can come up with ideas. Especially people who want to add it to the code.
+This is btw why I put smart indentation in SPE as it was very easy.
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051123/2a37f0a9/attachment.html>
+
+From spe.stani.be at gmail.com  Wed Nov 23 14:45:17 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Wed, 23 Nov 2005 14:45:17 +0100
+Subject: [spe-dev] bug for mac experts (Stefan?)
+Message-ID: <2078a7ad0511230545p6bb58dfap8a4906dce737a6d6@mail.gmail.com>
+
+Hi Cheng,
+I now have a Mac myself, so I confirmed it too. But my main question is, is
+this a wxMac Bug? Maybe Stefan can answer this.
+Stani
+
+On 11/23/05, Cheng Zhang <czhang.cmu at gmail.com> wrote:
+>
+> _______________________________________________
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate_______________________________________________
+> I confirmed such behavior as a Mac user.
+>
+> On Nov 23, 2005, at 7:34 AM, SPE Stani's Python Editor wrote:
+>
+> > This is strange behaviour on Mac only:
+> > http://developer.berlios.de/bugs/?
+> > func=detailbug&bug_id=4817&group_id=4161
+>
+>
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051123/28ec5f84/attachment.html>
+
+From spe.stani.be at gmail.com  Wed Nov 23 18:55:24 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Wed, 23 Nov 2005 18:55:24 +0100
+Subject: [spe-dev] SVN72:mac fixes
+Message-ID: <2078a7ad0511230955h4d263b8eie21e89392229bef0@mail.gmail.com>
+
+Follow at:
+http://openfacts.berlios.de/index-en.phtml?title=Stani%27s_Python_Tools
+
+   1. SPE crashes on close (stani) FIXED
+   2. preferences dialog: combobox bug (stani) FIXED
+   3. debug dialog: combobox bug (stani) FIXED
+   4. wxGlade won't launch (stani) FIXED
+   5. winPdb won't launch (stani) FIXED
+   6. 2x window menu bug (stani) FIXED
+
+I want to do a release soon before I start working on smdi.py Anyone
+objecting?! A lot of bugs are fixed and now it's about styling the different
+document interfaces. So please test SPE thouroughly. I might release
+tomorrow.
+
+Stani
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051123/e2aba31c/attachment.html>
+
+From csomor at advancedconcepts.ch  Thu Nov 24 18:20:10 2005
+From: csomor at advancedconcepts.ch (Stefan Csomor)
+Date: Thu, 24 Nov 2005 18:20:10 +0100
+Subject: [spe-dev] bug for mac experts (Stefan?)
+Message-ID: <834A07D804766B43A535AC6861D6D86742A284@advanced-3ynlwj.advancedconcepts.ch>
+
+Hi Stani
+ 
+on which event are you opening the context menu ? on a mouse up ? this
+would be wrong, as on mac it must open on mouse down, therefore you
+should only catch the context_menu event not the real mouse down/up,
+this would then work on every platform.
+ 
+Thanks,
+ 
+Stefan
+
+
+  _____  
+
+	From: python-spe-dev-admin at berlios.de
+[mailto:python-spe-dev-admin at berlios.de] On Behalf Of SPE Stani's Python
+Editor
+	Sent: Mittwoch, 23. November 2005 14:45
+	To: python-spe-dev at berlios.de
+	Subject: Re: [spe-dev] bug for mac experts (Stefan?)
+	
+	
+	Hi Cheng,
+	I now have a Mac myself, so I confirmed it too. But my main
+question is, is this a wxMac Bug? Maybe Stefan can answer this.
+	Stani
+	
+	
+	On 11/23/05, Cheng Zhang <czhang.cmu at gmail.com> wrote: 
+
+		_______________________________________________
+		http://pythonide.stani.be
+		http://pythonide.stani.be/manual/html/manual.html 
+		http://pythonide.stani.be/blog/sm_donate
+_______________________________________________
+		I confirmed such behavior as a Mac user.
+		
+		On Nov 23, 2005, at 7:34 AM, SPE Stani's Python Editor
+wrote: 
+		
+		> This is strange behaviour on Mac only:
+		> http://developer.berlios.de/bugs/?
+		> func=detailbug&bug_id=4817&group_id=4161
+		
+		
+		_______________________________________________ 
+		Python-spe-dev mailing list
+		Python-spe-dev at lists.berlios.de
+		http://lists.berlios.de/mailman/listinfo/python-spe-dev 
+		
+
+
+
+
+	-- 
+	http://pythonide.stani.be
+	http://pythonide.stani.be/manual/html/manual.html 
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051124/71045bbc/attachment.html>
+
+From spe.stani.be at gmail.com  Thu Nov 24 19:57:05 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Thu, 24 Nov 2005 19:57:05 +0100
+Subject: [spe-dev] bug for mac experts (Stefan?)
+In-Reply-To: <834A07D804766B43A535AC6861D6D86742A284@advanced-3ynlwj.advancedconcepts.ch>
+References: <834A07D804766B43A535AC6861D6D86742A284@advanced-3ynlwj.advancedconcepts.ch>
+Message-ID: <2078a7ad0511241057h47a477aax96c7e21f68e3109d@mail.gmail.com>
+
+Hi Stefan,
+
+   - I just tried it, but what is weird that the context menu appears
+   very far from the mouse cursor. Both on Windows and Mac. Am I missing
+   something?
+   - Another issue is on Mac, if I right click for the context menu and I
+   click out of the context menu to let it dissappears, the default context
+   menu of stc appears (undo,redo,cut,copy,paste,delete.select all). You
+   can't get rid of it except by selecting a command of it. Should I overwrite
+   the mouse left down with an dummy function?
+
+Thanks for your help,
+Stani
+
+On 11/24/05, Stefan Csomor <csomor at advancedconcepts.ch> wrote:
+>
+> Hi Stani
+>
+> on which event are you opening the context menu ? on a mouse up ? this
+> would be wrong, as on mac it must open on mouse down, therefore you should
+> only catch the context_menu event not the real mouse down/up, this would
+> then work on every platform.
+>
+> Thanks,
+>
+> Stefan
+>
+>  ------------------------------
+> *From:* python-spe-dev-admin at berlios.de [mailto:
+> python-spe-dev-admin at berlios.de] *On Behalf Of *SPE Stani's Python Editor
+> *Sent:* Mittwoch, 23. November 2005 14:45
+> *To:* python-spe-dev at berlios.de
+> *Subject:* Re: [spe-dev] bug for mac experts (Stefan?)
+>
+> Hi Cheng,
+> I now have a Mac myself, so I confirmed it too. But my main question is,
+> is this a wxMac Bug? Maybe Stefan can answer this.
+> Stani
+>
+> On 11/23/05, Cheng Zhang <czhang.cmu at gmail.com> wrote:
+> >
+> > _______________________________________________
+> > http://pythonide.stani.be
+> > http://pythonide.stani.be/manual/html/manual.html
+> > http://pythonide.stani.be/blog/sm_donate_______________________________________________
+> > I confirmed such behavior as a Mac user.
+> >
+> > On Nov 23, 2005, at 7:34 AM, SPE Stani's Python Editor wrote:
+> >
+> > > This is strange behaviour on Mac only:
+> > > http://developer.berlios.de/bugs/?
+> > > func=detailbug&bug_id=4817&group_id=4161
+> >
+> >
+> > _______________________________________________
+> > Python-spe-dev mailing list
+> > Python-spe-dev at lists.berlios.de
+> > http://lists.berlios.de/mailman/listinfo/python-spe-dev
+> >
+>
+>
+>
+> --
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+>
+>
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051124/27ed4692/attachment.html>
+
+From spe.stani.be at gmail.com  Thu Nov 24 20:49:14 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Thu, 24 Nov 2005 20:49:14 +0100
+Subject: [spe-dev] Context menu fixed, but still *very* serious bug in wxPython.
+Message-ID: <2078a7ad0511241149l59692d68yc9188bb43b9e021f@mail.gmail.com>
+
+Hi Stefan,
+I could solve the issue. Unfortunately the context menu event doesn't work
+properly as the event.GetPosition returns a wrong value. This does the job:
+
+        if self.menu:
+            self.UsePopUp(False)
+            if wx.Platform=='__WXMAC__':
+                self.Bind(wx.EVT_RIGHT_DOWN, self.OnRightClick)
+            else:
+                self.Bind(wx.EVT_RIGHT_UP, self.OnRightClick)
+
+Just to let you know.
+
+A bug which is really worrying me is that any program hangs if you select a
+text in an stc control and left click inside this selected text. Then any
+wxpython program hangs and the only solution is 'force quit'. Could you
+please tell me what can be done about this. I think this is a really serious
+issue.
+
+Thanks,
+
+Stani
+
+On 11/24/05, SPE Stani's Python Editor <spe.stani.be at gmail.com> wrote:
+>
+> Hi Stefan,
+>
+>    - I just tried it, but what is weird that the context menu appears
+>    very far from the mouse cursor. Both on Windows and Mac. Am I missing
+>    something?
+>    - Another issue is on Mac, if I right click for the context menu and
+>    I click out of the context menu to let it dissappears, the default context
+>    menu of stc appears (undo,redo,cut,copy,paste,delete.select all).
+>    You can't get rid of it except by selecting a command of it. Should I
+>    overwrite the mouse left down with an dummy function?
+>
+> Thanks for your help,
+> Stani
+>
+> On 11/24/05, Stefan Csomor <csomor at advancedconcepts.ch> wrote:
+> >
+> > Hi Stani
+> >
+> > on which event are you opening the context menu ? on a mouse up ? this
+> > would be wrong, as on mac it must open on mouse down, therefore you should
+> > only catch the context_menu event not the real mouse down/up, this would
+> > then work on every platform.
+> >
+> > Thanks,
+> >
+> > Stefan
+> >
+> >  ------------------------------
+> > *From:* python-spe-dev-admin at berlios.de [mailto:
+> > python-spe-dev-admin at berlios.de ] *On Behalf Of *SPE Stani's Python
+> > Editor
+> > *Sent:* Mittwoch, 23. November 2005 14:45
+> > *To:* python-spe-dev at berlios.de
+> > *Subject:* Re: [spe-dev] bug for mac experts (Stefan?)
+> >
+> > Hi Cheng,
+> > I now have a Mac myself, so I confirmed it too. But my main question is,
+> > is this a wxMac Bug? Maybe Stefan can answer this.
+> > Stani
+> >
+> > On 11/23/05, Cheng Zhang <czhang.cmu at gmail.com > wrote:
+> > >
+> > > _______________________________________________
+> > > http://pythonide.stani.be
+> > > http://pythonide.stani.be/manual/html/manual.html
+> > > http://pythonide.stani.be/blog/sm_donate
+> > > _______________________________________________
+> > > I confirmed such behavior as a Mac user.
+> > >
+> > > On Nov 23, 2005, at 7:34 AM, SPE Stani's Python Editor wrote:
+> > >
+> > > > This is strange behaviour on Mac only:
+> > > > http://developer.berlios.de/bugs/ ?
+> > > > func=detailbug&bug_id=4817&group_id=4161
+> > >
+> > >
+> > > _______________________________________________
+> > > Python-spe-dev mailing list
+> > > Python-spe-dev at lists.berlios.de
+> > > http://lists.berlios.de/mailman/listinfo/python-spe-dev
+> > >
+> >
+> >
+> >
+> > --
+> > http://pythonide.stani.be
+> > http://pythonide.stani.be/manual/html/manual.html
+> >
+> >
+>
+>
+> --
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+>
+
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051124/8794fa25/attachment.html>
+
+From spe.stani.be at gmail.com  Fri Nov 25 17:19:10 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Fri, 25 Nov 2005 17:19:10 +0100
+Subject: [spe-dev] Mac questions (please help)
+Message-ID: <2078a7ad0511250819x8c64212k1c57aab806f755@mail.gmail.com>
+
+The following questions are specifically about Mac. Probably you might know,
+which I as a Mac newbie don't. So here we go...
+
+* Child.py: How do I close a terminal window with apple script?
+
+ For the Tools menu 'Run in terminal and exit', I wrote the following code
+which works fine but I would prefer if the window closes. Anybody know why?
+os.system("""osascript -e 'tell application "Terminal"' -e 'activate' -e 'do
+script with command "cd %(path)s;pythonw %(file)s;logout"' -e 'end
+tell'"""%params)
+
+So the apple script is:
+
+tell application "Terminal"
+ activate
+ do script with command "cd %(path)s;pythonw %(file)s;logout"
+ -> what should be put here to close the window?
+end tell
+
+* SPE.py: How to redirect the shell on Mac? (reported by Rich):
+
+If I copy/paste the command line, I get an error using tcsh:
+
+-----------
+richb% pythonw SPE.py --debug > debug.txt 2>&1
+tcsh: Ambiguous output redirect.
+-----------
+
+* I'm wondering if is possible make desktop/finder aliases like
+.bash_profile aliases:
+
+alias spe='pythonw
+/Library/Frameworks/Python.framework/Versions/Current/lib/python2.4/site-packages/_spe/SPE.py'
+
+
+Of course I could make a python script (as I did: SPE_DEBUG.py) and make an
+alias to that, but I was just curious.
+
+Thanks in advance,
+
+Stani
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051125/904fece6/attachment.html>
+
+From spe.stani.be at gmail.com  Fri Nov 25 18:13:38 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Fri, 25 Nov 2005 18:13:38 +0100
+Subject: [spe-dev] install bug on mac: Permission denied
+Message-ID: <2078a7ad0511250913i1642813fr22641dceacb4daf1@mail.gmail.com>
+
+Hi,
+
+Is there anything I can do about this? It happens when someone want to
+install spe with 'python setup.py install':
+
+running install_scripts
+copying build/scripts-2.4/spe ->
+/Library/Frameworks/Python.framework/Versions/2.4/bin
+error: /Library/Frameworks/Python.framework/Versions/2.4/bin/spe: Permission
+denied
+
+Stani
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051125/9685a67a/attachment.html>
+
+From spe.stani.be at gmail.com  Fri Nov 25 18:25:09 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Fri, 25 Nov 2005 18:25:09 +0100
+Subject: [spe-dev] mac installation instructions (please review)
+Message-ID: <2078a7ad0511250925v616a986arcbe42aecb8d0181c@mail.gmail.com>
+
+These are the instructions I wrote for the manual. Please let me know your
+remarks, both on content and english:
+Introduction
+
+Mac Os X provides itself wxPython. Unfortunately there is a big chance that
+this version is outdated. Therefore following instructions 'Python' and
+'wxPython' will explain you how to install wxPython yourself. You only have
+to follow them in case the python and wxPython versions of your Os X are not
+matching SPE's requirements, otherwise only follow the 'SPE' instruction.
+
+At the moment of this writing the latest version of Os X is Tiger (10.4). It
+ships with Python 2.3 and wxPython 2.5. For SPE you'll need wxPython 2.6 and
+at least Python 2.3 In order not to interfere with the installed system,
+this manual will explain you how to install Python2.4 with wxPython2.6 In
+general it is always better to use a later version of Python as mostly it is
+more stable and faster.
+Python
+
+Activestate provides nicely wrapped installers for Python for Mac Os X.
+Download it and launch the installer. Choose the latest Python version for
+Mac Os X from:
+
+http://www.activestate.com/Products/Download/Download.plex?id=ActivePython
+
+In order to let this python version precede, edit the following line your
+'.bash_profile'. This file is located in your home directory. If it doesn't
+exist, create an empty text file with this name in your home folder. Don't
+skip this step or your installation will fail! Close afterwards all terminal
+windows (to make sure that the PATH variable is exported).
+
+export PATH = "/usr/local/bin:$PATH:/Developer/Tools:/Library/Frameworks/Python.framework/Versions/Current/bin/"
+
+ WxPython
+
+Download the latest binary built for the Python version you installed from:
+
+http://www.wxpython.org/download.php#binaries
+
+   -
+
+   You can install packages for OsX 10.3 also on 10.4 The
+wxPython.orgwebsites mentions: "
+   *Eventhough the Panther packages below were built on an OSX
+10.3system they will still work on Tiger provided you also have this
+package
+   installed.*" You can safely ignore this message.
+
+Launch the installer.
+SPE
+
+At the moment SPE is not yet available as an application. Download the
+source distribution tar.gz instead. Unpack it to a certain path and open a
+new terminal in that path. In the terminal enter the following command:
+
+python setup.py install
+
+ This installs SPE in the site-packages directory of your default Python
+installation. You can now create aliases for the terminal by adding these
+lines in your '.bash_profile':
+
+alias spe='pythonw
+/Library/Frameworks/Python.framework/Versions/Current/lib/python2.4/site-packages/_spe/SPE.py'
+alias winpdb='pythonw
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/_spe/plugins/winpdb/winpdb.py
+-t'
+alias debug_spe='pythonw
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/_spe/plugins/winpdb/winpdb.py
+-t -c /Library/Frameworks/Python.framework/Versions/Current/lib/python2.4/site-packages/_spe/SPE.py
+--debug'
+
+
+
+ Starting SPE is now as easy as typing 'spe' in the terminal. You can also
+type 'spe ?debug' to run SPE in debugging mode.
+Uninstall
+
+Remove the '_spe' folder from your python site-packages directory, eg:
+
+
+ /Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages
+
+
+ One needs also to remove
+/Library/Frameworks/Python.framework/Versions/2.4/bin/spe manually.
+
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051125/e5f6cbb8/attachment.html>
+
+From spe.stani.be at gmail.com  Fri Nov 25 18:34:30 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Fri, 25 Nov 2005 18:34:30 +0100
+Subject: [spe-dev] Re: install bug on mac: Permission denied
+In-Reply-To: <2078a7ad0511250913i1642813fr22641dceacb4daf1@mail.gmail.com>
+References: <2078a7ad0511250913i1642813fr22641dceacb4daf1@mail.gmail.com>
+Message-ID: <2078a7ad0511250934v3fa2a686hb7518e510ba1615f@mail.gmail.com>
+
+Solved by Hraban in iChat: sudo python setup.py install
+
+Thanks Hraban!
+Stani
+
+On 11/25/05, SPE Stani's Python Editor <spe.stani.be at gmail.com> wrote:
+>
+> Hi,
+>
+> Is there anything I can do about this? It happens when someone want to
+> install spe with 'python setup.py install':
+>
+> running install_scripts
+> copying build/scripts-2.4/spe ->
+> /Library/Frameworks/Python.framework/Versions/2.4/bin
+> error: /Library/Frameworks/Python.framework/Versions/2.4/bin/spe:
+> Permission denied
+>
+> Stani
+>
+> --
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+
+
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051125/b9e81af7/attachment.html>
+
+From spe.stani.be at gmail.com  Sun Nov 27 06:56:11 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Sun, 27 Nov 2005 06:56:11 +0100
+Subject: [spe-dev] Re: [spe-mac] SPE 0.8.0.a released!
+In-Reply-To: <438913FA.9090402@merz-akademie.de>
+References: <2078a7ad0511261445g55f1357eu8c0b5b12a56627cf@mail.gmail.com>
+	 <438913FA.9090402@merz-akademie.de>
+Message-ID: <2078a7ad0511262156o4b2c032cia403a8fdd9f861a1@mail.gmail.com>
+
+Subversion 85+ is committed.
+
+On 11/27/05, Kay Fricke <kay.fricke at merz-akademie.de> wrote:
+>
+> Hi Stani,
+>
+> Great to hear the plans ... and thanx very much for the credits.
+
+
+As I want to speed up the development and not getting too much feedback on
+the subversion, I tought it was time for a release ;-) Moreover this version
+is anyway better than any previous one.
+
+so here comes straight a bit info about from my testing tour:
+>
+> 1.) Worskpace Issue
+> If you try to save a workspace without any file open, spe crashes ...
+> True its a dumb idea to do that, but this error should be catched, and
+> gracefully handled with a dialog that explains something.
+
+
+Can you send me the error log. I agree with you, but I couldn't reproduce
+the error on Windows XP SP2 or MacOS X 10.4. So then I know what to fix.
+
+2.) Tools Menue
+> - Kiki is not launching:
+>
+> 2005-11-27 02:12:54.199 open[781] LSOpenFromURLSpec() returned -1 for
+> application /Applications/SPE-OSX/KikiOSX.app path (null).
+> 2005-11-27 02:12:54.199 open[781] Couldn't launch application:
+> /Applications/SPE-OSX/KikiOSX.app
+
+
+Fixed in subversion.
+
+3.) Tooltips for the Buttons
+> - Showing the Windows keyboard shortcuts (ctrl-Z for undo, alt-F4 for
+> quit etc.)
+
+
+I now fixed to replace Ctrl with Cmd (is this ok?), but with what should I
+replace Alt?  In subversion, _spe/Menu.py:
+def _(x):
+    if '|' in x and info.DARWIN:
+        return x.replace('Ctrl','Cmd')
+    else:
+        return x
+
+
+4.) Tabs
+> - In the Find Tab the Results, i guess ListCtrl, is so big that it
+> overlays the tab buttons, (my screen is 1024x768), so i have to resize
+> the panel to change to another tab
+
+
+My screen too ;-) Confirmed, will fix it.
+
+- Notes Tab, or also in Sidebar
+> typed Text is only fully visible after a return, only a few pixels of
+> the cursor are blinking
+
+
+Confirmed, will try to fix it, but it is weird.
+
+- Tooltips for the Tab-Buttons would be a nice to have
+
+
+This is not possible afaik.
+
+5.) Show/Hide Shell
+> - doesn't change the view
+
+
+Confirmed, will fix.
+
+6.) Blender and Spe
+> (I think we delay this issues until all other things are stable, so this
+> is just for book)
+
+
+Yes, Blender support is postponed, as Blender 2.40 is not stable itself
+(especially concerning sys.path). You can put them in the bug tracker. Put
+them in category 'Plugin'.
+
+- Still blender python hangs when spe is quit.
+>    Same problem as reported.
+>
+> - the Menue Functions and Buttons for blender don't work, neither
+> 'Redraw Blender Window' nor 'Open in Blender', and 'Reference in Blender'
+>
+> - Workspace is different from that of the lone standing spe
+>    - After launch in blender, workspace for lonestanding is empty
+>    - relaunch in blender shows the files edited under blender start
+>
+> - Blender Tab, the leftmost Scroll List is not selectable
+>
+>
+> Sorry that its just that unordered issue list, next time i'll try to be
+> a bit more orderly ...
+
+
+That's ok. I'm happy with all feedback.
+
+greetz to all, and have a nice sunday
+
+
+You too!
+
+Stani
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051127/205faeae/attachment.html>
+
+From spe.stani.be at gmail.com  Wed Nov 30 21:15:31 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Wed, 30 Nov 2005 21:15:31 +0100
+Subject: [spe-dev] NotebookCtrl Widget Problem On Mac FIXED!!
+Message-ID: <2078a7ad0511301215j398c0bf6k8f7b78dfd997ff35@mail.gmail.com>
+
+Hi Andrea,
+
+Thanks to SPE Mac users who sponsered SPE with a Mini Mac, I was able to
+debug your control with winpdb debugger. So now the light is green to get
+your control into SPE.
+
+After plunging in the code, I managed to get the control working. The
+problem is that wxMac doesn't seem to support the wx.DefaultSize (-1,-1)
+which is always transformed in (0,0). So setting the size to like
+wx.Size(28,28)
+solves the issue. I'll email you privately with the patch.
+
+I'm not sure if it is 100% stable. I found some bugs, which I also will send
+to you.
+
+For those who like to see the screenshot:
+http://pythonide.stani.be/images/NotebookCtrl.png
+
+Best regards,
+Stani
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051130/241b3a97/attachment.html>
+
+From spe.stani.be at gmail.com  Wed Nov 30 21:47:03 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Wed, 30 Nov 2005 21:47:03 +0100
+Subject: [spe-dev] notebookctrl on Mac
+Message-ID: <2078a7ad0511301247m72895868wdb4db2d317c32c@mail.gmail.com>
+
+Hi Andrea,
+
+FIX
+
+So this how I would fix the control. I leave it up to your preference of
+design how you want to implement it. In the beginning of the NotebookCtrl.py,
+I would define a constant like this:
+
+if wx.Platform == '__WXMAC__':
+    DEFAULT_SIZE = wx.Size(28,28) #or any value you prefer
+else:
+    DEFAULT_SIZE = wx.DefaultSize
+
+Then replace EVERYWHERE wx.DefaultSize by DEFAULT_SIZE, also in
+NotebookCtrlDemo.py in fact if you replace line 942 with the following, the
+demo works already:
+        NC.NotebookCtrl.__init__(self, parent, id, pos=wx.DefaultPosition,
+                                 size=wx.Size(28,28),
+notebookctrlstyle=style)
+
+I noticed in your code that you used once wx.Size(20,20) but that's not
+enough as the size is passed through as an argument and wx.Size(20,20) is
+then replaced by wx.DefaultSize
+
+Unfortunately I can not use the control yet for SPE as closing a tab with a
+close button causes a crash.
+
+BUGS
+
+1
+A bug on Mac is that the PopupWindow is not implemented appearantly. Maybe
+you could ask to Stefan Csomor if this is a wxMac problem or a wxPythonMac
+problem. As it is unclear when it will be implemented the best way is
+probably to catch the expression with a try except NotImplementedError
+clausule:
+
+Traceback (most recent call last):
+  File
+"//Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/wx-
+2.6-mac-unicode/wx/_misc.py", line 1137, in Notify
+    self.notify()
+  File "/Users/stani/Python/NotebookCtrl/NotebookCtrl.py", line 1300, in
+OnShowToolTip
+    self._currentwinsize)
+  File "/Users/stani/Python/NotebookCtrl/NotebookCtrl.py", line 2447, in
+__init__
+    wx.PopupWindow.__init__(self, parent, flags=wx.SIMPLE_BORDER)
+  File
+"//Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/wx-
+2.6-mac-unicode/wx/_windows.py", line 1786, in __init__
+    newobj = _windows_.new_PopupWindow(*args, **kwargs)
+NotImplementedError
+
+2 (This is related to 1) You could check with if 'self.nb._tipwindow is
+None', try except or hasattr(self.nb._tipwindow,'Destroy')
+Traceback (most recent call last):
+  File "/Users/stani/Python/NotebookCtrl/NotebookCtrl.py", line 1878, in
+OnMouseMotion
+    self.nb._tipwindow.Destroy()
+AttributeError: 'NoneType' object has no attribute 'Destroy'
+
+3 CLOSE BUTTONS DO NOT WORK ;-)
+Closing a tab, causes a deep fatal error. I'll try to see if with winpdb I
+can see what goes wrong.
+
+This is a Mac error report, something for Stefan, it is too much Chinese for
+me ;-):
+Date/Time:      2005-11-30 21:33:55.874 +0100
+OS Version:     10.4.2 (Build 8D40)
+Report Version: 3
+
+Command: Python
+Path:
+/Library/Frameworks/Python.framework/Versions/2.4/Resources/Python.app/Contents/MacOS/Python
+Parent:  bash [1171]
+
+Version: 2.4a0 (2.4.2.8.199943)
+
+PID:    1172
+Thread: 0
+
+Exception:  EXC_BAD_ACCESS (0x0001)
+Codes:      KERN_PROTECTION_FAILURE (0x0002) at 0x00000000
+
+Thread 0 Crashed:
+0   libwx_macud-2.6.0.dylib            0x010fc08c
+wxWindow::MacUpdateControlFont() + 56 (icplusplus.c:27)
+1   libwx_macud-2.6.0.dylib            0x010fc14c wxWindow::SetFont(wxFont
+const&) + 36 (icplusplus.c:27)
+2   _core_.so                          0x0045de4c wxGBSpan_helper(_object*,
+wxGBSpan**) + 321420
+3   org.activestate.ActivePython24     0x1000badc PyObject_Call + 48 (
+abstract.c:1757)
+4   org.activestate.ActivePython24     0x1007cce8 ext_do_call + 972 (ceval.c
+:3835)
+5   org.activestate.ActivePython24     0x1007a03c PyEval_EvalFrame + 9128 (
+ceval.c:2206)
+6   org.activestate.ActivePython24     0x1007b0b4 PyEval_EvalCodeEx + 2152 (
+ceval.c:2736)
+7   org.activestate.ActivePython24     0x1007c780 fast_function + 356 (
+ceval.c:3655)
+8   org.activestate.ActivePython24     0x1007c578 call_function + 1172 (
+ceval.c:3579)
+9   org.activestate.ActivePython24     0x10079f4c PyEval_EvalFrame + 8888 (
+ceval.c:2163)
+10  org.activestate.ActivePython24     0x1007b0b4 PyEval_EvalCodeEx + 2152 (
+ceval.c:2736)
+11  org.activestate.ActivePython24     0x10025a48 function_call + 344 (
+funcobject.c:548)
+12  org.activestate.ActivePython24     0x1000badc PyObject_Call + 48 (
+abstract.c:1757)
+13  org.activestate.ActivePython24     0x1001526c instancemethod_call + 796
+(classobject.c:2448)
+14  org.activestate.ActivePython24     0x1000badc PyObject_Call + 48 (
+abstract.c:1757)
+15  org.activestate.ActivePython24     0x1007c0a0
+PyEval_CallObjectWithKeywords + 256 (ceval.c:3426)
+16  _core_.so                          0x0040a8f4
+wxPyCallback::EventThunker(wxEvent&) + 416
+17  libwx_macud-2.6.0.dylib            0x01093c34
+wxEvtHandler::ProcessEventIfMatches(wxEventTableEntryBase const&,
+wxEvtHandler*, wxEvent&) + 156 (icplusplus.c:27)
+18  libwx_macud-2.6.0.dylib            0x010941e4
+wxEvtHandler::SearchDynamicEventTable(wxEvent&) + 160 (icplusplus.c:27)
+19  libwx_macud-2.6.0.dylib            0x01093de8
+wxEvtHandler::ProcessEvent(wxEvent&) + 208 (icplusplus.c:27)
+20  libwx_macud-2.6.0.dylib            0x01192624
+wxWindowBase::TryParent(wxEvent&) + 168 (icplusplus.c:27)
+21  _core_.so                          0x00432298 wxGBSpan_helper(_object*,
+wxGBSpan**) + 142296
+22  org.activestate.ActivePython24     0x1000badc PyObject_Call + 48 (
+abstract.c:1757)
+23  org.activestate.ActivePython24     0x1007cce8 ext_do_call + 972 (ceval.c
+:3835)
+24  org.activestate.ActivePython24     0x1007a03c PyEval_EvalFrame + 9128 (
+ceval.c:2206)
+25  org.activestate.ActivePython24     0x1007b0b4 PyEval_EvalCodeEx + 2152 (
+ceval.c:2736)
+26  org.activestate.ActivePython24     0x1007c780 fast_function + 356 (
+ceval.c:3655)
+27  org.activestate.ActivePython24     0x1007c578 call_function + 1172 (
+ceval.c:3579)
+28  org.activestate.ActivePython24     0x10079f4c PyEval_EvalFrame + 8888 (
+ceval.c:2163)
+29  org.activestate.ActivePython24     0x1007b0b4 PyEval_EvalCodeEx + 2152 (
+ceval.c:2736)
+30  org.activestate.ActivePython24     0x10025a48 function_call + 344 (
+funcobject.c:548)
+31  org.activestate.ActivePython24     0x1000badc PyObject_Call + 48 (
+abstract.c:1757)
+32  org.activestate.ActivePython24     0x1001526c instancemethod_call + 796
+(classobject.c:2448)
+33  org.activestate.ActivePython24     0x1000badc PyObject_Call + 48 (
+abstract.c:1757)
+34  org.activestate.ActivePython24     0x1007c0a0
+PyEval_CallObjectWithKeywords + 256 (ceval.c:3426)
+35  _core_.so                          0x0040a8f4
+wxPyCallback::EventThunker(wxEvent&) + 416
+36  libwx_macud-2.6.0.dylib            0x01093c34
+wxEvtHandler::ProcessEventIfMatches(wxEventTableEntryBase const&,
+wxEvtHandler*, wxEvent&) + 156 (icplusplus.c:27)
+37  libwx_macud-2.6.0.dylib            0x010941e4
+wxEvtHandler::SearchDynamicEventTable(wxEvent&) + 160 (icplusplus.c:27)
+38  libwx_macud-2.6.0.dylib            0x01093de8
+wxEvtHandler::ProcessEvent(wxEvent&) + 208 (icplusplus.c:27)
+39  libwx_macud-2.6.0.dylib            0x010f703c
+wxMacTopLevelMouseEventHandler(OpaqueEventHandlerCallRef*, OpaqueEventRef*,
+void*) + 976 (icplusplus.c:27)
+40  libwx_macud-2.6.0.dylib            0x010f7dc4
+wxMacTopLevelEventHandler(OpaqueEventHandlerCallRef*, OpaqueEventRef*,
+void*) + 196 (icplusplus.c:27)
+41  com.apple.HIToolbox                0x931229f4
+DispatchEventToHandlers(EventTargetRec*, OpaqueEventRef*, HandlerCallRec*) +
+692
+42  com.apple.HIToolbox                0x9312214c
+SendEventToEventTargetInternal(OpaqueEventRef*, OpaqueEventTargetRef*,
+HandlerCallRec*) + 372
+43  com.apple.HIToolbox                0x93128ed0 SendEventToEventTarget +
+40
+44  com.apple.HIToolbox                0x931b5530
+HandleMouseEventForWindow(OpaqueWindowPtr*, OpaqueEventRef*, unsigned short)
++ 236
+45  com.apple.HIToolbox                0x931b4aa8
+HandleMouseEvent(OpaqueEventRef*) + 368
+46  com.apple.HIToolbox                0x9312923c
+ToolboxEventDispatcherHandler(OpaqueEventHandlerCallRef*, OpaqueEventRef*,
+void*) + 496
+47  com.apple.HIToolbox                0x93122c44
+DispatchEventToHandlers(EventTargetRec*, OpaqueEventRef*, HandlerCallRec*) +
+1284
+48  com.apple.HIToolbox                0x9312214c
+SendEventToEventTargetInternal(OpaqueEventRef*, OpaqueEventTargetRef*,
+HandlerCallRec*) + 372
+49  com.apple.HIToolbox                0x93128ed0 SendEventToEventTarget +
+40
+50  libwx_macud-2.6.0.dylib            0x010b04f0
+wxApp::MacHandleOneEvent(void*) + 44 (icplusplus.c:27)
+51  libwx_macud-2.6.0.dylib            0x010b0488 wxApp::MacDoOneEvent() +
+156 (icplusplus.c:27)
+52  libwx_macud-2.6.0.dylib            0x010b0020 wxApp::MainLoop() + 36 (
+icplusplus.c:27)
+53  _core_.so                          0x00406a4c wxPyApp::MainLoop() + 84
+54  _core_.so                          0x00449d74 wxGBSpan_helper(_object*,
+wxGBSpan**) + 239284
+55  org.activestate.ActivePython24     0x1000badc PyObject_Call + 48 (
+abstract.c:1757)
+56  org.activestate.ActivePython24     0x1007cce8 ext_do_call + 972 (ceval.c
+:3835)
+57  org.activestate.ActivePython24     0x1007a03c PyEval_EvalFrame + 9128 (
+ceval.c:2206)
+58  org.activestate.ActivePython24     0x1007b0b4 PyEval_EvalCodeEx + 2152 (
+ceval.c:2736)
+59  org.activestate.ActivePython24     0x10025a48 function_call + 344 (
+funcobject.c:548)
+60  org.activestate.ActivePython24     0x1000badc PyObject_Call + 48 (
+abstract.c:1757)
+61  org.activestate.ActivePython24     0x1001526c instancemethod_call + 796
+(classobject.c:2448)
+62  org.activestate.ActivePython24     0x1000badc PyObject_Call + 48 (
+abstract.c:1757)
+63  org.activestate.ActivePython24     0x1007c898 do_call + 136 (ceval.c
+:3766)
+64  org.activestate.ActivePython24     0x1007c590 call_function + 1196 (
+ceval.c:3583)
+65  org.activestate.ActivePython24     0x10079f4c PyEval_EvalFrame + 8888 (
+ceval.c:2163)
+66  org.activestate.ActivePython24     0x1007c6f0 fast_function + 212 (
+ceval.c:3642)
+67  org.activestate.ActivePython24     0x1007c578 call_function + 1172 (
+ceval.c:3579)
+68  org.activestate.ActivePython24     0x10079f4c PyEval_EvalFrame + 8888 (
+ceval.c:2163)
+69  org.activestate.ActivePython24     0x1007c6f0 fast_function + 212 (
+ceval.c:3642)
+70  org.activestate.ActivePython24     0x1007c578 call_function + 1172 (
+ceval.c:3579)
+71  org.activestate.ActivePython24     0x10079f4c PyEval_EvalFrame + 8888 (
+ceval.c:2163)
+72  org.activestate.ActivePython24     0x1007b0b4 PyEval_EvalCodeEx + 2152 (
+ceval.c:2736)
+73  org.activestate.ActivePython24     0x1007e52c PyEval_EvalCode + 48 (
+ceval.c:484)
+74  org.activestate.ActivePython24     0x100b2ebc run_node + 76 (pythonrun.c
+:1265)
+75  org.activestate.ActivePython24     0x100b2648 PyRun_SimpleFileExFlags +
+592 (pythonrun.c:863)
+76  org.activestate.ActivePython24     0x100bf6e0 Py_Main + 2604 (main.c
+:487)
+77  org.activestate.ActivePython24     0x000018d0 0x1000 + 2256
+78  dyld                               0x8fe01048 _dyld_start + 60
+
+Thread 0 crashed with PPC Thread State 64:
+  srr0: 0x00000000010fc08c srr1: 0x000000000200f030
+vrsave: 0x0000000000000000
+    cr: 0x22244422          xer: 0x0000000020000004   lr:
+0x00000000010fc07c  ctr: 0x00000000013b44c4
+    r0: 0x00000000010fc14c   r1: 0x00000000bfffcb50   r2:
+0x0000000000000000   r3: 0x00000000bfffcb90
+    r4: 0x00000000019c1a00   r5: 0x00000000013180e4   r6:
+0x0000000001318140   r7: 0x0000000001318140
+    r8: 0x000000000118e034   r9: 0x00000000ffffffff  r10:
+0x000000000146e034  r11: 0x0000000000000000
+   r12: 0x00000000013b44c4  r13: 0x0000000000000000  r14:
+0x00000000003bdf24  r15: 0x00000000003bdf1c
+   r16: 0x0000000000000000  r17: 0x0000000000000000  r18:
+0x0000000000000000  r19: 0x00000000003bdf24
+   r20: 0x00000000000da55c  r21: 0x0000000000000000  r22:
+0x0000000000000000  r23: 0x000000000024cd50
+   r24: 0x0000000000000000  r25: 0x0000000002602e18  r26:
+0x0000000000000002  r27: 0x00000000bfffcbc0
+   r28: 0x0000000000000000  r29: 0x00000000019c1a00  r30:
+0x00000000019c1a00  r31: 0x000000000045dc88
+
+Binary Images Description:
+    0x1000 -     0x1fff org.activestate.ActivePython24 2.4a0
+(2.4.2.8.199943)
+/Library/Frameworks/Python.framework/Versions/2.4/Resources/Python.app/Contents/MacOS/Python
+   0x8a000 -    0x8cfff _locale.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/lib-dynload/_locale.so
+  0x405000 -   0x4cbfff _core_.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/wx-
+2.6-mac-unicode/wx/_core_.so
+ 0x1008000 -  0x145ffff libwx_macud-2.6.0.dylib     /usr/local/lib/wxPython-
+unicode-2.6.1.0/lib/libwx_macud-2.6.0.dylib
+ 0x17f2000 -  0x17f3fff math.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/lib-dynload/math.so
+ 0x2020000 -  0x2022fff binascii.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/lib-dynload/binascii.so
+ 0x202a000 -  0x202bfff _random.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/lib-dynload/_random.so
+ 0x2031000 -  0x2031fff _bisect.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/lib-dynload/_bisect.so
+ 0x2036000 -  0x2037fff MacOS.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/lib-dynload/MacOS.so
+ 0x207e000 -  0x20ebfff _gdi_.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/wx-
+2.6-mac-unicode/wx/_gdi_.so
+ 0x2101000 -  0x2102fff cStringIO.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/lib-dynload/cStringIO.so
+ 0x210a000 -  0x210dfff strop.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/lib-dynload/strop.so
+ 0x2118000 -  0x211afff zlib.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/lib-dynload/zlib.so
+ 0x2130000 -  0x2132fff com.apple.textencoding.unicode 2.0
+/System/Library/TextEncodings/Unicode Encodings.bundle/Contents/MacOS/Unicode
+Encodings
+ 0x21bc000 -  0x2252fff _windows_.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/wx-
+2.6-mac-unicode/wx/_windows_.so
+ 0x22fc000 -  0x23b0fff _controls_.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/wx-
+2.6-mac-unicode/wx/_controls_.so
+ 0x245c000 -  0x24fafff _misc_.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/wx-
+2.6-mac-unicode/wx/_misc_.so
+ 0x2558000 -  0x25b8fff _grid.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/wx-
+2.6-mac-unicode/wx/_grid.so
+0x10000000 - 0x100fbfff org.activestate.ActivePython24 2.4.2.8 (
+2.4.2.8.199943)    /Library/Frameworks/Python.framework/Versions/2.4/Python
+0x8fe00000 - 0x8fe51fff dyld 43.1    /usr/lib/dyld
+0x90000000 - 0x901a6fff libSystem.B.dylib     /usr/lib/libSystem.B.dylib
+0x901fe000 - 0x90202fff libmathCommon.A.dylib
+/usr/lib/system/libmathCommon.A.dylib
+0x90204000 - 0x90257fff com.apple.CoreText 1.0.0 (???)
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/CoreText.framework/Versions/A/CoreText
+0x90284000 - 0x90335fff ATS
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ATS.framework/Versions/A/ATS
+0x90364000 - 0x9069dfff com.apple.CoreGraphics 1.256.14 (???)
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics
+0x90728000 - 0x90801fff com.apple.CoreFoundation 6.4.2 (368.11)
+/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation
+0x9084a000 - 0x9084afff com.apple.CoreServices 10.4 (???)
+/System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices
+0x9084c000 - 0x9094efff libicucore.A.dylib     /usr/lib/libicucore.A.dylib
+0x909a8000 - 0x90a2cfff libobjc.A.dylib     /usr/lib/libobjc.A.dylib
+0x90a56000 - 0x90acafff com.apple.framework.IOKit 1.4.1 (???)
+/System/Library/Frameworks/IOKit.framework/Versions/A/IOKit
+0x90ae4000 - 0x90af6fff libauto.dylib     /usr/lib/libauto.dylib
+0x90afd000 - 0x90dc2fff com.apple.CoreServices.CarbonCore 10.4.1 (611.1)
+/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/CarbonCore
+0x90e25000 - 0x90ea5fff com.apple.CoreServices.OSServices 4.0 (4.0.0)
+/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/OSServices.framework/Versions/A/OSServices
+0x90eef000 - 0x90f2ffff com.apple.CFNetwork 10.4.2 (80)
+/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CFNetwork.framework/Versions/A/CFNetwork
+0x90f44000 - 0x90f5cfff com.apple.WebServices 1.1.2 (1.1.0)
+/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/WebServicesCore.framework/Versions/A/WebServicesCore
+0x90f6c000 - 0x90feafff com.apple.SearchKit 1.0.3
+/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/SearchKit.framework/Versions/A/SearchKit
+0x9102f000 - 0x91056fff com.apple.Metadata 1.1 (121.6)
+/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Metadata
+0x91066000 - 0x91073fff libz.1.dylib     /usr/lib/libz.1.dylib
+0x91076000 - 0x91238fff com.apple.security 4.0.1 (223)
+/System/Library/Frameworks/Security.framework/Versions/A/Security
+0x9133a000 - 0x91343fff com.apple.DiskArbitration 2.1
+/System/Library/Frameworks/DiskArbitration.framework/Versions/A/DiskArbitration
+0x9134a000 - 0x91371fff com.apple.SystemConfiguration 1.8.0
+/System/Library/Frameworks/SystemConfiguration.framework/Versions/A/SystemConfiguration
+0x91384000 - 0x9138cfff libbsm.dylib     /usr/lib/libbsm.dylib
+0x91390000 - 0x9140efff com.apple.audio.CoreAudio 3.0.1
+/System/Library/Frameworks/CoreAudio.framework/Versions/A/CoreAudio
+0x9144c000 - 0x9144cfff com.apple.ApplicationServices 10.4 (???)
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/ApplicationServices
+0x9144e000 - 0x91486fff com.apple.AE 1.5 (297)
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/AE.framework/Versions/A/AE
+0x914a1000 - 0x9156cfff com.apple.ColorSync 4.4
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ColorSync.framework/Versions/A/ColorSync
+0x915c1000 - 0x91654fff com.apple.print.framework.PrintCore 4.0 (172.1)
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/PrintCore.framework/Versions/A/PrintCore
+0x9169a000 - 0x91757fff com.apple.QD 3.8.6 (???)
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/QD.framework/Versions/A/QD
+0x91795000 - 0x917f3fff com.apple.HIServices 1.5.0 (???)
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/HIServices.framework/Versions/A/HIServices
+0x91821000 - 0x91844fff com.apple.LangAnalysis 1.6
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/LangAnalysis.framework/Versions/A/LangAnalysis
+0x91858000 - 0x9187dfff com.apple.FindByContent 1.5
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/FindByContent.framework/Versions/A/FindByContent
+0x91890000 - 0x918d1fff com.apple.LaunchServices 10.4.4 (159)
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/LaunchServices
+0x918ec000 - 0x91900fff com.apple.speech.synthesis.framework 3.3
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/SpeechSynthesis.framework/Versions/A/SpeechSynthesis
+0x9190e000 - 0x91944fff com.apple.ImageIO.framework 1.0.2
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/ImageIO
+0x91958000 - 0x91a1afff libcrypto.0.9.7.dylib
+/usr/lib/libcrypto.0.9.7.dylib
+0x91a66000 - 0x91a7bfff libcups.2.dylib     /usr/lib/libcups.2.dylib
+0x91a80000 - 0x91a9cfff libJPEG.dylib
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/Resources/libJPEG.dylib
+0x91aa1000 - 0x91b10fff libJP2.dylib
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/Resources/libJP2.dylib
+0x91b27000 - 0x91b2bfff libGIF.dylib
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/Resources/libGIF.dylib
+0x91b2d000 - 0x91b45fff libRaw.dylib
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/Resources/libRaw.dylib
+0x91b48000 - 0x91b8bfff libTIFF.dylib
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/Resources/libTIFF.dylib
+0x91b92000 - 0x91babfff libPng.dylib
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/Resources/libPng.dylib
+0x91bb0000 - 0x91bb3fff libRadiance.dylib
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/Resources/libRadiance.dylib
+0x91bb5000 - 0x91bb5fff com.apple.Accelerate 1.1.1 (Accelerate 1.1.1)
+/System/Library/Frameworks/Accelerate.framework/Versions/A/Accelerate
+0x91bb7000 - 0x91ca1fff com.apple.vImage 2.0
+/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vImage.framework/Versions/A/vImage
+0x91d34000 - 0x91d54fff libmx.A.dylib     /usr/lib/libmx.A.dylib
+0x91d5a000 - 0x91dbffff libvMisc.dylib
+/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libvMisc.dylib
+0x91dc9000 - 0x91e5bfff libvDSP.dylib
+/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libvDSP.dylib
+0x91e75000 - 0x92405fff libBLAS.dylib
+/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib
+0x9244d000 - 0x9275dfff libLAPACK.dylib
+/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libLAPACK.dylib
+0x9278a000 - 0x92815fff com.apple.DesktopServices 1.3
+/System/Library/PrivateFrameworks/DesktopServicesPriv.framework/Versions/A/DesktopServicesPriv
+0x92857000 - 0x92a80fff com.apple.Foundation 6.4.1 (567.12)
+/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation
+0x92b9e000 - 0x92c7cfff libxml2.2.dylib     /usr/lib/libxml2.2.dylib
+0x92c9c000 - 0x92d8afff libiconv.2.dylib     /usr/lib/libiconv.2.dylib
+0x92d9c000 - 0x92dbafff libGL.dylib
+/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib
+0x92dc5000 - 0x92e1ffff libGLU.dylib
+/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGLU.dylib
+0x92e3d000 - 0x92e3dfff com.apple.Carbon 10.4 (???)
+/System/Library/Frameworks/Carbon.framework/Versions/A/Carbon
+0x92e3f000 - 0x92e53fff com.apple.ImageCapture 3.0
+/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/ImageCapture.framework/Versions/A/ImageCapture
+0x92e6b000 - 0x92e7bfff com.apple.speech.recognition.framework 3.4
+/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/SpeechRecognition.framework/Versions/A/SpeechRecognition
+0x92e87000 - 0x92e9cfff com.apple.securityhi 2.0 (203)
+/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/SecurityHI.framework/Versions/A/SecurityHI
+0x92eae000 - 0x92f35fff com.apple.ink.framework 101.2 (69)
+/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/Ink.framework/Versions/A/Ink
+0x92f49000 - 0x92f54fff com.apple.help 1.0.3 (32)
+/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/Help.framework/Versions/A/Help
+0x92f5e000 - 0x92f8bfff com.apple.openscripting 1.2.2 (???)
+/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/OpenScripting.framework/Versions/A/OpenScripting
+0x92fa5000 - 0x92fb5fff com.apple.print.framework.Print 4.0 (187)
+/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/Print.framework/Versions/A/Print
+0x92fc1000 - 0x93027fff com.apple.htmlrendering 1.1.2
+/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/HTMLRendering.framework/Versions/A/HTMLRendering
+0x93058000 - 0x930aafff com.apple.NavigationServices 3.4.1 (3.4)
+/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/NavigationServices.framework/Versions/A/NavigationServices
+0x930d6000 - 0x930f3fff com.apple.audio.SoundManager 3.9
+/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/CarbonSound.framework/Versions/A/CarbonSound
+0x93105000 - 0x93112fff com.apple.CommonPanels 1.2.2 (73)
+/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/CommonPanels.framework/Versions/A/CommonPanels
+0x9311b000 - 0x9342bfff com.apple.HIToolbox 1.4.2 (???)
+/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/HIToolbox.framework/Versions/A/HIToolbox
+0x93576000 - 0x93582fff com.apple.opengl 1.4.1
+/System/Library/Frameworks/OpenGL.framework/Versions/A/OpenGL
+0x935f4000 - 0x935f4fff com.apple.Cocoa 6.4 (???)
+/System/Library/Frameworks/Cocoa.framework/Versions/A/Cocoa
+0x935f6000 - 0x93c27fff com.apple.AppKit 6.4.1 (824.1)
+/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit
+0x93fb3000 - 0x9401dfff com.apple.CoreData 1.0 (46)
+/System/Library/Frameworks/CoreData.framework/Versions/A/CoreData
+0x94055000 - 0x9411ffff com.apple.audio.toolbox.AudioToolbox 1.4.1
+/System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox
+0x94173000 - 0x94173fff com.apple.audio.units.AudioUnit 1.4
+/System/Library/Frameworks/AudioUnit.framework/Versions/A/AudioUnit
+0x94175000 - 0x942d4fff com.apple.QuartzCore 1.4.1
+/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore
+0x9431c000 - 0x94359fff libsqlite3.0.dylib     /usr/lib/libsqlite3.0.dylib
+0x94361000 - 0x943acfff libGLImage.dylib
+/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGLImage.dylib
+0x9454c000 - 0x9455bfff libCGATS.A.dylib
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/CoreGraphics.framework/Versions/A/Resources/libCGATS.A.dylib
+0x94563000 - 0x9456ffff libCSync.A.dylib
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/CoreGraphics.framework/Versions/A/Resources/libCSync.A.dylib
+0x945b4000 - 0x945c8fff libRIP.A.dylib
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/CoreGraphics.framework/Versions/A/Resources/libRIP.A.dylib
+0x945ce000 - 0x94830fff com.apple.QuickTime 7.0.1
+/System/Library/Frameworks/QuickTime.framework/Versions/A/QuickTime
+0x94903000 - 0x94922fff com.apple.vecLib 3.1.1 (vecLib 3.1.1)
+/System/Library/Frameworks/vecLib.framework/Versions/A/vecLib
+0x952e0000 - 0x9536afff com.apple.WebKit 412.6
+/System/Library/Frameworks/WebKit.framework/Versions/A/WebKit
+0x953c4000 - 0x954a6fff com.apple.JavaScriptCore 412.3
+/System/Library/Frameworks/WebKit.framework/Versions/A/Frameworks/JavaScriptCore.framework/Versions/A/JavaScriptCore
+0x954fa000 - 0x957e8fff com.apple.WebCore 415.11
+/System/Library/Frameworks/WebKit.framework/Versions/A/Frameworks/WebCore.framework/Versions/A/WebCore
+0x95969000 - 0x95992fff libxslt.1.dylib     /usr/lib/libxslt.1.dylib
+
+Model: PowerMac10,2, BootROM 4.9.4f1, 1 processors, PowerPC G4 (1.2),
+1.5GHz, 512 MB
+Graphics: ATI Radeon 9200, ATY,RV280, AGP, 64 MB
+Memory Module: DIMM0/J11, 512 MB, DDR SDRAM, PC3200U-30330
+AirPort: AirPort Extreme, 400.17 (3.90.34.0.p11)
+Bluetooth: Version 1.6.3f2, 2 service, 1 devices, 1 incoming serial ports
+Network Service: Built-in Ethernet, Ethernet, en0
+PCI Card: pci106b,4318, sppci_othernetwork, SLOT-B
+Parallel ATA Device: ST9808211A, 74.53 GB
+Parallel ATA Device: MATSHITACD-RW  CW-8124,
+USB Device: Bluetooth HCI, , Up to 12 Mb/sec, 500 mA
+
+This is it for now. Please send me the new version privately by email, so I
+can test it.
+
+Stani
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051130/a4a1967d/attachment.html>
+
+From spe.stani.be at gmail.com  Wed Nov 30 22:16:41 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Wed, 30 Nov 2005 22:16:41 +0100
+Subject: [spe-dev] Close bug fixed!
+Message-ID: <2078a7ad0511301316g6672ff22x617d24ab2f90faa9@mail.gmail.com>
+
+Hi Andrea,
+
+I found the code which crashes on Mac: dlg.SetFont(wx.Font(8, wx.NORMAL,
+wx.NORMAL, wx.NORMAL, False, "Verdana"))
+
+Luckily it's not part of the core NotebookCtrl.py, but only of the demo.
+Maybe you can just leave this line out unless you really want to use Verdana
+on Windows and Linux.
+
+Curious to get the new NotebookCtrl!
+
+Stani
+
+    def OnPageClosing(self, event):
+
+        msg = "Are You Sure You Want To Close This Page?"
+        dlg = wx.MessageDialog(self, msg, "NotebookCtrl Question",
+                               wx.YES_NO | wx.NO_DEFAULT | wx.CANCEL |
+wx.ICON_QUESTION)
+
+        #dlg.SetFont(wx.Font(8, wx.NORMAL, wx.NORMAL, wx.NORMAL, False,
+"Verdana"))
+
+        if dlg.ShowModal() in [wx.ID_NO, wx.ID_CANCEL]:
+            self.log.write("OnPageClosing: Closing Event Blocked By User\n")
+            dlg.Destroy()
+            return
+
+        dlg.Destroy()
+        self.log.write("OnPageClosing: Deleted Page With Small Closing X\n")
+
+        event.Skip()
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051130/f1cdec0e/attachment.html>
+

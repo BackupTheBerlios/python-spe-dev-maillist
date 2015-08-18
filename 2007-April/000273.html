@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Bug Fixed: View as notebook/columns/rows
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%20Fixed%3A%20View%20as%20notebook/columns/rows&In-Reply-To=%3C8444ECD6-4D39-49FC-BFBB-90ABF5FE9F0D%40mac.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000271.html">
+   <LINK REL="Next"  HREF="000274.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Bug Fixed: View as notebook/columns/rows</H1>
+    <B>John Finch</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%20Fixed%3A%20View%20as%20notebook/columns/rows&In-Reply-To=%3C8444ECD6-4D39-49FC-BFBB-90ABF5FE9F0D%40mac.com%3E"
+       TITLE="[spe-dev] Bug Fixed: View as notebook/columns/rows">johnfinch at mac.com
+       </A><BR>
+    <I>Tue Apr  3 03:08:24 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000271.html">[spe-dev] Bug Fixed: View as notebook/columns/rows
+</A></li>
+        <LI>Next message: <A HREF="000274.html">[spe-dev] SPE &quot;Explore&quot; Tab shows commented elements
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#273">[ date ]</a>
+              <a href="thread.html#273">[ thread ]</a>
+              <a href="subject.html#273">[ subject ]</a>
+              <a href="author.html#273">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I'll look into it some more :)
+
+
+On Apr 2, 2007, at 9:04 PM, Stani's Python Editor wrote:
+
+&gt;<i> Hi John,
+</I>&gt;<i> I don't understand. If you define a method  
+</I>&gt;<i> &quot;parentPanel.as_notebook&quot;, how can it be missing?
+</I>&gt;<i> Stani
+</I>&gt;<i>
+</I>&gt;<i> John Finch wrote:
+</I>&gt;&gt;<i> Nope, sorry but it doesn't work Stani. Here's the Traceback:
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Traceback (most recent call last):
+</I>&gt;&gt;<i>   File &quot;/Users/johnfinch/_spe/Menu.py&quot;, line 420, in menu_as_notebook
+</I>&gt;&gt;<i>     self.parentPanel.as_notebook(event)
+</I>&gt;&gt;<i> AttributeError: 'Panel' object has no attribute 'as_notebook'
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> On Mar 19, 2007, at 8:51 AM, Stani's Python Editor wrote:
+</I>&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>      def as_notebook(self,event):
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>          if hasattr(self.frame,'Tile'):
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>              self.app.childActive.frame.Maximize()
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>          else:
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>              tabs  =  getattr(self.frame,'tabs',None)
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>              if tabs:
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>                  # Have to set selection to first tab and de- 
+</I>&gt;&gt;&gt;&gt;<i> Tile before
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>                  # starting iterations to show sidebars etc
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>                  tabs.Tile(False)
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>                  for child in app.children:
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>                      child.showSidebar()
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>                  tabs.ShowTabs(True)
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>                  tabs.SetSelection(0)
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> --
+</I>&gt;&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;&gt;<i> svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070402/edbf9acc/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070402/edbf9acc/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000271.html">[spe-dev] Bug Fixed: View as notebook/columns/rows
+</A></li>
+	<LI>Next message: <A HREF="000274.html">[spe-dev] SPE &quot;Explore&quot; Tab shows commented elements
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#273">[ date ]</a>
+              <a href="thread.html#273">[ thread ]</a>
+              <a href="subject.html#273">[ subject ]</a>
+              <a href="author.html#273">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

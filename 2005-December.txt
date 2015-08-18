@@ -1,0 +1,2474 @@
+From spe.stani.be at gmail.com  Thu Dec  1 04:33:53 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Thu, 1 Dec 2005 04:33:53 +0100
+Subject: [spe-dev] SVN 88: NotebookCtrl implemented
+Message-ID: <2078a7ad0511301933i5f9e8b2die440a422e0cb90cc@mail.gmail.com>
+
+Hi,
+
+1
+I bugfixed Andrea Gavana NotebookCtrl and tried to implement it in SPE. This
+might be unstable. Please test this thouroughly. At the moment only these
+document interfaces are allowed.
+
+"multiple with sash & tabs (windows default)"
+"multiple with sash & tabs (mac default,linux default,windows)"
+
+Other document interfaces are not garantueed to work.
+
+2
+Files belonging to the workspace have white tabs, the other stay grey.
+
+3
+Drag&drop of tabs will be implemented in the future to change the order of
+the tabs. Right now an event for this is lacking. I hope Andrea will
+implement it.
+
+Thanks for testing,
+Stani
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051201/78bb4837/attachment.html>
+
+From spe.stani.be at gmail.com  Thu Dec  1 14:13:51 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Thu, 1 Dec 2005 14:13:51 +0100
+Subject: [spe-dev] mouse down crash on selected text (mac only)
+Message-ID: <2078a7ad0512010513y2923f329xf7508ee34caeba6d@mail.gmail.com>
+
+Hi Stefan,
+I have no idea what could be interfering. Hopefully the answer is as simple
+as that the wxPython uses an old version of wxMac, but I have no idea about
+that.
+Stani
+
+On 11/28/05, Stefan Csomor <csomor at advancedconcepts.ch> wrote:
+>
+> Hi
+>
+> it is difficult to say what happens, if I test then code from CVS HEAD
+> with the stc sample under OSX, then I don't have a problem :
+>
+> I get the correct dragging symbol as expected, which I can drag to another
+> app, the content dropped is correctly reflecting the selection
+>
+> what could be interfering with this ?
+>
+> Best,
+>
+> Stefan
+>
+>  ------------------------------
+> *From:* SPE Stani's Python Editor [mailto:spe.stani.be at gmail.com]
+> *Sent:* Sonntag, 27. November 2005 22:56
+> *To:* Glenn Washburn
+> *Cc:* Stefan Csomor
+> *Subject:* Re: hack around bug in wxPython in deleting TreeItemIds from
+> TreeCtrl
+>
+> Hi Glenn,
+> From the moment you do mouse left down on a selected text, wxMac crashes.
+> So it's the same bug. (I did some research about it and it is a wxMac bug.
+> It also happens in the wxPython demo.) Maybe it is possible to construct a
+> custom on left down event handler for Mac in order to deal with this
+> properly, but that should be a last solution. I hope to get an answer about
+> this soon from Stefan.
+> Stani
+>
+>
+> On 11/26/05, Glenn Washburn <crass at berlios.de> wrote:
+> >
+> > Stani,
+> >
+> > Also, in response to an email you
+> > sent to the list of about a bug in stc where selecting text and left
+> > clicking causes wxPython to hang, I have noticed a similar problem,
+> > though I'm not sure if its stc or spe.  When I select text in stc and
+> > initiate a drag, but drop on the same selected text, spe hangs.  I have
+> > not yet tested this in a test stc program to see if its stc or spe.
+> > I'll get back with you soon on the results on some testing of the
+> > latest changes.
+> >
+> > Glenn
+> >
+> > On Wed, 23 Nov 2005 20:33:41 +0100
+> > "SPE Stani's Python Editor" <spe.stani.be at gmail.com> wrote:
+> >
+> > > Does SPE (latest SVN) still crash?
+> > > Stani
+> >
+>
+>
+>
+> --
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+>
+>
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051201/3273cbdf/attachment.html>
+
+From spe.stani.be at gmail.com  Thu Dec  1 14:59:38 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Thu, 1 Dec 2005 14:59:38 +0100
+Subject: [spe-dev] SVN89:Kay fix+encoding+browse folder
+Message-ID: <2078a7ad0512010559y7692ca23k49d0c789b0374a49@mail.gmail.com>
+
+The bug reported by Kay was because of a stupid typo (color instead of
+colour). I also applied patches for encoding and browse folder (Cheng).
+Please test,test,test,...
+Stani
+
+On 12/1/05, Kay Fricke <kay.fricke at merz-akademie.de> wrote:
+>
+> _______________________________________________
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate_______________________________________________
+> Hi Stani,
+>
+> the Revision 88 which I just updated to, is crashing starting with open
+> files on startup, works okay when the workspace is removed, but
+> reoccures when workspace is saved and spe reopened:
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051201/cd8b0dc5/attachment.html>
+
+From spe.stani.be at gmail.com  Thu Dec  1 15:14:42 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Thu, 1 Dec 2005 15:14:42 +0100
+Subject: [spe-dev] SVN90:PYTHON_COM & encoding fix
+Message-ID: <2078a7ad0512010614pb827978i8790833718fe5db5@mail.gmail.com>
+
+Nothing special.
+Stani
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051201/508d154e/attachment.html>
+
+From dawgmatix at gmail.com  Thu Dec  1 19:08:00 2005
+From: dawgmatix at gmail.com (Dawg Shite)
+Date: Thu, 1 Dec 2005 13:08:00 -0500
+Subject: [spe-dev] Class/uml code
+Message-ID: <a99736130512011008h675e77cckc8aea8ab80121849@mail.gmail.com>
+
+I was trying to tinker with the code, as i would like the attributes and
+methods to show in the uml class diagram.
+Could you tell me, where in the code is a list of classes beeing generated.
+?
+Also as a side question, any pointers as to how i might extract the names of
+the attributes and methods from the classes ?
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051201/95b61dc6/attachment.html>
+
+From spe.stani.be at gmail.com  Thu Dec  1 19:20:01 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Thu, 1 Dec 2005 19:20:01 +0100
+Subject: [spe-dev] Class/uml code
+In-Reply-To: <a99736130512011008h675e77cckc8aea8ab80121849@mail.gmail.com>
+References: <a99736130512011008h675e77cckc8aea8ab80121849@mail.gmail.com>
+Message-ID: <2078a7ad0512011020w734b5c97l7cdf733f53fa2059@mail.gmail.com>
+
+Hi Dawg,
+
+On 12/1/05, Dawg Shite <dawgmatix at gmail.com> wrote:
+> I was trying to tinker with the code,
+Note that sm/wxp/uml.py can also run on its own for testing &
+debugging. It has a unittest built in.
+
+> as i would like the attributes and
+> methods to show in the uml class diagram.
+Nice!
+
+> Could you tell me, where in the code is a list of classes beeing generated.
+> ?
+In Child.py on line 781 the def updateExplore(self,uml=0) returns
+classes for uml when uml=1 is passed as an argument.
+
+> Also as a side question, any pointers as to how i might extract the names of
+> the attributes and methods from the classes ?
+Extracting the attributes maybe shouldn't be difficult. You could look
+for "self.* =" Maybe only in __init__ or in all functions.
+
+Go for it!
+Stani
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From spe.stani.be at gmail.com  Fri Dec  2 05:57:22 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Fri, 2 Dec 2005 05:57:22 +0100
+Subject: [spe-dev] Running files in SPE
+Message-ID: <2078a7ad0512012057w30290dafo70fb07628326def4@mail.gmail.com>
+
+Running files in SPE is one of the weak points, which should be
+improved. Therefore I'll redesign it completely. Just to inform
+everyone it makes no sense to work on it. When I'm ready, I'd be glad
+if you'll test it. This might take some time.
+Stani
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From spe.stani.be at gmail.com  Sat Dec  3 17:07:54 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Sat, 3 Dec 2005 17:07:54 +0100
+Subject: [spe-dev] TextCtrl & cut,copy,paste
+Message-ID: <2078a7ad0512030807va5af705pacc6dc05fadf8342@mail.gmail.com>
+
+Hi Stefan,
+I run into something frustrating: in wxPythonMac there is no popup menu
+(right click) for cut,copy, paste as there is on other platforms. Is there
+anyway to make this possible?
+Stani
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051203/de51db14/attachment.html>
+
+From csomor at advancedconcepts.ch  Sat Dec  3 17:02:28 2005
+From: csomor at advancedconcepts.ch (Stefan Csomor)
+Date: Sat, 3 Dec 2005 17:02:28 +0100
+Subject: [spe-dev] TextCtrl & cut,copy,paste
+Message-ID: <834A07D804766B43A535AC6861D6D86742A2CC@advanced-3ynlwj.advancedconcepts.ch>
+
+Hi Stani
+ 
+I guess you need a new wxPython build, this has been implemented quite a
+few months ago. So it is either that, or something is eating the event
+before the textctrl gets it. 
+ 
+Note that using ctx menu for clipboard commands is not very macish btw,
+if you use the standard menu ids for cut/copy/paste they are enabled
+automatically and the shortcuts work. The thing the context menu is used
+for also on mac are spell checking etc.
+ 
+Best,
+ 
+Stefan
+
+
+  _____  
+
+	From: python-spe-dev-admin at berlios.de
+[mailto:python-spe-dev-admin at berlios.de] On Behalf Of SPE Stani's Python
+Editor
+	Sent: Samstag, 3. Dezember 2005 17:08
+	To: python-spe-dev at berlios.de
+	Subject: [spe-dev] TextCtrl & cut,copy,paste
+	
+	
+	Hi Stefan,
+	I run into something frustrating: in wxPythonMac there is no
+popup menu (right click) for cut,copy, paste as there is on other
+platforms. Is there anyway to make this possible?
+	Stani
+	
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051203/c7ef28f4/attachment.html>
+
+From spe.stani.be at gmail.com  Sat Dec  3 18:17:39 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Sat, 3 Dec 2005 18:17:39 +0100
+Subject: [spe-dev] SPE 0.8.0.c released!
+Message-ID: <2078a7ad0512030917m26b67c0atc72e04534b473d4@mail.gmail.com>
+
+NEW RELEASE
+Another pre-announcement to the SPE mailing lists... This release is
+for those, who like close buttons on the tabs. This is a beta release,
+to test if there are problems with this new tab feature. I tested it
+on Mac & Windows and hope this will work well. The code for the tabs
+was developped by Andrea Gavana and partly bugfixed by me.
+
+CALL FOR HELP!!
+I'm having problems implementing the encoding in the right way for
+SPE. If anyone of you could help me to solve this issue once and for
+ever, it would be very nice. This bug still prevents a lot of users to
+choose for SPE. Don't help me, but help them ;-)
+Contact me if you know the solution. For more info look at the bottom.
+I have some nasty test files to verify your patches ;-)
+
+DETAILS
+:**Improved features**:
+
+- Better tabs with close button and colors (white belongs to workspace)
+
+:**Bug fixes**:
+
+- encoding according to PEP
+- browse folder
+- win98 support for 'run in terminal'
+
+:**Installation**:
+
+- See http://pythonide.stani.be/manual/html/manual2.html
+- There is now an update section for MacOS X!
+
+:**Contributors**:
+
+- Andrea Gavana (enhanced tabs)
+
+:**Todo**:
+
+- Show/hide shell (Mac)
+- Drag and drop tabs
+
+:**Development**:
+
+- http://developer.berlios.de/mail/?group_id=4161
+
+SVN 91
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+--
+CALL FOR HELP (continued)
+These codes deal with the encoding (1&2) and at the bottom (3) you'll
+find a bug report...
+
+1
+getEncoding in Child.py  (about line 1117):
+    def getEncoding(self,source):
+        if source.startswith(u'\xef\xbb\xbf'):
+            self.encoding = "utf8"
+            return
+        first2lines         = "".join(source.split("\n")[:2])
+        encode_hit          = RE_ENCODING.search(first2lines)
+        if encode_hit:
+            #find in source
+            self.encoding   = encode_hit.group(1)
+        else:
+            #get default values
+            if self.parentPanel.defaultEncoding == '<default>':
+                #wx.GetDefaultPyEncoding() when SPE was launched
+                self.encoding   = INFO['encoding']
+            else:
+                #as in preferences
+                self.encoding   = self.parentPanel.defaultEncoding
+        if self.encoding == 'ascii':
+            #avoid obvious trap
+            try:
+                str(source)
+            except:
+                self.setStatus('Warning: SPE uses "utf8" instead of
+"ascii" codec.')
+                self.encoding   = 'utf8'
+        self.encoding = str(self.encoding)
+
+2
+updateExplore in Child.py (about line 813):
+            encode_hit  = False
+            if line < 3:
+                if line == 0 and l.startswith(u'\xef\xbb\xbf'):
+                    self.encoding = "utf8"
+                    encode_hit = True
+                else:
+                    enc = RE_ENCODING.search(l)
+                    if enc:
+                        self.encoding = str(enc.group(1))
+                        encode_hit = True
+
+3
+SPE v0.8.0.c (c)2003-2005 www.stani.be
+
+Spe is running in debugging mode with this configuration:
+- platform  : linux2
+- python    : 2.3.5
+- wxPython  : 2.6.1.0.
+- interface : <default>
+- encoding  : ISO8859-1
+
+Launching application...
+
+<-cut->
+
+Opening
+/home/michele/mnt/LINUX-UNIPEX/sviluppo/FreeImagePy/FreeImagePy/FreeImagePy.py
+Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'>
+FreeImagePy.py /home/michele/mnt/LINUX-UNIPEX/sviluppo/FreeImagePy/FreeImage
+Py/FreeImagePy.py
+Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+Traceback (most recent call last):
+  File "SPE.py", line 200, in ?
+    style           = style)
+  File "/home/michele/tmp/spe/trunk/_spe/sm/wxp/smdi.py", line 1197, in
+__init__
+    wx.App.__init__(self,redirect=not debug)
+
+<-cut->
+
+ File "/home/michele/tmp/spe/trunk/_spe/Child.py", line 105, in __finish__
+    self.__source__(self._fileName,self._source)
+  File "/home/michele/tmp/spe/trunk/_spe/Child.py", line 227, in __source__
+    self.revert(source)
+  File "/home/michele/tmp/spe/trunk/_spe/Child.py", line 1025, in revert
+    self.getEncoding(source)
+  File "/home/michele/tmp/spe/trunk/_spe/Child.py", line 1110, in
+getEncoding
+    if source.startswith(u'\xef\xbb\xbf'):
+UnicodeDecodeError: 'ascii' codec can't decode byte 0x92 in position
+21184: ordinal not in range(128)
+
+
+If I delete my ~/.spe directory, spe work well. I think that I have a
+char into my FreeImagePy file that doesn't like to spe, but the "old"
+version 0.8.0a worked well with the same souces.
+
+The same appear if I delete .spe directory and try to open the same file.
+
+
+Michele
+
+
+From spe.stani.be at gmail.com  Sat Dec  3 18:40:22 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Sat, 3 Dec 2005 18:40:22 +0100
+Subject: [spe-dev] Volunteer needed for python23 releases for Windows
+Message-ID: <2078a7ad0512030940p2ec29e15i8d719861c6498e5f@mail.gmail.com>
+
+Hi,
+I have switched to Python2.4 Therefore it is impossible for me to make
+windows installers for python23. This is however extremely easy, you
+don't have to know even python for this. All you have to do is,
+download the source tar.gz archive, unzip it and type this at the
+command prompt:
+>>> python setup.py bdist_wininst
+
+This will create automatically the windows installer for python23. Now
+my question is, does anyone of you want to do this for new releases?
+I'll give you release rights so you can post this release on BerliOS
+and SourceForge.
+
+You'll make a lot people happy and contribute to SPE's succes.
+Moreover you'll have the windows installer for yourself, which you'll
+need if you want the shortcuts in the start menu and integration in
+explorer.
+
+Thanks in advance,
+Stani
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From spe.stani.be at gmail.com  Sat Dec  3 21:00:59 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Sat, 3 Dec 2005 21:00:59 +0100
+Subject: [spe-dev] TextCtrl & cut,copy,paste
+In-Reply-To: <834A07D804766B43A535AC6861D6D86742A2CC@advanced-3ynlwj.advancedconcepts.ch>
+References: <834A07D804766B43A535AC6861D6D86742A2CC@advanced-3ynlwj.advancedconcepts.ch>
+Message-ID: <2078a7ad0512031200n3bbd6b12q30aa7e2aaba97bc7@mail.gmail.com>
+
+I hope that is the reason as well. I'm often using my mac through VNC from
+windows, and then the shortcuts Cmd+C don't work. That's why I needed the
+popup menu.
+Stani
+
+On 12/3/05, Stefan Csomor <csomor at advancedconcepts.ch> wrote:
+>
+> Hi Stani
+>
+> I guess you need a new wxPython build, this has been implemented quite a
+> few months ago. So it is either that, or something is eating the event
+> before the textctrl gets it.
+>
+> Note that using ctx menu for clipboard commands is not very macish btw, if
+> you use the standard menu ids for cut/copy/paste they are enabled
+> automatically and the shortcuts work. The thing the context menu is used for
+> also on mac are spell checking etc.
+>
+> Best,
+>
+> Stefan
+>
+>  ------------------------------
+> *From:* python-spe-dev-admin at berlios.de [mailto:
+> python-spe-dev-admin at berlios.de] *On Behalf Of *SPE Stani's Python Editor
+> *Sent:* Samstag, 3. Dezember 2005 17:08
+> *To:* python-spe-dev at berlios.de
+> *Subject:* [spe-dev] TextCtrl & cut,copy,paste
+>
+> Hi Stefan,
+> I run into something frustrating: in wxPythonMac there is no popup menu
+> (right click) for cut,copy, paste as there is on other platforms. Is there
+> anyway to make this possible?
+> Stani
+>
+>
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051203/baf662d1/attachment.html>
+
+From Richard.E.Brown at dartware.com  Sun Dec  4 16:13:27 2005
+From: Richard.E.Brown at dartware.com (Richard E. Brown)
+Date: 04 Dec 2005 10:13:27 EST
+Subject: [spe-dev] Can't debug using SVN 91
+Message-ID: <2068210@blitz.dartware.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051204/0184485e/attachment.ksh>
+
+From Richard.E.Brown at DARTWARE.COM  Sun Dec  4 16:59:55 2005
+From: Richard.E.Brown at DARTWARE.COM (Richard E. Brown)
+Date: 04 Dec 2005 10:59:55 EST
+Subject: [spe-dev] Cmd-D in MacOS version
+Message-ID: <2068217@blitz.dartware.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051204/0ab354ab/attachment.ksh>
+
+From spe.stani.be at gmail.com  Sun Dec  4 17:34:22 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Sun, 4 Dec 2005 17:34:22 +0100
+Subject: [spe-dev] Can't debug using SVN 91
+In-Reply-To: <2068210@blitz.dartware.com>
+References: <2068210@blitz.dartware.com>
+Message-ID: <2078a7ad0512040834k256bbd92y9a89f0f6a5c84c59@mail.gmail.com>
+
+Hi Richard,
+I forgot to update the SVN, so SPE 0.8.0.c is more up to date then
+SVN91. The reason I'm not updating at the moment is that I am doing
+some major chances which would produce unstable versions. I prefer to
+update if SPE is stable again.
+SPE will be able to run files and to launch the debugger at any time
+or at unhandled exceptions. This is far superior then the run system
+now. It works on Windows, but I am working together with Nir Aides to
+fix for the Mac. Hope it will work.
+I have to go now, I'll answer your other email later.
+Stani
+
+On 04 Dec 2005 10:13:27 EST, Richard E. Brown
+<Richard.E.Brown at dartware.com> wrote:
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> Folks:
+>
+> I'm tried to use the SVN 91 build to debug a program and crashed up on the
+> rocks.
+>
+> Before the debugger could even launch, the SPE console showed error messages
+> implicating line 608 in Parent.py...
+>
+> ---
+>     def debug(self):
+>         child   = self.app.childActive
+>         if child.confirmSave():
+>             from dialogs import winpdbDialog
+>             name            = child.fileName
+>             debugDialog     = winpdbDialog.options(self,name)
+>             if debugDialog.ShowModal()!=wx.ID_CANCEL:
+>                 _info       = self.app.debugInfo
+>                 args        = [os.P_NOWAIT,       <-- LINE 608
+>                                info.info.PYTHON_EXEC,
+>                                info.PYTHON_EXEC]
+>  ...
+> ---
+>
+> I think the error is in the "info.info.PYTHON_EXEC," line...
+>
+> Dropping back to the released 0.8.0c, there's only one "info." in that constant,
+> and it works properly.
+>
+> Best regards,
+>
+> Rich Brown                    richard.e.brown at dartware.com
+> Dartware, LLC                 http://www.dartware.com
+> 10 Buck Road, PO Box 130      Telephone: 603-643-9600
+> Hanover, NH 03755-0130 USA    Fax: 603-643-2289
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From spe.stani.be at gmail.com  Sun Dec  4 21:54:18 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Sun, 4 Dec 2005 21:54:18 +0100
+Subject: [spe-dev] Configurable keyboard shortcuts (emac style)
+Message-ID: <2078a7ad0512041254q1d3b1de4nca7d1037812bbcb3@mail.gmail.com>
+
+Hi Toni,
+
+Nice you take this initiative.
+
+What is important first: let's define our design goals: what do we want?
+Once that's clear, we can implement it. I prefer to have it fully
+implemented, rather then half. What SPE needs is a:
+- dialog to configure keyboard shortcuts (this could be launched by a button
+in the preferences tab):
+     - maybe look to other IDEs to look for the best proposal
+     - should support multi-keystrokes
+     - users should be able to save keyboard shortcuts (the most important
+ones could be collected and be bundled with SPE)
+- during keyboard shortcuts there should be feedback on the statusBar
+(field1,not field 0, which is used for icons)
+
+How to get around wxGlade? It is easy, I think. In fact I already
+implemented it. Maybe you noticed the _spe/shortcuts folder. There you'll
+see there are different files for Mac and Windows. So in this way it is
+possible to define already one keystroke shortcuts. But with the recipee...
+this could be extended. You define keys by the raw menu label in
+dictionaries, eg for mac (Macintosh.py):
+"""Mac shortcuts for SPE"""
+keys = {
+    'Save As'       : 'Ctrl+Shift+S',
+    'Redo'          : 'Ctrl+Shift+Z',
+    'Find Next'     : 'Ctrl+G', # not very logical, but usual on the Mac
+    'Go to line'    : 'Ctrl+J', # "Jump"
+}
+
+The code which translates that into the menu is in SPE.py, line 133:
+####Shortcuts
+class Translate:
+    def __init__(self,keys):
+        self.keys = keys
+
+    def __call__(self,entry):
+        entry           = entry.split('\t')
+        if len(entry)==2:
+            label, shortcut = entry
+        else:
+            label           = entry[0]
+            shortcut        = ''
+        l               = self.strip(label)
+        if self.keys.has_key(l):
+            shortcut    = self.keys[l]
+        if shortcut:
+            return '%s\t%s'%(label,shortcut)
+        else:
+            return label
+
+    def strip(self,x):
+        return x.replace('&','').replace('.','')
+
+shortcuts    = config.get("DEFAULT","shortcuts")
+if shortcuts == smdi.DEFAULT:
+    if smdi.DARWIN:
+        _shortcuts  = 'Macintosh'
+    else:
+        _shortcuts  = 'Windows'
+else:
+    _shortcuts      = shortcuts
+import _spe.shortcuts as sc
+execfile(os.path.join(os.path.dirname(sc.__file__),'%s.py'%_shortcuts))
+import wxgMenu
+wxgMenu._   = Translate(keys)
+
+So the trick is to overwrite the 'def _(x)' function which is normally used
+for internationalization (another future feature for SPE). wxGlade supports
+to insert labels automatically as _(label) Now there is even a combobox in
+the preferences>general, this could later be replaced if we have a dialog to
+define keyboard shortcuts.
+
+So hopefully it is possible to implement the keyboard shortcuts by the
+combination of a file in _spe/shortcuts and the recipee of Josiah. This
+would make all menu entries configurable. At first sight that all things
+which should be keyboard configurable, should also be in the menu. So if is
+not yet in the menu, it will be added to the menu. People are also asking
+for code folding keyboards etc...
+
+One last remarks, this conversation should be held on spe-dev mailing list.
+So please subscribe to this list and answer there. I cc'd this mail already
+to spe-dev. It's always good to get feedback.
+
+Thanks for your support, as these shortcuts are a much requested feature...
+
+Stani
+
+On 12/4/05, Toni Brkic <Toni.Brkic at switchcore.com> wrote:
+>
+> Hi,
+>
+> I took a look at the source code and I am interested to
+> add a patch for adding emacs keybindings.
+>
+> I searched on google and found that you asked about
+> how to add emasc keybindings.
+>
+> From the thread  I got to this python recipe:
+> http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/457407
+>
+> So something like that needs to be incorparated into SPE.
+> I looked at SPE source code and it uses wxGlade. So
+> you automatically add all the meny items. But the recipe
+> requires that you do your own bindings.
+> I have looked for an hour if there is some easy
+> way to put it on top but I can see it.
+>
+> The easiaset way I see of implementing it is something:
+>
+> class Menu(wx.Menu)
+>
+>         def Append(self, id, string, *args, **kwds):
+>             text, shortcut = splitString
+>           menuItem = wx.Menu.Append(id, self, *args, **kwds)
+>           menuItem.shorcut = shortcut
+>
+> Then in Menu
+>
+>   def Bind(self, evt, fcn, *arg, **keyw):
+>       menuID = keyw['id']
+>       menuItem = self.FindItemById(menuID)
+>       self.addHotkey(menuItem, shortcut, fcn) * from python recipe
+>       self.frame.Bind(evt, fcn, *arg, **keyw)
+>
+>
+>
+> But this requires a wxglade work and a little bit
+> more effort than I want to do without you saying
+> what how you want to have it first.
+>
+> /T
+>
+>
+>
+>
+>
+> > -----Original Message-----
+> > From: SPE Stani's Python Editor [mailto:spe.stani.be at gmail.com]
+> > Sent: Friday, December 02, 2005 6:30 PM
+> > To: wxPython-users at lists.wxwidgets.org
+> > Subject: [wxPython-users] Re: SPE 0.8.0.b Python IDE (Mac support, doc
+> > viewer and workspaces)
+> >
+> >
+> > Hi Toni, Michele and Tacao,
+> >
+> > Thanks for your interest. I'd like to invite everyone who is familiar
+> > with wxPython to join the spe-dev mailing list to fuel SPE's
+> > development:
+> > http://lists.berlios.de/mailman/listinfo/python-spe-dev
+> >
+> > I have bugfixed and integrated Andrea Gavana's NotebookCtrl into SPE.
+> > This will soon be available as SPE 0.8.0.c It is already in SVN for
+> > those who can't wait:
+> > svn://svn.berlios.de/python/spe/trunk
+> >
+> > I'll answer all questions at once:
+> >
+> > Toni Brkic:
+> > > So it would be very cool if one could set
+> > > what keybindings one would use.
+> > I agree, this is on my todo list. However there are still things with
+> > higher priority.
+> >
+> > > Is copy-cut-paste rectangle.
+> > > This is very handy when you code and you
+> > > want to uncomment or add some list over
+> > > several lines.
+> > File this as a feature request.
+> >
+> > Toni, if you are experienced with wxPython, then I'd like to invite
+> > you to contact me.  So I can help you writing these patches, which
+> > shouldn't be too difficult. A lot of SPE users get their favorite
+> > features very fast in SPE in this way.
+> >
+> >
+> > Michele Petrazzo:
+> > > is there the possibility to automatic set the focus on the search
+> > > dialog, when press the short-cut Ctrl-F ?
+> > This is fixed in this release, so let me know if you mean
+> > something else.
+> >
+> > Tacao:
+> > I think I'd like to use your metamenus sooner or later in SPE. How
+> > fast is it in swapping Menus? (Unfortunately it crashes on the Mac.
+> > I'll send you the traceback.)
+> >
+> > --
+> > http://pythonide.stani.be
+> > http://pythonide.stani.be/manual/html/manual.html
+> >
+> > ---------------------------------------------------------------------
+> > To unsubscribe, e-mail: wxPython-users-unsubscribe at lists.wxwidgets.org
+> > For additional commands, e-mail:
+> > wxPython-users-help at lists.wxwidgets.org
+> >
+> >
+> >
+>
+
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051204/31521d1d/attachment.html>
+
+From spe.stani.be at gmail.com  Sun Dec  4 22:00:43 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Sun, 4 Dec 2005 22:00:43 +0100
+Subject: [spe-dev] Cmd-D in MacOS version
+In-Reply-To: <2068217@blitz.dartware.com>
+References: <2068217@blitz.dartware.com>
+Message-ID: <2078a7ad0512041300l34fa0327q54056b66ebc14060@mail.gmail.com>
+
+Hi Richard,
+
+First I had Ctrl+D or Cmd+D for Mac. Appearantly this was conflicting with
+the EOF character on Linux. Therefore I changed it into Ctrl+Alt+D, not
+knowing about Mac...
+
+I don't like that people have to change the system preferences of course,
+but I also prefer to have the same shortcut for all platforms. So how about
+Ctrl+Shift+D?
+
+Stani
+
+On 04 Dec 2005 10:59:55 EST, Richard E. Brown <Richard.E.Brown at dartware.com>
+wrote:
+>
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> Folks:
+>
+> I'm using SPE 0.8.0c (release version) on my MacOS X 10.4.3 box with
+> ActivePython 2.4.2.
+>
+> If I type Cmd-D (in an attempt to launch the debugger), I get a lower-case
+> "d"
+> character in the text of the code.
+>
+> This is not correct - if the Cmd (flower/Apple) key is held down for any
+> keystroke, no text should be inserted into the text.
+>
+> Best regards,
+>
+> Rich Brown                    richard.e.brown at dartware.com
+> Dartware, LLC                 http://www.dartware.com
+> 10 Buck Road, PO Box 130      Telephone: 603-643-9600
+> Hanover, NH 03755-0130 USA    Fax: 603-643-2289
+>
+> PS The menu command indicates that you Cmd-Option-D should invoke the
+> debugger.
+> This is the default key combination to hide the Dock. Since I never use
+> that
+> function, I used the following steps to disable it:
+>
+> -       System Preferences > Keyboard & Mouse
+> -       Keyboard Shortcuts
+> -       Uncheck the "Automatically hide and show the Dock" box
+>
+> After I did this, the Winpdb debugger pops up when I hit Cmd-Opt-D.
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051204/95110ad8/attachment.html>
+
+From Richard.E.Brown at dartware.com  Mon Dec  5 02:48:38 2005
+From: Richard.E.Brown at dartware.com (Richard E. Brown)
+Date: 04 Dec 2005 20:48:38 EST
+Subject: [spe-dev] Cmd-D in MacOS version
+Message-ID: <2068483@blitz.dartware.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051204/4eefef65/attachment.ksh>
+
+From spe.stani.be at gmail.com  Tue Dec  6 02:13:42 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Tue, 6 Dec 2005 02:13:42 +0100
+Subject: [spe-dev] Configure highlight colors for the source editor
+Message-ID: <2078a7ad0512051713v4403b08dwa6b8715e7ae7e9c9@mail.gmail.com>
+
+Hi Vladlen,
+I'll try as fast as possible to commit again to SVN, so you have the most up
+to date files. I'm trying to fix something, but maybe it's more important to
+commit already rather then waiting that everything is fixed.
+
+My approach would be that to add a method to PythonBaseSTC in _sm/wxp/stc.py
+which can load the external configuration from a file. As such I think these
+files will be affected:
+- sm\wxp\stc.py
+- Child.py (more specific Panel.__source__ at line 199)
+- dialogs\preferencesDialog.py
+- defaults.cfg
+
+I prefer to load the style configurator as a seperate dialog box from the
+preferences window. I'm afraid that putting it directly into the preferences
+dialog might slow down even more this dialog.
+
+Stani
+
+On 12/4/05, Vladlen Fomushkin <vladlenf at mail.ru > wrote:
+>
+> At the first look these files should be affected:
+> - parent.py
+> - info.py
+> - SPE.py
+> - dialogs\preferencesDialog.py
+> - sm\wxp\stc.py
+>
+> ----- Original Message -----
+> From: "Vladlen Fomushkin" < vladlenf at mail.ru>
+> To: "SPE Stani's Python Editor" < spe.stani.be at gmail.com>
+> Sent: Saturday, December 03, 2005 8:39 PM
+> Subject: Re: About spe...
+>
+>
+> > Ok. As far as i have a file list i'll send it to you.
+> >
+> > ----- Original Message -----
+> > From: "SPE Stani's Python Editor" < spe.stani.be at gmail.com>
+> > To: "Vladlen Fomushkin" <vladlenf at mail.ru>
+> > Sent: Saturday, December 03, 2005 7:31 PM
+> > Subject: Re: About spe...
+> >
+> >
+> > Yes, please do. It shouldn't be difficult. The source for stc is in
+> > sm/wxp/stc.py and with the wxPython demo there is a sample application
+> > called 'STCStyleEditor.py' The code is from Boa (read the README.txt),
+> > so it might be better to fetch their latest version from Boa CVS.
+> >
+> > The 'stc-styles.rc.cfg' should be saved in the userpath. SPE should
+> > look at startup for this file. If it doesnt exist it has a default
+> > file in the _spe directory which then it copies into the user path.
+> >
+> > The style dialog should be called from a button in the preference
+> > dialog box of SPE in the editor tab.
+> >
+> > I'm rewriting a lot of code for the run system. As long as it not
+> > stable, I refrain from posting it to SVN. However give me the list of
+> > the files you want to work on and we'll see. High chance it won't
+> > interfere so much.
+> >
+> > For your contributions to SPE you can always be inspired by...
+> >
+> > bugfixes: http://developer.berlios.de/bugs/?group_id=4161
+> > features: http://developer.berlios.de/feature/?group_id=4161
+> >
+> > Thanks a lot,
+> > Stani
+> >
+> >
+> >
+> > On 12/3/05, Vladlen Fomushkin < vladlenf at mail.ru> wrote:
+> >>
+> >> Hi Stani,
+> >>
+> >>
+> >> Thanks for SPE. It's really great.
+> >>
+> >>
+> >> I miss the feature to configure highlight colors for the source editor.
+> I
+> >> can implement it. Please contact me if you are interested.
+> >>
+> >> Vladlen
+> >
+> >
+> > --
+> > http://pythonide.stani.be
+> > http://pythonide.stani.be/manual/html/manual.html
+> >
+>
+>
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051206/d2ed0d7d/attachment.html>
+
+From vladlenf at mail.ru  Wed Dec  7 01:58:44 2005
+From: vladlenf at mail.ru (Vladlen Fomushkin)
+Date: Wed, 7 Dec 2005 02:58:44 +0200
+Subject: [spe-dev] Configure highlight colors for the source editor
+References: <2078a7ad0512051713v4403b08dwa6b8715e7ae7e9c9@mail.gmail.com>
+Message-ID: <001101c5fac9$5ffe02a0$8b1f05c3@earth>
+
+Stani
+
+OK. Thanks. 
+I already have started to design the style configurator as a separate dialog.
+
+Vladlen
+
+  ----- Original Message ----- 
+  From: SPE Stani's Python Editor 
+  To: python-spe-dev at berlios.de 
+  Cc: Vladlen Fomushkin 
+  Sent: Tuesday, December 06, 2005 3:13 AM
+  Subject: [spe-dev] Configure highlight colors for the source editor
+
+
+  Hi Vladlen,
+  I'll try as fast as possible to commit again to SVN, so you have the most up to date files. I'm trying to fix something, but maybe it's more important to commit already rather then waiting that everything is fixed.
+
+  My approach would be that to add a method to PythonBaseSTC in _sm/wxp/stc.py which can load the external configuration from a file. As such I think these files will be affected:
+  - sm\wxp\stc.py
+  - Child.py (more specific Panel.__source__ at line 199)
+  - dialogs\preferencesDialog.py
+  - defaults.cfg
+
+  I prefer to load the style configurator as a seperate dialog box from the preferences window. I'm afraid that putting it directly into the preferences dialog might slow down even more this dialog.
+
+  Stani
+
+
+  On 12/4/05, Vladlen Fomushkin <vladlenf at mail.ru > wrote:
+    At the first look these files should be affected:
+    - parent.py
+    - info.py
+    - SPE.py
+    - dialogs\preferencesDialog.py
+    - sm\wxp\stc.py
+
+    ----- Original Message -----
+    From: "Vladlen Fomushkin" < vladlenf at mail.ru>
+    To: "SPE Stani's Python Editor" < spe.stani.be at gmail.com>
+    Sent: Saturday, December 03, 2005 8:39 PM 
+    Subject: Re: About spe...
+
+
+    > Ok. As far as i have a file list i'll send it to you.
+    >
+    > ----- Original Message -----
+    > From: "SPE Stani's Python Editor" < spe.stani.be at gmail.com>
+    > To: "Vladlen Fomushkin" <vladlenf at mail.ru>
+    > Sent: Saturday, December 03, 2005 7:31 PM 
+    > Subject: Re: About spe...
+    >
+    >
+    > Yes, please do. It shouldn't be difficult. The source for stc is in
+    > sm/wxp/stc.py and with the wxPython demo there is a sample application
+    > called 'STCStyleEditor.py' The code is from Boa (read the README.txt),
+    > so it might be better to fetch their latest version from Boa CVS.
+    >
+    > The 'stc-styles.rc.cfg' should be saved in the userpath. SPE should
+    > look at startup for this file. If it doesnt exist it has a default 
+    > file in the _spe directory which then it copies into the user path..
+    >
+    > The style dialog should be called from a button in the preference
+    > dialog box of SPE in the editor tab.
+    >
+    > I'm rewriting a lot of code for the run system. As long as it not 
+    > stable, I refrain from posting it to SVN. However give me the list of
+    > the files you want to work on and we'll see. High chance it won't
+    > interfere so much.
+    >
+    > For your contributions to SPE you can always be inspired by... 
+    >
+    > bugfixes: http://developer.berlios.de/bugs/?group_id=4161
+    > features: http://developer.berlios.de/feature/?group_id=4161 
+    >
+    > Thanks a lot,
+    > Stani
+    >
+    >
+    >
+    > On 12/3/05, Vladlen Fomushkin < vladlenf at mail.ru> wrote:
+    >>
+    >> Hi Stani,
+    >> 
+    >>
+    >> Thanks for SPE. It's really great.
+    >>
+    >>
+    >> I miss the feature to configure highlight colors for the source editor. I
+    >> can implement it. Please contact me if you are interested. 
+    >>
+    >> Vladlen
+    >
+    >
+    > --
+    > http://pythonide.stani.be
+    > http://pythonide.stani.be/manual/html/manual.html 
+    >
+
+
+
+
+
+  -- 
+  http://pythonide.stani.be
+  http://pythonide.stani.be/manual/html/manual.html 
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051207/c3db09b5/attachment.html>
+
+From spe.stani.be at gmail.com  Sun Dec 11 04:32:49 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Sun, 11 Dec 2005 04:32:49 +0100
+Subject: [spe-dev] SVN93: Better Run system
+Message-ID: <2078a7ad0512101932j71cec687u30b94a6bc4b2cad6@mail.gmail.com>
+
+Hi All,
+
+This took a while, but I had quite some problems for the Mac. Now
+files are run in a different way, so that they no longer threaten SPE
+with infinite loops or wx applications. I think this is an important
+step.
+
+Basically there are three ways to run files:
+- normal: SPE starts an external process
+- through the debugger: some very new, interesting possibilities (I
+will use this probably most of the time when developping programs)
+- executes code snippets directly in the shell, by selecting them and
+Edit>Execute
+This change is also visible in the toolbar and menus.
+
+I rewrote the chapter about running files, with detailed instructions.
+Please give also feedback on spelling errors or wrong use of language,
+as I am not native. The more critics the better and of course test
+SPE. I'm sure you'll find some bugs. I still have to fix the show/hide
+shell for Mac.
+
+Unfortunately WinPdb can not catch unhandled exceptions with Python
+2.4.2, but Nir Aides, the author, is working on a fix.
+
+Thanks for testing,
+Stani
+
+PS Please report bugs as soon as possible. I want to release this as
+0.8.1.a asap, as SPE 0.8.0.c is buggy.
+
+--
+New text for the manual (without the screenshots):
+
+SPE provides many ways to run files:
+
+Run (F9)
+Use this option if you just want to run the script without that you
+want to explore values of variables and program flow. It provides a
+dialog, in which you can give arguments for the script and check if
+you want to exit from the terminal window after running the script.
+For example if your script contains print statements, you probably
+want not to exit the terminal. You can run as many scripts as you want
+with this option.
+
+Run without arguments (Shift-F9)
+Same as above but no dialog box is shown. This is a shortcut for
+running scripts immediately, which require no arguments. The terminal
+will stay open.
+
+Run without arguments & exit (Shift-F9)
+Same as above, but exits the terminal window.
+
+Run/Stop with WinPdb (Ctrl-F9) (Cmd-F9)
+
+Running scripts in this way will be slightly slower, but will give
+many advantages while developing scripts: you can stop the script or
+attach the debugger at any moment and choose whether you want to
+launch the debugger at unhandled exceptions or at termination of the
+script. You can only run one script at a time in this way.
+
+The first time you invoke this command, SPE will run the script
+through the debugger, which will remain invisible. Once the script is
+running, it is possible to stop the script by invoking this command
+again or to attach the debugger to the script. The second time you
+invoke this command you stop the script.
+
+The dialog gives the possibility to provide arguments for the script
+and two options. The first option is whether you want to launch the
+debugger at unhandled exceptions. The script is then finished, but you
+can still analyze where it crashed and explore the values of the
+global and local variables. (At the moment WinPdb 1.0.6 doesn't
+support this feature for Python 2.4.2) The second option is want to
+launch the debugger after running the script.
+
+Debug with WinPdb (Alt-F9)
+
+This command behaves differently depending on the situation. If a
+script is running by the above command "Run/Stop with WinPdb", then
+the debugger will attach itself to the running script. Otherwise the
+debugger will start a new session with the current script.
+
+The dialog gives the following options:
+- Interface: You can choose whether you want a graphical or a console
+debugger. It is recommended
+- Path: It is recommended to change your working path to that of the
+script. Otherwise local modules can't be imported.
+- Encryption: This option is only available if you have the Python
+Cryptography Toolkit (pyCrypto) installed on your system. If it is
+available, it is recommended to use it, especially for remote
+debugging.
+- Verbose: Check this if you want more feedback from the debugger.
+You can find more information in the "Debugger" chapter.
+
+Import (F10)
+Imports the source file as a module in the shell. It is recommended to
+save the module first, otherwise the old version will be imported.
+
+Execute (Ctrl-Alt-V)
+This command is not under the "Tool" menu, but under the "Edit" menu.
+It executes the selected text as a code snippet in the shell. If no
+text is selected, SPE will execute the whole file.
+
+Warning: Both "Import" and "Execute" run the script inside SPE as it
+is. So never run programs with infinite loops, threads, wxPython,
+etc... with these commands.  Otherwise SPE will block and you might
+risk to loose data, if you didn't save all your files.
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From spe.stani.be at gmail.com  Sun Dec 11 05:14:54 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Sun, 11 Dec 2005 05:14:54 +0100
+Subject: [spe-dev] SVN 94: Show/hide shell for Mac FIXED
+Message-ID: <2078a7ad0512102014j37c35842g9e356b568585df33@mail.gmail.com>
+
+Finally ;-) I forgot to say that with SVN 93 also a 'save workspace'
+button was added at the toolbar. A question for Mac users, do you want
+to have the shell hidden by default or should it be shown?
+Stani
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From spe.stani.be at gmail.com  Sun Dec 11 22:42:51 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Sun, 11 Dec 2005 22:42:51 +0100
+Subject: [spe-dev] SVN 94: Show/hide shell for Mac FIXED
+In-Reply-To: <0D4077E4-AC01-45BE-9787-06960D9258C7@tijdweb.nl>
+References: <2078a7ad0512102014j37c35842g9e356b568585df33@mail.gmail.com>
+	 <0D4077E4-AC01-45BE-9787-06960D9258C7@tijdweb.nl>
+Message-ID: <2078a7ad0512111342s30c0389dwa8473b505b873d3a@mail.gmail.com>
+
+Ok, one vote to hide shell by default. You can always show/hide it through
+the menu, keyboard shortcut F12 or the toolbar. Please Mac users bring out
+your vote. The majority will win!
+
+Stani
+
+On 12/11/05, T. Bloo <t.bloo at tijdweb.nl> wrote:
+>
+> hidden
+>
+>
+> On 11-dec-2005, at 5:14, SPE Stani's Python Editor wrote:
+>
+> > A question for Mac users, do you want
+> > to have the shell hidden by default or should it be shown?
+>
+> Stani
+>
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051211/d13d0eb7/attachment.html>
+
+From spe.stani.be at gmail.com  Sun Dec 11 23:40:43 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Sun, 11 Dec 2005 23:40:43 +0100
+Subject: [spe-dev] SVN 95 & updated manual text
+Message-ID: <2078a7ad0512111440r122f6e5od0c76d888003f280@mail.gmail.com>
+
+ The "Show dialog to launch debugger after executing script" didn't
+make no sense, as this feature was not yet really implemented. So it
+is taken out and therefore the manual had to be updated. Mac users,
+please vote if shell is shown or hidden at start up. I believe mac
+users prefer hidden, but I might be wrong.
+
+Stani
+
+Updated manual:
+
+SPE provides many ways to run files:
+
+Run (F9)
+
+Use this option if you just want to run the script without that you
+want to explore values of variables and program flow. It provides a
+dialog, in which you can give arguments for the script and check if
+you want to exit from the terminal window after running the script.
+For example if your script contains print statements, you probably
+want not to exit the terminal. You can run as many scripts as you want
+with this option.
+
+Run without arguments (Shift-F9)
+Same as above but no dialog box is shown. This is a shortcut for
+running scripts immediately, which require no arguments. The terminal
+will stay open.
+
+Run without arguments & exit (Shift-F9)
+Same as above, but exits the terminal window.
+
+Run/Stop with WinPdb (Ctrl-F9) (Cmd-F9)
+Running scripts in this way will be slightly slower, but will give
+many advantages while developing scripts: you can stop the script or
+attach the debugger at any moment and choose whether you want to
+launch the debugger at unhandled exceptions or not. You can only run
+one script at a time in this way.
+The first time you invoke this command, SPE will run the script
+through the debugger, which will remain invisible. Once the script is
+running, it is possible to stop the script by invoking this command
+again or to attach the debugger to the script. The second time you
+invoke this command you stop the script.
+The dialog gives the possibility to provide arguments for the script
+and one option whether you want to launch the debugger at unhandled
+exceptions or not. The script is then finished, but you can still
+analyze where it crashed and explore the values of the global and
+local variables. The console needs therefore to be in "analyze" mode,
+which you can do by typing "analyze" in the winpdb console. (At the
+moment WinPdb 1.0.6 doesn't support this feature for Python 2.4.2)
+
+Debug with WinPdb (Alt-F9)
+This command behaves differently depending on the situation. If a
+script is running by the above command "Run/Stop with WinPdb", then
+the debugger will attach itself to the running script.
+
+Otherwise the debugger will start a new session with the current script:
+
+The dialog gives the following options:
+
+Interface: You can choose whether you want a graphical or a 	console
+debugger. It is recommended
+
+- Path: It is recommended to change your working path to that 	of the
+script. Otherwise local modules can't be imported.
+- Encryption: This option is only available if you have the 	Python
+Cryptography Toolkit (pyCrypto) installed on your system. If 	it is
+available, it is recommended to use it, especially for remote
+	debugging.
+- Verbose: Check this if you want more feedback from the 	debugger.
+
+If you close the debugger your script will also close, unless you
+detach it first.
+
+You can find more information in the "Debugger" chapter.
+
+Import (F10)
+Imports the source file as a module in the shell. It is recommended to
+save the module first, otherwise the old version will be imported.
+
+Execute (Ctrl-Alt-V)
+This command is not under the "Tool" menu, but under the "Edit" menu.
+It executes the selected text as a code snippet in the shell. If no
+text is selected, SPE will execute the whole file.
+
+Warning: Both "Import" and "Execute" run the 	script inside SPE as it
+is. So never run programs with infinite 	loops, threads, wxPython,
+etc... with these commands.  Otherwise SPE 	will block and you might
+risk to loose data, if you didn't save all 	your files.
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From Richard.E.Brown at dartware.com  Mon Dec 12 03:30:40 2005
+From: Richard.E.Brown at dartware.com (Richard E. Brown)
+Date: 11 Dec 2005 21:30:40 EST
+Subject: [spe-dev] SVN 95: three image files missing
+Message-ID: <2075392@blitz.dartware.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051211/706e6993/attachment.ksh>
+
+From czhang.cmu at gmail.com  Mon Dec 12 15:24:08 2005
+From: czhang.cmu at gmail.com (Cheng Zhang)
+Date: Mon, 12 Dec 2005 22:24:08 +0800
+Subject: [spe-dev] SVN 94: Show/hide shell for Mac FIXED
+In-Reply-To: <2078a7ad0512102014j37c35842g9e356b568585df33@mail.gmail.com>
+References: <2078a7ad0512102014j37c35842g9e356b568585df33@mail.gmail.com>
+Message-ID: <9E88ACA7-8A19-4963-8E20-51E7F9CFEEE6@gmail.com>
+
++1 for hidden by default.
+
+Thanks.
+
+On Dec 11, 2005, at 12:14 PM, SPE Stani's Python Editor wrote:
+
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> Finally ;-) I forgot to say that with SVN 93 also a 'save workspace'
+> button was added at the toolbar. A question for Mac users, do you want
+> to have the shell hidden by default or should it be shown?
+> Stani
+> --
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+
+
+
+
+
+From tstone2077 at hotmail.com  Mon Dec 12 20:22:52 2005
+From: tstone2077 at hotmail.com (Thurston Stone)
+Date: Mon, 12 Dec 2005 11:22:52 -0800
+Subject: [spe-dev] SVN 95 & updated manual text
+In-Reply-To: <2078a7ad0512111440r122f6e5od0c76d888003f280@mail.gmail.com>
+Message-ID: <BAY101-DAV150FD7187894379BD13D56DA460@phx.gbl>
+
+The toolbar button 'Run/Stop with WinPdb' is a toggle button, but a dialog
+is shown each time.  Is this supposed to toggle?
+
+-----Original Message-----
+From: python-spe-dev-admin at berlios.de
+[mailto:python-spe-dev-admin at berlios.de] On Behalf Of SPE Stani's Python
+Editor
+Sent: Sunday, December 11, 2005 2:41 PM
+To: python-spe-dev at berlios.de
+Subject: [spe-dev] SVN 95 & updated manual text
+
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+http://pythonide.stani.be/blog/sm_donate
+svn://svn.berlios.de/python/spe/trunk
+_______________________________________________
+ The "Show dialog to launch debugger after executing script" didn't
+make no sense, as this feature was not yet really implemented. So it
+is taken out and therefore the manual had to be updated. Mac users,
+please vote if shell is shown or hidden at start up. I believe mac
+users prefer hidden, but I might be wrong.
+
+Stani
+
+Updated manual:
+
+SPE provides many ways to run files:
+
+Run (F9)
+
+Use this option if you just want to run the script without that you
+want to explore values of variables and program flow. It provides a
+dialog, in which you can give arguments for the script and check if
+you want to exit from the terminal window after running the script.
+For example if your script contains print statements, you probably
+want not to exit the terminal. You can run as many scripts as you want
+with this option.
+
+Run without arguments (Shift-F9)
+Same as above but no dialog box is shown. This is a shortcut for
+running scripts immediately, which require no arguments. The terminal
+will stay open.
+
+Run without arguments & exit (Shift-F9)
+Same as above, but exits the terminal window.
+
+Run/Stop with WinPdb (Ctrl-F9) (Cmd-F9)
+Running scripts in this way will be slightly slower, but will give
+many advantages while developing scripts: you can stop the script or
+attach the debugger at any moment and choose whether you want to
+launch the debugger at unhandled exceptions or not. You can only run
+one script at a time in this way.
+The first time you invoke this command, SPE will run the script
+through the debugger, which will remain invisible. Once the script is
+running, it is possible to stop the script by invoking this command
+again or to attach the debugger to the script. The second time you
+invoke this command you stop the script.
+The dialog gives the possibility to provide arguments for the script
+and one option whether you want to launch the debugger at unhandled
+exceptions or not. The script is then finished, but you can still
+analyze where it crashed and explore the values of the global and
+local variables. The console needs therefore to be in "analyze" mode,
+which you can do by typing "analyze" in the winpdb console. (At the
+moment WinPdb 1.0.6 doesn't support this feature for Python 2.4.2)
+
+Debug with WinPdb (Alt-F9)
+This command behaves differently depending on the situation. If a
+script is running by the above command "Run/Stop with WinPdb", then
+the debugger will attach itself to the running script.
+
+Otherwise the debugger will start a new session with the current script:
+
+The dialog gives the following options:
+
+Interface: You can choose whether you want a graphical or a 	console
+debugger. It is recommended
+
+- Path: It is recommended to change your working path to that 	of the
+script. Otherwise local modules can't be imported.
+- Encryption: This option is only available if you have the 	Python
+Cryptography Toolkit (pyCrypto) installed on your system. If 	it is
+available, it is recommended to use it, especially for remote
+	debugging.
+- Verbose: Check this if you want more feedback from the 	debugger.
+
+If you close the debugger your script will also close, unless you
+detach it first.
+
+You can find more information in the "Debugger" chapter.
+
+Import (F10)
+Imports the source file as a module in the shell. It is recommended to
+save the module first, otherwise the old version will be imported.
+
+Execute (Ctrl-Alt-V)
+This command is not under the "Tool" menu, but under the "Edit" menu.
+It executes the selected text as a code snippet in the shell. If no
+text is selected, SPE will execute the whole file.
+
+Warning: Both "Import" and "Execute" run the 	script inside SPE as it
+is. So never run programs with infinite 	loops, threads, wxPython,
+etc... with these commands.  Otherwise SPE 	will block and you might
+risk to loose data, if you didn't save all 	your files.
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+_______________________________________________
+Python-spe-dev mailing list
+Python-spe-dev at lists.berlios.de
+http://lists.berlios.de/mailman/listinfo/python-spe-dev
+
+
+From spe.stani.be at gmail.com  Mon Dec 12 20:41:22 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Mon, 12 Dec 2005 20:41:22 +0100
+Subject: [spe-dev] SVN 95 & updated manual text
+In-Reply-To: <BAY101-DAV150FD7187894379BD13D56DA460@phx.gbl>
+References: <2078a7ad0512111440r122f6e5od0c76d888003f280@mail.gmail.com>
+	 <BAY101-DAV150FD7187894379BD13D56DA460@phx.gbl>
+Message-ID: <2078a7ad0512121141l5869eb80oddd3feb87b722c6b@mail.gmail.com>
+
+On 12/12/05, Thurston Stone <tstone2077 at hotmail.com> wrote:
+>
+>
+> The toolbar button 'Run/Stop with WinPdb' is a toggle button, but a dialog
+> is shown each time.  Is this supposed to toggle?
+>
+> Hi Thurston,
+Yes and it does. Try to run a wxPython application. If you press the button
+for the first time a dialog fires up how you want to run the script and the
+button shows a toggled state. If then the wxPython application runs, you can
+stop it by pressing the button again and 'untoggling' it.
+So the buttons shows the state of the running script. If the button is
+toggled in, the script is running and if it is untoggled the script finished
+execution. I could have used two seperate buttons start and stop, which are
+alternatively abled and disabled, but I prefer compact design.
+So there is not always a dialog shown, only when there is no script running.
+I would have prefered to change bitmaps of tool buttons, but this doesnt
+seem to be possible. Does anybody know?
+Stani
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051212/50e45557/attachment.html>
+
+From tstone2077 at hotmail.com  Mon Dec 12 20:45:55 2005
+From: tstone2077 at hotmail.com (Thurston Stone)
+Date: Mon, 12 Dec 2005 19:45:55 +0000
+Subject: [spe-dev] SVN 95 & updated manual text
+In-Reply-To: <2078a7ad0512121141l5869eb80oddd3feb87b722c6b@mail.gmail.com>
+Message-ID: <BAY101-F23F4ACE8F4728698B301F6DA460@phx.gbl>
+
+Ok... then there is bug: when the dialog is canceled, the toggle button is 
+turned on, but no script is running.
+
+----Original Message Follows----
+From: "SPE Stani's Python Editor" <spe.stani.be at gmail.com>
+Reply-To: python-spe-dev at berlios.de
+To: python-spe-dev at berlios.de
+Subject: Re: [spe-dev] SVN 95 & updated manual text
+Date: Mon, 12 Dec 2005 20:41:22 +0100
+
+On 12/12/05, Thurston Stone <tstone2077 at hotmail.com> wrote:
+ >
+ >
+ > The toolbar button 'Run/Stop with WinPdb' is a toggle button, but a 
+dialog
+ > is shown each time.  Is this supposed to toggle?
+ >
+ > Hi Thurston,
+Yes and it does. Try to run a wxPython application. If you press the button
+for the first time a dialog fires up how you want to run the script and the
+button shows a toggled state. If then the wxPython application runs, you can
+stop it by pressing the button again and 'untoggling' it.
+So the buttons shows the state of the running script. If the button is
+toggled in, the script is running and if it is untoggled the script finished
+execution. I could have used two seperate buttons start and stop, which are
+alternatively abled and disabled, but I prefer compact design.
+So there is not always a dialog shown, only when there is no script running.
+I would have prefered to change bitmaps of tool buttons, but this doesnt
+seem to be possible. Does anybody know?
+Stani
+
+
+
+
+From tstone2077 at hotmail.com  Mon Dec 12 20:52:32 2005
+From: tstone2077 at hotmail.com (Thurston Stone)
+Date: Mon, 12 Dec 2005 11:52:32 -0800
+Subject: [spe-dev] SVN 95 & updated manual text
+In-Reply-To: <2078a7ad0512121141l5869eb80oddd3feb87b722c6b@mail.gmail.com>
+Message-ID: <BAY101-DAV17E979F4A5FB25735EEFE1DA460@phx.gbl>
+
+I just checked again and I'd like to revise the prementioned bug:
+
+ 
+
+When I first updated to SVN 95, I tried the toggle button and got the
+previous bug.  Once I successfully ran a script, the toggle worked fine with
+the cancel button.  It is most likely because the config doesn't have the
+correct option to begin with, but once a successful attempt is made, the
+option is created, and the cancel button works correctly.
+
+ 
+
+  _____  
+
+From: python-spe-dev-admin at berlios.de
+[mailto:python-spe-dev-admin at berlios.de] On Behalf Of SPE Stani's Python
+Editor
+Sent: Monday, December 12, 2005 11:41 AM
+To: python-spe-dev at berlios.de
+Subject: Re: [spe-dev] SVN 95 & updated manual text
+
+ 
+
+ 
+
+On 12/12/05, Thurston Stone <tstone2077 at hotmail.com> wrote:
+
+
+The toolbar button 'Run/Stop with WinPdb' is a toggle button, but a dialog
+is shown each time.  Is this supposed to toggle?
+
+Hi Thurston,
+Yes and it does. Try to run a wxPython application. If you press the button
+for the first time a dialog fires up how you want to run the script and the
+button shows a toggled state. If then the wxPython application runs, you can
+stop it by pressing the button again and 'untoggling' it.
+So the buttons shows the state of the running script. If the button is
+toggled in, the script is running and if it is untoggled the script finished
+execution. I could have used two seperate buttons start and stop, which are
+alternatively abled and disabled, but I prefer compact design.
+So there is not always a dialog shown, only when there is no script running.
+I would have prefered to change bitmaps of tool buttons, but this doesnt
+seem to be possible. Does anybody know?
+Stani
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051212/c8ca95d2/attachment.html>
+
+From spe.stani.be at gmail.com  Mon Dec 12 20:52:41 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Mon, 12 Dec 2005 20:52:41 +0100
+Subject: [spe-dev] SVN 95: three image files missing
+In-Reply-To: <2075392@blitz.dartware.com>
+References: <2075392@blitz.dartware.com>
+Message-ID: <2078a7ad0512121152s36084920x90acfee516143f36@mail.gmail.com>
+
+Hi Richard,
+How is this possible? The files are in the trunk:
+http://svn.berlios.de/viewcvs/python/spe/trunk/_spe/skins/default/
+
+From spe.stani.be at gmail.com  Mon Dec 12 20:55:34 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Mon, 12 Dec 2005 20:55:34 +0100
+Subject: [spe-dev] SVN 95 & updated manual text
+In-Reply-To: <BAY101-DAV17E979F4A5FB25735EEFE1DA460@phx.gbl>
+References: <2078a7ad0512121141l5869eb80oddd3feb87b722c6b@mail.gmail.com>
+	 <BAY101-DAV17E979F4A5FB25735EEFE1DA460@phx.gbl>
+Message-ID: <2078a7ad0512121155l39ad4dak9c3361ac0b5bab28@mail.gmail.com>
+
+So is this bug solved? I can not reproduce it. If you provide me steps how
+to reproduce, I could fix it.
+Stani
+
+On 12/12/05, Thurston Stone <tstone2077 at hotmail.com> wrote:
+>
+>  I just checked again and I'd like to revise the prementioned bug:
+>
+>
+>
+> When I first updated to SVN 95, I tried the toggle button and got the
+> previous bug.  Once I successfully ran a script, the toggle worked fine with
+> the cancel button.  It is most likely because the config doesn't have the
+> correct option to begin with, but once a successful attempt is made, the
+> option is created, and the cancel button works correctly.
+>
+>
+>  ------------------------------
+>
+> *From:* python-spe-dev-admin at berlios.de [mailto:
+> python-spe-dev-admin at berlios.de] *On Behalf Of *SPE Stani's Python Editor
+> *Sent:* Monday, December 12, 2005 11:41 AM
+> *To:* python-spe-dev at berlios.de
+> *Subject:* Re: [spe-dev] SVN 95 & updated manual text
+>
+>
+>
+>
+>
+> On 12/12/05, *Thurston Stone* <tstone2077 at hotmail.com> wrote:
+>
+>
+> The toolbar button 'Run/Stop with WinPdb' is a toggle button, but a dialog
+> is shown each time.  Is this supposed to toggle?
+>
+> Hi Thurston,
+> Yes and it does. Try to run a wxPython application. If you press the
+> button for the first time a dialog fires up how you want to run the script
+> and the button shows a toggled state. If then the wxPython application runs,
+> you can stop it by pressing the button again and 'untoggling' it.
+> So the buttons shows the state of the running script. If the button is
+> toggled in, the script is running and if it is untoggled the script finished
+> execution. I could have used two seperate buttons start and stop, which are
+> alternatively abled and disabled, but I prefer compact design.
+> So there is not always a dialog shown, only when there is no script
+> running.
+> I would have prefered to change bitmaps of tool buttons, but this doesnt
+> seem to be possible. Does anybody know?
+> Stani
+>
+
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051212/ab7b2c6c/attachment.html>
+
+From tstone2077 at hotmail.com  Mon Dec 12 21:04:53 2005
+From: tstone2077 at hotmail.com (Thurston Stone)
+Date: Mon, 12 Dec 2005 20:04:53 +0000
+Subject: [spe-dev] SVN 95 & updated manual text
+In-Reply-To: <2078a7ad0512121155l39ad4dak9c3361ac0b5bab28@mail.gmail.com>
+Message-ID: <BAY101-F81FFAAAC8FE3C84BF0884DA460@phx.gbl>
+
+If I bring up a new SPE instance... then click the toggle button, I get a 
+dialog and the button toggles.  Then when I cancel, the toggle button does 
+not reset itself.  it stays on the 'ON' state.  This happens with each new 
+instance of SPE I open.
+
+I'm using WinXP, if that makes a difference.
+
+----Original Message Follows----
+From: "SPE Stani's Python Editor" <spe.stani.be at gmail.com>
+Reply-To: python-spe-dev at berlios.de
+To: python-spe-dev at berlios.de
+Subject: Re: [spe-dev] SVN 95 & updated manual text
+Date: Mon, 12 Dec 2005 20:55:34 +0100
+
+So is this bug solved? I can not reproduce it. If you provide me steps how
+to reproduce, I could fix it.
+Stani
+
+On 12/12/05, Thurston Stone <tstone2077 at hotmail.com> wrote:
+ >
+ >  I just checked again and I'd like to revise the prementioned bug:
+ >
+ >
+ >
+ > When I first updated to SVN 95, I tried the toggle button and got the
+ > previous bug.  Once I successfully ran a script, the toggle worked fine 
+with
+ > the cancel button.  It is most likely because the config doesn't have the
+ > correct option to begin with, but once a successful attempt is made, the
+ > option is created, and the cancel button works correctly.
+ >
+ >
+ >  ------------------------------
+ >
+ > *From:* python-spe-dev-admin at berlios.de [mailto:
+ > python-spe-dev-admin at berlios.de] *On Behalf Of *SPE Stani's Python Editor
+ > *Sent:* Monday, December 12, 2005 11:41 AM
+ > *To:* python-spe-dev at berlios.de
+ > *Subject:* Re: [spe-dev] SVN 95 & updated manual text
+ >
+ >
+ >
+ >
+ >
+ > On 12/12/05, *Thurston Stone* <tstone2077 at hotmail.com> wrote:
+ >
+ >
+ > The toolbar button 'Run/Stop with WinPdb' is a toggle button, but a 
+dialog
+ > is shown each time.  Is this supposed to toggle?
+ >
+ > Hi Thurston,
+ > Yes and it does. Try to run a wxPython application. If you press the
+ > button for the first time a dialog fires up how you want to run the 
+script
+ > and the button shows a toggled state. If then the wxPython application 
+runs,
+ > you can stop it by pressing the button again and 'untoggling' it.
+ > So the buttons shows the state of the running script. If the button is
+ > toggled in, the script is running and if it is untoggled the script 
+finished
+ > execution. I could have used two seperate buttons start and stop, which 
+are
+ > alternatively abled and disabled, but I prefer compact design.
+ > So there is not always a dialog shown, only when there is no script
+ > running.
+ > I would have prefered to change bitmaps of tool buttons, but this doesnt
+ > seem to be possible. Does anybody know?
+ > Stani
+ >
+
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+
+
+
+
+From Richard.E.Brown at dartware.com  Mon Dec 12 21:26:33 2005
+From: Richard.E.Brown at dartware.com (Richard E. Brown)
+Date: 12 Dec 2005 15:26:33 EST
+Subject: [spe-dev] SVN 95: three image files missing
+Message-ID: <2076197@blitz.dartware.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051212/b11cc3c2/attachment.ksh>
+
+From spe.stani.be at gmail.com  Mon Dec 12 21:42:05 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Mon, 12 Dec 2005 21:42:05 +0100
+Subject: [spe-dev] SVN 95: three image files missing
+In-Reply-To: <2076197@blitz.dartware.com>
+References: <2076197@blitz.dartware.com>
+Message-ID: <2078a7ad0512121242l2639c9d9naaf9161d36be1930@mail.gmail.com>
+
+Hi Richard,
+That's it. The setup.py file contains a list of all data files, including
+images. What I do is include the local subversion path of SPE in my
+PYTHONPATH system variable. In that way you could skip the unnecessary and
+incorrect step of setup.py
+Thanks,
+Stani
+
+On 12 Dec 2005 15:26:33 EST, Richard E. Brown <Richard.E.Brown at dartware.com>
+wrote:
+>
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> Stani:
+>
+> Hmmm... I wonder if this is what went wrong...
+>
+> I used a setup.py from a previous version to install the folder that I
+> copied
+> from SVN. Perhaps that didn't move those three image files. Is that
+> possible?
+> (Moving the three files manually did fix it...)
+>
+> re: Show/Hide. I prefer either :-) No, really... I mildly prefer hiding
+> the
+> shell window. But I don't have a strong preference.
+>
+> Best regards,
+>
+> Rich
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051212/b184ab41/attachment.html>
+
+From spe.stani.be at gmail.com  Mon Dec 12 21:51:16 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Mon, 12 Dec 2005 21:51:16 +0100
+Subject: [spe-dev] SVN 97 Toggle run button fix -> New release soon?
+Message-ID: <2078a7ad0512121251g38318f27ga71e3cd6f7990026@mail.gmail.com>
+
+Hi Thurston,
+Thanks a lot for the good report, I fixed it! I will release tonight current
+state as SPE 0.8.1.a, unless someone of you fires me quickly with bug
+reports ;-) Are there no comments on the Run documentation?
+Stani
+
+On 12/12/05, Thurston Stone <tstone2077 at hotmail.com> wrote:
+>
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> If I bring up a new SPE instance... then click the toggle button, I get a
+> dialog and the button toggles.  Then when I cancel, the toggle button does
+> not reset itself.  it stays on the 'ON' state.  This happens with each new
+> instance of SPE I open.
+>
+> I'm using WinXP, if that makes a difference.
+>
+> ----Original Message Follows----
+> From: "SPE Stani's Python Editor" <spe.stani.be at gmail.com>
+> Reply-To: python-spe-dev at berlios.de
+> To: python-spe-dev at berlios.de
+> Subject: Re: [spe-dev] SVN 95 & updated manual text
+> Date: Mon, 12 Dec 2005 20:55:34 +0100
+>
+> So is this bug solved? I can not reproduce it. If you provide me steps how
+> to reproduce, I could fix it.
+> Stani
+>
+> On 12/12/05, Thurston Stone <tstone2077 at hotmail.com> wrote:
+> >
+> >  I just checked again and I'd like to revise the prementioned bug:
+> >
+> >
+> >
+> > When I first updated to SVN 95, I tried the toggle button and got the
+> > previous bug.  Once I successfully ran a script, the toggle worked fine
+> with
+> > the cancel button.  It is most likely because the config doesn't have
+> the
+> > correct option to begin with, but once a successful attempt is made, the
+> > option is created, and the cancel button works correctly.
+> >
+> >
+> >  ------------------------------
+> >
+> > *From:* python-spe-dev-admin at berlios.de [mailto:
+> > python-spe-dev-admin at berlios.de] *On Behalf Of *SPE Stani's Python
+> Editor
+> > *Sent:* Monday, December 12, 2005 11:41 AM
+> > *To:* python-spe-dev at berlios.de
+> > *Subject:* Re: [spe-dev] SVN 95 & updated manual text
+> >
+> >
+> >
+> >
+> >
+> > On 12/12/05, *Thurston Stone* <tstone2077 at hotmail.com> wrote:
+> >
+> >
+> > The toolbar button 'Run/Stop with WinPdb' is a toggle button, but a
+> dialog
+> > is shown each time.  Is this supposed to toggle?
+> >
+> > Hi Thurston,
+> > Yes and it does. Try to run a wxPython application. If you press the
+> > button for the first time a dialog fires up how you want to run the
+> script
+> > and the button shows a toggled state. If then the wxPython application
+> runs,
+> > you can stop it by pressing the button again and 'untoggling' it.
+> > So the buttons shows the state of the running script. If the button is
+> > toggled in, the script is running and if it is untoggled the script
+> finished
+> > execution. I could have used two seperate buttons start and stop, which
+> are
+> > alternatively abled and disabled, but I prefer compact design.
+> > So there is not always a dialog shown, only when there is no script
+> > running.
+> > I would have prefered to change bitmaps of tool buttons, but this doesnt
+> > seem to be possible. Does anybody know?
+> > Stani
+> >
+>
+>
+>
+> --
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+>
+>
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051212/cadda7ee/attachment.html>
+
+From spe.stani.be at gmail.com  Thu Dec 15 00:08:42 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Thu, 15 Dec 2005 00:08:42 +0100
+Subject: [spe-dev] SVN 100: small additions and bugfixes
+Message-ID: <2078a7ad0512141508x2dc7762fh9d6392ed21e93359@mail.gmail.com>
+
+Hi,
+A birthday update...
+
+new
+- add single click toggle for explore (not for Mac)
+- add single instance application as preference
+- update version number to 0.8.1.c
+
+bug fixes
+- removed unnecessary print statement
+- find in files clear behavior (Thurston Stone)
+
+I've also been working on Andrea's NotebookCtrl, so that now it
+supports tooltips also on the Mac. I have to update SPE to the latest
+version.
+
+Stani
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From spe.stani.be at gmail.com  Thu Dec 15 02:16:41 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Thu, 15 Dec 2005 02:16:41 +0100
+Subject: [spe-dev] SVN 101: drag and drop enabled!
+Message-ID: <2078a7ad0512141716x33a0db9crd07e831d0bd61d56@mail.gmail.com>
+
+new
+- drag and drop for script tabs
+
+fix
+- wrong smdi file which was forcing single instance application
+
+Stani
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From spe.stani.be at gmail.com  Thu Dec 15 16:25:55 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Thu, 15 Dec 2005 16:25:55 +0100
+Subject: [spe-dev] SVN 102: small fixes
+Message-ID: <2078a7ad0512150725g291f0135v95559c555ee99ab9@mail.gmail.com>
+
+fixes
+- ask to save before running a modified file
+- changed text 'save before run' to 'save before execute'
+- dialog popup to confirm save before executing whole file
+
+Stani
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From spe.stani.be at gmail.com  Thu Dec 15 17:09:35 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Thu, 15 Dec 2005 17:09:35 +0100
+Subject: [spe-dev] SVN 104: critical bug fix
+Message-ID: <2078a7ad0512150809hd2c9cf5j4df4d926cc9df4b7@mail.gmail.com>
+
+fix
+- spe deselects when clicking inside selection (mac doesnt crash anymore)
+- find dialog
+
+Stani
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From spe.stani.be at gmail.com  Thu Dec 15 18:44:27 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Thu, 15 Dec 2005 18:44:27 +0100
+Subject: [spe-dev] SVN 106: new Edit>Show docstring
+Message-ID: <2078a7ad0512150944u49738d93ya46070a5fc2910f5@mail.gmail.com>
+
+new
+- Edit>Show docstring
+
+fix
+- better code completion and docstring
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From jose at cybergalvez.com  Thu Dec 15 20:29:03 2005
+From: jose at cybergalvez.com (jose at cybergalvez.com)
+Date: Thu, 15 Dec 2005 12:29:03 -0700
+Subject: [spe-dev] SVN 106: new Edit>Show docstring
+Message-ID: <20051215122903.793903d9610815a5b69d8e8c16c4233d.1d69b447cc.wbe@email.email.secureserver.net>
+
+The new single instance preference still does not work.  
+
+See included debug.txt file
+
+Jose
+
+> -------- Original Message --------
+> Subject: [spe-dev] SVN 106: new Edit>Show docstring
+> From: "SPE Stani's Python Editor" <spe.stani.be at gmail.com>
+> Date: Thu, December 15, 2005 9:44 am
+> To: python-spe-dev at berlios.de
+> 
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> new
+> - Edit>Show docstring
+> 
+> fix
+> - better code completion and docstring
+> --
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: debug.txt
+Type: text/plain,english
+Size: 1075 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051215/35a8bd94/attachment.bin>
+
+From tstone2077 at hotmail.com  Thu Dec 15 20:31:37 2005
+From: tstone2077 at hotmail.com (Thurston Stone)
+Date: Thu, 15 Dec 2005 19:31:37 +0000
+Subject: [spe-dev] SVN 106: new Edit>Show docstring
+In-Reply-To: <2078a7ad0512150944u49738d93ya46070a5fc2910f5@mail.gmail.com>
+Message-ID: <BAY101-F242E87CB1D9B7C87D2C146DA3B0@phx.gbl>
+
+There's a bug in selection.  If my cursor is somewhere and I shift-select 
+somewhere else, the selection starts from line 0 col 0, instead of the 
+current cursor position.
+
+It didn't seem big enough for the bug tracker, so I just thought I'd let you 
+know
+
+Thurston
+----Original Message Follows----
+From: "SPE Stani's Python Editor" <spe.stani.be at gmail.com>
+Reply-To: python-spe-dev at berlios.de
+To: python-spe-dev at berlios.de
+Subject: [spe-dev] SVN 106: new Edit>Show docstring
+Date: Thu, 15 Dec 2005 18:44:27 +0100
+
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+http://pythonide.stani.be/blog/sm_donate
+svn://svn.berlios.de/python/spe/trunk
+_______________________________________________
+new
+- Edit>Show docstring
+
+fix
+- better code completion and docstring
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+_______________________________________________
+Python-spe-dev mailing list
+Python-spe-dev at lists.berlios.de
+http://lists.berlios.de/mailman/listinfo/python-spe-dev
+
+
+
+
+From spe.stani.be at gmail.com  Thu Dec 15 21:37:47 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Thu, 15 Dec 2005 21:37:47 +0100
+Subject: [spe-dev] SVN 108: new, fix, change
+Message-ID: <2078a7ad0512151237g24013f19i69a871bc974bde88@mail.gmail.com>
+
+new:
+- if signature not specified opens a file dialog
+
+fix:
+- shift mouse left down gives now right selection
+- selected text is now always copied to the find dialog
+- single instance application
+
+change:
+- auto reload change file is off by default
+
+Stani
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From jose at cybergalvez.com  Thu Dec 15 23:06:00 2005
+From: jose at cybergalvez.com (Jose Galvez)
+Date: Thu, 15 Dec 2005 14:06:00 -0800
+Subject: [spe-dev] SVN 108: new, fix, change
+In-Reply-To: <2078a7ad0512151237g24013f19i69a871bc974bde88@mail.gmail.com>
+References: <2078a7ad0512151237g24013f19i69a871bc974bde88@mail.gmail.com>
+Message-ID: <43A1E8C8.7080909@cybergalvez.com>
+
+Thanks Stani,
+The single instance works great now
+Jose
+
+SPE Stani's Python Editor wrote:
+
+>http://pythonide.stani.be
+>http://pythonide.stani.be/manual/html/manual.html
+>http://pythonide.stani.be/blog/sm_donate
+>svn://svn.berlios.de/python/spe/trunk
+>_______________________________________________
+>new:
+>- if signature not specified opens a file dialog
+>
+>fix:
+>- shift mouse left down gives now right selection
+>- selected text is now always copied to the find dialog
+>- single instance application
+>
+>change:
+>- auto reload change file is off by default
+>
+>Stani
+>
+>--
+>http://pythonide.stani.be
+>http://pythonide.stani.be/manual/html/manual.html
+>_______________________________________________
+>Python-spe-dev mailing list
+>Python-spe-dev at lists.berlios.de
+>http://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>
+>
+>  
+>
+
+
+
+From spe.stani.be at gmail.com  Fri Dec 16 20:21:18 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Fri, 16 Dec 2005 20:21:18 +0100
+Subject: [spe-dev] python 2.3
+Message-ID: <2078a7ad0512161121k38b5f4fbr3cce63fb19bff82@mail.gmail.com>
+
+Hi,
+Can anyone who uses Python2.3 email me privately?
+Thanks,
+Stani
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From spe.stani.be at gmail.com  Fri Dec 16 21:22:09 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Fri, 16 Dec 2005 21:22:09 +0100
+Subject: [spe-dev] SVN 109: fixes
+Message-ID: <2078a7ad0512161222t47b2d6f8n7eddba437f76c041@mail.gmail.com>
+
+On 12/16/05, Fuzzyman <fuzzyman at voidspace.org.uk> wrote:
+>
+> Hello Stani,
+>
+> Shift-Ctrl-E (for running blocks of code) is working for me.
+>
+> *Except* - that most of my code contains a line like :
+>
+>     if __name__ == '__main__':
+>
+> When running in the pycrust shell, ``__name__`` is ``__builtin__``. I
+> can rebind it myself - but I just thought I'd flag it up.
+
+
+
+
+It looks like the new run system has 'python' hardwired into the command
+> line that is run.
+>
+> With movable Python the executable isn't called 'python' (or necessarily
+> on the path). Using ``sys.executable`` instead would solve this.
+
+
+Hi Fuzzy,
+It is all fixed in subversion release 109.
+Stani
+
+fixes:
+- run with sys.executable (movable python)
+- info.PYTHON_EXEC to pythonw for Mac
+- __name__ in shell is now "__main__" for executing scripts
+
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051216/b699f098/attachment.html>
+
+From spe.stani.be at gmail.com  Sat Dec 17 06:08:32 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Sat, 17 Dec 2005 06:08:32 +0100
+Subject: [spe-dev] SVN 110: Realtime error indicating
+Message-ID: <2078a7ad0512162108n605995aamb7994a584ea864e9@mail.gmail.com>
+
+Hi all,
+
+This is a really cool feature, which shows you as you type where your
+code is syntacilly not correct. If you dont like it, you can cancel it
+by setting in the preferences "Editor>Check realtime" to none.
+
+Check it out!
+
+Stani
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From spe.stani.be at gmail.com  Sat Dec 17 16:17:43 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Sat, 17 Dec 2005 16:17:43 +0100
+Subject: [spe-dev] SVN 111: latest version of Andrea's NotebookCtrl
+Message-ID: <2078a7ad0512170717j1bca0f87n764e41c195244173@mail.gmail.com>
+
+Just better...
+Stani
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From spe.stani.be at gmail.com  Sun Dec 18 17:06:08 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Sun, 18 Dec 2005 17:06:08 +0100
+Subject: [spe-dev] SVN 114 + What is going on...
+Message-ID: <2078a7ad0512180806x1a5f77d3w47d7a8f52b4ae08f@mail.gmail.com>
+
+On 12/18/05, Michael Schilling <gentoo at untiefe.de> wrote:
+> Hi Stani,
+> 3. The standard way of copy and paste in linux (select the stuff you
+>    want and press the middle button to paste it in) is not working in
+>    spe. This is very annoying for linux users who use it a lot.
+
+Now in subversion repository r114...
+
+new
+ - select text and middle click somewhere else = paste
+
+ fix
+ - tooltips on filetabs are now optional in preferences, turned off by
+default until they work nicely
+ -
+ Hi all,
+
+ Andrea Gavana and me are working on implementing some advanced use of
+the NotebookCtrl, like showing tooltips on the file tabs, which
+basically show up the path and the docstring of the file. This will be
+an option in the preferences. It still has to be optimised and might
+be a bit annoying now. We hope to fix this very soon. BTW, I?m very
+happy that Andrea now also works on SPE. He has a lot of experience
+with creating widgets and gui interface.
+
+ I reported you enough with the new features which have been
+implemented in subversion, so now an overview of what people are
+working on
+
+ INTEGRATED DEBUGGER
+ Thurston Stone is already working on the integrated debugger and
+Andrea will now also help to speed up the proces. Nir Aides (author
+WinPdb) promised he would assist with integrating with the debugger,
+although he was a bit busy.
+
+ CONFIGURABLE STYLE COLORS
+ Vlad is working on this, reported that it has been done for 40%
+
+ CONFIGURABLE KEYS
+ Toni is working on it, but no recent news yet.
+
+ NEW INTERFACE
+ I started preparing the new interface, which is about mdi-sdi, hiding
+toolbars, statusbar, etc.. This however will take time.
+
+ The goal is to have as much as possible implemented before mid
+january when SPE get reviewed for the next PyCon. So it would be nice
+if more people would join
+
+ Stani
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From spe.stani.be at gmail.com  Wed Dec 21 02:22:49 2005
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Wed, 21 Dec 2005 02:22:49 +0100
+Subject: [spe-dev] Preparing for SPE christmas release...
+Message-ID: <2078a7ad0512201722t5781073cif03e1dd87da6a3ac@mail.gmail.com>
+
+Hi,
+I will release today (wednesday) the last SPE release of this year. So
+if there are any urgent issues with SPE in subversion, please report
+them, preferably with patch as I won't have much time to fix them.
+Stani
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+
+

@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] SVN 95 &amp; updated manual text
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2005-December/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20SVN%2095%20%26%20updated%20manual%20text&In-Reply-To=%3CBAY101-DAV150FD7187894379BD13D56DA460%40phx.gbl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000083.html">
+   <LINK REL="Next"  HREF="000087.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] SVN 95 &amp; updated manual text</H1>
+    <B>Thurston Stone</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20SVN%2095%20%26%20updated%20manual%20text&In-Reply-To=%3CBAY101-DAV150FD7187894379BD13D56DA460%40phx.gbl%3E"
+       TITLE="[spe-dev] SVN 95 &amp; updated manual text">tstone2077 at hotmail.com
+       </A><BR>
+    <I>Mon Dec 12 20:22:52 CET 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000083.html">[spe-dev] SVN 95 &amp; updated manual text
+</A></li>
+        <LI>Next message: <A HREF="000087.html">[spe-dev] SVN 95 &amp; updated manual text
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#86">[ date ]</a>
+              <a href="thread.html#86">[ thread ]</a>
+              <a href="subject.html#86">[ subject ]</a>
+              <a href="author.html#86">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>The toolbar button 'Run/Stop with WinPdb' is a toggle button, but a dialog
+is shown each time.  Is this supposed to toggle?
+
+-----Original Message-----
+From: <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">python-spe-dev-admin at berlios.de</A>
+[mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">python-spe-dev-admin at berlios.de</A>] On Behalf Of SPE Stani's Python
+Editor
+Sent: Sunday, December 11, 2005 2:41 PM
+To: <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">python-spe-dev at berlios.de</A>
+Subject: [spe-dev] SVN 95 &amp; updated manual text
+
+<A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+<A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+<A HREF="http://pythonide.stani.be/blog/sm_donate">http://pythonide.stani.be/blog/sm_donate</A>
+<A HREF="svn://svn.berlios.de/python/spe/trunk">svn://svn.berlios.de/python/spe/trunk</A>
+_______________________________________________
+ The &quot;Show dialog to launch debugger after executing script&quot; didn't
+make no sense, as this feature was not yet really implemented. So it
+is taken out and therefore the manual had to be updated. Mac users,
+please vote if shell is shown or hidden at start up. I believe mac
+users prefer hidden, but I might be wrong.
+
+Stani
+
+Updated manual:
+
+SPE provides many ways to run files:
+
+Run (F9)
+
+Use this option if you just want to run the script without that you
+want to explore values of variables and program flow. It provides a
+dialog, in which you can give arguments for the script and check if
+you want to exit from the terminal window after running the script.
+For example if your script contains print statements, you probably
+want not to exit the terminal. You can run as many scripts as you want
+with this option.
+
+Run without arguments (Shift-F9)
+Same as above but no dialog box is shown. This is a shortcut for
+running scripts immediately, which require no arguments. The terminal
+will stay open.
+
+Run without arguments &amp; exit (Shift-F9)
+Same as above, but exits the terminal window.
+
+Run/Stop with WinPdb (Ctrl-F9) (Cmd-F9)
+Running scripts in this way will be slightly slower, but will give
+many advantages while developing scripts: you can stop the script or
+attach the debugger at any moment and choose whether you want to
+launch the debugger at unhandled exceptions or not. You can only run
+one script at a time in this way.
+The first time you invoke this command, SPE will run the script
+through the debugger, which will remain invisible. Once the script is
+running, it is possible to stop the script by invoking this command
+again or to attach the debugger to the script. The second time you
+invoke this command you stop the script.
+The dialog gives the possibility to provide arguments for the script
+and one option whether you want to launch the debugger at unhandled
+exceptions or not. The script is then finished, but you can still
+analyze where it crashed and explore the values of the global and
+local variables. The console needs therefore to be in &quot;analyze&quot; mode,
+which you can do by typing &quot;analyze&quot; in the winpdb console. (At the
+moment WinPdb 1.0.6 doesn't support this feature for Python 2.4.2)
+
+Debug with WinPdb (Alt-F9)
+This command behaves differently depending on the situation. If a
+script is running by the above command &quot;Run/Stop with WinPdb&quot;, then
+the debugger will attach itself to the running script.
+
+Otherwise the debugger will start a new session with the current script:
+
+The dialog gives the following options:
+
+Interface: You can choose whether you want a graphical or a 	console
+debugger. It is recommended
+
+- Path: It is recommended to change your working path to that 	of the
+script. Otherwise local modules can't be imported.
+- Encryption: This option is only available if you have the 	Python
+Cryptography Toolkit (pyCrypto) installed on your system. If 	it is
+available, it is recommended to use it, especially for remote
+	debugging.
+- Verbose: Check this if you want more feedback from the 	debugger.
+
+If you close the debugger your script will also close, unless you
+detach it first.
+
+You can find more information in the &quot;Debugger&quot; chapter.
+
+Import (F10)
+Imports the source file as a module in the shell. It is recommended to
+save the module first, otherwise the old version will be imported.
+
+Execute (Ctrl-Alt-V)
+This command is not under the &quot;Tool&quot; menu, but under the &quot;Edit&quot; menu.
+It executes the selected text as a code snippet in the shell. If no
+text is selected, SPE will execute the whole file.
+
+Warning: Both &quot;Import&quot; and &quot;Execute&quot; run the 	script inside SPE as it
+is. So never run programs with infinite 	loops, threads, wxPython,
+etc... with these commands.  Otherwise SPE 	will block and you might
+risk to loose data, if you didn't save all 	your files.
+--
+<A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+<A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+_______________________________________________
+Python-spe-dev mailing list
+<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+<A HREF="http://lists.berlios.de/mailman/listinfo/python-spe-dev">http://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000083.html">[spe-dev] SVN 95 &amp; updated manual text
+</A></li>
+	<LI>Next message: <A HREF="000087.html">[spe-dev] SVN 95 &amp; updated manual text
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#86">[ date ]</a>
+              <a href="thread.html#86">[ thread ]</a>
+              <a href="subject.html#86">[ subject ]</a>
+              <a href="author.html#86">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

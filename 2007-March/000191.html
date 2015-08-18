@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Testing version 216: MacBook Pro, Mac OS X 10.4.8
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Testing%20version%20216%3A%20MacBook%20Pro%2C%20Mac%20OS%20X%2010.4.8&In-Reply-To=%3CC3DA27A9-F2B8-4E15-AE53-4E48B2DC7FF7%40yahoo.co.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000196.html">
+   <LINK REL="Next"  HREF="000198.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Testing version 216: MacBook Pro, Mac OS X 10.4.8</H1>
+    <B>Pietje Puk</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Testing%20version%20216%3A%20MacBook%20Pro%2C%20Mac%20OS%20X%2010.4.8&In-Reply-To=%3CC3DA27A9-F2B8-4E15-AE53-4E48B2DC7FF7%40yahoo.co.uk%3E"
+       TITLE="[spe-dev] Testing version 216: MacBook Pro, Mac OS X 10.4.8">pietjepuk314 at yahoo.co.uk
+       </A><BR>
+    <I>Thu Mar 15 09:10:26 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000196.html">[spe-dev] Kiki window position Fix
+</A></li>
+        <LI>Next message: <A HREF="000198.html">[spe-dev] Testing version 216: MacBook Pro, Mac OS X 10.4.8
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#191">[ date ]</a>
+              <a href="thread.html#191">[ thread ]</a>
+              <a href="subject.html#191">[ subject ]</a>
+              <a href="author.html#191">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>PyChecker: looks OK. Filename gets chopped off at the right instead  
+of at the left, so that the actual file cannot be found. (Looks like  
+a non-Mac specific bug. I made a small function that can be used to  
+get a shortened path:)
+def clip_filename(path, number_of_directories = 2):
+     &quot;&quot;&quot;
+     Clips a pathname string to only used the last two subdirectories.
+     These examples assume a UNIX environment:
+     &gt;&gt;&gt; print os.sep
+     '/'
+     &gt;&gt;&gt; clip_filename(&quot;home/file.py&quot;)
+     home/file.py
+     &gt;&gt;&gt; clip_filename(&quot;this/a/path/file.py&quot;)
+     .../a/path/file.py
+     &gt;&gt;&gt; clip_filename(&quot;/a/path/file.py&quot;)
+     /a/path/file.py
+     &quot;&quot;&quot;
+
+     # We only clip if there are more slashes (or whatever sep is)
+     # than the number of directories to be shown.
+     # Find the clipping point by counting back.
+
+     if path[3:].count(os.sep) &lt;= number_of_directories:
+         return path
+
+     slashpos = path.rfind(os.sep)
+     for i in range(number_of_directories):
+         slashpos = path.rfind(os.sep, 0, slashpos)
+
+     return '...' + path[slashpos:]
+
+------------------------------
+Hotkey for Pychecker: OK in toolbar
+-------------------------------
+Fuzzy icons on toolbar: yes that's true. Designing 64*64 icons should  
+be left to a professional (Stani?!)
+------------------------------
+Kiki: I'll pass here, since I never used Kiki.
+---------------------------------
+Hope this helps.
+- Jurjen
+
+		
+___________________________________________________________ 
+The all-new Yahoo! Mail goes wherever you go - free your email address from your Internet provider. <A HREF="http://uk.docs.yahoo.com/nowyoucan.html">http://uk.docs.yahoo.com/nowyoucan.html</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000196.html">[spe-dev] Kiki window position Fix
+</A></li>
+	<LI>Next message: <A HREF="000198.html">[spe-dev] Testing version 216: MacBook Pro, Mac OS X 10.4.8
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#191">[ date ]</a>
+              <a href="thread.html#191">[ thread ]</a>
+              <a href="subject.html#191">[ subject ]</a>
+              <a href="author.html#191">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

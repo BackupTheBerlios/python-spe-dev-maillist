@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Running Programs With Movable Python
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2006-January/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Running%20Programs%20With%20Movable%20Python&In-Reply-To=%3C2078a7ad0601050543h663894b1l407a1b955a4a53ee%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000114.html">
+   <LINK REL="Next"  HREF="000116.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Running Programs With Movable Python</H1>
+    <B>SPE Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Running%20Programs%20With%20Movable%20Python&In-Reply-To=%3C2078a7ad0601050543h663894b1l407a1b955a4a53ee%40mail.gmail.com%3E"
+       TITLE="[spe-dev] Running Programs With Movable Python">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Thu Jan  5 14:43:37 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000114.html">[spe-dev] Running Programs With Movable Python
+</A></li>
+        <LI>Next message: <A HREF="000116.html">[spe-dev] Running Programs With Movable Python
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#115">[ date ]</a>
+              <a href="thread.html#115">[ thread ]</a>
+              <a href="subject.html#115">[ subject ]</a>
+              <a href="author.html#115">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 1/5/06, Fuzzyman &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">fuzzyman at voidspace.org.uk</A>&gt; wrote:
+&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Hello Stani (and others),
+</I>&gt;<i>
+</I>&gt;<i> Congratulations on SPE. I am appreciating it more and more.
+</I>
+
+Thanks (especially because you tested the latest version in SVN)!
+
+There is a slight issue with running programs under movable python. This
+&gt;<i> is due to the way Movable Python works - however a very slight fix in
+</I>&gt;<i> SPE can get it to work.
+</I>&gt;<i>
+</I>&gt;<i> Like python there are two executables - ``movpy.exe`` and
+</I>&gt;<i> ``movpyw.exe``. ``movpyw.exe`` runs programs without a console.
+</I>&gt;<i>
+</I>&gt;<i> SPE now uses sys.executable to run programs. I prefer to run SPE using
+</I>&gt;<i> ``movpyw.exe``, which means SPE uses ``movpyw.exe`` to run programs -
+</I>&gt;<i> with the result that there is no console box (and no proper
+</I>&gt;<i> stdout/stderr).
+</I>&gt;<i>
+</I>&gt;<i> The fix is to detect that the executable is movpyw.exe and change this
+</I>&gt;<i> to movpy.exe.
+</I>&gt;<i>
+</I>&gt;<i> Is this ok ?
+</I>
+
+SPE looks only one time for sys.executable in _spe/info.py (Actually it did
+also somewhere else, but I fixed that now.) So I think it is better to patch
+that file before making Movable Python. I prefer not to have some checking
+code always in SPE as normally it is not the case.
+
+I noticed that winpdb also makes one call to sys.executable in rpdb2.py,
+line 5145:
+python_exec = sys.executable
+So you will have to patch that as well.
+
+But instead of making two patches, it would be much better for Movable
+Python to be able to overwrite the sys.executable immediately in sys.
+Otherwise any program with a call to sys.executable won't work. How to do
+that is another question, but is definitely interesting. Maybe you should
+ask on comp.lang.python.
+
+All the best,
+
+Stani
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060105/89c7a97d/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060105/89c7a97d/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000114.html">[spe-dev] Running Programs With Movable Python
+</A></li>
+	<LI>Next message: <A HREF="000116.html">[spe-dev] Running Programs With Movable Python
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#115">[ date ]</a>
+              <a href="thread.html#115">[ thread ]</a>
+              <a href="subject.html#115">[ subject ]</a>
+              <a href="author.html#115">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

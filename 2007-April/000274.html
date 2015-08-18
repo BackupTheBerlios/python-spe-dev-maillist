@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] SPE &quot;Explore&quot; Tab shows commented elements
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20SPE%20%22Explore%22%20Tab%20shows%20commented%20elements&In-Reply-To=%3C2078a7ad0704021828u7f8b5fe0l52b73d9906c7b9e%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000273.html">
+   <LINK REL="Next"  HREF="000275.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] SPE &quot;Explore&quot; Tab shows commented elements</H1>
+    <B>SPE Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20SPE%20%22Explore%22%20Tab%20shows%20commented%20elements&In-Reply-To=%3C2078a7ad0704021828u7f8b5fe0l52b73d9906c7b9e%40mail.gmail.com%3E"
+       TITLE="[spe-dev] SPE &quot;Explore&quot; Tab shows commented elements">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Tue Apr  3 03:28:11 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000273.html">[spe-dev] Bug Fixed: View as notebook/columns/rows
+</A></li>
+        <LI>Next message: <A HREF="000275.html">[spe-dev] Auto-un-indention feature
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#274">[ date ]</a>
+              <a href="thread.html#274">[ thread ]</a>
+              <a href="subject.html#274">[ subject ]</a>
+              <a href="author.html#274">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Mike,
+
+
+On 3/27/07, Mike Rooney &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">mrooney at gmail.com</A>&gt; wrote:
+&gt;<i> Hello,
+</I>&gt;<i>
+</I>&gt;<i> I noticed that SPE will show imports, functions, and classes that are
+</I>&gt;<i> triple-quoted. Is this by design? I noticed it when making a TODO list
+</I>&gt;<i> of things to implement, and found it to be kind of annoying, but maybe
+</I>&gt;<i> it is intended. See the attached screen shot.
+</I>This is because the code analysis is kept as light as possible, to not
+consume too much cpu and memory. But of course there is always room
+for improvement.
+&gt;<i>
+</I>&gt;<i> Also, is there no way to have these lists sorted, at least the methods
+</I>&gt;<i> on a class? Browsing the methods of some wx classes is pretty nasty
+</I>&gt;<i> without alphabetical order. Personally, I think single clicking on
+</I>&gt;<i> anything in the Explore tab should go to its location, double-clicking
+</I>&gt;<i> should expand/collapse it if it has children (this will also go to it
+</I>&gt;<i> as a single-click will be processed), and right clicking should
+</I>&gt;<i> display a menu for sorting by file order or alphabetical order. The
+</I>&gt;<i> double clicking behavior I mentioned is consistent with most trees,
+</I>&gt;<i> and the single clicking is how other explorers in IDEs I have used
+</I>&gt;<i> behave. Any thoughts on this? Maybe it should have been a separate
+</I>&gt;<i> email...
+</I>Sorting and context menus are certainly doable if you know wxPython.
+Probably more easily for todo and index, then for explore. So it is
+more waiting until someone wants to contribute this code. For myself
+it is not top priority, but I am open to accept patches on this.
+
+&gt;<i> Anyway I have been having lots of fun with this great editor!
+</I>Good!
+
+Stani
+
+&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> Mike Rooney
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">mrooney at gmail.com</A>
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+
+-- 
+<A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000273.html">[spe-dev] Bug Fixed: View as notebook/columns/rows
+</A></li>
+	<LI>Next message: <A HREF="000275.html">[spe-dev] Auto-un-indention feature
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#274">[ date ]</a>
+              <a href="thread.html#274">[ thread ]</a>
+              <a href="subject.html#274">[ subject ]</a>
+              <a href="author.html#274">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

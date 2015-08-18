@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Bug in realtime.py
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2005-November/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%20in%20realtime.py&In-Reply-To=%3C2078a7ad0511110651j37195a3dj147cbb8fbcbf6183%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000033.html">
+   <LINK REL="Next"  HREF="000035.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Bug in realtime.py</H1>
+    <B>SPE Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%20in%20realtime.py&In-Reply-To=%3C2078a7ad0511110651j37195a3dj147cbb8fbcbf6183%40mail.gmail.com%3E"
+       TITLE="[spe-dev] Bug in realtime.py">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Fri Nov 11 15:51:00 CET 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000033.html">[spe-dev] Bug in realtime.py
+</A></li>
+        <LI>Next message: <A HREF="000035.html">[spe-dev] Bug in realtime.py
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#34">[ date ]</a>
+              <a href="thread.html#34">[ thread ]</a>
+              <a href="subject.html#34">[ subject ]</a>
+              <a href="author.html#34">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I hope these patches fix the problem. I don't have acces to SVN now,
+so I send the files as an attachment:
+_spe/Child.py
+_spe/sm/wxp/realtime.py
+
+I tested it positively quickly, but more testing may be necessary.
+Still only test the Tree class through the class explorer.
+
+Glenn, thanks again for the bug report. It's important to get fast
+feedback on the code which is written now, as it is meant to make SPE
+stable.
+
+If these patches are stable I'll fix the ListCtrl for the index and todo.
+
+Stani
+
+On 11/10/05, SPE Stani's Python Editor &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">spe.stani.be at gmail.com</A>&gt; wrote:
+&gt;<i> Thanks, I'll try to fix that. I'm now travelling in Paris, so it will
+</I>&gt;<i> be only next week.
+</I>&gt;<i> Stani
+</I>&gt;<i>
+</I>&gt;<i> On 11/9/05, Glenn Washburn &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">crass at berlios.de</A>&gt; wrote:
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> &gt; <A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+</I>&gt;<i> &gt; <A HREF="http://pythonide.stani.be/blog/sm_donate">http://pythonide.stani.be/blog/sm_donate</A> _______________________________________________
+</I>&gt;<i> &gt; There is a bug in realtime.py where a deleted wx.TreeItemId is being
+</I>&gt;<i> &gt; reused, causing a crash.  This can be created by creating a function
+</I>&gt;<i> &gt; (eg: 'def test(): pass').  Copy and paste the function in the same
+</I>&gt;<i> &gt; source window, such that there are now two functions of the same name
+</I>&gt;<i> &gt; and defined exactly the same.  Now modify the name of the copied
+</I>&gt;<i> &gt; function.  This causes a crash under gtk, and I would suspect other
+</I>&gt;<i> &gt; problems on other platforms.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I've spent some time debugging this, but haven't come up with a
+</I>&gt;<i> &gt; satisfactory patch.  If one adds 'assert not to.deleted' at the
+</I>&gt;<i> &gt; beginning of Tree.CopyItemTo, then instead of a crash the exception is
+</I>&gt;<i> &gt; caught and the improper error message is displayed (which I've noted in
+</I>&gt;<i> &gt; previous emails).  This indicated that a deleted item is being reused.
+</I>&gt;<i> &gt; Since Tree.CopyItemTo is only called in Tree._Update, where an unused
+</I>&gt;<i> &gt; item is reused, but there is no check to determine is the widget has
+</I>&gt;<i> &gt; been deleted.  I've fixed this, however there are still problems with
+</I>&gt;<i> &gt; the tree not removing the old item.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I believe that some where in the mix there is a problem being caused by
+</I>&gt;<i> &gt; the fact that Tree.items is indexed by the TreeItem.id, which is not
+</I>&gt;<i> &gt; unique in the above case, nor should it be assumed to be in general.  I
+</I>&gt;<i> &gt; think this is a problem that will require a fair amount of
+</I>&gt;<i> &gt; restructuring.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Glenn
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; Python-spe-dev mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> &gt; <A HREF="http://lists.berlios.de/mailman/listinfo/python-spe-dev">http://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+</I>&gt;<i>
+</I>
+
+--
+<A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+<A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: Child.py
+Type: application/octet-stream
+Size: 44841 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051111/ccbb9cc3/attachment.obj">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051111/ccbb9cc3/attachment.obj</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: realtime.py
+Type: application/octet-stream
+Size: 12864 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051111/ccbb9cc3/attachment-0001.obj">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051111/ccbb9cc3/attachment-0001.obj</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000033.html">[spe-dev] Bug in realtime.py
+</A></li>
+	<LI>Next message: <A HREF="000035.html">[spe-dev] Bug in realtime.py
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#34">[ date ]</a>
+              <a href="thread.html#34">[ thread ]</a>
+              <a href="subject.html#34">[ subject ]</a>
+              <a href="author.html#34">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

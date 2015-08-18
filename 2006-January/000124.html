@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Testing SVN Version
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2006-January/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Testing%20SVN%20Version&In-Reply-To=%3C43BE27B7.9050501%40voidspace.org.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000129.html">
+   <LINK REL="Next"  HREF="000125.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Testing SVN Version</H1>
+    <B>Fuzzyman</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Testing%20SVN%20Version&In-Reply-To=%3C43BE27B7.9050501%40voidspace.org.uk%3E"
+       TITLE="[spe-dev] Testing SVN Version">fuzzyman at voidspace.org.uk
+       </A><BR>
+    <I>Fri Jan  6 09:17:59 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000129.html">[spe-dev] Crash with svn 128 on MacOS X
+</A></li>
+        <LI>Next message: <A HREF="000125.html">[spe-dev] Testing SVN Version
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#124">[ date ]</a>
+              <a href="thread.html#124">[ thread ]</a>
+              <a href="subject.html#124">[ subject ]</a>
+              <a href="author.html#124">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Stani,
+
+I've played around with the version of SPE from SVN. There are a couple
+of minor issues.
+
+SPE.pyw doesn't work. Copying spe.py and renaming works.
+If you wrap everything in spe.py in a main function and just call main,
+spe.pyw could just import main from spe.py and run it - this would save you
+having to maintain both.
+
+Shift-ctrl-E now brings up a dialog saying 'are you sure you want to run
+whole script'
+It doesn't now just run the whole script without raising *another* dialog.
+
+I can use ctrl-shift-R instead - with the redirected output, which is nice.
+
+Even with shift-Ctrl-R I still would like to run some stuff in the shell
+(stuff
+that uses raw_input for simple interaction). Would it be possible to
+turn this
+dialog off with a preference ?
+
+When I hit F9 I got the following error (I was running spe.pyw using
+pythonw.exe)
+
+&gt;&gt;&gt;<i> Traceback (most recent call last):
+</I>  File &quot;C:\Python24\Lib\site-packages\_spe\Menu.py&quot;, line 442, in
+menu_run_terminal
+    self.app.childActive.run()
+  File &quot;C:\Python24\Lib\site-packages\_spe\Child.py&quot;, line 528, in run
+    from _spe.dialogs.runTerminalDialog import RunTerminalDialog
+ImportError: No module named runTerminalDialog
+
+When run from pythonw.exe (as I always do), then shift-F9 opens a
+console box,
+but because sys.executable is used - the program is run using
+pythonw.exe - so
+no output is displayed.
+
+What you probably want to do is patch the following file. This would
+sort the
+same problem for SPE *and* Movable Python :
+
+info.py line 17 becomes :
+
+PYTHON_EXEC                 = sys.executable
+if WIN:
+    if PYTHON_EXEC.endswith('w.exe'):
+        PYTHON_EXEC = PYTHON_EXEC[:-5] + '.exe'
+
+This fix is *already* made in rpd2.py
+
+Recent files (which I've only just discovered) is good. Single clicking on
+files opens them and right clicking runs them ! IMHO this is anti-intuitive.
+
+Double clicking should open. Single clicking should select them,
+allowing me to
+delete items from the list. Right clicking should open a context menu
+allowing
+me to delete or run. I'll file this as a feature request.
+
+It also freezes up (stops working) after right clicking - sometimes this
+freezes SPE altogether. The problem is *probably* related to launching
+programs
+using pythonw or the way programs terminate (or don't) if they have an
+event loop - I'm not sure yet.
+
+
+Error seen once on startup :
+
+  File &quot;C:\Python24\Lib\site-packages\_spe\sm\wxp\NotebookCtrl.py&quot;, line
+1867, in OnMouseMotion
+    dx = abs(pt.x - self._dragstartpos.x)
+AttributeError: 'TabCtrl' object has no attribute '_dragstartpos'
+
+
+
+Error seen once running from movpy.exe on startup :
+
+  File &quot;F:\Python Projects\modules in
+progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py&quot;, line 1893,
+in OnMouseMotion
+    insidex = self.GetInsideX(pt)
+  File &quot;F:\Python Projects\modules in
+progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py&quot;, line 1678,
+in GetInsideX
+    if rects.Inside(pt):
+AttributeError: 'int' object has no attribute 'Inside'
+Traceback (most recent call last):
+  File &quot;F:\Python Projects\modules in
+progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py&quot;, line 1893,
+in OnMouseMotion
+    insidex = self.GetInsideX(pt)
+  File &quot;F:\Python Projects\modules in
+progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py&quot;, line 1678,
+in GetInsideX
+    if rects.Inside(pt):
+AttributeError: 'int' object has no attribute 'Inside'
+Traceback (most recent call last):
+  File &quot;F:\Python Projects\modules in
+progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py&quot;, line 1893,
+in OnMouseMotion
+    insidex = self.GetInsideX(pt)
+  File &quot;F:\Python Projects\modules in
+progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py&quot;, line 1678,
+in GetInsideX
+    if rects.Inside(pt):
+AttributeError: 'int' object has no attribute 'Inside'
+Traceback (most recent call last):
+  File &quot;F:\Python Projects\modules in
+progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py&quot;, line 1893,
+in OnMouseMotion
+    insidex = self.GetInsideX(pt)
+  File &quot;F:\Python Projects\modules in
+progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py&quot;, line 1678,
+in GetInsideX
+    if rects.Inside(pt):
+AttributeError: 'int' object has no attribute 'Inside'
+
+
+Running a script with raw_input() using Ctrl-R causes an error (it
+hangs). Press
+Ctrl-R again and it offers to kill the script (warning you SPE might
+die). I then
+get a core dump. (The instruction 0x0.... referenced memory that could
+not be read).
+
+I get the same error with F9 when running from movpy.
+
+All the best,
+
+Fuzzyman
+<A HREF="http://www.voidspace.org.uk/python/index.shtml">http://www.voidspace.org.uk/python/index.shtml</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000129.html">[spe-dev] Crash with svn 128 on MacOS X
+</A></li>
+	<LI>Next message: <A HREF="000125.html">[spe-dev] Testing SVN Version
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#124">[ date ]</a>
+              <a href="thread.html#124">[ thread ]</a>
+              <a href="subject.html#124">[ subject ]</a>
+              <a href="author.html#124">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

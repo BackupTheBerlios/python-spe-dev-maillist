@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Moving sashes is hard under OS X
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Moving%20sashes%20is%20hard%20under%20OS%20X&In-Reply-To=%3C45FE7134.2030409%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000255.html">
+   <LINK REL="Next"  HREF="000253.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Moving sashes is hard under OS X</H1>
+    <B>Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Moving%20sashes%20is%20hard%20under%20OS%20X&In-Reply-To=%3C45FE7134.2030409%40gmail.com%3E"
+       TITLE="[spe-dev] Moving sashes is hard under OS X">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Mon Mar 19 12:17:08 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000255.html">[spe-dev] Moving sashes is hard under OS X
+</A></li>
+        <LI>Next message: <A HREF="000253.html">[spe-dev] Workspaces
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#256">[ date ]</a>
+              <a href="thread.html#256">[ thread ]</a>
+              <a href="subject.html#256">[ subject ]</a>
+              <a href="author.html#256">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Pietje Puk wrote:
+&gt;<i> Op 19-mrt-2007, om 11:35 heeft Stani's Python Editor het volgende  
+</I>&gt;<i> geschreven:
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Are you talking about the sash in the sidebar or the sash with the  
+</I>&gt;&gt;<i> bottom pane. I remember increasing the width for the sidebar, but  
+</I>&gt;&gt;<i> maybe not for the bottom pane. What is exactly the problem? Is the  
+</I>&gt;&gt;<i> sash hard to grab? Could you try to set the sash to a bigger width  
+</I>&gt;&gt;<i> to see if that solves the problem? Or would you prefer realtime  
+</I>&gt;&gt;<i> feedback while dragging? On Ubuntu there is no problem with  
+</I>&gt;&gt;<i> grabbing the sash.
+</I>&gt;&gt;<i> Stani
+</I>&gt;&gt;<i>     
+</I>&gt;<i> I mean both that it is hard to grab, and that I can't see a line  
+</I>&gt;<i> while dragging.
+</I>&gt;<i> I find it hard to find the relevant code: is it MdiSashTabsParentFrame?
+</I>&gt;<i>   
+</I>Hi Jurjen, the sash is from a wxSplitterWindow which is in the smdi.py 
+framework on line 822 (MdiSplitParentFrame,  def __stage__, self.split = 
+...). If you look up wxSplitterWindow you'll find enough resources how 
+to do it. I guess you need to experiment with the wx.SP_LIVE_UPDATE 
+style and put the border thicker. For more info:
+<A HREF="http://www.wxwidgets.org/manuals/2.8.0/wx_wxsplitterwindow.html">http://www.wxwidgets.org/manuals/2.8.0/wx_wxsplitterwindow.html</A>
+
+Please try to find the optimal for OSX and send me the patch (with 
+platform check: wx.Platform ).
+
+Stani
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070319/1ec45d97/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070319/1ec45d97/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000255.html">[spe-dev] Moving sashes is hard under OS X
+</A></li>
+	<LI>Next message: <A HREF="000253.html">[spe-dev] Workspaces
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#256">[ date ]</a>
+              <a href="thread.html#256">[ thread ]</a>
+              <a href="subject.html#256">[ subject ]</a>
+              <a href="author.html#256">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

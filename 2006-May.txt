@@ -1,0 +1,40 @@
+From pruggera at gmail.com  Sat May 13 06:49:21 2006
+From: pruggera at gmail.com (Phil Ruggera)
+Date: Fri, 12 May 2006 21:49:21 -0700
+Subject: [spe-dev] I'd like to help develop
+Message-ID: <b551ae520605122149t24fd9c7fnbff9369c4b36f507@mail.gmail.com>
+
+ I have reworked the call tips activation code to react more consistantly.
+Can I get access to the SVN so I can update it?
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060512/24591ca4/attachment.html>
+
+From spe.stani.be at gmail.com  Sat May 13 13:18:22 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Sat, 13 May 2006 13:18:22 +0200
+Subject: [spe-dev] I'd like to help develop
+In-Reply-To: <b551ae520605122149t24fd9c7fnbff9369c4b36f507@mail.gmail.com>
+References: <b551ae520605122149t24fd9c7fnbff9369c4b36f507@mail.gmail.com>
+Message-ID: <2078a7ad0605130418g3be4138hb0fd302624b38468@mail.gmail.com>
+
+Hi Phil,
+After 15th of june I will apply all submitted patches to the SVN and
+probably do a new release. After that day we can mail about access to
+SVN if you would be willing to contribute more and if your coding
+skills are well enough.
+Sorry for being busy till then,
+Stani
+
+On 5/13/06, Phil Ruggera <pruggera at gmail.com> wrote:
+>  I have reworked the call tips activation code to react more consistantly.
+> Can I get access to the SVN so I can update it?
+>
+
+
+-- 
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+
+

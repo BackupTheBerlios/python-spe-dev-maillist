@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] SPE v0.8.4.b Python 2.4.3 problems
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20SPE%20v0.8.4.b%20Python%202.4.3%20problems&In-Reply-To=%3C464A3C99.7010607%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000302.html">
+   <LINK REL="Next"  HREF="000304.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] SPE v0.8.4.b Python 2.4.3 problems</H1>
+    <B>Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20SPE%20v0.8.4.b%20Python%202.4.3%20problems&In-Reply-To=%3C464A3C99.7010607%40gmail.com%3E"
+       TITLE="[spe-dev] SPE v0.8.4.b Python 2.4.3 problems">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Wed May 16 01:04:57 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000302.html">[spe-dev] SPE v0.8.4.b Python 2.4.3 problems
+</A></li>
+        <LI>Next message: <A HREF="000304.html">[spe-dev] Bug Report (SPE 0.8.3.c): grid batch method names are hot	text
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#303">[ date ]</a>
+              <a href="thread.html#303">[ thread ]</a>
+              <a href="subject.html#303">[ subject ]</a>
+              <a href="author.html#303">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Michael,
+It is not about gui code, but more about event loops, etc... Twisted 
+also wouldn't work. A solution would be to run the shell in a thread or 
+to launch an external process. However I do not plan myself to implement 
+it as I use the shell also for introspection of the SPE application. 
+Communication with an external process requires something like xml-rpc 
+and is quite a complicated matter. Working with threads would make SPE 
+totally unusable in Blender. I prefer the current implementation. If 
+somebody else comes up with a clever patch or contribution, I will 
+review it. (Josiah Carlson proposed such a shell for wxPython for Google 
+Summer of Code and unfortunately it has been rejected.) If you can 
+contribute some solution for the SOAP issue, please do. I hope you 
+understand that I won't take the iniative for it.
+Stani
+
+Michael Lang wrote:
+&gt;<i> Stani's Python Editor wrote:
+</I>&gt;&gt;<i> Hi Michael,
+</I>&gt;<i>
+</I>&gt;<i> Hi Stani,
+</I>&gt;<i>
+</I>&gt;<i> thanks for the fast response, but the code isn't doing gtk/wx stuff 
+</I>&gt;<i> SOAP is not using gui's.
+</I>&gt;<i> the code (the three lines) is working everywhere else, except in the 
+</I>&gt;<i> Shell in your Editor, that's
+</I>&gt;<i> why i was sending this Bug Report, but even if this code does 
+</I>&gt;<i> something clashing the SPE/wx code
+</I>&gt;<i> you should catch this so that the application keeps running (would be 
+</I>&gt;<i> enough if resolving the objects
+</I>&gt;<i> functions doesn't work, as in SOAP they are already defined in the 
+</I>&gt;<i> WSDL and don't need to be resolved)
+</I>&gt;<i>
+</I>&gt;<i> Kind regards
+</I>&gt;<i> Michael Lang
+</I>&gt;<i>
+</I>&gt;&gt;<i> It is not recommended to use commands which might conflict with SPE's 
+</I>&gt;&gt;<i> internal wxpython main loop. I presume your code is doing this. For 
+</I>&gt;&gt;<i> example you can not run another gtk/wxpython program in SPE's shell. 
+</I>&gt;&gt;<i> You need these kind of code snippets to run with Tools&gt;Run and if you 
+</I>&gt;&gt;<i> want introspection run it through the debugger.
+</I>&gt;&gt;<i> Stani
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Michael Lang wrote:
+</I>&gt;&gt;&gt;<i> Hi,
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> i have Centos 5 running which ships with python 2.4.3. I compiled 
+</I>&gt;&gt;&gt;<i> wxPython 2.8.3 and
+</I>&gt;&gt;&gt;<i> checked out SPE 0.8.4.b from subversion. SPE starts up but when 
+</I>&gt;&gt;&gt;<i> resolving an objects function
+</I>&gt;&gt;&gt;<i> in the Shell Window the Application hangs and can only be killed and 
+</I>&gt;&gt;&gt;<i> restarted.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> following code was crashing the Application reproduce able:
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> #
+</I>&gt;&gt;&gt;<i> from ZSI.client import Binding
+</I>&gt;&gt;&gt;<i> req = Binding(url='<A HREF="http://....">http://....</A>', host='127.0.0.1')
+</I>&gt;&gt;&gt;<i> print req.test()
+</I>&gt;&gt;&gt;<i> #
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> ZSI is a SOAP Module and the code works when written as Script in 
+</I>&gt;&gt;&gt;<i> the Editor and run or works
+</I>&gt;&gt;&gt;<i> when run in interactive Python Shell. The last line isn't complete 
+</I>&gt;&gt;&gt;<i> able as before the '.' the applications
+</I>&gt;&gt;&gt;<i> hangs. I attached the trace file to this email, but wasn't able 
+</I>&gt;&gt;&gt;<i> myself to see what's hanging.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> the function 'test' is only defined when resolved through SOAP ...
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> &gt;&gt;&gt; dir(req)
+</I>&gt;&gt;&gt;<i> ['AddHeader', 'IsAFault', 'IsSOAP', 'RPC', 'Receive', 
+</I>&gt;&gt;&gt;<i> 'ReceiveFault', 'ReceiveRaw', 'ReceiveSOAP', 'ResetHeaders', 'Send', 
+</I>&gt;&gt;&gt;<i> 'SetAuth', 'SetNS', 'SetURL', '_Binding__parse', '__doc__', 
+</I>&gt;&gt;&gt;<i> '__getattr__', '__init__', '__module__', '__repr__', 'auth_pass', 
+</I>&gt;&gt;&gt;<i> 'auth_style', 'auth_user', 'data', 'host', 'ns', 'nsdict', 'op_ns', 
+</I>&gt;&gt;&gt;<i> 'port', 'ps', 'readerclass', 'soapaction', 'ssl', 'trace', 
+</I>&gt;&gt;&gt;<i> 'typesmodule', 'url', 'user_headers']
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> i can provide this SOAP interface for debugging if needed.
+</I>&gt;&gt;&gt;<i> Kind regards
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Michael Lang
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> ------------------------------------------------------------------------ 
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> -- 
+</I>&gt;&gt;&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;&gt;&gt;<i> svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;&gt;&gt;<i>   
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ------------------------------------------------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> -- 
+</I>&gt;&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;&gt;<i> svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;&gt;<i>   
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i>   
+</I>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070516/f1fab5bd/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070516/f1fab5bd/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000302.html">[spe-dev] SPE v0.8.4.b Python 2.4.3 problems
+</A></li>
+	<LI>Next message: <A HREF="000304.html">[spe-dev] Bug Report (SPE 0.8.3.c): grid batch method names are hot	text
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#303">[ date ]</a>
+              <a href="thread.html#303">[ thread ]</a>
+              <a href="subject.html#303">[ subject ]</a>
+              <a href="author.html#303">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

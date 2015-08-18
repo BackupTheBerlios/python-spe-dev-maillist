@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Bug in realtime.py
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2005-November/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%20in%20realtime.py&In-Reply-To=%3C20051109142011.7c892423%40laptop%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000031.html">
+   <LINK REL="Next"  HREF="000033.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Bug in realtime.py</H1>
+    <B>Glenn Washburn</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%20in%20realtime.py&In-Reply-To=%3C20051109142011.7c892423%40laptop%3E"
+       TITLE="[spe-dev] Bug in realtime.py">crass at berlios.de
+       </A><BR>
+    <I>Wed Nov  9 21:20:11 CET 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000031.html">[spe-dev] realtime.py &amp; mini-roadmap &amp; patches
+</A></li>
+        <LI>Next message: <A HREF="000033.html">[spe-dev] Bug in realtime.py
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#32">[ date ]</a>
+              <a href="thread.html#32">[ thread ]</a>
+              <a href="subject.html#32">[ subject ]</a>
+              <a href="author.html#32">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>There is a bug in realtime.py where a deleted wx.TreeItemId is being
+reused, causing a crash.  This can be created by creating a function
+(eg: 'def test(): pass').  Copy and paste the function in the same
+source window, such that there are now two functions of the same name
+and defined exactly the same.  Now modify the name of the copied
+function.  This causes a crash under gtk, and I would suspect other
+problems on other platforms.
+
+I've spent some time debugging this, but haven't come up with a
+satisfactory patch.  If one adds 'assert not to.deleted' at the
+beginning of Tree.CopyItemTo, then instead of a crash the exception is
+caught and the improper error message is displayed (which I've noted in
+previous emails).  This indicated that a deleted item is being reused.
+Since Tree.CopyItemTo is only called in Tree._Update, where an unused
+item is reused, but there is no check to determine is the widget has
+been deleted.  I've fixed this, however there are still problems with
+the tree not removing the old item.
+
+I believe that some where in the mix there is a problem being caused by
+the fact that Tree.items is indexed by the TreeItem.id, which is not
+unique in the above case, nor should it be assumed to be in general.  I
+think this is a problem that will require a fair amount of
+restructuring.
+
+Glenn
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000031.html">[spe-dev] realtime.py &amp; mini-roadmap &amp; patches
+</A></li>
+	<LI>Next message: <A HREF="000033.html">[spe-dev] Bug in realtime.py
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#32">[ date ]</a>
+              <a href="thread.html#32">[ thread ]</a>
+              <a href="subject.html#32">[ subject ]</a>
+              <a href="author.html#32">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

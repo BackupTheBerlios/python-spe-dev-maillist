@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Auto-un-indention feature
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Auto-un-indention%20feature&In-Reply-To=%3C23550-20633%40sneakemail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000279.html">
+   <LINK REL="Next"  HREF="000281.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Auto-un-indention feature</H1>
+    <B>g6m3xcl02 at sneakemail.com</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Auto-un-indention%20feature&In-Reply-To=%3C23550-20633%40sneakemail.com%3E"
+       TITLE="[spe-dev] Auto-un-indention feature">g6m3xcl02 at sneakemail.com
+       </A><BR>
+    <I>Tue Apr 10 07:29:19 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000279.html">[spe-dev] Auto-un-indention feature
+</A></li>
+        <LI>Next message: <A HREF="000281.html">[spe-dev] The dirty flag and undo
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#280">[ date ]</a>
+              <a href="thread.html#280">[ thread ]</a>
+              <a href="subject.html#280">[ subject ]</a>
+              <a href="author.html#280">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Fantastic, thanks for your help, Mike and Stani!
+
+I have a working prototype now, and it appears to be safe to apply this
+patch to revision 236 for testing.
+<A HREF="http://developer.berlios.de/patch/?func=detailpatch&amp;patch_id=1952&amp;group_id=4161">http://developer.berlios.de/patch/?func=detailpatch&amp;patch_id=1952&amp;group_id=4161</A>
+
+As a test, try typing this code exactly as is:
+if 1:
+a = 2
+elif 3:
+b = 4
+else:
+c = 5
+
+Notice that it indents a, b and c (as it did before), but it also un-indents
+the elif and the else.  A known &quot;design flaw&quot; is that nested if/else blocks
+still require some manual un-indentation, because of genuine ambiguity.
+There are multiple 'legal' indentations that have different meanings when
+compiled.  (ie~ the following three commands make the indentation of the 4th
+command ambiguous: if, if, elif, else)
+
+Cheers,
+Carver
+
+On 4/9/07, Stani's Python Editor spe.stani.be-at-......... |spe-dev mailing
+list| &lt;...&gt; wrote:
+&gt;<i>
+</I>&gt;<i>  Hi Carver,
+</I>&gt;<i> I am travelling around so not really working on SPE until May, but go
+</I>&gt;<i> ahead: it is a nice idea. You have indeed to implement it with the
+</I>&gt;<i> OnKeyDown. Define a function like needsUnindent similar to:
+</I>&gt;<i>             if stripped and self.needsIndent
+</I>&gt;<i> (firstWord,lastChar=stripped[-1]):
+</I>&gt;<i>                 padding += self.indentation
+</I>&gt;<i>             elif self.needsDedent(firstWord):
+</I>&gt;<i>                 padding  = padding[:-self.tabWidth]
+</I>&gt;<i>
+</I>&gt;<i> Stani
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">g6m3xcl02 at sneakemail.com</A> wrote:
+</I>&gt;<i>
+</I>&gt;<i> Hi Mike,
+</I>&gt;<i>
+</I>&gt;<i> Sure, let me clarify by giving an example.  If I type a 4-line if/else
+</I>&gt;<i> block, I want to only type the line of code and hit enter every time.  I
+</I>&gt;<i> never want to hit tab, and I never want to hit Backspace in order to
+</I>&gt;<i> &quot;un-tab.&quot;  When I follow this pattern, the 'else:' command ends up indented
+</I>&gt;<i> too far (see code below).  I want SPE to recognize the else: command (or
+</I>&gt;<i> elif) and back up the whole line, and the block that follows it.  I imagine
+</I>&gt;<i> that the best trigger moment for this is the carriage return after typing
+</I>&gt;<i> 'else:', which would identify the code in the preceding line and then
+</I>&gt;<i> &quot;un-indent&quot; it.
+</I>&gt;<i>
+</I>&gt;<i> Current result of typing 4 lines without manually dealing with
+</I>&gt;<i> indentation:
+</I>&gt;<i>
+</I>&gt;<i> if foo == bar:
+</I>&gt;<i>     foobar()
+</I>&gt;<i>     else:
+</I>&gt;<i>         fubar()
+</I>&gt;<i>
+</I>&gt;<i> Desired result of typing 4 lines without manually dealing with
+</I>&gt;<i> indentation:
+</I>&gt;<i>
+</I>&gt;<i> if foo == bar:
+</I>&gt;<i>     foobar()
+</I>&gt;<i> else:
+</I>&gt;<i>     fubar()
+</I>&gt;<i>
+</I>&gt;<i> The current workaround is typing Backspace or Shift-Tab before starting
+</I>&gt;<i> the else command.  That is the keystroke I want to avoid.  It seems trivial
+</I>&gt;<i> written in these terms, but it is something I miss very much from other
+</I>&gt;<i> editors.  I'm coming from the Eclipse environment, and so I am spoiled by a
+</I>&gt;<i> mature IDE.
+</I>&gt;<i>
+</I>&gt;<i> Thanks to Mike's suggestion of poking around Child.py, I followed the
+</I>&gt;<i> trail to sm.wxp.PythonBaseSTC which extends wxp.StyledTextCtrl .  The
+</I>&gt;<i> right place to add this feature appears to be OnKeyDown(self, event), so I'm
+</I>&gt;<i> working on a patch that would apply to that file.  I will post it to berlios
+</I>&gt;<i> as soon as it is worthy of testing.
+</I>&gt;<i>
+</I>&gt;<i> Cheers,
+</I>&gt;<i> Carver
+</I>&gt;<i>
+</I>&gt;<i> On 4/7/07, *Mike Rooney mrooney-at-......... |spe-dev mailing list|* &lt; ...&gt;
+</I>&gt;<i> wrote:
+</I>&gt;<i>
+</I>&gt;<i> Hi Carver,
+</I>&gt;<i>
+</I>&gt;<i> I am not sure if I understand this feature. When I type an else:
+</I>&gt;<i> followed by enter it puts me where I think it should (4 spaces in for
+</I>&gt;<i> me with my settings). But I guess that is auto-indent. I am not sure I
+</I>&gt;<i> understand auto-un-indent. Can you explain this?
+</I>&gt;<i>
+</I>&gt;<i> You probably want to look in Child.py but I am not completely sure, I
+</I>&gt;<i> am new to the codebase as well. If you find a good place for code like
+</I>&gt;<i> this please let me know!
+</I>&gt;<i>
+</I>&gt;<i> - Mike
+</I>&gt;<i>
+</I>&gt;<i> On 4/6/07, <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">g6m3xcl02 at sneakemail.com</A> &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">g6m3xcl02 at sneakemail.com</A>&gt; wrote:
+</I>&gt;<i> &gt; I am interested in working on a patch for an auto-un-indentation
+</I>&gt;<i> feature.
+</I>&gt;<i> &gt; Specifically, if you type &quot;else:&quot; (followed by a carriage return), I
+</I>&gt;<i> think
+</I>&gt;<i> &gt; it should match the most recent &quot;if:&quot; block level, and the same for
+</I>&gt;<i> &gt; try/except blocks. Would others find this useful?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I'm new to the SPE codebase. Could someone help me get started by
+</I>&gt;<i> pointing
+</I>&gt;<i> &gt; me to relevant modules?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Cheers,
+</I>&gt;<i> &gt;  Carver
+</I>&gt;<i> &gt; --
+</I>&gt;<i> &gt; <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> &gt; svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> Mike Rooney
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">mrooney at .........</A>
+</I>&gt;<i> --
+</I>&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------
+</I>&gt;<i>
+</I>&gt;<i> --<A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.dehttps</A>://lists.berlios.de/mailman/listinfo/python-spe-dev
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070409/6250b45b/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070409/6250b45b/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000279.html">[spe-dev] Auto-un-indention feature
+</A></li>
+	<LI>Next message: <A HREF="000281.html">[spe-dev] The dirty flag and undo
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#280">[ date ]</a>
+              <a href="thread.html#280">[ thread ]</a>
+              <a href="subject.html#280">[ subject ]</a>
+              <a href="author.html#280">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

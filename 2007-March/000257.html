@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Bug Fixed: View as notebook/columns/rows
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%20Fixed%3A%20View%20as%20notebook/columns/rows&In-Reply-To=%3C45FE875E.4040003%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000250.html">
+   <LINK REL="Next"  HREF="000258.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Bug Fixed: View as notebook/columns/rows</H1>
+    <B>Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%20Fixed%3A%20View%20as%20notebook/columns/rows&In-Reply-To=%3C45FE875E.4040003%40gmail.com%3E"
+       TITLE="[spe-dev] Bug Fixed: View as notebook/columns/rows">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Mon Mar 19 13:51:42 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000250.html">[spe-dev]  Bug Fixed: View as notebook/columns/rows
+</A></li>
+        <LI>Next message: <A HREF="000258.html">[spe-dev] Bug Fixed: View as notebook/columns/rows
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#257">[ date ]</a>
+              <a href="thread.html#257">[ thread ]</a>
+              <a href="subject.html#257">[ subject ]</a>
+              <a href="author.html#257">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>John Finch wrote:
+&gt;<i> Notebook View fixed for OSX
+</I>&gt;<i> Tested with P2.5 and wx2.8.1.
+</I>&gt;<i> Please confirm with other versions.
+</I>&gt;<i> Replace as_notebook function in parent.py with below:
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>I've modified it a bit without testing:
+&gt;<i>      def as_notebook(self,event):
+</I>&gt;<i>          if hasattr(self.frame,'Tile'):
+</I>&gt;<i>              self.app.childActive.frame.Maximize()
+</I>&gt;<i>          else:
+</I>&gt;<i>              tabs  =  getattr(self.frame,'tabs',None)
+</I>&gt;<i>              if tabs:
+</I>&gt;<i>                  # Have to set selection to first tab and de-Tile before
+</I>&gt;<i>                  # starting iterations to show sidebars etc
+</I>&gt;<i>                  tabs.Tile(False)
+</I>&gt;<i>                  for child in app.children:
+</I>&gt;<i>                      child.showSidebar()
+</I>&gt;<i>                  tabs.ShowTabs(True)
+</I>&gt;<i>                  tabs.SetSelection(0)
+</I>Thanks John!
+Can you try out the modified code above. I would prefer not to set the 
+focus on every child. Maybe you can play around with the above code 
+until it works. Does it synchronizes with the menu. Now it shows 
+probably the sidebar by default even if people decided to switch it off.
+Stani
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000250.html">[spe-dev]  Bug Fixed: View as notebook/columns/rows
+</A></li>
+	<LI>Next message: <A HREF="000258.html">[spe-dev] Bug Fixed: View as notebook/columns/rows
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#257">[ date ]</a>
+              <a href="thread.html#257">[ thread ]</a>
+              <a href="subject.html#257">[ subject ]</a>
+              <a href="author.html#257">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

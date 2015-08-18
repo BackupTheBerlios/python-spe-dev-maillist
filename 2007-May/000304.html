@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Bug Report (SPE 0.8.3.c): grid batch method names are hot	text
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%20Report%20%28SPE%200.8.3.c%29%3A%20grid%20batch%20method%20names%20are%20hot%0A%09text&In-Reply-To=%3C90cae1530705301135y543a483bk602fa6f930df19d1%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000303.html">
+   <LINK REL="Next"  HREF="000305.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Bug Report (SPE 0.8.3.c): grid batch method names are hot	text</H1>
+    <B>Eric Ongerth</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%20Report%20%28SPE%200.8.3.c%29%3A%20grid%20batch%20method%20names%20are%20hot%0A%09text&In-Reply-To=%3C90cae1530705301135y543a483bk602fa6f930df19d1%40mail.gmail.com%3E"
+       TITLE="[spe-dev] Bug Report (SPE 0.8.3.c): grid batch method names are hot	text">ericongerth at gmail.com
+       </A><BR>
+    <I>Wed May 30 20:35:23 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000303.html">[spe-dev] SPE v0.8.4.b Python 2.4.3 problems
+</A></li>
+        <LI>Next message: <A HREF="000305.html">[spe-dev] Bug Report (SPE 0.8.3.c): grid batch method names are hot	text
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#304">[ date ]</a>
+              <a href="thread.html#304">[ thread ]</a>
+              <a href="subject.html#304">[ subject ]</a>
+              <a href="author.html#304">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello, this is my first message to the spe-dev list.
+
+I appreciate the qualities of this Python editor very much, and I look
+forward to seeing its abilities increase over time.
+
+I believe I've found a bug, and it's easy to replicate:
+Open a new file in SPE 0.8.3.c and type either of the following lines:
+grid.BeginBatch(
+
+or
+grid.EndBatch(
+
+...on my system (Windows XPsp2, Python 2.5.1, wxPython 2.8.4.0 (msw-unicode)
+-- this results in an endless loop where an even is being Skip()ed
+forever.  I have to force Windows to kill the pythonw process.
+
+Has this already been found?
+
+Thanks,
+Eric
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070530/69a2a6d3/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070530/69a2a6d3/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000303.html">[spe-dev] SPE v0.8.4.b Python 2.4.3 problems
+</A></li>
+	<LI>Next message: <A HREF="000305.html">[spe-dev] Bug Report (SPE 0.8.3.c): grid batch method names are hot	text
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#304">[ date ]</a>
+              <a href="thread.html#304">[ thread ]</a>
+              <a href="subject.html#304">[ subject ]</a>
+              <a href="author.html#304">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

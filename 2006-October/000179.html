@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] building spe.deb
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2006-October/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20building%20spe.deb&In-Reply-To=%3C453E5CE1.2010504%40personnelware.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000180.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] building spe.deb</H1>
+    <B>Carl Karsten</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20building%20spe.deb&In-Reply-To=%3C453E5CE1.2010504%40personnelware.com%3E"
+       TITLE="[spe-dev] building spe.deb">carl at personnelware.com
+       </A><BR>
+    <I>Tue Oct 24 20:35:13 CEST 2006</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000180.html">[spe-dev] building spe.deb
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#179">[ date ]</a>
+              <a href="thread.html#179">[ thread ]</a>
+              <a href="subject.html#179">[ subject ]</a>
+              <a href="author.html#179">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>good news - using the script below, I just built a .deb using the current ver of 
+spe and Ubuntu edgy (didn't try dapper, but it should be fine.)  It builds, 
+installs and runs.
+
+I caught 2 warnings:
+
+dh_python: This program is deprecated, you should use dh_pysupport or 
+dh_pycentral instead.
+
+dh_builddeb
+dpkg-deb: building package `spe' in `../spe_0.8.3-svn-158_all.deb'.
+tar: -: file name read contains nul character
+
+Plus if you run spe from a shell, you get a spew of messages:
+
+(python:17433): Gdk-CRITICAL **: gdk_draw_drawable: assertion `src != NULL' failed
+
+(python:17433): Gtk-CRITICAL **: gtk_container_remove: assertion `GTK_IS_TOOLBAR 
+(container) || widget-&gt;parent == GTK_WIDGET (container)' failed
+
+Exception exceptions.TypeError: &quot;'NoneType' object is not callable&quot; in 
+&lt;wx.lib.pubsub._NodeCallback instance at 0xb4e147ac&gt; ignored
+
+ &gt; Thanks to Marco Ferreira there will be very soon a debian package to install SPE
+
+Marco - you are on this list, right?  (if not, can someone forward this to him? 
+  I don't have his e-mail.
+
+Steve and Matthias, guessing you are on the list but did have yours, so you get 
+extra :)
+
+Carl K
+
+current ver is at <A HREF="https://help.ubuntu.com/community/UpdatingADeb">https://help.ubuntu.com/community/UpdatingADeb</A>
+
+This will build spe.deb on a fresh Ubuntu install.
+
+# mkspedeb.sh
+# updates the spe.deb
+# based on <A HREF="https://help.ubuntu.com/community/UpdatingADeb">https://help.ubuntu.com/community/UpdatingADeb</A>
+
+set -xe
+
+# needed to get source, compile and build debs
+sudo apt-get --assume-yes install build-essential fakeroot subversion
+
+# get the spe deps and source from apt repository
+# (and debian/ dir needed to build the .deb)
+sudo apt-get --assume-yes build-dep spe
+
+mkdir spe &amp;&amp; cd spe
+apt-get source spe
+
+# cd into the apt-got dir.
+# this will need to be changed as the version changes.
+# I could use find -t d to find a dir and cd into it, but this seemed safer.
+cd spe-0.8.2a+repack
+
+# hide the apt-got source
+mv _spe _spe.apt-got
+
+# get working copy
+svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+
+# bump the version number
+# if this is not done, the new deb will be the same version as the current, so 
+won't install.
+# a few lines need to be prepended to debian/changelog,
+# so put the lines plus existing changelog in changelog.tmp, replace changelog.
+
+cat - debian/changelog &gt;/tmp/changelog.tmp &lt;&lt;EOF
+spe (0.8.3-svn-$(svnversion _spe)) unstable; urgency=low
+
+   * Just based off the Ubuntu packaging -using $0
+
+  -- Carl Karsten &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">carl at pw.com</A>&gt;  $(date --rfc-2822)
+
+EOF
+mv -f /tmp/changelog.tmp debian/changelog
+
+# build the .deb
+dpkg-buildpackage -rfakeroot -uc -b
+
+# install the deb.
+# using this command, on your own :)
+echo sudo gdebi spe_0.8.3-svn-158_all.deb
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000180.html">[spe-dev] building spe.deb
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#179">[ date ]</a>
+              <a href="thread.html#179">[ thread ]</a>
+              <a href="subject.html#179">[ subject ]</a>
+              <a href="author.html#179">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

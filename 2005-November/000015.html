@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Bug 4856 on *nix: class crash -&gt; FIXED: URGENT PLEASE CHECK!!
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2005-November/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%204856%20on%20%2Anix%3A%20class%20crash%20-%3E%20FIXED%3A%20URGENT%20PLEASE%20CHECK%21%21&In-Reply-To=%3C2078a7ad0511031626xdc4db08k19e8446dcd69845f%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000014.html">
+   <LINK REL="Next"  HREF="000016.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Bug 4856 on *nix: class crash -&gt; FIXED: URGENT PLEASE CHECK!!</H1>
+    <B>SPE Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%204856%20on%20%2Anix%3A%20class%20crash%20-%3E%20FIXED%3A%20URGENT%20PLEASE%20CHECK%21%21&In-Reply-To=%3C2078a7ad0511031626xdc4db08k19e8446dcd69845f%40mail.gmail.com%3E"
+       TITLE="[spe-dev] Bug 4856 on *nix: class crash -&gt; FIXED: URGENT PLEASE CHECK!!">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Fri Nov  4 01:26:37 CET 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000014.html">[spe-dev] Bug 4856 on *nix: class crash
+</A></li>
+        <LI>Next message: <A HREF="000016.html">[spe-dev] Bug 4856 on *nix: class crash -&gt; FIXED: URGENT PLEASE CHECK!!
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#15">[ date ]</a>
+              <a href="thread.html#15">[ thread ]</a>
+              <a href="subject.html#15">[ subject ]</a>
+              <a href="author.html#15">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+This patch from Glenn Washburn is hopefully very good news. It seemed
+he solved the terrible bug which causes segfaults on SPE. Please try
+out the patch _spe/sm/wxp/realtime.py
+I'm very curious if this works. Please test it asap and let me knows
+on which platform it solved the bug.
+Big thanks to Glenn!
+Stani
+
+
+---------- Forwarded message ----------
+From: Glenn Washburn &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">crass at berlios.de</A>&gt;
+Date: Nov 3, 2005 6:53 PM
+Subject: hack around bug in wxPython in deleting TreeItemIds from TreeCtrl
+To: <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">spe.stani.be at gmail.com</A>
+
+
+Stan,
+
+Thanks for spe, it seems to be one of the better python IDEs out
+there.  I've run across a bug in wxPython under gtk which causes a
+segfault (it should be a problem on other platforms).  After a fair
+amount of debugging, I narrowed the problem to the line &quot;self.wx.Delete
+(item.wx)&quot; in Tree.Clean() in _spe/sm/wxp/realtime.py. The problem is
+that wxTreeCtrl::Delete(wxTreeItemId id) deletes recursively the
+children of id, so any references to these children should not be
+deleted again (or it would be deleted twice).  However, in Tree.Clean()
+this is precisely what happens, since the tree items are not looped
+over in any particular order.  I have created a simple patch for this
+and attached it.  I have not reported this to wxPython, so you might
+want to forward this to their mailing list.  Thanks again, and I'd love
+to get a reply indicating your acceptance/rejection.
+
+Glenn
+
+
+--
+<A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+<A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: realtime.py
+Type: text/x-python
+Size: 10422 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051104/c59ededa/attachment.py">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051104/c59ededa/attachment.py</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000014.html">[spe-dev] Bug 4856 on *nix: class crash
+</A></li>
+	<LI>Next message: <A HREF="000016.html">[spe-dev] Bug 4856 on *nix: class crash -&gt; FIXED: URGENT PLEASE CHECK!!
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#15">[ date ]</a>
+              <a href="thread.html#15">[ thread ]</a>
+              <a href="subject.html#15">[ subject ]</a>
+              <a href="author.html#15">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

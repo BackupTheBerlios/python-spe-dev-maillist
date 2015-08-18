@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Running Programs With Movable Python
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2006-January/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Running%20Programs%20With%20Movable%20Python&In-Reply-To=%3C43BD3C6C.4000706%40voidspace.org.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000117.html">
+   <LINK REL="Next"  HREF="000120.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Running Programs With Movable Python</H1>
+    <B>Fuzzyman</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Running%20Programs%20With%20Movable%20Python&In-Reply-To=%3C43BD3C6C.4000706%40voidspace.org.uk%3E"
+       TITLE="[spe-dev] Running Programs With Movable Python">fuzzyman at voidspace.org.uk
+       </A><BR>
+    <I>Thu Jan  5 16:34:04 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000117.html">[spe-dev] Running Programs With Movable Python
+</A></li>
+        <LI>Next message: <A HREF="000120.html">[spe-dev] Running Programs With Movable Python
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#119">[ date ]</a>
+              <a href="thread.html#119">[ thread ]</a>
+              <a href="subject.html#119">[ subject ]</a>
+              <a href="author.html#119">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>SPE Stani's Python Editor wrote:
+
+&gt;<i> On 1/5/06, *Fuzzyman* &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">fuzzyman at voidspace.org.uk</A>
+</I>&gt;<i> &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">fuzzyman at voidspace.org.uk</A>&gt;&gt; wrote:
+</I>&gt;<i>
+</I>&gt;<i>     You can directly assign to sys.executable.  It's a nice fact about
+</I>&gt;<i>     Python that once you have access to a module's namespace you can
+</I>&gt;<i>     assign
+</I>&gt;<i>     to globals in it. Unfortunately it makes it difficult to optimise
+</I>&gt;<i>     Python
+</I>&gt;<i>     (because you can't know anything about the type of objects in a module
+</I>&gt;<i>     namespace -because they can be overridden at runtime by another module
+</I>&gt;<i>     with access to the namespace).
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> I know you can overwrite, but this is only within the namespace of the
+</I>&gt;<i> running script. If a script like SPE launches another script
+</I>&gt;<i> externally like winpdb, sys.executable won't be changed there. So be
+</I>&gt;<i> careful about that.
+</I>
+Scripts are launched by being &quot;exec'd&quot; by movable Python. Changing
+``sys.executable`` there affects all programs they run.
+
+
+&gt;<i>
+</I>&gt;<i>     Anyway - running programs with sys.executable works fine. Normally it
+</I>&gt;<i>     will be the 'right thing'. In this case it isn't. Hmmm... maybe when
+</I>&gt;<i>     launching SPE I can change sys.executable.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> And also in rpdb2.py. I'm afraid the debugger won't work otherwise.
+</I>&gt;<i>
+</I>I've hit on an acceptable solution. I'll create a third executable
+``movpywc.exe``. It doesn't have a console box (so it is like
+``movpyw.exe``) bit it changes sys.executable to point to ``movpy.exe``.
+That means that programs that use sys.executable to launch programs will
+have a console box as normal.
+
+I can special case SPE to use this - it will also be available to
+programmers to use with their programs that (may) launch subprocesses.
+
+It's kind of a hack (special case), but not 'unuseful'. It's certainly
+easier than maintaining patches against SPE.
+
+All the best,
+
+Fuzzyman
+<A HREF="http://www.voidspace.org.uk/python/index.shtml">http://www.voidspace.org.uk/python/index.shtml</A>
+
+&gt;<i> Stani
+</I>&gt;<i>
+</I>&gt;<i> -- 
+</I>&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be/screenshots">http://pythonide.stani.be/screenshots</A>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A> 
+</I>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000117.html">[spe-dev] Running Programs With Movable Python
+</A></li>
+	<LI>Next message: <A HREF="000120.html">[spe-dev] Running Programs With Movable Python
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#119">[ date ]</a>
+              <a href="thread.html#119">[ thread ]</a>
+              <a href="subject.html#119">[ subject ]</a>
+              <a href="author.html#119">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

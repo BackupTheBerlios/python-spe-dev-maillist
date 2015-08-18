@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Bug. File Menu - Page UML Setup causes Traceback
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug.%20File%20Menu%20-%20Page%20UML%20Setup%20causes%20Traceback&In-Reply-To=%3C45FC6164.80403%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000218.html">
+   <LINK REL="Next"  HREF="000227.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Bug. File Menu - Page UML Setup causes Traceback</H1>
+    <B>Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug.%20File%20Menu%20-%20Page%20UML%20Setup%20causes%20Traceback&In-Reply-To=%3C45FC6164.80403%40gmail.com%3E"
+       TITLE="[spe-dev] Bug. File Menu - Page UML Setup causes Traceback">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Sat Mar 17 22:45:08 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000218.html">[spe-dev] Bug. File Menu - Page UML Setup causes Traceback
+</A></li>
+        <LI>Next message: <A HREF="000227.html">[spe-dev] Bug: Unable to Save Workspace as..
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#226">[ date ]</a>
+              <a href="thread.html#226">[ thread ]</a>
+              <a href="subject.html#226">[ subject ]</a>
+              <a href="author.html#226">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Good one!
+Fixed,
+Stani
+
+John Finch wrote:
+&gt;<i> Using  Page UML Setup causes an error:
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Spe is running in debugging mode with this configuration:
+</I>&gt;<i> - platform  : darwin
+</I>&gt;<i> - python    : 2.5
+</I>&gt;<i> - wxPython  : 2.8.1.1
+</I>&gt;<i> - interface : &lt;default&gt;
+</I>&gt;<i> - encoding  : mac-roman
+</I>&gt;<i>
+</I>&gt;<i> Launching application...
+</I>&gt;<i> Create: Framework: menu.
+</I>&gt;<i> Create: Framework: toolbar.
+</I>&gt;<i> Create: Framework: statusbar.
+</I>&gt;<i> Creating tabs...
+</I>&gt;<i>          Shell
+</I>&gt;<i>          Locals
+</I>&gt;<i>          Session
+</I>&gt;<i>          Output
+</I>&gt;<i>          Find
+</I>&gt;<i>          Browser
+</I>&gt;<i>          Recent
+</I>&gt;<i>          Todo
+</I>&gt;<i>          Index
+</I>&gt;<i>          Notes
+</I>&gt;<i>          Donate
+</I>&gt;<i> Opening /Users/johnfinch/_spe/examples/uml_example.py
+</I>&gt;<i> Create: MdiSplit: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;  
+</I>&gt;<i> uml_example.py /Users/johnfinch/_spe/examples/uml_example.py
+</I>&gt;<i> Create: Sdi:   &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.tabs
+</I>&gt;<i> Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+</I>&gt;<i> (True)
+</I>&gt;<i> Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+</I>&gt;<i> (True)
+</I>&gt;<i> Opening /Users/johnfinch/_spe/examples/signature.py
+</I>&gt;<i> Create: MdiSplit: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;  
+</I>&gt;<i> signature.py /Users/johnfinch/_spe/examples/signature.py
+</I>&gt;<i> Create: Sdi:   &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.tabs
+</I>&gt;<i> Event:  Child: /Users/johnfinch/_spe/examples/uml_example.py: &lt;class  
+</I>&gt;<i> 'Child.Panel'&gt;.onKillFocus(dead=False)
+</I>&gt;<i> Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+</I>&gt;<i> (True)
+</I>&gt;<i> Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+</I>&gt;<i> (True)
+</I>&gt;<i> Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+</I>&gt;<i> (True)
+</I>&gt;<i> Event:  Parent: &lt;class 'Parent.Panel'&gt;.onActivate
+</I>&gt;<i> Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+</I>&gt;<i> (True)
+</I>&gt;<i> Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Size
+</I>&gt;<i> Event:  Parent: &lt;class 'Parent.Panel'&gt;.onSize
+</I>&gt;<i> Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Size
+</I>&gt;<i> Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Size
+</I>&gt;<i> Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Size
+</I>&gt;<i> Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+</I>&gt;<i> (True)
+</I>&gt;<i> Event:  Child: /Users/johnfinch/_spe/examples/signature.py: &lt;class  
+</I>&gt;<i> 'Child.Panel'&gt;.onKillFocus(dead=False)
+</I>&gt;<i> Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+</I>&gt;<i> (True)
+</I>&gt;<i> Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+</I>&gt;<i> (True)
+</I>&gt;<i> Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+</I>&gt;<i> (True)
+</I>&gt;<i> Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Size
+</I>&gt;<i> Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Size
+</I>&gt;<i> Event:  Child: /Users/johnfinch/_spe/examples/uml_example.py: &lt;class  
+</I>&gt;<i> 'Child.Panel'&gt;.onKillFocus(dead=False)
+</I>&gt;<i> Event&lt;: Child: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close
+</I>&gt;<i> Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close
+</I>&gt;<i> Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close  
+</I>&gt;<i> returns True
+</I>&gt;<i> Event&gt;: Child: &lt;class 'wx._core._wxPyDeadObject'&gt;.Close returns True
+</I>&gt;<i> Event:  Child: /Users/johnfinch/_spe/examples/uml_example.py: &lt;class  
+</I>&gt;<i> 'Child.Panel'&gt;.onKillFocus(dead=False)
+</I>&gt;<i> Traceback (most recent call last):
+</I>&gt;<i>    File &quot;/Users/johnfinch/_spe/Menu.py&quot;, line 301, in  
+</I>&gt;<i> menu_print_uml_setup
+</I>&gt;<i>      self.app.childActive.printUmlSetup()
+</I>&gt;<i>    File &quot;/Users/johnfinch/_spe/Child.py&quot;, line 424, in printUmlSetup
+</I>&gt;<i>      self.uml.OnPrintSetup()
+</I>&gt;<i>    File &quot;/Users/johnfinch/_spe/sm/uml.py&quot;, line 146, in OnPrintSetup
+</I>&gt;<i>      printerDialog.GetPrintDialogData().SetSetupDialog(True)
+</I>&gt;<i> AttributeError: 'PrintDialogData' object has no attribute  
+</I>&gt;<i> 'SetSetupDialog'
+</I>&gt;<i> Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+</I>&gt;<i> (False)
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000218.html">[spe-dev] Bug. File Menu - Page UML Setup causes Traceback
+</A></li>
+	<LI>Next message: <A HREF="000227.html">[spe-dev] Bug: Unable to Save Workspace as..
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#226">[ date ]</a>
+              <a href="thread.html#226">[ thread ]</a>
+              <a href="subject.html#226">[ subject ]</a>
+              <a href="author.html#226">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

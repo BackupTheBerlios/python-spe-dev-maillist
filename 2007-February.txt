@@ -1,0 +1,48 @@
+From spe.stani.be at gmail.com  Sat Feb 24 05:38:26 2007
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Sat, 24 Feb 2007 05:38:26 +0100
+Subject: [spe-dev] SVN 159: Better ubuntu support and first steps towards
+	wxPython2.8
+Message-ID: <2078a7ad0702232038y7de2ce5dg693eaae30543f22e@mail.gmail.com>
+
+Hi All,
+
+I didn't test this build yet on wxPython2.8, but this for sure fixes
+already some issues.
+
+stani at svn.berlios.de's password:
+Sending        spe/trunk/_spe/Menu.py
+Sending        spe/trunk/_spe/Parent.py
+Sending        spe/trunk/_spe/info.py
+Sending        spe/trunk/_spe/sm/wxp/NotebookCtrl.py
+Sending        spe/trunk/_spe/sm/wxp/smdi.py
+Transmitting file data .....
+Committed revision 159.
+
+I might also work with Jurjen Bos for better Mac support. Fixes for
+WinPdb debugger and wxGlade GUI builder will follow soon. My main
+development platform switched from Windows to Ubuntu. (I can recommend
+this to anyone.) I will keep one Window machine to continue supporting
+& testing SPE on Windows.
+
+Stani
+
+
+From spe.stani.be at gmail.com  Sat Feb 24 16:28:18 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Sat, 24 Feb 2007 16:28:18 +0100
+Subject: [spe-dev] SVN 160: winpdb 1.0.8 upgrade (now works on ubuntu)
+In-Reply-To: <2078a7ad0702232038y7de2ce5dg693eaae30543f22e@mail.gmail.com>
+References: <2078a7ad0702232038y7de2ce5dg693eaae30543f22e@mail.gmail.com>
+Message-ID: <45E05992.7050201@gmail.com>
+
+Now the debugger should not fail anymore.
+
+Sending        _spe/plugins/winpdb/PKG-INFO
+Sending        _spe/plugins/winpdb/rpdb2.py
+Sending        _spe/plugins/winpdb/winpdb.py
+Transmitting file data ...
+Committed revision 160.
+
+
+

@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Bug Report (SPE 0.8.3.c): grid batch method names are hot text (Stani's Python Editor)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%20Report%20%28SPE%200.8.3.c%29%3A%20grid%20batch%20method%20names%20are%0A%20hot%20text%20%28Stani%27s%20Python%20Editor%29&In-Reply-To=%3C46603536.6030401%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Bug Report (SPE 0.8.3.c): grid batch method names are hot text (Stani's Python Editor)</H1>
+    <B>Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%20Report%20%28SPE%200.8.3.c%29%3A%20grid%20batch%20method%20names%20are%0A%20hot%20text%20%28Stani%27s%20Python%20Editor%29&In-Reply-To=%3C46603536.6030401%40gmail.com%3E"
+       TITLE="[spe-dev] Bug Report (SPE 0.8.3.c): grid batch method names are hot text (Stani's Python Editor)">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Fri Jun  1 17:03:18 CEST 2007</I>
+    <P><UL>
+        
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#306">[ date ]</a>
+              <a href="thread.html#306">[ thread ]</a>
+              <a href="subject.html#306">[ subject ]</a>
+              <a href="author.html#306">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Eric Ongerth wrote:
+&gt;<i> &gt;
+</I>&gt;<i> &gt; I believe I've found a bug, and it's easy to replicate:
+</I>&gt;<i> &gt; Open a new file in SPE 0.8.3.c and type either of the
+</I>Please upgrade to the latest subversion version of SPE before reporting 
+bugs. (Instructions on the website)
+&gt;<i> following lines:
+</I>&gt;<i> &gt; grid.BeginBatch(
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; or
+</I>&gt;<i> &gt; grid.EndBatch (
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; ...on my system (Windows XPsp2, Python 2.5.1, wxPython 2.8.4.0 
+</I>&gt;<i> &lt;<A HREF="http://2.8.4.0/">http://2.8.4.0/</A>&gt;
+</I>&gt;<i> &gt; &lt; <A HREF="http://2.8.4.0">http://2.8.4.0</A> &lt;<A HREF="http://2.8.4.0/">http://2.8.4.0/</A>&gt;&gt; (msw-unicode) -- this results in 
+</I>&gt;<i> an endless loop
+</I>&gt;<i> &gt; where an even is being Skip()ed  forever.  I have to force Windows to
+</I>&gt;<i> &gt; kill the pythonw process.
+</I>Please post here a code snippet with which I can reproduce the error 
+with just adding the &quot;(&quot;, like:
+import wx.grid
+(...)
+grid.BeginBatch
+
+&gt;<i>
+</I>&gt;<i> &lt;/snip&gt;
+</I>&gt;<i>
+</I>&gt;<i> I'm sorry, I either forgot to tell you that this &quot;grid&quot; method is 
+</I>&gt;<i> wx.grid from wxPython 2.8.4.0 &lt;<A HREF="http://2.8.4.0">http://2.8.4.0</A>&gt; running on Python 
+</I>&gt;<i> 2.5.1.  Perhaps the error has something to do with SPE also using 
+</I>&gt;<i> wxPython and doing some evaluation of the code being edited for syntax 
+</I>&gt;<i> etc.
+</I>&gt;<i>
+</I>&gt;<i> I have another SPE bug, currently, but I cannot tell you how to 
+</I>&gt;<i> reproduce it yet.  I will keep watching and trying to create a test 
+</I>&gt;<i> case for it.  It happens when I've had the editor open for a long 
+</I>&gt;<i> session and I have run my program several times and have used the 
+</I>&gt;<i> shell tab at the bottom of the editor window a few times.  I click the 
+</I>&gt;<i> shell window to move the cursor there and I find an error message 
+</I>&gt;<i> waiting in the shell window (not the session or output window) -- the 
+</I>&gt;<i> error message says something about an invalid notebook tab reference.
+</I>Please get subversion. This might be fixed. This is an issue with 
+NotebookCtrl of Andrea Gavana.
+
+Thanks,
+Stani
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070601/2831c0e7/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070601/2831c0e7/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#306">[ date ]</a>
+              <a href="thread.html#306">[ thread ]</a>
+              <a href="subject.html#306">[ subject ]</a>
+              <a href="author.html#306">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

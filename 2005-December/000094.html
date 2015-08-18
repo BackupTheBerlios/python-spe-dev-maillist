@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] SVN 95 &amp; updated manual text
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2005-December/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20SVN%2095%20%26%20updated%20manual%20text&In-Reply-To=%3CBAY101-F81FFAAAC8FE3C84BF0884DA460%40phx.gbl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000093.html">
+   <LINK REL="Next"  HREF="000084.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] SVN 95 &amp; updated manual text</H1>
+    <B>Thurston Stone</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20SVN%2095%20%26%20updated%20manual%20text&In-Reply-To=%3CBAY101-F81FFAAAC8FE3C84BF0884DA460%40phx.gbl%3E"
+       TITLE="[spe-dev] SVN 95 &amp; updated manual text">tstone2077 at hotmail.com
+       </A><BR>
+    <I>Mon Dec 12 21:04:53 CET 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000093.html">[spe-dev] SVN 95 &amp; updated manual text
+</A></li>
+        <LI>Next message: <A HREF="000084.html">[spe-dev] SVN 95: three image files missing
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#94">[ date ]</a>
+              <a href="thread.html#94">[ thread ]</a>
+              <a href="subject.html#94">[ subject ]</a>
+              <a href="author.html#94">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>If I bring up a new SPE instance... then click the toggle button, I get a 
+dialog and the button toggles.  Then when I cancel, the toggle button does 
+not reset itself.  it stays on the 'ON' state.  This happens with each new 
+instance of SPE I open.
+
+I'm using WinXP, if that makes a difference.
+
+----Original Message Follows----
+From: &quot;SPE Stani's Python Editor&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">spe.stani.be at gmail.com</A>&gt;
+Reply-To: <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">python-spe-dev at berlios.de</A>
+To: <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">python-spe-dev at berlios.de</A>
+Subject: Re: [spe-dev] SVN 95 &amp; updated manual text
+Date: Mon, 12 Dec 2005 20:55:34 +0100
+
+So is this bug solved? I can not reproduce it. If you provide me steps how
+to reproduce, I could fix it.
+Stani
+
+On 12/12/05, Thurston Stone &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">tstone2077 at hotmail.com</A>&gt; wrote:
+ &gt;
+ &gt;  I just checked again and I'd like to revise the prementioned bug:
+ &gt;
+ &gt;
+ &gt;
+ &gt; When I first updated to SVN 95, I tried the toggle button and got the
+ &gt; previous bug.  Once I successfully ran a script, the toggle worked fine 
+with
+ &gt; the cancel button.  It is most likely because the config doesn't have the
+ &gt; correct option to begin with, but once a successful attempt is made, the
+ &gt; option is created, and the cancel button works correctly.
+ &gt;
+ &gt;
+ &gt;  ------------------------------
+ &gt;
+ &gt; *From:* <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">python-spe-dev-admin at berlios.de</A> [mailto:
+ &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">python-spe-dev-admin at berlios.de</A>] *On Behalf Of *SPE Stani's Python Editor
+ &gt; *Sent:* Monday, December 12, 2005 11:41 AM
+ &gt; *To:* <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">python-spe-dev at berlios.de</A>
+ &gt; *Subject:* Re: [spe-dev] SVN 95 &amp; updated manual text
+ &gt;
+ &gt;
+ &gt;
+ &gt;
+ &gt;
+ &gt; On 12/12/05, *Thurston Stone* &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">tstone2077 at hotmail.com</A>&gt; wrote:
+ &gt;
+ &gt;
+ &gt; The toolbar button 'Run/Stop with WinPdb' is a toggle button, but a 
+dialog
+ &gt; is shown each time.  Is this supposed to toggle?
+ &gt;
+ &gt; Hi Thurston,
+ &gt; Yes and it does. Try to run a wxPython application. If you press the
+ &gt; button for the first time a dialog fires up how you want to run the 
+script
+ &gt; and the button shows a toggled state. If then the wxPython application 
+runs,
+ &gt; you can stop it by pressing the button again and 'untoggling' it.
+ &gt; So the buttons shows the state of the running script. If the button is
+ &gt; toggled in, the script is running and if it is untoggled the script 
+finished
+ &gt; execution. I could have used two seperate buttons start and stop, which 
+are
+ &gt; alternatively abled and disabled, but I prefer compact design.
+ &gt; So there is not always a dialog shown, only when there is no script
+ &gt; running.
+ &gt; I would have prefered to change bitmaps of tool buttons, but this doesnt
+ &gt; seem to be possible. Does anybody know?
+ &gt; Stani
+ &gt;
+
+
+
+--
+<A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+<A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000093.html">[spe-dev] SVN 95 &amp; updated manual text
+</A></li>
+	<LI>Next message: <A HREF="000084.html">[spe-dev] SVN 95: three image files missing
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#94">[ date ]</a>
+              <a href="thread.html#94">[ thread ]</a>
+              <a href="subject.html#94">[ subject ]</a>
+              <a href="author.html#94">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

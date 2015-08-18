@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] RE: Some remarks on workspaces to be fixed.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2005-November/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20RE%3A%20Some%20remarks%20on%20workspaces%20to%20be%20fixed.&In-Reply-To=%3CBAY101-DAV152C3F344C930D08FC5AE2DA550%40phx.gbl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000043.html">
+   <LINK REL="Next"  HREF="000046.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] RE: Some remarks on workspaces to be fixed.</H1>
+    <B>Thurston Stone</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20RE%3A%20Some%20remarks%20on%20workspaces%20to%20be%20fixed.&In-Reply-To=%3CBAY101-DAV152C3F344C930D08FC5AE2DA550%40phx.gbl%3E"
+       TITLE="[spe-dev] RE: Some remarks on workspaces to be fixed.">tstone2077 at hotmail.com
+       </A><BR>
+    <I>Wed Nov 23 02:59:02 CET 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000043.html">[spe-dev] Re: [spe-mac] SPE on Mac: todo list
+</A></li>
+        <LI>Next message: <A HREF="000046.html">[spe-dev] SVN71:mac fixes,workspace,smart indent+PyCon
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#45">[ date ]</a>
+              <a href="thread.html#45">[ thread ]</a>
+              <a href="subject.html#45">[ subject ]</a>
+              <a href="author.html#45">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hey Stani,
+
+ 
+
+I agree about the default workspace. I'm working on making that happen.
+I've named it default.sws.  Each piece will always be save in default.sws,
+but only optionally saved in the other workspace files.  (oh, and I can
+rename them from workspaces to sessions if you want. it makes no difference
+to me).
+
+ 
+
+I set up the workspace to save only if self.remember is true, because I know
+a lot of times I'll use a workspace and add files that I don't want to be a
+part of it. then next time I open it, it's got extra files.  I figured this
+way, it would be more of a 'preference.'
+
+ 
+
+&quot;self.remember should only influence if files are loaded at SPE startup or
+not. All the other information like recent, notes, folders should always be
+saved and reopened independent from self.remember&quot;
+
+ 
+
+Perhaps this can be a preference. like a list box to define what is global
+and what is workspace specific.  Personally, my recents get too cluttered
+and I would like it to be workspace specific.  Each project that I have has
+its own unique set of recent files I like to look at.  The same goes for the
+Notes and Folders.  If it was a preference than that could work for both
+methods.
+
+ 
+
+I should have working fixes for the workspace soon.
+
+ 
+
+To comment on some of your other comments:
+
+1.	I was thinking of preferences very similar to firefox.  Where any
+user with a plugin can add a preferences too.  Personally, I was going to
+make a preference dialog that hid some tabs.  I'm still not sure what the
+session tab is for and I rarely use some others.  If I need them, I would
+like to turn them on in the preferences tab.  So that's where I was going
+with that idea
+2.	The current SPE doesn't have tabs spaces as a child variable, but as
+a parent variable.  So basically, I have the editor open and the files I use
+are set to 3 spaces.  SPE files are set to 4, so working with SPE files, I
+always have to add that extra space when I have a new indentation (which is
+real annoying).   I'll fix it again and send you the fix.
+
+ 
+
+I'm not going to have time to work with Nir Aides until next week some time
+(since Thanksgiving and all). After that, I'm very excited to get a working
+embedded debugger going.
+
+ 
+
+Thanks!
+
+Thurston
+
+  _____  
+
+From: SPE Stani's Python Editor [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">spe.stani.be at gmail.com</A>] 
+Sent: Tuesday, November 22, 2005 7:26 AM
+To: Thurston Stone
+Subject: Some remarks on workspaces to be fixed.
+
+ 
+
+Hi Thurston,
+
+Without defining a workspace SPE should continue to work like before.
+Therefore I have the following remarks which should be fixed:
+
+- If the user uses SPE without defining a workspace, there should be a
+default one. This default working space should be saved in the user
+directory just like remember.txt, etc.. I would call it 'defaults.cfg'
+
+- Right now the workspace is only saved when self.remember is True It should
+always be saved. Right now it is disturbing to loose all your recent files
+(as I did), etc... when remember is not clicked. self.remember should only
+influence if files are loaded at SPE startup or not. All the other
+information like recent, notes, folders should always be saved and reopened
+independent from self.remember
+
+The point is that users shouldn't be forced to use workspaces. There should
+be a default one, which garantuees that SPE works as it did before.
+
+Could you please fix these issues?
+
+Stani
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051122/f4ea3e9b/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051122/f4ea3e9b/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000043.html">[spe-dev] Re: [spe-mac] SPE on Mac: todo list
+</A></li>
+	<LI>Next message: <A HREF="000046.html">[spe-dev] SVN71:mac fixes,workspace,smart indent+PyCon
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#45">[ date ]</a>
+              <a href="thread.html#45">[ thread ]</a>
+              <a href="subject.html#45">[ subject ]</a>
+              <a href="author.html#45">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

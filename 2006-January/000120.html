@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Running Programs With Movable Python
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2006-January/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Running%20Programs%20With%20Movable%20Python&In-Reply-To=%3C2078a7ad0601050751q241ef035p1b61b2386a5d3141%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000119.html">
+   <LINK REL="Next"  HREF="000121.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Running Programs With Movable Python</H1>
+    <B>SPE Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Running%20Programs%20With%20Movable%20Python&In-Reply-To=%3C2078a7ad0601050751q241ef035p1b61b2386a5d3141%40mail.gmail.com%3E"
+       TITLE="[spe-dev] Running Programs With Movable Python">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Thu Jan  5 16:51:18 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000119.html">[spe-dev] Running Programs With Movable Python
+</A></li>
+        <LI>Next message: <A HREF="000121.html">[spe-dev] Running Programs With Movable Python
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#120">[ date ]</a>
+              <a href="thread.html#120">[ thread ]</a>
+              <a href="subject.html#120">[ subject ]</a>
+              <a href="author.html#120">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 1/5/06, Fuzzyman &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">fuzzyman at voidspace.org.uk</A>&gt; wrote:
+&gt;<i>
+</I>&gt;<i> I've hit on an acceptable solution. I'll create a third executable
+</I>&gt;<i> ``movpywc.exe``. It doesn't have a console box (so it is like
+</I>&gt;<i> ``movpyw.exe``) bit it changes sys.executable to point to ``movpy.exe``.
+</I>&gt;<i> That means that programs that use sys.executable to launch programs will
+</I>&gt;<i> have a console box as normal.
+</I>&gt;<i>
+</I>&gt;<i> I can special case SPE to use this - it will also be available to
+</I>&gt;<i> programmers to use with their programs that (may) launch subprocesses.
+</I>&gt;<i>
+</I>&gt;<i> It's kind of a hack (special case), but not 'unuseful'. It's certainly
+</I>&gt;<i> easier than maintaining patches against SPE.
+</I>
+Good idea, but maybe it should replace sys.executable by itself, as
+winpdb is launched as subprocess, which in its turn will also launch
+subprocesses.
+
+Stani
+--
+<A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+<A HREF="http://pythonide.stani.be/screenshots">http://pythonide.stani.be/screenshots</A>
+<A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000119.html">[spe-dev] Running Programs With Movable Python
+</A></li>
+	<LI>Next message: <A HREF="000121.html">[spe-dev] Running Programs With Movable Python
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#120">[ date ]</a>
+              <a href="thread.html#120">[ thread ]</a>
+              <a href="subject.html#120">[ subject ]</a>
+              <a href="author.html#120">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

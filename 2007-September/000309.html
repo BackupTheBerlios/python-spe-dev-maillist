@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] tabs bug
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-September/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20tabs%20bug&In-Reply-To=%3C46E98014.1060602%40bluewin.ch%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000308.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] tabs bug</H1>
+    <B>DR0ID</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20tabs%20bug&In-Reply-To=%3C46E98014.1060602%40bluewin.ch%3E"
+       TITLE="[spe-dev] tabs bug">dr0id at bluewin.ch
+       </A><BR>
+    <I>Thu Sep 13 20:23:16 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000308.html">[spe-dev] about sending patches
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#309">[ date ]</a>
+              <a href="thread.html#309">[ thread ]</a>
+              <a href="subject.html#309">[ subject ]</a>
+              <a href="author.html#309">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all
+
+First, sorry if you get this twice (have not seen my other post on the 
+list).
+
+Is it just me or does the tabs closing button not work properly? I'm 
+using the last svn version on winxp and python2.5 and wxpython2.8.4.2.
+
+If I hit the black close button on the tab, the tab disappears but is 
+not closed. Go to Window and check which windows are still open! The 
+tabs close if you click on the (gray) close button at the top right, but 
+this appears only if you have more than one tab open and you have 
+switched at least once (why could this button not be always visible?)
+
+File-&gt;Close removes the tabs and the button, but the file is still open 
+and visible! At this point you have no chance to close it.
+
+I have tried to find the bug, but since I'm not familiar with the code 
+and dont know wxpython either, I had little success :-( . I think its in 
+_spe\sm\wxp\NotebookCtrl.py , but I'm not sure. Would be nice if someone 
+could fix it (it is a bit annoying). As said I would like to help, but 
+cant find it.
+
+Another thing: if I close all windows (checking in menu Window) and exit 
+spe, why does it open the last file I have closed the next time I start 
+it? Could it be related to the tab problem?
+
+
+Thx for spe.
+
+~DR0ID
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000308.html">[spe-dev] about sending patches
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#309">[ date ]</a>
+              <a href="thread.html#309">[ thread ]</a>
+              <a href="subject.html#309">[ subject ]</a>
+              <a href="author.html#309">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

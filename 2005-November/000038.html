@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] SVN 70: realtime.py fixed? please test
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2005-November/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20SVN%2070%3A%20realtime.py%20fixed%3F%20please%20test&In-Reply-To=%3C2078a7ad0511211233v17c98b4bldb25a95b26c1c9f4%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000037.html">
+   <LINK REL="Next"  HREF="000039.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] SVN 70: realtime.py fixed? please test</H1>
+    <B>SPE Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20SVN%2070%3A%20realtime.py%20fixed%3F%20please%20test&In-Reply-To=%3C2078a7ad0511211233v17c98b4bldb25a95b26c1c9f4%40mail.gmail.com%3E"
+       TITLE="[spe-dev] SVN 70: realtime.py fixed? please test">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Mon Nov 21 21:33:29 CET 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000037.html">[spe-dev] new notebookctrl
+</A></li>
+        <LI>Next message: <A HREF="000039.html">[spe-dev] SVN 70: realtime.py fixed? please test
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#38">[ date ]</a>
+              <a href="thread.html#38">[ thread ]</a>
+              <a href="subject.html#38">[ subject ]</a>
+              <a href="author.html#38">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all,
+
+This emails is about the latest svn revision, so please check it out.
+These are the changes...
+
+1 REALTIME.PY
+I spent quite some time on completely rewriting
+_spe/sm/wxp/realtime.py It should be done now, or I hope that some
+minor bugs will easily be solved. To be short, this module is
+responsible for the smart  updating on the sidebar (explore, index &amp;
+todo), which permits but not only 'realtime updating as you type'. As
+this file is at the core of SPE and was quickly implemented before, it
+was responsable for a big amount of segfaults. If this issue is now
+solved, it is a major step forward for SPE's stability, not only on
+Mac, but also on other platforms. At the moment I don't see much
+difference anyway between developping for the Mac or developping a
+stable version for all platforms. It is very important that this is
+100% bullet proof.
+I had to wrote two test scripts in order to tackle the issue. They are
+in _spe/tests Each file tests one class of realtime.py: TreeCtrl (for
+explore) and ListCtrl (for index &amp; todo). Try to find bugs and please
+try to reproduce them through the test files as well.
+If realtime.py is completely fixed, it's time to take step 2: fix the
+_spe/sm/wxp/smdi.py Than SPE is probably almost as near to the Mac as
+it is to other platforms.
+
+2. GENERICDIRCTRL DISABLED ON MAC
+Unfortunately this standard wxPython control doesn't work (stable) on
+Mac. I see no other option as disabling it for the Mac. Stefan
+hopefully fixed this for wxMac. Can someone build wxPython based on
+that to see if it is solved? I lack the knowledge and time to do this,
+just for the record.
+
+3. BACKUP
+Backup files are from now on optional through the preferences.
+
+Please try to focus for bug testing on point 1. I'd like to put this
+out as a release as soon as possible as a lot of users are waiting for
+this. However I'll try to implement quick feedback.
+
+Thanks in advance,
+
+Stani
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000037.html">[spe-dev] new notebookctrl
+</A></li>
+	<LI>Next message: <A HREF="000039.html">[spe-dev] SVN 70: realtime.py fixed? please test
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#38">[ date ]</a>
+              <a href="thread.html#38">[ thread ]</a>
+              <a href="subject.html#38">[ subject ]</a>
+              <a href="author.html#38">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

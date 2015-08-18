@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Bug Report (SPE 0.8.3.c): grid batch method names are hot	text
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%20Report%20%28SPE%200.8.3.c%29%3A%20grid%20batch%20method%20names%20are%0A%20hot%09text&In-Reply-To=%3C465EBA6C.5080609%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000304.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Bug Report (SPE 0.8.3.c): grid batch method names are hot	text</H1>
+    <B>Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%20Report%20%28SPE%200.8.3.c%29%3A%20grid%20batch%20method%20names%20are%0A%20hot%09text&In-Reply-To=%3C465EBA6C.5080609%40gmail.com%3E"
+       TITLE="[spe-dev] Bug Report (SPE 0.8.3.c): grid batch method names are hot	text">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Thu May 31 14:07:08 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000304.html">[spe-dev] Bug Report (SPE 0.8.3.c): grid batch method names are hot	text
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#305">[ date ]</a>
+              <a href="thread.html#305">[ thread ]</a>
+              <a href="subject.html#305">[ subject ]</a>
+              <a href="author.html#305">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Eric,
+The problem has to do with the grid module that you installed. Can you 
+please send it to me or show where it can be downloaded? For 
+autocompletion SPE imports modules. If that modules does not have its 
+main code in a &quot;if __name__=='__main__'&quot; clause, it might give this problem.
+Stani
+
+Eric Ongerth wrote:
+&gt;<i> Hello, this is my first message to the spe-dev list.
+</I>&gt;<i>
+</I>&gt;<i> I appreciate the qualities of this Python editor very much, and I look 
+</I>&gt;<i> forward to seeing its abilities increase over time.
+</I>&gt;<i>
+</I>&gt;<i> I believe I've found a bug, and it's easy to replicate:
+</I>&gt;<i> Open a new file in SPE 0.8.3.c and type either of the following lines:
+</I>&gt;<i> grid.BeginBatch(
+</I>&gt;<i>
+</I>&gt;<i> or
+</I>&gt;<i> grid.EndBatch(
+</I>&gt;<i>
+</I>&gt;<i> ...on my system (Windows XPsp2, Python 2.5.1, wxPython 2.8.4.0 
+</I>&gt;<i> &lt;<A HREF="http://2.8.4.0">http://2.8.4.0</A>&gt; (msw-unicode) -- this results in an endless loop 
+</I>&gt;<i> where an even is being Skip()ed  forever.  I have to force Windows to 
+</I>&gt;<i> kill the pythonw process.
+</I>&gt;<i>
+</I>&gt;<i> Has this already been found?
+</I>&gt;<i>
+</I>&gt;<i> Thanks,
+</I>&gt;<i> Eric
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i>   
+</I>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070531/9b1107a7/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070531/9b1107a7/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000304.html">[spe-dev] Bug Report (SPE 0.8.3.c): grid batch method names are hot	text
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#305">[ date ]</a>
+              <a href="thread.html#305">[ thread ]</a>
+              <a href="subject.html#305">[ subject ]</a>
+              <a href="author.html#305">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

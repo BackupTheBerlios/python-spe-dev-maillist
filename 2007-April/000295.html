@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Matching Brackets Patch Review
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Matching%20Brackets%20Patch%20Review&In-Reply-To=%3C30984-18536%40sneakemail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000298.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Matching Brackets Patch Review</H1>
+    <B>g6m3xcl02 at sneakemail.com</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Matching%20Brackets%20Patch%20Review&In-Reply-To=%3C30984-18536%40sneakemail.com%3E"
+       TITLE="[spe-dev] Matching Brackets Patch Review">g6m3xcl02 at sneakemail.com
+       </A><BR>
+    <I>Mon Apr 23 21:40:08 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000298.html">[spe-dev] Open workspace: crash
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#295">[ date ]</a>
+              <a href="thread.html#295">[ thread ]</a>
+              <a href="subject.html#295">[ subject ]</a>
+              <a href="author.html#295">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Excellent patch, falan!  I'd like to see this go in the next svn commit.
+<A HREF="http://developer.berlios.de/patch/?func=detailpatch&amp;patch_id=1967&amp;group_id=4161">http://developer.berlios.de/patch/?func=detailpatch&amp;patch_id=1967&amp;group_id=4161</A>
+
+Parens/brackets work exactly as expected, and the TAB jump is nice too...
+(Note that it is off rev. 236, which TortoiseSVN handled transparently even
+though I am updated to 237!  I love that program...)
+
+A couple comments/suggestions for future work: Stacked parens work well, but
+I think we need more thought on what to do with stacked quotes (perhaps
+automatically escape them, except that would make it difficult to
+triple-quote the beginning of a string).  Additionally, I expect backspace
+to delete the matched brace, so if I hit '{', then backspace, I don't want
+the orphan '}' still there.
+
+Finally, a bit of commentary from code review:
+Most of it looks very clean to me.  You have the undone work of turning
+matching parens into an option (which should described with a &quot;# todo:&quot;).
+Also, there is some repeated code that should be cleaned up: in OnChar() the
+&quot;if aiPairBracket !='disable':&quot; block is repeated under both CallTipActive()
+alternatives.  Since you are doing the same thing in either case, it should
+be pulled out of the block altogether.
+
+Most of what I wrote is critiquing what you did or should do next.  Of
+course, if you think I am wrong, please tell me rather than silently curse
+me.  Please recognize that I am taking the time to review this because it is
+a useful patch, and I'd like to see you contribute more.  The project is
+better off for your contribution.
+
+Cheers,
+Carver
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070423/afaa52a2/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070423/afaa52a2/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000298.html">[spe-dev] Open workspace: crash
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#295">[ date ]</a>
+              <a href="thread.html#295">[ thread ]</a>
+              <a href="subject.html#295">[ subject ]</a>
+              <a href="author.html#295">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

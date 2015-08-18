@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Open workspace: crash
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Open%20workspace%3A%20crash&In-Reply-To=%3C2B9FAA37-0F4A-4967-A039-D34141092766%40mac.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000297.html">
+   <LINK REL="Next"  HREF="000295.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Open workspace: crash</H1>
+    <B>John Finch</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Open%20workspace%3A%20crash&In-Reply-To=%3C2B9FAA37-0F4A-4967-A039-D34141092766%40mac.com%3E"
+       TITLE="[spe-dev] Open workspace: crash">johnfinch at mac.com
+       </A><BR>
+    <I>Tue Apr 24 13:19:09 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000297.html">[spe-dev] Open workspace: crash
+</A></li>
+        <LI>Next message: <A HREF="000295.html">[spe-dev] Matching Brackets Patch Review
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#298">[ date ]</a>
+              <a href="thread.html#298">[ thread ]</a>
+              <a href="subject.html#298">[ subject ]</a>
+              <a href="author.html#298">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Stani had asked Thurston Stone to have a look at this one. I think  
+Thurston was the original writer of the workspace source.
+
+On Apr 24, 2007, at 3:38 AM, Pietje Puk wrote:
+
+&gt;<i> There seems to be a bug in open_workspace, with closing the dialog
+</I>&gt;<i> box when there is an exception. (I don't know where this exception
+</I>&gt;<i> occurs, nor what it is.)
+</I>&gt;<i> The bug must be in Parent.py, in the Panel class.
+</I>&gt;<i>
+</I>&gt;<i> I tried to fix it using a try...finally block, as follows:
+</I>&gt;<i>
+</I>&gt;<i>      def open_workspace(self):
+</I>&gt;<i>          &quot;&quot;&quot;Open file dialog.&quot;&quot;&quot;
+</I>&gt;<i>          try:
+</I>&gt;<i>              defaultDir=info.dirname(self.workspace['file'])
+</I>&gt;<i>          except:
+</I>&gt;<i>              defaultDir=''
+</I>&gt;<i>          try:
+</I>&gt;<i>              dlg = wx.FileDialog(self, &quot;Choose a file - www.stani.be&quot;,
+</I>&gt;<i>                  defaultDir=defaultDir, defaultFile=&quot;&quot;,
+</I>&gt;<i>                  wildcard=info.WORKSPACE_WILDCARD,
+</I>&gt;<i>                  style=wx.OPEN)
+</I>&gt;<i>              if dlg.ShowModal() == wx.ID_OK:
+</I>&gt;<i>                  file = dlg.GetPath()
+</I>&gt;<i>                  try:                    self.set
+</I>&gt;<i> (&quot;currentworkspace&quot;,file)
+</I>&gt;<i>                      self.__openWorkspace__()
+</I>&gt;<i>                      self.loadWorkspace()
+</I>&gt;<i>                  except Exception,e:
+</I>&gt;<i>                      self.message(&quot;Could not open workspace:%s\n%s&quot;%
+</I>&gt;<i> (file,e))
+</I>&gt;<i>          finally:
+</I>&gt;<i>              dlg.Destroy()
+</I>&gt;<i>
+</I>&gt;<i> and, just to be sure, I did save_workspace too, where I found a like
+</I>&gt;<i> bug earlier:
+</I>&gt;<i>      def save_workspace_as(self):
+</I>&gt;<i>          &quot;&quot;&quot;Save file dialog.&quot;&quot;&quot;
+</I>&gt;<i>          try:
+</I>&gt;<i>              defaultFile = self.workspace['file']
+</I>&gt;<i>          except:
+</I>&gt;<i>              defaultFile = ''        if info.WIN:
+</I>&gt;<i>             defaultFile  = defaultFile.replace(&quot;/&quot;,&quot;\\&quot;)
+</I>&gt;<i>          try:
+</I>&gt;<i>              dlg             = wx.FileDialog(self, &quot;Save Workspace As
+</I>&gt;<i> - www.stani.be&quot;,
+</I>&gt;<i>                  defaultFile = defaultFile,
+</I>&gt;<i>                  defaultDir  = info.dirname(defaultFile),
+</I>&gt;<i>                  wildcard    = info.WORKSPACE_WILDCARD,
+</I>&gt;<i>                  style       = wx.SAVE|wx.OVERWRITE_PROMPT|
+</I>&gt;<i> wx.CHANGE_DIR)
+</I>&gt;<i>              if dlg.ShowModal() == wx.ID_OK:
+</I>&gt;<i>                  file = dlg.GetPath()
+</I>&gt;<i>                  try:
+</I>&gt;<i>                      self.set(&quot;currentworkspace&quot;,file)
+</I>&gt;<i>                      self.saveWorkspace(file)
+</I>&gt;<i>                  except Exception,e:
+</I>&gt;<i>                      self.message(&quot;Could not save workspace:%s\n%s&quot;%
+</I>&gt;<i> (file,e))
+</I>&gt;<i>          finally:
+</I>&gt;<i>              dlg.Destroy()
+</I>&gt;<i>
+</I>&gt;<i> The effect is that I can open a workspace, and that everything looks
+</I>&gt;<i> fine, but then all of a sudden it shows *another* file dialog! On
+</I>&gt;<i> clicking cancel, SPE goes down in a bang.
+</I>&gt;<i> Reopening it gives the correct new workspace, however.
+</I>&gt;<i> I am running SPE, latest checkout plus above changes, on a MacBook  
+</I>&gt;<i> Pro.
+</I>&gt;<i>
+</I>&gt;<i> Any ideas?
+</I>&gt;<i> - Jurjen
+</I>&gt;<i>
+</I>&gt;<i> 	
+</I>&gt;<i> 	
+</I>&gt;<i> 		
+</I>&gt;<i> ___________________________________________________________
+</I>&gt;<i> All new Yahoo! Mail &quot;The new Interface is stunning in its  
+</I>&gt;<i> simplicity and ease of use.&quot; - PC Magazine
+</I>&gt;<i> <A HREF="http://uk.docs.yahoo.com/nowyoucan.html">http://uk.docs.yahoo.com/nowyoucan.html</A>
+</I>&gt;<i> --
+</I>&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000297.html">[spe-dev] Open workspace: crash
+</A></li>
+	<LI>Next message: <A HREF="000295.html">[spe-dev] Matching Brackets Patch Review
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#298">[ date ]</a>
+              <a href="thread.html#298">[ thread ]</a>
+              <a href="subject.html#298">[ subject ]</a>
+              <a href="author.html#298">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

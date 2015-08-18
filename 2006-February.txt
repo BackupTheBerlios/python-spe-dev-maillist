@@ -1,0 +1,226 @@
+From spe.stani.be at gmail.com  Thu Feb  2 01:21:45 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Thu, 2 Feb 2006 01:21:45 +0100
+Subject: [spe-dev] Fwd: SPE video, yes really!
+In-Reply-To: <e75321bd0602011605t318ec55cle42907a53c7ea039@mail.gmail.com>
+References: <e75321bd0602011605t318ec55cle42907a53c7ea039@mail.gmail.com>
+Message-ID: <2078a7ad0602011621v43d60426v1fe01d8e3e00277@mail.gmail.com>
+
+Hi all,
+
+Dimitri Pater (http://www.serpia.org) brought this under my attention:
+http://showmedo.com:8081/videoListPage?listKey=PythonDevelopmentWithSPE
+
+This is a wonderful contribution!
+
+A big thanks to Ian O, who made it, and to showmedo.com for hosting it!
+
+Stani
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From fuzzyman at voidspace.org.uk  Fri Feb  3 09:28:49 2006
+From: fuzzyman at voidspace.org.uk (Fuzzyman)
+Date: Fri, 03 Feb 2006 08:28:49 +0000
+Subject: [spe-dev] SPE & Python 2.2
+Message-ID: <43E31441.4050401@voidspace.org.uk>
+
+Hello all,
+
+I'm about to release Movable Python for Python 2.3 & 2.4. There is a 
+minor issue with the 2.2 version that needs to be fixed before I can 
+release.
+
+The latest version of wxPython that comes compiled for Python 2.2, is 
+2.5.3.1.
+
+The latest version of SPE I can find that works with this is 0.7.2b. It 
+might be worth documenting this, and making it available via Berlios. 
+That way anyone stuck with Python 2.2 can still use SPE.
+
+All the best,
+
+Fuzzyman
+
+http://www.voidspace.org.uk/python/movpy/
+
+
+From l.montecchiani at gmail.com  Sat Feb 11 18:19:04 2006
+From: l.montecchiani at gmail.com (Luca Montecchiani)
+Date: Sat, 11 Feb 2006 18:19:04 +0100
+Subject: [spe-dev] Autocompletion on objects
+Message-ID: <b4545ff10602110919r21a05c17y@mail.gmail.com>
+
+Hi Stani et all,
+First of all thanks for this wonderful piece of software!
+Reading the following discussion appear that you're not
+going to add such feature anytime soon ;)
+
+>> import os
+>> s = os
+>> s.
+>>
+>> At the "." one would expect the autocomplete list to pick up the list
+>> from "os" which would happen if "s" was interpreted correctly as an
+>> instance of 'os',
+>
+>This is not possible. SPE is not allowed to execute arbitrary code for
+>the excuse of auto-completion. There could be a statement
+>eraseMyHardDisk(), which would be a pitty if executed by default.
+
+I should say that for example just clicking on PyDoc tab the code
+is executed, see shell output ! So, also for PyDoc case
+an eraseMyHardDisk() paranoia could be appropriate ;)
+
+I know that boa-constructor have a parser to avoid code execution, but
+of course this could be less precise compared to other method.
+
+I don't know Spe internals right now and I don't even imagine how you
+mind that codecompletion improvement but I can say:
+
+1 - Make a yesno dialog before executing the PyDoc
+    a - Warn about security reason
+    b - Warn about that could be a time consuming process
+    c - make such warning optional
+
+2 - If you've already an idea on how to make codecompletion works also
+     on user defined object please do it and make it optional ( disabled
+     for default installation )
+
+That's all for now have a good weekend,
+luca
+
+
+From spe.stani.be at gmail.com  Sun Feb 19 17:47:42 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Sun, 19 Feb 2006 17:47:42 +0100
+Subject: [spe-dev] Re: SPE video, yes really!
+In-Reply-To: <2078a7ad0602011621v43d60426v1fe01d8e3e00277@mail.gmail.com>
+References: <e75321bd0602011605t318ec55cle42907a53c7ea039@mail.gmail.com>
+	 <2078a7ad0602011621v43d60426v1fe01d8e3e00277@mail.gmail.com>
+Message-ID: <2078a7ad0602190847u7d37f368i1196007fd02e2e0a@mail.gmail.com>
+
+Erratum:
+The videos area available at the url:
+http://showmedo.com/videoListPage?listKey=PythonDevelopmentWithSPE.
+
+A big thanks to Ian Oszvald!!
+
+Stani
+
+On 2/2/06, SPE Stani's Python Editor <spe.stani.be at gmail.com> wrote:
+> Hi all,
+>
+> Dimitri Pater (http://www.serpia.org) brought this under my attention:
+> http://showmedo.com:8081/videoListPage?listKey=PythonDevelopmentWithSPE
+>
+> This is a wonderful contribution!
+>
+> A big thanks to Ian O, who made it, and to showmedo.com for hosting it!
+>
+> Stani
+>
+> --
+> http://pythonide.stani.be
+> http://pythonide.stani.be/screenshots
+> http://pythonide.stani.be/manual/html/manual.html
+>
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From brendansimons at yahoo.ca  Fri Feb 24 17:59:32 2006
+From: brendansimons at yahoo.ca (Brendan Simons)
+Date: Fri, 24 Feb 2006 11:59:32 -0500 (EST)
+Subject: [spe-dev] Editor font won't change!
+Message-ID: <20060224165932.32659.qmail@web31102.mail.mud.yahoo.com>
+
+In the editor preferences, under "configure styles", I
+can't get my settings for %(mono)s and %(size)d to
+stay.  No matter what I enter, when I hit OK, then
+save, the editor font returns to courier new, 10pt.  
+
+This is a small bug, but it's pretty agravating.  My
+monitor has very high resolution, and 10pt font is
+nearly unusable.  (Not to whine too much, but this
+whole preference panel is pretty complicated.  I'd
+really like to see a wx.fontDialog and/or have ctrl+ /
+ctrl- do zooming like many other apps)
+
+Brendan
+--
+Brendan Simons 
+
+
+	
+
+	
+		
+__________________________________________________________ 
+Find your next car at http://autos.yahoo.ca
+
+
+From brendansimons at yahoo.ca  Fri Feb 24 18:01:12 2006
+From: brendansimons at yahoo.ca (Brendan Simons)
+Date: Fri, 24 Feb 2006 12:01:12 -0500 (EST)
+Subject: [spe-dev] Re: Editor font won't change!
+Message-ID: <20060224170112.17080.qmail@web31106.mail.mud.yahoo.com>
+
+Forgot to mention my package versions:
+
+Spe version: 0.8.2.a 
+Python version:  2.4.2  (2.3 required) 
+wxPython version: 2.6.2.1.  (2.6.1.0. required) 
+
+Brendan
+
+--- Brendan Simons <brendansimons at yahoo.ca> wrote:
+
+> In the editor preferences, under "configure styles",
+> I
+> can't get my settings for %(mono)s and %(size)d to
+> stay.  No matter what I enter, when I hit OK, then
+> save, the editor font returns to courier new, 10pt. 
+> 
+> 
+> This is a small bug, but it's pretty agravating.  My
+> monitor has very high resolution, and 10pt font is
+> nearly unusable.  (Not to whine too much, but this
+> whole preference panel is pretty complicated.  I'd
+> really like to see a wx.fontDialog and/or have ctrl+
+> /
+> ctrl- do zooming like many other apps)
+> 
+> Brendan
+> --
+> Brendan Simons 
+> 
+> 
+> 	
+> 
+> 	
+> 		
+>
+__________________________________________________________
+> 
+> Find your next car at http://autos.yahoo.ca
+> 
+
+
+
+	
+
+	
+		
+__________________________________________________________ 
+Find your next car at http://autos.yahoo.ca
+
+

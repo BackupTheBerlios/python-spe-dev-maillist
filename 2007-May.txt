@@ -1,0 +1,465 @@
+From spe.stani.be at gmail.com  Wed May  2 04:21:07 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Wed, 02 May 2007 04:21:07 +0200
+Subject: [spe-dev] svn update 238: big ubuntu fix
+In-Reply-To: <2B9FAA37-0F4A-4967-A039-D34141092766@mac.com>
+References: <30542-27010@sneakemail.com>
+	<462AAC54.9070005@personnelware.com>	<6064-88131@sneakemail.com>	<1B6972B5-5D8E-470A-8BDE-304DFBD4B1F4@yahoo.co.uk>
+	<2B9FAA37-0F4A-4967-A039-D34141092766@mac.com>
+Message-ID: <4637F593.8010600@gmail.com>
+
+Hi all,
+I just commited svn 238 which hopefully fixes the bug which kept SPE 
+from releasing. There was file notebook was not working correctly on 
+Ubuntu. I hoped is fixed now. Thanks for submitting patches in my 
+absence. I will review them and give comments in order to upload them to 
+svn as well.
+My plan is to apply all patches, build a quick new website and start 
+packaging the new release. I have to fit this in my schedule, but 
+hopefully it will be done by the end of may, beginning of june.
+Stani
+
+
+From Michael.Lang at chester.at  Tue May 15 20:42:10 2007
+From: Michael.Lang at chester.at (Michael Lang)
+Date: Tue, 15 May 2007 20:42:10 +0200
+Subject: [spe-dev] SPE v0.8.4.b Python 2.4.3 problems
+Message-ID: <4649FF02.5040600@chester.at>
+
+Hi,
+
+i have Centos 5 running which ships with python 2.4.3. I compiled 
+wxPython 2.8.3 and
+checked out SPE 0.8.4.b from subversion. SPE starts up but when 
+resolving an objects function
+in the Shell Window the Application hangs and can only be killed and 
+restarted.
+
+following code was crashing the Application reproduce able:
+
+#
+from ZSI.client import Binding
+req = Binding(url='http://....', host='127.0.0.1')
+print req.test()
+#
+
+ZSI is a SOAP Module and the code works when written as Script in the 
+Editor and run or works
+when run in interactive Python Shell. The last line isn't complete able 
+as before the '.' the applications
+hangs. I attached the trace file to this email, but wasn't able myself 
+to see what's hanging.
+
+the function 'test' is only defined when resolved through SOAP ...
+
+ >>> dir(req)
+['AddHeader', 'IsAFault', 'IsSOAP', 'RPC', 'Receive', 'ReceiveFault', 
+'ReceiveRaw', 'ReceiveSOAP', 'ResetHeaders', 'Send', 'SetAuth', 'SetNS', 
+'SetURL', '_Binding__parse', '__doc__', '__getattr__', '__init__', 
+'__module__', '__repr__', 'auth_pass', 'auth_style', 'auth_user', 
+'data', 'host', 'ns', 'nsdict', 'op_ns', 'port', 'ps', 'readerclass', 
+'soapaction', 'ssl', 'trace', 'typesmodule', 'url', 'user_headers']
+
+i can provide this SOAP interface for debugging if needed.
+Kind regards
+
+Michael Lang
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070515/55fb88f9/attachment.pgp>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: spe-trace.tar.bz2
+Type: application/x-bzip
+Size: 290065 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070515/55fb88f9/attachment.bin>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070515/55fb88f9/attachment-0001.pgp>
+
+From spe.stani.be at gmail.com  Tue May 15 21:19:15 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Tue, 15 May 2007 21:19:15 +0200
+Subject: [spe-dev] SPE v0.8.4.b Python 2.4.3 problems
+In-Reply-To: <4649FF02.5040600@chester.at>
+References: <4649FF02.5040600@chester.at>
+Message-ID: <464A07B3.3070206@gmail.com>
+
+Hi Michael,
+It is not recommended to use commands which might conflict with SPE's 
+internal wxpython main loop. I presume your code is doing this. For 
+example you can not run another gtk/wxpython program in SPE's shell. You 
+need these kind of code snippets to run with Tools>Run and if you want 
+introspection run it through the debugger.
+Stani
+
+Michael Lang wrote:
+> Hi,
+>
+> i have Centos 5 running which ships with python 2.4.3. I compiled 
+> wxPython 2.8.3 and
+> checked out SPE 0.8.4.b from subversion. SPE starts up but when 
+> resolving an objects function
+> in the Shell Window the Application hangs and can only be killed and 
+> restarted.
+>
+> following code was crashing the Application reproduce able:
+>
+> #
+> from ZSI.client import Binding
+> req = Binding(url='http://....', host='127.0.0.1')
+> print req.test()
+> #
+>
+> ZSI is a SOAP Module and the code works when written as Script in the 
+> Editor and run or works
+> when run in interactive Python Shell. The last line isn't complete 
+> able as before the '.' the applications
+> hangs. I attached the trace file to this email, but wasn't able myself 
+> to see what's hanging.
+>
+> the function 'test' is only defined when resolved through SOAP ...
+>
+> >>> dir(req)
+> ['AddHeader', 'IsAFault', 'IsSOAP', 'RPC', 'Receive', 'ReceiveFault', 
+> 'ReceiveRaw', 'ReceiveSOAP', 'ResetHeaders', 'Send', 'SetAuth', 
+> 'SetNS', 'SetURL', '_Binding__parse', '__doc__', '__getattr__', 
+> '__init__', '__module__', '__repr__', 'auth_pass', 'auth_style', 
+> 'auth_user', 'data', 'host', 'ns', 'nsdict', 'op_ns', 'port', 'ps', 
+> 'readerclass', 'soapaction', 'ssl', 'trace', 'typesmodule', 'url', 
+> 'user_headers']
+>
+> i can provide this SOAP interface for debugging if needed.
+> Kind regards
+>
+> Michael Lang
+>
+> ------------------------------------------------------------------------
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>   
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070515/369628f8/attachment.html>
+
+From Michael.Lang at chester.at  Tue May 15 21:25:00 2007
+From: Michael.Lang at chester.at (Michael Lang)
+Date: Tue, 15 May 2007 21:25:00 +0200
+Subject: [spe-dev] SPE v0.8.4.b Python 2.4.3 problems
+In-Reply-To: <464A07B3.3070206@gmail.com>
+References: <4649FF02.5040600@chester.at> <464A07B3.3070206@gmail.com>
+Message-ID: <464A090C.5050800@chester.at>
+
+Stani's Python Editor wrote:
+> Hi Michael,
+
+Hi Stani,
+
+thanks for the fast response, but the code isn't doing gtk/wx stuff SOAP 
+is not using gui's.
+the code (the three lines) is working everywhere else, except in the 
+Shell in your Editor, that's
+why i was sending this Bug Report, but even if this code does something 
+clashing the SPE/wx code
+you should catch this so that the application keeps running (would be 
+enough if resolving the objects
+functions doesn't work, as in SOAP they are already defined in the WSDL 
+and don't need to be resolved)
+
+Kind regards
+Michael Lang
+
+> It is not recommended to use commands which might conflict with SPE's 
+> internal wxpython main loop. I presume your code is doing this. For 
+> example you can not run another gtk/wxpython program in SPE's shell. 
+> You need these kind of code snippets to run with Tools>Run and if you 
+> want introspection run it through the debugger.
+> Stani
+>
+> Michael Lang wrote:
+>> Hi,
+>>
+>> i have Centos 5 running which ships with python 2.4.3. I compiled 
+>> wxPython 2.8.3 and
+>> checked out SPE 0.8.4.b from subversion. SPE starts up but when 
+>> resolving an objects function
+>> in the Shell Window the Application hangs and can only be killed and 
+>> restarted.
+>>
+>> following code was crashing the Application reproduce able:
+>>
+>> #
+>> from ZSI.client import Binding
+>> req = Binding(url='http://....', host='127.0.0.1')
+>> print req.test()
+>> #
+>>
+>> ZSI is a SOAP Module and the code works when written as Script in the 
+>> Editor and run or works
+>> when run in interactive Python Shell. The last line isn't complete 
+>> able as before the '.' the applications
+>> hangs. I attached the trace file to this email, but wasn't able 
+>> myself to see what's hanging.
+>>
+>> the function 'test' is only defined when resolved through SOAP ...
+>>
+>> >>> dir(req)
+>> ['AddHeader', 'IsAFault', 'IsSOAP', 'RPC', 'Receive', 'ReceiveFault', 
+>> 'ReceiveRaw', 'ReceiveSOAP', 'ResetHeaders', 'Send', 'SetAuth', 
+>> 'SetNS', 'SetURL', '_Binding__parse', '__doc__', '__getattr__', 
+>> '__init__', '__module__', '__repr__', 'auth_pass', 'auth_style', 
+>> 'auth_user', 'data', 'host', 'ns', 'nsdict', 'op_ns', 'port', 'ps', 
+>> 'readerclass', 'soapaction', 'ssl', 'trace', 'typesmodule', 'url', 
+>> 'user_headers']
+>>
+>> i can provide this SOAP interface for debugging if needed.
+>> Kind regards
+>>
+>> Michael Lang
+>>
+>> ------------------------------------------------------------------------
+>>
+>> --
+>> http://pythonide.stani.be
+>> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+>> Python-spe-dev at lists.berlios.de
+>> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>   
+>
+> ------------------------------------------------------------------------
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>   
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070515/885b50ba/attachment.pgp>
+
+From spe.stani.be at gmail.com  Wed May 16 01:04:57 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Wed, 16 May 2007 01:04:57 +0200
+Subject: [spe-dev] SPE v0.8.4.b Python 2.4.3 problems
+In-Reply-To: <464A090C.5050800@chester.at>
+References: <4649FF02.5040600@chester.at> <464A07B3.3070206@gmail.com>
+	<464A090C.5050800@chester.at>
+Message-ID: <464A3C99.7010607@gmail.com>
+
+Hi Michael,
+It is not about gui code, but more about event loops, etc... Twisted 
+also wouldn't work. A solution would be to run the shell in a thread or 
+to launch an external process. However I do not plan myself to implement 
+it as I use the shell also for introspection of the SPE application. 
+Communication with an external process requires something like xml-rpc 
+and is quite a complicated matter. Working with threads would make SPE 
+totally unusable in Blender. I prefer the current implementation. If 
+somebody else comes up with a clever patch or contribution, I will 
+review it. (Josiah Carlson proposed such a shell for wxPython for Google 
+Summer of Code and unfortunately it has been rejected.) If you can 
+contribute some solution for the SOAP issue, please do. I hope you 
+understand that I won't take the iniative for it.
+Stani
+
+Michael Lang wrote:
+> Stani's Python Editor wrote:
+>> Hi Michael,
+>
+> Hi Stani,
+>
+> thanks for the fast response, but the code isn't doing gtk/wx stuff 
+> SOAP is not using gui's.
+> the code (the three lines) is working everywhere else, except in the 
+> Shell in your Editor, that's
+> why i was sending this Bug Report, but even if this code does 
+> something clashing the SPE/wx code
+> you should catch this so that the application keeps running (would be 
+> enough if resolving the objects
+> functions doesn't work, as in SOAP they are already defined in the 
+> WSDL and don't need to be resolved)
+>
+> Kind regards
+> Michael Lang
+>
+>> It is not recommended to use commands which might conflict with SPE's 
+>> internal wxpython main loop. I presume your code is doing this. For 
+>> example you can not run another gtk/wxpython program in SPE's shell. 
+>> You need these kind of code snippets to run with Tools>Run and if you 
+>> want introspection run it through the debugger.
+>> Stani
+>>
+>> Michael Lang wrote:
+>>> Hi,
+>>>
+>>> i have Centos 5 running which ships with python 2.4.3. I compiled 
+>>> wxPython 2.8.3 and
+>>> checked out SPE 0.8.4.b from subversion. SPE starts up but when 
+>>> resolving an objects function
+>>> in the Shell Window the Application hangs and can only be killed and 
+>>> restarted.
+>>>
+>>> following code was crashing the Application reproduce able:
+>>>
+>>> #
+>>> from ZSI.client import Binding
+>>> req = Binding(url='http://....', host='127.0.0.1')
+>>> print req.test()
+>>> #
+>>>
+>>> ZSI is a SOAP Module and the code works when written as Script in 
+>>> the Editor and run or works
+>>> when run in interactive Python Shell. The last line isn't complete 
+>>> able as before the '.' the applications
+>>> hangs. I attached the trace file to this email, but wasn't able 
+>>> myself to see what's hanging.
+>>>
+>>> the function 'test' is only defined when resolved through SOAP ...
+>>>
+>>> >>> dir(req)
+>>> ['AddHeader', 'IsAFault', 'IsSOAP', 'RPC', 'Receive', 
+>>> 'ReceiveFault', 'ReceiveRaw', 'ReceiveSOAP', 'ResetHeaders', 'Send', 
+>>> 'SetAuth', 'SetNS', 'SetURL', '_Binding__parse', '__doc__', 
+>>> '__getattr__', '__init__', '__module__', '__repr__', 'auth_pass', 
+>>> 'auth_style', 'auth_user', 'data', 'host', 'ns', 'nsdict', 'op_ns', 
+>>> 'port', 'ps', 'readerclass', 'soapaction', 'ssl', 'trace', 
+>>> 'typesmodule', 'url', 'user_headers']
+>>>
+>>> i can provide this SOAP interface for debugging if needed.
+>>> Kind regards
+>>>
+>>> Michael Lang
+>>>
+>>> ------------------------------------------------------------------------ 
+>>>
+>>>
+>>> -- 
+>>> http://pythonide.stani.be
+>>> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+>>> Python-spe-dev at lists.berlios.de
+>>> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>>   
+>>
+>> ------------------------------------------------------------------------
+>>
+>> -- 
+>> http://pythonide.stani.be
+>> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+>> Python-spe-dev at lists.berlios.de
+>> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>   
+> ------------------------------------------------------------------------
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>   
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070516/f1fab5bd/attachment.html>
+
+From ericongerth at gmail.com  Wed May 30 20:35:23 2007
+From: ericongerth at gmail.com (Eric Ongerth)
+Date: Wed, 30 May 2007 11:35:23 -0700
+Subject: [spe-dev] Bug Report (SPE 0.8.3.c): grid batch method names are hot
+	text
+Message-ID: <90cae1530705301135y543a483bk602fa6f930df19d1@mail.gmail.com>
+
+Hello, this is my first message to the spe-dev list.
+
+I appreciate the qualities of this Python editor very much, and I look
+forward to seeing its abilities increase over time.
+
+I believe I've found a bug, and it's easy to replicate:
+Open a new file in SPE 0.8.3.c and type either of the following lines:
+grid.BeginBatch(
+
+or
+grid.EndBatch(
+
+...on my system (Windows XPsp2, Python 2.5.1, wxPython 2.8.4.0 (msw-unicode)
+-- this results in an endless loop where an even is being Skip()ed
+forever.  I have to force Windows to kill the pythonw process.
+
+Has this already been found?
+
+Thanks,
+Eric
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070530/69a2a6d3/attachment.html>
+
+From spe.stani.be at gmail.com  Thu May 31 14:07:08 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Thu, 31 May 2007 14:07:08 +0200
+Subject: [spe-dev] Bug Report (SPE 0.8.3.c): grid batch method names are
+ hot	text
+In-Reply-To: <90cae1530705301135y543a483bk602fa6f930df19d1@mail.gmail.com>
+References: <90cae1530705301135y543a483bk602fa6f930df19d1@mail.gmail.com>
+Message-ID: <465EBA6C.5080609@gmail.com>
+
+Hi Eric,
+The problem has to do with the grid module that you installed. Can you 
+please send it to me or show where it can be downloaded? For 
+autocompletion SPE imports modules. If that modules does not have its 
+main code in a "if __name__=='__main__'" clause, it might give this problem.
+Stani
+
+Eric Ongerth wrote:
+> Hello, this is my first message to the spe-dev list.
+>
+> I appreciate the qualities of this Python editor very much, and I look 
+> forward to seeing its abilities increase over time.
+>
+> I believe I've found a bug, and it's easy to replicate:
+> Open a new file in SPE 0.8.3.c and type either of the following lines:
+> grid.BeginBatch(
+>
+> or
+> grid.EndBatch(
+>
+> ...on my system (Windows XPsp2, Python 2.5.1, wxPython 2.8.4.0 
+> <http://2.8.4.0> (msw-unicode) -- this results in an endless loop 
+> where an even is being Skip()ed  forever.  I have to force Windows to 
+> kill the pythonw process.
+>
+> Has this already been found?
+>
+> Thanks,
+> Eric
+>
+> ------------------------------------------------------------------------
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>   
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070531/9b1107a7/attachment.html>
+

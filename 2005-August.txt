@@ -1,0 +1,578 @@
+From spe.stani.be at gmail.com  Mon Aug  1 08:43:50 2005
+From: spe.stani.be at gmail.com (SPE - Stani's Python Editor)
+Date: Mon, 01 Aug 2005 08:43:50 +0200
+Subject: [spe-dev] SPE 0.7.4.y released
+In-Reply-To: <42EA7800.3070908@asylumwear.com>
+References: <42EA7800.3070908@asylumwear.com>
+Message-ID: <42EDC4A6.1030408@gmail.com>
+
+See http://www.stani.be/python/spe/blog
+Stani
+
+
+From spe.stani.be at gmail.com  Thu Aug  4 05:14:43 2005
+From: spe.stani.be at gmail.com (SPE - Stani's Python Editor)
+Date: Thu, 04 Aug 2005 05:14:43 +0200
+Subject: [spe-dev] [Fwd: [spe-mac] Let's help Stani buy a Mac]
+Message-ID: <42F18823.4070908@gmail.com>
+
+Hi,
+Richard E. Brown posted this on the spe-mac mailing list, but maybe some 
+of you have a mac as well and are not on this list. Others might 
+symphatise as well. Of course it is a nice initiative I fully support. I 
+have been postponing to implement some nice new features for SPE to make 
+it stable on the Mac. You can follow the status of the fund raising on 
+the new SPE homepage: http://www.stani.be/python/spe Besides Richard, 
+more two people donated already 50 euro.
+Thanks for considering,
+Stani
+
+-------- Original Message --------
+Subject: 	[spe-mac] Let's help Stani buy a Mac
+Date: 	06 Aug 2005 14:14:22 EDT
+From: 	Richard.E.Brown at dartware.com (Richard E. Brown)
+Reply-To: 	python-spe-mac at berlios.de
+To: 	python-spe-mac at berlios.de
+
+
+
+Fellow SPE-on-Mac friends:
+
+I think we can all admit that our current scheme for developing SPE-OSX is
+terriby inefficient. This "remote control" debugging is slow, results in a
+flurry of updates that fix a few things each, and it must be quite frustrating
+for Stani.
+
+I have corresponded with Stani, and a Mac mini with a KVM would work well for
+him. It's new, it's got a G4 processor so it'll be current for quite a while,
+and it'll fit nicely into his physical space.) A Mac mini (500 EUR) + KVM (120
+EUR?) + VAT (19%) together cost about 750 Euros. 
+
+My company, Dartware, has contributed 250 Euros to start the fundraising. We're
+willing to give a major boost because it's worth it for us to have a nice
+environment for working on Python programs. 
+
+What it would be worth *to you* to have a new release of SPE running on your Mac
+the same day as it appears on other platforms? $50? $75? $100?
+
+You can contribute using Stani's donation page and put "SPE-on-Mac" in the
+comment field. Stani points out that PayPal takes a significant commission on
+the donations: if you're in the EU, it's much better to use the bank transfer
+mechanism. The URL is:
+
+	http://www.stani.be/python/spe/blog/sm_donate
+
+Thanks for your consideration, and best regards to you all.
+
+Rich Brown                    richard.e.brown at dartware.com
+Dartware, LLC                 http://www.dartware.com
+10 Buck Road, PO Box 130      Telephone: 603-643-9600
+Hanover, NH 03755-0130 USA    Fax: 603-643-2289
+
+PS If ten more people contribute 50 Euros each, that would give Stani the funds
+necessary to buy a good development and testing system. Please help with this. 
+
+_______________________________________________
+Python-spe-mac mailing list
+Python-spe-mac at lists.berlios.de
+http://lists.berlios.de/mailman/listinfo/python-spe-mac
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20050804/a88ba1ee/attachment.html>
+
+From spe.stani.be at gmail.com  Wed Aug  3 06:06:25 2005
+From: spe.stani.be at gmail.com (SPE - Stani's Python Editor)
+Date: Wed, 03 Aug 2005 06:06:25 +0200
+Subject: [spe-dev] Find bug: any volunteer?!
+In-Reply-To: <1949740@blitz.dartware.com>
+References: <1949740@blitz.dartware.com>
+Message-ID: <42F042C1.4030600@gmail.com>
+
+Hi,
+The find dialog box is not working well. Probably it's something not too 
+hard to fix. Any volunteer? The code is in _spe/Parent.py I'm currently 
+working on other things as you can read on the blog. Please send the 
+corrected Parent.py to me and I correct the fixes.
+Thanks,
+Stani
+
+    def find_replace(self, event=None):
+        """Find and Replace dialog and action."""
+        #dialog already open, if yes give focus
+        if self.findDialog:
+            self.findDialog.SetFocus()
+            return
+        #find string
+        findStr = self.app.childActive.source.GetSelectedText()
+        if not findStr:
+                findStr = self.findStr
+        self.numberMessages=0
+        #find data
+        data    = wx.FindReplaceData(self.findFlags)
+        data.SetFindString(findStr)
+        data.SetReplaceString(self.replaceStr)
+        #dialog
+        self.findDialog = wx.FindReplaceDialog(self, data, "Find & 
+Replace",
+                wx.FR_REPLACEDIALOG|wx.FR_NOUPDOWN)
+        self.findDialog.Show(1)   
+        self.findDialog.data = data  # save a reference to it...
+          
+...
+    def onFind(self,event,message=1):
+        source=self.app.childActive.source
+        try:
+            self.findStr=event.GetFindString()
+            self.findFlags=event.GetFlags()
+            flags=0
+            if wx.FR_WHOLEWORD & self.findFlags:
+                flags|=wx.stc.STC_FIND_WHOLEWORD
+            if wx.FR_MATCHCASE & self.findFlags:
+                flags|=wx.stc.STC_FIND_MATCHCASE
+            self.stcFindFlags=flags
+        except:
+            pass
+        current=source.GetCurrentPos()
+        position=source.FindText(current,len(source.GetText()),self.findStr,
+                self.stcFindFlags)
+        if position==-1:#wrap around
+            self.wrapped=1
+            
+position=source.FindText(0,current+len(self.findStr),self.findStr,self.stcFindFlags)
+            self.SetActiveStatusText("Wrapped around to find 
+'%s'"%self.findStr,1)
+        if position==-1 and message and self.numberMessages<1:
+            self.numberMessages=1
+            self.message("'%s' not found!"%self.findStr)
+            self.numberMessages=0
+        source.GotoPos(position)
+        source.SetSelection(position,position+len(self.findStr))
+        return position
+       
+    def onFindClose(self,event):
+        event.GetDialog().Destroy()
+        self.numberMessages=0
+
+    def onReplace(self,event,message=1):
+        ## Next line avoid infinite loop
+        findStr=event.GetFindString()
+        self.replaceStr=event.GetReplaceString()
+        if findStr==self.replaceStr:
+            return -1
+        source=self.app.childActive.source
+        selection=source.GetSelectedText()
+        if not(event.GetFlags() & wx.FR_WHOLEWORD):
+            findStr=findStr.lower()
+            selection=selection.lower()
+            if findStr==self.replaceStr.lower():
+                return -1
+        if selection==findStr:
+            position=source.GetSelectionStart()
+            source.ReplaceSelection(self.replaceStr)
+            source.SetSelection(position,position+len(self.replaceStr))
+        position=self.onFind(event,message=message)
+        return position
+
+    def onReplaceAll(self,event):
+        source=self.app.childActive.source
+        count=0
+        self.wrapped=0
+        position=start=source.GetCurrentPos()
+        while position>-1 and ((not self.wrapped) or position<start):
+            position=self.onReplace(event,message=0)
+            if position != -1: count+=1
+        if count:
+            self.SetActiveStatusText("'%s' is %s times replaced with '%s'"%\
+                (event.GetFindString(),count,event.GetReplaceString()),1)
+        elif not count and self.numberMessages<1:
+            self.numberMessages=1
+            self.message("'%s' not found!"%event.GetFindString())
+            self.numberMessages=0
+       
+
+
+
+From spe.stani.be at gmail.com  Thu Aug 11 19:54:55 2005
+From: spe.stani.be at gmail.com (SPE - Stani's Python Editor)
+Date: Thu, 11 Aug 2005 19:54:55 +0200
+Subject: [spe-dev] SPE site down  (please help)
+In-Reply-To: <42FB7E34.9000802@cybergalvez.com>
+References: <42FB7E34.9000802@cybergalvez.com>
+Message-ID: <42FB90EF.4010206@gmail.com>
+
+Dear all,
+
+Some of you contacted to warn me that my site is down. Thanks for your 
+concerns. Unfortunately the *.stani.be site drove the machine's load up 
+to 27 at the Zettai server. This made my site crash and I had to restart 
+it frequently. For Zettai, who sponsors SPE in free hosting, this was 
+alarming and they decided to shut down my site. Altough I'm experienced 
+with Python, I'm not that familiar with Zope. Anyone who could help me 
+monitoring what is wrong or even point me to how I could solve the 
+problem, would save my days.
+
+I'm currently trying to convince Zettai to see if there is a way to 
+continue the SPE website. I have no reasons to complain about them, the 
+opposite: they always provided me with an excellent service, so I can 
+recommend them to anyone. Honnestly I think that their analysis that 
+something is alarmlingly wrong is very justified.
+
+The SPE website uses CoreBlog and I don't think that can be the problem. 
+My personal portfolio site www.stani.be uses a lot of Python scripting, 
+but has low visitors. So in a way I would be surprised if it's that. 
+When the problem occurred, I installed cache managers, but appearantly 
+that didn't solve anything.
+
+Recently I have put a lot of effort to develop SPE, especially 
+concerning Mac Os X, new website and integrating the debugger. Of course 
+this will postpone the release of SPE. The reason is that first this 
+will take me time and energy to see what is wrong and to get it back 
+online. The second reason is that the google ads displayed on my page 
+give me a very small income. I'm donating much of my freetime into this 
+project and as donations are seldom and small, any extra income is 
+welcome. It's at the moment the only way to generate some revenue with 
+open source, as far as I know. This income is mainly generated when 
+there is a new release, so I feel it is only reasonable as a developper 
+not too lose that opportunity. A company which would sponsor SPE is till 
+now still a utopia, or not?
+
+But if some zope expert could help me with solving this problem, please 
+contact me. I hope Zettai will continue hosting SPE, otherwise I'll have 
+to look for another provider and than everything really gets delayed. 
+Also soon I'll have three art shows simultaneously in France, Belgium 
+and Germany, so than I have to be away for a while.
+
+Stani
+
+PS 1: Please post all replies to python-spe-users at berlios.de
+
+PS 2: Just in case, if someone still wants to donate: 
+http://spe.pycs.net/stories/8.html For Mac users or sympathisants, there 
+is still a fund raising campaign that I can buy a mini mac, to support 
+SPE fully on mac. Pay by iban (europe) or Paypal (s_t_a_n_i at 
+yahoo.com) and mention 'mini-mac'
+
+PS 3: This was the data of the zettai server. For me it is Chinese, the 
+only hint I got was "keep your scripts under control", but I don't know 
+where to start.
+
+last pid: 81099;  load averages: 28.25, 27.70, 27.54                          up 21+18:18:23  10:46:04
+247 processes: 30 running, 212 sleeping, 5 zombie
+CPU states:  9.5% user,  2.7% nice, 87.7% system,  0.0% interrupt,  0.0% idle
+Mem: 2238M Active, 754M Inact, 355M Wired, 162M Cache, 199M Buf, 8796K Free
+Swap: 4608M Total, 237M Used, 4370M Free, 5% Inuse
+
+  PID USERNAME   PRI NICE  SIZE    RES STATE  C   TIME   WCPU    CPU COMMAND
+13770 stanim      64   0 12876K  5832K RUN    0  34:10  9.03%  9.03% convert
+99357 stanim      64   0 12876K  5716K RUN    1 136:02  8.64%  8.64% convert
+13540 stanim      64   0 12876K  5832K RUN    1  34:20  8.45%  8.45% convert
+50033 stanim      64   0 12876K  5696K RUN    1 297:50  8.20%  8.20% convert
+99367 stanim      63   0 12876K  5716K RUN    1 133:59  7.76%  7.76% convert
+70132 stanim      64   0 12876K  5864K RUN    0   4:10  7.76%  7.76% convert
+51343 stanim      64   0 12876K  5696K RUN    0 295:10  7.71%  7.71% convert
+80250 stanim      64   0 12876K  5716K RUN    0 184:59  7.67%  7.67% convert
+42537 stanim      64   0 12876K  5720K RUN    0  84:38  7.67%  7.67% convert
+80862 stanim      64   0 12876K  5868K RUN    1   0:07  7.92%  7.67% convert
+ 8252 stanim      64   0 12876K  5832K RUN    1  37:49  7.62%  7.62% convert
+42308 stanim      64   0 12876K  5720K RUN    0  86:38  7.37%  7.37% convert
+58343 stanim      64   0 12876K  5864K RUN    0   8:54  7.18%  7.18% convert
+13274 stanim      64   0 12876K  5832K RUN    1  34:29  7.13%  7.13% convert
+57570 stanim      64   0 12876K  5864K RUN    1  10:02  7.08%  7.08% convert
+27253 stanim      64   0 12876K  5720K RUN    0 101:48  7.03%  7.03% convert
+99355 stanim      64   0 12876K  5716K RUN    1 136:57  6.98%  6.98% convert
+56385 stanim      64   0 12876K  5864K RUN    0  10:01  6.88%  6.88% convert
+58206 stanim      64   0 12876K  5864K RUN    0   9:02  6.40%  6.40% convert
+25648 stanim      64   0 12876K  5720K RUN    1 104:47  6.10%  6.10% convert
+68223 stanim       2   0 67712K 58788K poll   0   0:43  0.00%  0.00% python
+99354 stanim      10   0   628K   268K wait   0   0:00  0.00%  0.00% sh
+99356 stanim      10   0   628K   268K wait   0   0:00  0.00%  0.00% sh
+99366 stanim      10   0   628K   268K wait   0   0:00  0.00%  0.00% sh
+42307 stanim      10   0   628K   268K wait   0   0:00  0.00%  0.00% sh
+13539 stanim      10   0   628K   268K wait   1   0:00  0.00%  0.00% sh
+42536 stanim      10   0   628K   268K wait   1   0:00  0.00%  0.00% sh
+ 8251 stanim      10   0   628K   268K wait   0   0:00  0.00%  0.00% sh
+80249 stanim      10   0   628K   268K wait   1   0:00  0.00%  0.00% sh
+13769 stanim      10   0   628K   268K wait   0   0:00  0.00%  0.00% sh
+80861 stanim      10   0   628K   268K wait   0   0:00  0.00%  0.00% sh
+25647 stanim      10   0   628K   268K wait   0   0:00  0.00%  0.00% sh
+27252 stanim      10   0   628K   268K wait   1   0:00  0.00%  0.00% sh
+13273 stanim      10   0   628K   268K wait   1   0:00  0.00%  0.00% sh
+56380 stanim      10   0   628K   268K wait   1   0:00  0.00%  0.00% sh
+58194 stanim      10   0   628K   268K wait   1   0:00  0.00%  0.00% sh
+57569 stanim      10   0   628K   268K wait   1   0:00  0.00%  0.00% sh
+51342 stanim      10   0   628K   268K wait   0   0:00  0.00%  0.00% sh
+58342 stanim      10   0   628K   268K wait   0   0:00  0.00%  0.00% sh
+70131 stanim      10   0   628K   268K wait   0   0:00  0.00%  0.00% sh
+50032 stanim      10   0   628K   268K wait   0   0:00  0.00%  0.00% sh
+49121 stanim       2   0  1104K   700K sbwait 0   0:00  0.00%  0.00% tcsh
+49117 stanim       2   0  5292K  1704K select 0   0:00  0.00%  0.00% sshd
+49046 stanim       2   0  2188K  1108K select 0   0:00  0.00%  0.00% sftp-serve
+49043 stanim      18   0  1104K   692K pause  0   0:00  0.00%  0.00% tcsh
+49038 stanim       2   0  5292K  1708K select 0   0:00  0.00%  0.00% sshd
+
+
+
+
+Jose Galvez wrote:
+
+> SPE - Stani's Python Editor wrote:
+>
+>> See http://www.stani.be/python/spe/blog
+>> Stani
+>> _______________________________________________
+>> Python-spe-users mailing list
+>> Python-spe-users at lists.berlios.de
+>> http://lists.berlios.de/mailman/listinfo/python-spe-users
+>>
+>>
+>>
+> Stani, is your server down?  I tried to log on to get the latest 
+> version of spe and got a 502 error
+>
+>
+> ===============================================================
+>
+>
+> Proxy Error
+>
+> The proxy server received an invalid response from an upstream server.
+>
+> The proxy server could not handle the request /GET /python/spe/blog 
+> <http://www.stani.be/python/spe/blog>/.
+>
+> Reason: *Could not connect to remote machine: Connection refused*
+>
+> ------------------------------------------------------------------------
+> Apache/1.3.33 Server at www.stani.be Port 80
+> =======================================================
+>
+>
+> _______________________________________________
+> Python-spe-users mailing list
+> Python-spe-users at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/python-spe-users
+>
+
+
+
+From spe.stani.be at gmail.com  Fri Aug 12 00:17:43 2005
+From: spe.stani.be at gmail.com (SPE - Stani's Python Editor)
+Date: Fri, 12 Aug 2005 00:17:43 +0200
+Subject: [spe-dev] Re: SPE site down  (please help)
+In-Reply-To: <42FB9972.2000801@cybergalvez.com>
+References: <42FB7E34.9000802@cybergalvez.com> <42FB90EF.4010206@gmail.com> <42FB9972.2000801@cybergalvez.com>
+Message-ID: <42FBCE87.5050801@gmail.com>
+
+Dear all,
+The website is up again. Appearantly the screenshots went crazy, so I 
+replaced it with a more simple page.
+Stani
+
+Jose Galvez wrote:
+
+> Dear Stani,
+>
+> I am very sorry to hear that you zope site went down.  I really hope 
+> that some Zope expert can come to your aid (unfortunately I don't do 
+> much zope).  If it would help I could provide you with some space to 
+> host a simple site download page at the university where I work, 
+> unfortunately because of university regs I can't really set up your 
+> complete zope site so I would also understand if you didn't take me up 
+> on the offer.
+> Jose
+>
+> SPE - Stani's Python Editor wrote:
+>
+>> Dear all,
+>>
+>> Some of you contacted to warn me that my site is down. Thanks for 
+>> your concerns. Unfortunately the *.stani.be site drove the machine's 
+>> load up to 27 at the Zettai server. This made my site crash and I had 
+>> to restart it frequently. For Zettai, who sponsors SPE in free 
+>> hosting, this was alarming and they decided to shut down my site. 
+>> Altough I'm experienced with Python, I'm not that familiar with Zope. 
+>> Anyone who could help me monitoring what is wrong or even point me to 
+>> how I could solve the problem, would save my days.
+>>
+>> I'm currently trying to convince Zettai to see if there is a way to 
+>> continue the SPE website. I have no reasons to complain about them, 
+>> the opposite: they always provided me with an excellent service, so I 
+>> can recommend them to anyone. Honnestly I think that their analysis 
+>> that something is alarmlingly wrong is very justified.
+>>
+>> The SPE website uses CoreBlog and I don't think that can be the 
+>> problem. My personal portfolio site www.stani.be uses a lot of Python 
+>> scripting, but has low visitors. So in a way I would be surprised if 
+>> it's that. When the problem occurred, I installed cache managers, but 
+>> appearantly that didn't solve anything.
+>>
+>> Recently I have put a lot of effort to develop SPE, especially 
+>> concerning Mac Os X, new website and integrating the debugger. Of 
+>> course this will postpone the release of SPE. The reason is that 
+>> first this will take me time and energy to see what is wrong and to 
+>> get it back online. The second reason is that the google ads 
+>> displayed on my page give me a very small income. I'm donating much 
+>> of my freetime into this project and as donations are seldom and 
+>> small, any extra income is welcome. It's at the moment the only way 
+>> to generate some revenue with open source, as far as I know. This 
+>> income is mainly generated when there is a new release, so I feel it 
+>> is only reasonable as a developper not too lose that opportunity. A 
+>> company which would sponsor SPE is till now still a utopia, or not?
+>>
+>> But if some zope expert could help me with solving this problem, 
+>> please contact me. I hope Zettai will continue hosting SPE, otherwise 
+>> I'll have to look for another provider and than everything really 
+>> gets delayed. Also soon I'll have three art shows simultaneously in 
+>> France, Belgium and Germany, so than I have to be away for a while.
+>>
+>> Stani
+>>
+>> PS 1: Please post all replies to python-spe-users at berlios.de
+>>
+>> PS 2: Just in case, if someone still wants to donate: 
+>> http://spe.pycs.net/stories/8.html For Mac users or sympathisants, 
+>> there is still a fund raising campaign that I can buy a mini mac, to 
+>> support SPE fully on mac. Pay by iban (europe) or Paypal (s_t_a_n_i 
+>> at yahoo.com) and mention 'mini-mac'
+>
+
+
+
+From spe.stani.be at gmail.com  Sun Aug 14 22:16:51 2005
+From: spe.stani.be at gmail.com (SPE - Stani's Python Editor)
+Date: Sun, 14 Aug 2005 22:16:51 +0200
+Subject: [spe-dev] SPE 0.7.5.b will be released any moment.
+Message-ID: <42FFA6B3.4010102@gmail.com>
+
+Hi,
+
+I'm now finishing the download page and after that I will release the 
+new version of SPE. I just wanted you to know first. So you'll get the 
+release soon, it can be any moment from now, but please patient till it 
+appears. I'm always looking for people who can do some easy bugfixing, 
+if you have a bit of wxPython experience please contact me.
+
+I feel sorry for mac users that I can't make a nice app installer. It 
+has one simple reason: I don't have access to a mac. I really appreciate 
+the fund raising that some mac users started. If more people would join 
+the boat, I could buy a mini mac and give you as well full support on 
+Mac Os X.
+
+Of course donations in general are also welcome, as this allows me to 
+spend a bit more time on SPE as normal, which you will only enjoy.
+
+Thanks if you consider this seriously.
+
+Stani
+
+
+From spe.stani.be at gmail.com  Sun Aug 21 03:05:18 2005
+From: spe.stani.be at gmail.com (SPE - Stani's Python Editor)
+Date: Sun, 21 Aug 2005 03:05:18 +0200
+Subject: [spe-dev] Re: [spe-mac] Let's help Stani buy a Mac
+In-Reply-To: <F9EA6CF0-0F5D-4A1C-B425-6A0E9BB0A248@fiee.net>
+References: <1949740@blitz.dartware.com> <43036574.7040204@gmail.com> <984CB9D5-AFBB-44FE-AA5A-22BF25E3EC12@sbcglobal.net> <4303E6D4.9000008@gmail.com> <362C766A-2168-4CCE-A341-2C063AF86EE9@sbcglobal.net> <F9EA6CF0-0F5D-4A1C-B425-6A0E9BB0A248@fiee.net>
+Message-ID: <4307D34E.8060109@gmail.com>
+
+Henning Hraban Ramm wrote:
+
+> Am 2005-08-18 um 03:37 schrieb Kenneth McDonald:
+>
+>> Don't feel you have to take my donation solely as motivation for a  
+>> Mac version. Sure, a Mac version would be great, but a stable  
+>> Windows version and no Mac version would be preferable to less  
+>> stable implementations on both platforms. Take your time, get it  
+>> right, and don't try to do everything at once.
+>
+>
+> Too true - I use SPE mostly at work on a WinXP machine, but my  
+> employer will not pay for anything that seems to be free - i.e. I  
+> should use the provided MS VisualStudio, and not some Open Source  
+> stuff...  ;-)
+> But anyway I'd like to use SPE on my Mac at home, too - even if I'll  
+> try PyObjC's Xcode integration soon.
+
+
+I also would like to see SPE stable. However I believe that testing SPE 
+on the Mac, will only increase its stability (rather than seeing it as a 
+new feature), as wxMac seems to be more sensitive to mistakes. This 
+gives in a way the advantage that errors are more fastly discovered. I 
+noticed that with some sizer issues. I think if SPE runs well on Windows 
+and Mac, probably it is true for all platforms.
+
+The problems with donations till now, is that people start thinking 
+about donating after the features they like are implemented. However 
+donations are low. That's why I appreciate the donations for the Mac. 
+For the first time users are donating to get something done, before it 
+is implemented. This made me think I should start a bounty system, where 
+I people could bid on features they would like to see implemented. It's 
+not that I want to start earning money with SPE, but on the other hand 
+it's also a pitty if things could work better if it is stimulated in 
+another way. As you might now, developing a project like this asks a lot 
+of time. For example a lot of users ask for a project manager, but would 
+they be willing to pay for it? Also if SPE would give in some cash in 
+one way or another, I could really spend more time on developping it,as 
+it means I have to do less other jobs.
+
+After I will have bought the Mac, I will do some serious bugfixing 
+effort to make SPE stable on all platforms or as much as possible. (So 
+the sooner I have the money for the Mac, hint, hint, ;-) ...) But of 
+course I have the most fun by implementing some new cool features. Also 
+I think of organising SPE maybe more like Firefox with downloadable 
+extensions (which should also be easy for users to create), rather than 
+a full suite which it is now.
+
+These were just some thoughts,
+Stani
+
+
+
+
+From spe.stani.be at gmail.com  Mon Aug 22 23:18:21 2005
+From: spe.stani.be at gmail.com (SPE - Stani's Python Editor)
+Date: Mon, 22 Aug 2005 23:18:21 +0200
+Subject: [spe-dev] SPE 0.7.5.c ready!!
+In-Reply-To: <1124742289.10694.3.camel@Laptop-Ubuntu>
+References: <6f80c1520508211323137f88e3@mail.gmail.com>	 <4308E894.4000401@gmail.com> <1124742289.10694.3.camel@Laptop-Ubuntu>
+Message-ID: <430A411D.4040407@gmail.com>
+
+Hi,
+
+I need some help with OpenSSL. I am strugling a bit with pyOpenSSL. All 
+it takes are probably just smart answers on some stupid questions. Anyone?
+
+But, as usual members of the SPE mailing list get first notice about the 
+new release:
+
+The next version is ready, it contains:
+- better windows installers for python2.3 and 2.4
+- a lot of bugfixes (eg call tips and autocompletion)
+- local files are now recognized by the debugger and pychecker
+- the documentation got a boost thanks to Dimitri Pater 
+(http://www.serpia.com), thanks!
+- and more...
+
+Half good news for Mac users, the moment that I will buy a Mac is coming 
+closer but I still need a bit more than 200 euros. The faster you 
+donate, the faster you will get SPE gracefully on Mac.
+
+I try to release it tonight, but dont shoot me if it is tomorrow.
+
+Please consider contributing to SPE. Bugfixing is the best way to know 
+its code. I will give you full assistance. Are you native english 
+speaking? Please read the manual and take out all the stupid mistakes. 
+Do you speak another language. Please translate the manual. For a lot of 
+languages people are already translating (even including Chinese!), so 
+probably you can just join, to share the cake. Do you have other talents 
+(web design, zope, images, photoshop, ...), contact me. Do you have not 
+any talent, ok, grab your wallet and donate some money!
+
+All the best,
+
+Stani
+
+PS If you donate for mac, please mention it.
+
+

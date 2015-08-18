@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Testing SVN Version
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2006-January/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Testing%20SVN%20Version&In-Reply-To=%3C43BE62C7.70102%40voidspace.org.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000125.html">
+   <LINK REL="Next"  HREF="000131.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Testing SVN Version</H1>
+    <B>Fuzzyman</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Testing%20SVN%20Version&In-Reply-To=%3C43BE62C7.70102%40voidspace.org.uk%3E"
+       TITLE="[spe-dev] Testing SVN Version">fuzzyman at voidspace.org.uk
+       </A><BR>
+    <I>Fri Jan  6 13:29:59 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000125.html">[spe-dev] Testing SVN Version
+</A></li>
+        <LI>Next message: <A HREF="000131.html">[spe-dev] Testing SVN Version
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#126">[ date ]</a>
+              <a href="thread.html#126">[ thread ]</a>
+              <a href="subject.html#126">[ subject ]</a>
+              <a href="author.html#126">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Andrea Gavana wrote:
+
+&gt;<i><A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i><A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+</I>&gt;<i><A HREF="http://pythonide.stani.be/blog/sm_donate">http://pythonide.stani.be/blog/sm_donate</A>
+</I>&gt;<i><A HREF="svn://svn.berlios.de/python/spe/trunk">svn://svn.berlios.de/python/spe/trunk</A>
+</I>&gt;<i>_______________________________________________
+</I>&gt;<i>Hello,
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;&gt;<i>Error seen once on startup :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>  File &quot;C:\Python24\Lib\site-packages\_spe\sm\wxp\NotebookCtrl.py&quot;, line
+</I>&gt;&gt;<i>1867, in OnMouseMotion
+</I>&gt;&gt;<i>    dx = abs(pt.x - self._dragstartpos.x)
+</I>&gt;&gt;<i>AttributeError: 'TabCtrl' object has no attribute '_dragstartpos'
+</I>&gt;&gt;<i>    
+</I>&gt;&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>I don't know which OS you have and what kind of Python are you using, but
+</I>&gt;<i>this is not supposed to happen. It means that your left mouse button is
+</I>&gt;<i>*not* down but you are able to drag the mouse (!!!!), which is a nonsense. I
+</I>&gt;<i>fixed it by declaring __init__() method of TabCtrl:
+</I>&gt;<i>
+</I>&gt;<i>self._dragstartpos = wx.Point()
+</I>&gt;<i>
+</I>&gt;<i>But there is something strange happening with your configuration.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>
+I use wxPython 2.6.1.0 unicode with Python 2.4.2 and Windows XP SP2.
+
+I see these errors *intermittently* with both normal Python and Movable
+Python.
+
+I wonder if it's caused by mouse movements *whilst* SPE is initialising.
+This might explain why it is only getting half of event pairs.
+
+All the best,
+
+Fuzzyman
+<A HREF="http://www.voidspace.org.uk/python/index.shtml">http://www.voidspace.org.uk/python/index.shtml</A>
+
+&gt;&gt;<i>Traceback (most recent call last):
+</I>&gt;&gt;<i>  File &quot;F:\Python Projects\modules in
+</I>&gt;&gt;<i>progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py&quot;, line 1893,
+</I>&gt;&gt;<i>in OnMouseMotion
+</I>&gt;&gt;<i>    insidex = self.GetInsideX(pt)
+</I>&gt;&gt;<i>  File &quot;F:\Python Projects\modules in
+</I>&gt;&gt;<i>progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py&quot;, line 1678,
+</I>&gt;&gt;<i>in GetInsideX
+</I>&gt;&gt;<i>    if rects.Inside(pt):
+</I>&gt;&gt;<i>AttributeError: 'int' object has no attribute 'Inside'
+</I>&gt;&gt;<i>    
+</I>&gt;&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>This is the same as above. It seems that your OnMouseMotion() is called
+</I>&gt;<i>before the first OnPaint() event, that is almost impossible. Which wxPython
+</I>&gt;<i>version are you using? Though it shouldn't matter, the OnPaint() thing is
+</I>&gt;<i>the first event called by wxPython, whatever you do with your mouse. BTW,
+</I>&gt;<i>have you checked that Python behaves the same as movpy in this situation? If
+</I>&gt;<i>this is not the case, I am afraid there is some incompatibility between
+</I>&gt;<i>Python and movpy.
+</I>&gt;<i>I have fixed also this issue (I think), and I am sending the new version of
+</I>&gt;<i>NotebookCtrl to Stani. I have never seen that error messages, however ;-)
+</I>&gt;<i>
+</I>&gt;<i>Andrea.
+</I>&gt;<i>
+</I>&gt;<i>&quot;Imagination Is The Only Weapon In The War Against Reality.&quot;
+</I>&gt;<i><A HREF="http://xoomer.virgilio.it/infinity77">http://xoomer.virgilio.it/infinity77</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>_______________________________________________
+</I>&gt;<i>Python-spe-dev mailing list
+</I>&gt;<i><A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i><A HREF="http://lists.berlios.de/mailman/listinfo/python-spe-dev">http://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060106/725d103c/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060106/725d103c/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000125.html">[spe-dev] Testing SVN Version
+</A></li>
+	<LI>Next message: <A HREF="000131.html">[spe-dev] Testing SVN Version
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#126">[ date ]</a>
+              <a href="thread.html#126">[ thread ]</a>
+              <a href="subject.html#126">[ subject ]</a>
+              <a href="author.html#126">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

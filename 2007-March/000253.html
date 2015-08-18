@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Workspaces
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Workspaces&In-Reply-To=%3C2134650A-AB4C-428F-BA6F-90198CA5C4F0%40yahoo.co.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000256.html">
+   <LINK REL="Next"  HREF="000259.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Workspaces</H1>
+    <B>Pietje Puk</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Workspaces&In-Reply-To=%3C2134650A-AB4C-428F-BA6F-90198CA5C4F0%40yahoo.co.uk%3E"
+       TITLE="[spe-dev] Workspaces">pietjepuk314 at yahoo.co.uk
+       </A><BR>
+    <I>Mon Mar 19 09:17:51 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000256.html">[spe-dev] Moving sashes is hard under OS X
+</A></li>
+        <LI>Next message: <A HREF="000259.html">[spe-dev] SPE on Vista
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#253">[ date ]</a>
+              <a href="thread.html#253">[ thread ]</a>
+              <a href="subject.html#253">[ subject ]</a>
+              <a href="author.html#253">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Using workspaces under OS X is, to say the least, dangerous. My guess  
+this is not unique for the Mac.
+
+As far as I know, saving a workspace puts you in an endless loop  
+where you have to save again and again. Cancel doesn't help.
+Loading a workspace also puts you in a loop, but cancel does have  
+effect: SPE crashes.
+This is a bit inconvenient :-)
+
+I haven't found a cause for this bug yet, but I did some initial  
+investigation. Maybe Stani knows enough from this.
+
+My guess is that an exception is raised somewhere, that causes the  
+routine save_workspace_as (see below) to skip the dlg.Destroy() code  
+and leave the dialog floating above everything.
+
+A quick hack using try...finally seems to work: I then get a message  
+in the Shell box:
+(I had to type this in! Stani, why can't I copy from there???)
+Traceback (most recent call last):
+   File &quot;...Menu.py&quot;, line 662, in menu_save_workspace_as
+     self.parentPanel.save_workspace_as()
+   File &quot;..Parent.py&quot;, line 457, in save_workspace_as
+     sdlf.Destroy()
+NameError: global 'sdlg' is not defined.
+
+My guess: there's a typo somewhere.
+- Jurjen
+
+PS
+Here's the routine:
+---------------------Panel.saveWorkspace at Parent.py: 
+435-------------------
+     def save_workspace_as(self):
+         &quot;&quot;&quot;Save file dialog.&quot;&quot;&quot;
+         try:
+             defaultFile = self.workspace['file']
+         except:
+             defaultFile = ''
+         if info.WIN:
+            defaultFile  = defaultFile.replace(&quot;/&quot;,&quot;\\&quot;)
+         dlg             = wx.FileDialog(self, &quot;Save Workspace As -  
+www.stani.be&quot;,
+             defaultFile = defaultFile,
+             defaultDir  = info.dirname(defaultFile),
+             wildcard    = info.WORKSPACE_WILDCARD,
+             style       = wx.SAVE|wx.OVERWRITE_PROMPT|wx.CHANGE_DIR)
+         if dlg.ShowModal() == wx.ID_OK:
+             file = dlg.GetPath()
+             try:
+                 self.set(&quot;currentworkspace&quot;,file)
+                 self.saveWorkspace(file)
+             except Exception,e:
+                 self.message(&quot;Could not save workspace:%s\n%s&quot;% 
+(file,e))
+         dlg.Destroy()
+
+
+	
+	
+		
+___________________________________________________________ 
+All new Yahoo! Mail &quot;The new Interface is stunning in its simplicity and ease of use.&quot; - PC Magazine 
+<A HREF="http://uk.docs.yahoo.com/nowyoucan.html">http://uk.docs.yahoo.com/nowyoucan.html</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000256.html">[spe-dev] Moving sashes is hard under OS X
+</A></li>
+	<LI>Next message: <A HREF="000259.html">[spe-dev] SPE on Vista
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#253">[ date ]</a>
+              <a href="thread.html#253">[ thread ]</a>
+              <a href="subject.html#253">[ subject ]</a>
+              <a href="author.html#253">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

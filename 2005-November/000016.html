@@ -1,0 +1,408 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Bug 4856 on *nix: class crash -&gt; FIXED: URGENT PLEASE CHECK!!
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2005-November/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%204856%20on%20%2Anix%3A%20class%20crash%20-%3E%20FIXED%3A%20URGENT%20PLEASE%0A%20CHECK%21%21&In-Reply-To=%3C436B5017.4090408%40verizonwireless.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000015.html">
+   <LINK REL="Next"  HREF="000017.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Bug 4856 on *nix: class crash -&gt; FIXED: URGENT PLEASE CHECK!!</H1>
+    <B>Bill Scherer</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%204856%20on%20%2Anix%3A%20class%20crash%20-%3E%20FIXED%3A%20URGENT%20PLEASE%0A%20CHECK%21%21&In-Reply-To=%3C436B5017.4090408%40verizonwireless.com%3E"
+       TITLE="[spe-dev] Bug 4856 on *nix: class crash -&gt; FIXED: URGENT PLEASE CHECK!!">bill.scherer at verizonwireless.com
+       </A><BR>
+    <I>Fri Nov  4 13:12:07 CET 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000015.html">[spe-dev] Bug 4856 on *nix: class crash -&gt; FIXED: URGENT PLEASE CHECK!!
+</A></li>
+        <LI>Next message: <A HREF="000017.html">[spe-dev] Bug 4856 on *nix: class crash -&gt; FIXED: URGENT PLEASE CHECK!!
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#16">[ date ]</a>
+              <a href="thread.html#16">[ thread ]</a>
+              <a href="subject.html#16">[ subject ]</a>
+              <a href="author.html#16">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>SPE Stani's Python Editor wrote:
+
+&gt;<i> Hi,
+</I>&gt;<i> This patch from Glenn Washburn is hopefully very good news. It seemed
+</I>&gt;<i> he solved the terrible bug which causes segfaults on SPE. Please try
+</I>&gt;<i> out the patch _spe/sm/wxp/realtime.py
+</I>&gt;<i> I'm very curious if this works. Please test it asap and let me knows
+</I>&gt;<i> on which platform it solved the bug.
+</I>&gt;<i>
+</I>It's not helping with 0.7.5.d on FC4.  :-(
+
+I guess I should try it with .e...
+
+&gt;<i> Big thanks to Glenn!
+</I>&gt;<i> Stani
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ---------- Forwarded message ----------
+</I>&gt;<i> From: Glenn Washburn &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">crass at berlios.de</A>&gt;
+</I>&gt;<i> Date: Nov 3, 2005 6:53 PM
+</I>&gt;<i> Subject: hack around bug in wxPython in deleting TreeItemIds from 
+</I>&gt;<i> TreeCtrl
+</I>&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">spe.stani.be at gmail.com</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Stan,
+</I>&gt;<i>
+</I>&gt;<i> Thanks for spe, it seems to be one of the better python IDEs out
+</I>&gt;<i> there.  I've run across a bug in wxPython under gtk which causes a
+</I>&gt;<i> segfault (it should be a problem on other platforms).  After a fair
+</I>&gt;<i> amount of debugging, I narrowed the problem to the line &quot;self.wx.Delete
+</I>&gt;<i> (item.wx)&quot; in Tree.Clean() in _spe/sm/wxp/realtime.py. The problem is
+</I>&gt;<i> that wxTreeCtrl::Delete(wxTreeItemId id) deletes recursively the
+</I>&gt;<i> children of id, so any references to these children should not be
+</I>&gt;<i> deleted again (or it would be deleted twice).  However, in Tree.Clean()
+</I>&gt;<i> this is precisely what happens, since the tree items are not looped
+</I>&gt;<i> over in any particular order.  I have created a simple patch for this
+</I>&gt;<i> and attached it.  I have not reported this to wxPython, so you might
+</I>&gt;<i> want to forward this to their mailing list.  Thanks again, and I'd love
+</I>&gt;<i> to get a reply indicating your acceptance/rejection.
+</I>&gt;<i>
+</I>&gt;<i> Glenn
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> -- 
+</I>&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+</I>&gt;<i>
+</I>&gt;<i>------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i>#(c)www.stani.be
+</I>&gt;<i>
+</I>&gt;<i>import wx
+</I>&gt;<i>
+</I>&gt;<i>class TreeItem:
+</I>&gt;<i>    def __init__(self,text,id):
+</I>&gt;<i>        self.id                 = id
+</I>&gt;<i>        self.text               = text
+</I>&gt;<i>        #
+</I>&gt;<i>        self.backgroundColour   = (255,255,255)
+</I>&gt;<i>        self.bold               = 0
+</I>&gt;<i>        self.children           = []
+</I>&gt;<i>        self.data               = None
+</I>&gt;<i>        self.image              = {}
+</I>&gt;<i>        self.textColour         = (0,0,0)
+</I>&gt;<i>        self.confirmed          = 1
+</I>&gt;<i>        self.deleted            = 0
+</I>&gt;<i>        self.wx                 = None
+</I>&gt;<i>        
+</I>&gt;<i>    def DeleteChildren(self):
+</I>&gt;<i>        for child in self.children:
+</I>&gt;<i>            if child.children:
+</I>&gt;<i>                child.DeleteChildren();
+</I>&gt;<i>            child.deleted = 1;
+</I>&gt;<i>
+</I>&gt;<i>class Base:
+</I>&gt;<i>    def GetPyData(self,item):
+</I>&gt;<i>        return self.wx.GetPyData(item)
+</I>&gt;<i>        
+</I>&gt;<i>    def Refresh(self):
+</I>&gt;<i>        self.wx.Refresh()
+</I>&gt;<i>        
+</I>&gt;<i>    def SetImageList(self,*args,**kwds):
+</I>&gt;<i>        self.wx.SetImageList(*args,**kwds)
+</I>&gt;<i>        
+</I>&gt;<i>    def SetPyData(self,item,data):
+</I>&gt;<i>        if item.data != data:
+</I>&gt;<i>            item.data = data
+</I>&gt;<i>            self.wx.SetPyData(item.wx,data)
+</I>&gt;<i>
+</I>&gt;<i>    def SetHelpText(self,*args,**kwds):
+</I>&gt;<i>        self.wx.SetHelpText(*args,**kwds)
+</I>&gt;<i>        
+</I>&gt;<i>&quot;&quot;&quot;
+</I>&gt;<i># TODO: Fix this bug!!! May be the reason why it crashes on mac.
+</I>&gt;<i>  File &quot;d:\Data\Python\_spe\Menu.py&quot;, line 424, in menu_save
+</I>&gt;<i>    self.parentPanel.childActive.save()
+</I>&gt;<i>  File &quot;d:\Data\Python\_spe\Child.py&quot;, line 205, in save
+</I>&gt;<i>    if self.encoding:
+</I>&gt;<i>  File &quot;d:\Data\Python\_spe\Child.py&quot;, line 435, in updateSidebar
+</I>&gt;<i>    def updateSidebar(self,event=None):
+</I>&gt;<i>  File &quot;d:\Data\Python\_spe\Child.py&quot;, line 599, in updateExplore
+</I>&gt;<i>    if rest[-1] == ':':l+= rest
+</I>&gt;<i>  File &quot;D:\Data\Python\sm\wxp\realtime.py&quot;, line 32, in SetPyData
+</I>&gt;<i>    self.wx.SetPyData(item.wx,data)
+</I>&gt;<i>  File &quot;C:\Python23\Lib\site-packages\wx-2.5.3-msw-ansi\wx\_controls.py&quot;, line 5166, in SetItemPyData
+</I>&gt;<i>    return _controls_.TreeCtrl_SetItemPyData(*args, **kwargs)
+</I>&gt;<i>wx._core.PyAssertionError: C++ assertion &quot;wxAssertFailure&quot; failed in ..\..\src\msw\treectrl.cpp(1166): invalid tree item
+</I>&gt;<i>&quot;&quot;&quot;
+</I>&gt;<i>
+</I>&gt;<i>class Tree(Base):
+</I>&gt;<i>    def __init__(self,*args,**kwds):
+</I>&gt;<i>        self.items          = {}
+</I>&gt;<i>        self.wx             = wx.TreeCtrl(*args,**kwds)
+</I>&gt;<i>        self.Connect        = self.wx.Connect
+</I>&gt;<i>        self.GetId          = self.wx.GetId
+</I>&gt;<i>        self.SetBackgroundColour = self.wx.SetBackgroundColour
+</I>&gt;<i>        
+</I>&gt;<i>    def AddRoot(self,text):
+</I>&gt;<i>        self.root           = TreeItem(text=text,id=text)
+</I>&gt;<i>        self.items[text]    = self.root
+</I>&gt;<i>        self.root.wx        = self.wx.AddRoot(text)
+</I>&gt;<i>        self.wx.Expand(self.root.wx)
+</I>&gt;<i>        return self.root
+</I>&gt;<i>        
+</I>&gt;<i>    def AppendItem(self,parent,text):
+</I>&gt;<i>        id                  = '%s|%s'%(parent.id,text)
+</I>&gt;<i>        children            = parent.children
+</I>&gt;<i>        #try to find item
+</I>&gt;<i>        item            = None
+</I>&gt;<i>        if id in self.items.keys() or id[:-1] in self.items.keys():
+</I>&gt;<i>            i               = 0
+</I>&gt;<i>            while i&lt;len(children) and not item:
+</I>&gt;<i>                child       = children[i]
+</I>&gt;<i>                if child.confirmed:
+</I>&gt;<i>                    i       +=1
+</I>&gt;<i>                else:
+</I>&gt;<i>                    if id == child.id:
+</I>&gt;<i>                        item            = child
+</I>&gt;<i>                        item.confirmed  = 1
+</I>&gt;<i>                    elif id[:-1] == child.id:
+</I>&gt;<i>                        item            = child
+</I>&gt;<i>                        item.id         = id
+</I>&gt;<i>                        item.confirmed  = 1
+</I>&gt;<i>                        self.wx.SetItemText(item.wx,text)
+</I>&gt;<i>                        self.items[id]  = item
+</I>&gt;<i>                        del self.items[id[:-1]]
+</I>&gt;<i>                    else:
+</I>&gt;<i>                        self.wx.Delete(child.wx)
+</I>&gt;<i>                        if self.items.has_key(child.id):
+</I>&gt;<i>                            del self.items[child.id]
+</I>&gt;<i>                        del children[i]
+</I>&gt;<i>        if not item:
+</I>&gt;<i>            item            = TreeItem(text=text,id=id)
+</I>&gt;<i>            self.items[id]  = item
+</I>&gt;<i>            i = 0
+</I>&gt;<i>            n = len(children)
+</I>&gt;<i>            while i&lt;n and children[i].confirmed:
+</I>&gt;<i>                i+=1
+</I>&gt;<i>            if i&gt;0:
+</I>&gt;<i>                item.wx         = self.wx.InsertItem(parent.wx,children[i-1].wx,text)
+</I>&gt;<i>            else:
+</I>&gt;<i>                item.wx         = self.wx.PrependItem(parent.wx,text)
+</I>&gt;<i>            parent.children.insert(i,item)
+</I>&gt;<i>        return item
+</I>&gt;<i>        
+</I>&gt;<i>    def Clean(self):
+</I>&gt;<i>        self.root.confirmed = 1
+</I>&gt;<i>        for id,item in self.items.items():
+</I>&gt;<i>            if not item.confirmed:
+</I>&gt;<i>                try:
+</I>&gt;<i>                    if not item.deleted:
+</I>&gt;<i>                        item.DeleteChildren();
+</I>&gt;<i>                        self.wx.Delete(item.wx)
+</I>&gt;<i>                except:
+</I>&gt;<i>                    print 'Warning: Tree.clean: please contact spe.stani.be at gmail.com'
+</I>&gt;<i>                del self.items[id]
+</I>&gt;<i>##        self.root.confirmed = 1
+</I>&gt;<i>##        clear_id = []
+</I>&gt;<i>##        clear_item = []
+</I>&gt;<i>##        for id,item in self.items.items():
+</I>&gt;<i>##            if not item.confirmed:
+</I>&gt;<i>##                clear_id.append(id)
+</I>&gt;<i>##                clear_item.append(item)
+</I>&gt;<i>##        for i in range(len(clear_id)):
+</I>&gt;<i>##            del (clear_id[i])
+</I>&gt;<i>##            del (clear_item[i])
+</I>&gt;<i>
+</I>&gt;<i>        
+</I>&gt;<i>    def Collapse(self,item):
+</I>&gt;<i>        if self.wx.IsExpanded(item.wx):
+</I>&gt;<i>            self.wx.Collapse(item.wx)
+</I>&gt;<i>            
+</I>&gt;<i>    def CollapseAndReset(self,item):
+</I>&gt;<i>        &quot;&quot;&quot;Recursively&quot;&quot;&quot;
+</I>&gt;<i>        item.confirmed      = 0
+</I>&gt;<i>        for child in item.children:
+</I>&gt;<i>            self.CollapseAndReset(child)
+</I>&gt;<i>           
+</I>&gt;<i>    def Expand(self,item):
+</I>&gt;<i>        if not self.wx.IsExpanded(item.wx):
+</I>&gt;<i>            self.wx.Expand(item.wx)
+</I>&gt;<i>            
+</I>&gt;<i>            
+</I>&gt;<i>    def SetItemBackgroundColour(self,item,color):
+</I>&gt;<i>        if item.backgroundColour != color:
+</I>&gt;<i>            item.backgroundColour = color
+</I>&gt;<i>            self.wx.SetItemBackgroundColour(item.wx,color)
+</I>&gt;<i>            
+</I>&gt;<i>    def SetItemBold(self,item):
+</I>&gt;<i>        if not item.bold:
+</I>&gt;<i>            item.bold = 1
+</I>&gt;<i>            self.wx.SetItemBold(item.wx)
+</I>&gt;<i>        
+</I>&gt;<i>    def SetItemImage(self,item,image,which=wx.TreeItemIcon_Normal):
+</I>&gt;<i>        if not item.image.has_key(which) or item.image[which]!= image:
+</I>&gt;<i>            item.image[which] = image
+</I>&gt;<i>            self.wx.SetItemImage(item.wx,image,which)
+</I>&gt;<i>        
+</I>&gt;<i>    def SetItemTextColour(self,item,color):
+</I>&gt;<i>        if item.textColour != color:
+</I>&gt;<i>            item.textColour = color
+</I>&gt;<i>            self.wx.SetItemTextColour(item.wx,color)
+</I>&gt;<i>            
+</I>&gt;<i>        
+</I>&gt;<i>class ListItem:
+</I>&gt;<i>    def __init__(self,parent,row,*text):
+</I>&gt;<i>        self.listCtrl           = parent.wx
+</I>&gt;<i>        self.children           = parent.children
+</I>&gt;<i>        self.row                = row
+</I>&gt;<i>        self.text               = text
+</I>&gt;<i>        #
+</I>&gt;<i>        self.id                 = '|'.join(text)
+</I>&gt;<i>        self.image              = None
+</I>&gt;<i>        self.backgroundColour   = wx.Colour(255,255,255)
+</I>&gt;<i>        self.confirmed          = 1
+</I>&gt;<i>        self.data               = None
+</I>&gt;<i>        self.textColour         = None
+</I>&gt;<i>        
+</I>&gt;<i>    def wx(self):
+</I>&gt;<i>        return self.children.index(self)
+</I>&gt;<i>        
+</I>&gt;<i>class ListCtrl(Base):
+</I>&gt;<i>    def __init__(self,*args,**kwds):
+</I>&gt;<i>        self.items          = {}
+</I>&gt;<i>        self.children       = []
+</I>&gt;<i>        self.wx             = wx.ListCtrl(*args,**kwds)
+</I>&gt;<i>        self.Connect        = self.wx.Connect
+</I>&gt;<i>        self.GetId          = self.wx.GetId
+</I>&gt;<i>        self.InsertColumn   = self.wx.InsertColumn
+</I>&gt;<i>        
+</I>&gt;<i>    def Clean(self):
+</I>&gt;<i>        for id,item in self.items.items():
+</I>&gt;<i>            if not item.confirmed:
+</I>&gt;<i>                try:
+</I>&gt;<i>                    self.wx.DeleteItem(self.children.index(item))
+</I>&gt;<i>                except:
+</I>&gt;<i>                    print 'Warning: List.clean: please contact s_t_a_n_i at yahoo.com'
+</I>&gt;<i>                self.children.remove(item)
+</I>&gt;<i>                del self.items[id]
+</I>&gt;<i>                
+</I>&gt;<i>    def DeleteAllItems(self):
+</I>&gt;<i>        for child in self.children:
+</I>&gt;<i>            child.confirmed = 0
+</I>&gt;<i>            
+</I>&gt;<i>    def DeleteItem(self,item):
+</I>&gt;<i>        self.wx.DeleteItem(item.wx)
+</I>&gt;<i>        self.children.remove(item)
+</I>&gt;<i>        del self.items[item.id]
+</I>&gt;<i>    
+</I>&gt;<i>    def GetItem(self,item):
+</I>&gt;<i>        return self.wx.GetItem(item.wx())
+</I>&gt;<i>        
+</I>&gt;<i>    def GetItemData(self,item):
+</I>&gt;<i>        return self.wx.GetPyData(item)
+</I>&gt;<i>        
+</I>&gt;<i>    def InsertStringItem(self,row,*text):
+</I>&gt;<i>        item            = None
+</I>&gt;<i>        id              = '|'.join(text)
+</I>&gt;<i>        if id in self.items.keys() or id[:-1] in self.items.keys():
+</I>&gt;<i>            i               = 0
+</I>&gt;<i>            while i&lt;len(self.children) and not item:
+</I>&gt;<i>                child       = self.children[i]
+</I>&gt;<i>                if child.confirmed:
+</I>&gt;<i>                    i       +=1
+</I>&gt;<i>                else:
+</I>&gt;<i>                    if id == child.id:
+</I>&gt;<i>                        item            = child
+</I>&gt;<i>                        item.confirmed  = 1
+</I>&gt;<i>                    elif id[:-1] == child.id:
+</I>&gt;<i>                        item            = child
+</I>&gt;<i>                        item.id         = id
+</I>&gt;<i>                        item.text       = text
+</I>&gt;<i>                        item.confirmed  = 1
+</I>&gt;<i>                        column          = 0
+</I>&gt;<i>                        for t in item.text:
+</I>&gt;<i>                            self.wx.SetStringItem(item.wx(),column,t)
+</I>&gt;<i>                            column      += 1
+</I>&gt;<i>                        self.items[id]   = item
+</I>&gt;<i>                        del self.items[id[:-1]]
+</I>&gt;<i>                    else:
+</I>&gt;<i>                        self.wx.DeleteItem(child.wx())
+</I>&gt;<i>                        self.children.remove(child)
+</I>&gt;<i>                        del self.items[child.id]
+</I>&gt;<i>        if not item:
+</I>&gt;<i>            item    = ListItem(self,row,*text)
+</I>&gt;<i>            w       = self.wx.InsertStringItem(row,text[0])
+</I>&gt;<i>            i       = 0
+</I>&gt;<i>            for t in text[1:]:
+</I>&gt;<i>                i   += 1
+</I>&gt;<i>                self.wx.SetStringItem(w,i,t)
+</I>&gt;<i>            self.children.insert(row,item)
+</I>&gt;<i>            self.items[id]=item
+</I>&gt;<i>        return item
+</I>&gt;<i>        
+</I>&gt;<i>    def InsertImageStringItem(self,row,icon,*text):
+</I>&gt;<i>        item = self.InsertStringItem(row,*text)
+</I>&gt;<i>        self.SetItemImage(item,icon,icon)
+</I>&gt;<i>        return item
+</I>&gt;<i>        
+</I>&gt;<i>    def SetItemImage(self,item,*image):
+</I>&gt;<i>        if item.image != image:
+</I>&gt;<i>            item.image = image
+</I>&gt;<i>            self.wx.SetItemImage(item.wx(),*image)
+</I>&gt;<i>        
+</I>&gt;<i>    def SetHelpText(self,*args,**kwds):
+</I>&gt;<i>        self.wx.SetHelpText(*args,**kwds)
+</I>&gt;<i>        
+</I>&gt;<i>    def SetItem(self,item):
+</I>&gt;<i>        self.wx.SetItem(item)
+</I>&gt;<i>        
+</I>&gt;<i>    def SetItemData(self,item,data):
+</I>&gt;<i>        if item.data != data:
+</I>&gt;<i>            item.data = data
+</I>&gt;<i>            self.wx.SetItemData(item.wx(),data)
+</I>&gt;<i>        
+</I>&gt;<i>    def SetItemTextColour(self,item,colour):
+</I>&gt;<i>        if item.textColour != colour:
+</I>&gt;<i>            item.textColour = colour
+</I>&gt;<i>            i = self.wx.GetItem(item.wx())
+</I>&gt;<i>            i.SetTextColour(colour)
+</I>&gt;<i>            self.wx.SetItem(i)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000015.html">[spe-dev] Bug 4856 on *nix: class crash -&gt; FIXED: URGENT PLEASE CHECK!!
+</A></li>
+	<LI>Next message: <A HREF="000017.html">[spe-dev] Bug 4856 on *nix: class crash -&gt; FIXED: URGENT PLEASE CHECK!!
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#16">[ date ]</a>
+              <a href="thread.html#16">[ thread ]</a>
+              <a href="subject.html#16">[ subject ]</a>
+              <a href="author.html#16">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

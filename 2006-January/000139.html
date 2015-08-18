@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] problem with dots and auto complete (bug 6006)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2006-January/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20problem%20with%20dots%20and%20auto%20complete%20%28bug%206006%29&In-Reply-To=%3C2078a7ad0601091341vbb60732u1db8c6841fb7cbee%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000138.html">
+   <LINK REL="Next"  HREF="000140.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] problem with dots and auto complete (bug 6006)</H1>
+    <B>SPE Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20problem%20with%20dots%20and%20auto%20complete%20%28bug%206006%29&In-Reply-To=%3C2078a7ad0601091341vbb60732u1db8c6841fb7cbee%40mail.gmail.com%3E"
+       TITLE="[spe-dev] problem with dots and auto complete (bug 6006)">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Mon Jan  9 22:41:00 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000138.html">[spe-dev] problem with dots and auto complete (bug 6006)
+</A></li>
+        <LI>Next message: <A HREF="000140.html">[spe-dev] problem with dots and auto complete (bug 6006)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#139">[ date ]</a>
+              <a href="thread.html#139">[ thread ]</a>
+              <a href="subject.html#139">[ subject ]</a>
+              <a href="author.html#139">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Jose,
+I had a quick look at your patch, but there should be a better
+solution. A quick guess would be that if the last character is ')'
+_getWord should not use self.WordStartPosition but use a custom method
+to find the matching '('  For this I recommend you have a look at the
+OnUpdateUI method which does exactly this. You could extract the code
+from it and share it with OnUpdateUI and _getWord.
+If you manage to get SPE the right (), you need to adjust the evaluate
+method. This normally imports the found word, but in your case you
+need an eval. This might be risky tough, so it could be a preference.
+Friday, I'll probably have more time to look into it. But please try...
+Stani
+
+On 1/9/06, <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">jose at cybergalvez.com</A> &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">jose at cybergalvez.com</A>&gt; wrote:
+&gt;<i> I've been trying to figure out why (). and auto complete are
+</I>&gt;<i> incompatible.  Unfortunately it seems to me that the problem is
+</I>&gt;<i> embedded in the WX code itself in the _stc, which is compiled.  In any
+</I>&gt;<i> event I coded a hack to the stc.py file, specifically the _getWord
+</I>&gt;<i> function which kind of fixes the problem, at least it lest to type a
+</I>&gt;<i> dot after (), but autocomplete will stop working for that object.
+</I>&gt;<i> Please find the attached modified stc.py file.  I'd be interested to
+</I>&gt;<i> know if anyone else finds this hack useful
+</I>&gt;<i> Jose
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+
+--
+<A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+<A HREF="http://pythonide.stani.be/screenshots">http://pythonide.stani.be/screenshots</A>
+<A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000138.html">[spe-dev] problem with dots and auto complete (bug 6006)
+</A></li>
+	<LI>Next message: <A HREF="000140.html">[spe-dev] problem with dots and auto complete (bug 6006)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#139">[ date ]</a>
+              <a href="thread.html#139">[ thread ]</a>
+              <a href="subject.html#139">[ subject ]</a>
+              <a href="author.html#139">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

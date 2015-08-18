@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] The dirty flag and undo
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20The%20dirty%20flag%20and%20undo&In-Reply-To=%3C27220-60073%40sneakemail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000280.html">
+   <LINK REL="Next"  HREF="000284.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] The dirty flag and undo</H1>
+    <B>g6m3xcl02 at sneakemail.com</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20The%20dirty%20flag%20and%20undo&In-Reply-To=%3C27220-60073%40sneakemail.com%3E"
+       TITLE="[spe-dev] The dirty flag and undo">g6m3xcl02 at sneakemail.com
+       </A><BR>
+    <I>Wed Apr 11 10:05:17 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000280.html">[spe-dev] Auto-un-indention feature
+</A></li>
+        <LI>Next message: <A HREF="000284.html">[spe-dev] The dirty flag and undo
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#281">[ date ]</a>
+              <a href="thread.html#281">[ thread ]</a>
+              <a href="subject.html#281">[ subject ]</a>
+              <a href="author.html#281">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Just a quick update - the dirty flag bothered me, so I submitted a patch for
+it:
+<A HREF="https://developer.berlios.de/patch/?func=detailpatch&amp;patch_id=1954&amp;group_id=4161">https://developer.berlios.de/patch/?func=detailpatch&amp;patch_id=1954&amp;group_id=4161</A>
+
+Summary of functionality:
+Previously, the source tab was marked dirty (with an asterisk) after any
+changes, and the only way to remove it was by saving.  Typing ctrl-z back to
+the original file would not get rid of the dirty flag.
+Now, using the above patch, if the source is either undone or redone back to
+the saved state, the dirty flag will disappear.
+
+Try applying the patch, and test it out.
+(For svn newbies out there, download TortoiseSVN.  It makes applying patches
+to _spe/ a simple point-and-click operation...).
+
+Cheers,
+Carver
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070411/bb8c2b30/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070411/bb8c2b30/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000280.html">[spe-dev] Auto-un-indention feature
+</A></li>
+	<LI>Next message: <A HREF="000284.html">[spe-dev] The dirty flag and undo
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#281">[ date ]</a>
+              <a href="thread.html#281">[ thread ]</a>
+              <a href="subject.html#281">[ subject ]</a>
+              <a href="author.html#281">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

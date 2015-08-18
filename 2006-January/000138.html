@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] problem with dots and auto complete (bug 6006)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2006-January/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20problem%20with%20dots%20and%20auto%20complete%20%28bug%206006%29&In-Reply-To=%3C20060109134019.793903d9610815a5b69d8e8c16c4233d.ddaa745b5a.wbe%40email.email.secureserver.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000137.html">
+   <LINK REL="Next"  HREF="000139.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] problem with dots and auto complete (bug 6006)</H1>
+    <B>jose at cybergalvez.com</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20problem%20with%20dots%20and%20auto%20complete%20%28bug%206006%29&In-Reply-To=%3C20060109134019.793903d9610815a5b69d8e8c16c4233d.ddaa745b5a.wbe%40email.email.secureserver.net%3E"
+       TITLE="[spe-dev] problem with dots and auto complete (bug 6006)">jose at cybergalvez.com
+       </A><BR>
+    <I>Mon Jan  9 21:40:19 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000137.html">[spe-dev] Re: Crash with svn 128 on MacOS X
+</A></li>
+        <LI>Next message: <A HREF="000139.html">[spe-dev] problem with dots and auto complete (bug 6006)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#138">[ date ]</a>
+              <a href="thread.html#138">[ thread ]</a>
+              <a href="subject.html#138">[ subject ]</a>
+              <a href="author.html#138">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I've been trying to figure out why (). and auto complete are
+incompatible.  Unfortunately it seems to me that the problem is
+embedded in the WX code itself in the _stc, which is compiled.  In any
+event I coded a hack to the stc.py file, specifically the _getWord
+function which kind of fixes the problem, at least it lest to type a
+dot after (), but autocomplete will stop working for that object. 
+Please find the attached modified stc.py file.  I'd be interested to
+know if anyone else finds this hack useful
+Jose
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: stc.py
+Type: text/x-java
+Size: 29499 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060109/5b5ea93d/attachment.java">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060109/5b5ea93d/attachment.java</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000137.html">[spe-dev] Re: Crash with svn 128 on MacOS X
+</A></li>
+	<LI>Next message: <A HREF="000139.html">[spe-dev] problem with dots and auto complete (bug 6006)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#138">[ date ]</a>
+              <a href="thread.html#138">[ thread ]</a>
+              <a href="subject.html#138">[ subject ]</a>
+              <a href="author.html#138">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

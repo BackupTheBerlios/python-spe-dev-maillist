@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Testing SVN Version
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2006-January/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Testing%20SVN%20Version&In-Reply-To=%3C2078a7ad0601060558h29ea7c2cr12f7080fcfef1348%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000126.html">
+   <LINK REL="Next"  HREF="000133.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Testing SVN Version</H1>
+    <B>SPE Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Testing%20SVN%20Version&In-Reply-To=%3C2078a7ad0601060558h29ea7c2cr12f7080fcfef1348%40mail.gmail.com%3E"
+       TITLE="[spe-dev] Testing SVN Version">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Fri Jan  6 14:58:46 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000126.html">[spe-dev] Testing SVN Version
+</A></li>
+        <LI>Next message: <A HREF="000133.html">[spe-dev] Testing SVN Version
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#131">[ date ]</a>
+              <a href="thread.html#131">[ thread ]</a>
+              <a href="subject.html#131">[ subject ]</a>
+              <a href="author.html#131">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 1/6/06, Andrea Gavana &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">andrea_gavana at tin.it</A>&gt; wrote:
+&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be/blog/sm_donate">http://pythonide.stani.be/blog/sm_donate</A>
+</I>&gt;<i> <A HREF="svn://svn.berlios.de/python/spe/trunk">svn://svn.berlios.de/python/spe/trunk</A>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Hello,
+</I>&gt;<i>
+</I>&gt;<i> &gt; Error seen once on startup :
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;   File &quot;C:\Python24\Lib\site-packages\_spe\sm\wxp\NotebookCtrl.py&quot;, line
+</I>&gt;<i> &gt; 1867, in OnMouseMotion
+</I>&gt;<i> &gt;     dx = abs(pt.x - self._dragstartpos.x)
+</I>&gt;<i> &gt; AttributeError: 'TabCtrl' object has no attribute '_dragstartpos'
+</I>&gt;<i>
+</I>&gt;<i> I don't know which OS you have and what kind of Python are you using, but
+</I>&gt;<i> this is not supposed to happen. It means that your left mouse button is
+</I>&gt;<i> *not* down but you are able to drag the mouse (!!!!), which is a nonsense. I
+</I>&gt;<i> fixed it by declaring __init__() method of TabCtrl:
+</I>&gt;<i>
+</I>&gt;<i> self._dragstartpos = wx.Point()
+</I>&gt;<i>
+</I>&gt;<i> But there is something strange happening with your configuration.
+</I>&gt;<i>
+</I>&gt;<i> &gt; Traceback (most recent call last):
+</I>&gt;<i> &gt;   File &quot;F:\Python Projects\modules in
+</I>&gt;<i> &gt; progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py&quot;, line 1893,
+</I>&gt;<i> &gt; in OnMouseMotion
+</I>&gt;<i> &gt;     insidex = self.GetInsideX(pt)
+</I>&gt;<i> &gt;   File &quot;F:\Python Projects\modules in
+</I>&gt;<i> &gt; progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py&quot;, line 1678,
+</I>&gt;<i> &gt; in GetInsideX
+</I>&gt;<i> &gt;     if rects.Inside(pt):
+</I>&gt;<i> &gt; AttributeError: 'int' object has no attribute 'Inside'
+</I>&gt;<i>
+</I>&gt;<i> This is the same as above. It seems that your OnMouseMotion() is called
+</I>&gt;<i> before the first OnPaint() event, that is almost impossible. Which wxPython
+</I>&gt;<i> version are you using? Though it shouldn't matter, the OnPaint() thing is
+</I>&gt;<i> the first event called by wxPython, whatever you do with your mouse. BTW,
+</I>&gt;<i> have you checked that Python behaves the same as movpy in this situation? If
+</I>&gt;<i> this is not the case, I am afraid there is some incompatibility between
+</I>&gt;<i> Python and movpy.
+</I>&gt;<i> I have fixed also this issue (I think), and I am sending the new version of
+</I>&gt;<i> NotebookCtrl to Stani. I have never seen that error messages, however ;-)
+</I>&gt;<i>
+</I>&gt;<i> Andrea.
+</I>Hi Andrea, it is not impossible. Try running sm/wxp/smdi.py it will
+give these errors even with your latest version. I just did a commit
+to svn -&gt; 129
+
+Stani
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000126.html">[spe-dev] Testing SVN Version
+</A></li>
+	<LI>Next message: <A HREF="000133.html">[spe-dev] Testing SVN Version
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#131">[ date ]</a>
+              <a href="thread.html#131">[ thread ]</a>
+              <a href="subject.html#131">[ subject ]</a>
+              <a href="author.html#131">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

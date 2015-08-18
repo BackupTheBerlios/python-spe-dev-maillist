@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] v 236 crashes on launch
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20v%20236%20crashes%20on%20launch&In-Reply-To=%3C4611A75D.1000103%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000272.html">
+   <LINK REL="Next"  HREF="000270.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] v 236 crashes on launch</H1>
+    <B>Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20v%20236%20crashes%20on%20launch&In-Reply-To=%3C4611A75D.1000103%40gmail.com%3E"
+       TITLE="[spe-dev] v 236 crashes on launch">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Tue Apr  3 03:01:17 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000272.html">[spe-dev] Away notification
+</A></li>
+        <LI>Next message: <A HREF="000270.html">[spe-dev] Opening filenames with spaces
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#269">[ date ]</a>
+              <a href="thread.html#269">[ thread ]</a>
+              <a href="subject.html#269">[ subject ]</a>
+              <a href="author.html#269">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>It looks like an upgrade didn't work well. Please remove any _spe folder 
+from your python path and reinstall SPE from svn.
+Stani
+
+Carl Karsten wrote:
+&gt;<i> svn ver 158 worked, 236 crashes with the following:
+</I>&gt;<i>
+</I>&gt;<i> $ python /usr/lib/python2.4/site-packages/_spe/SPE.py --debug &gt;spedebug.txt 2&gt;&amp;1
+</I>&gt;<i>
+</I>&gt;<i> (python:13871): Gdk-CRITICAL **: gdk_draw_drawable: assertion `src != NULL' failed
+</I>&gt;<i> $ python -V
+</I>&gt;<i> Python 2.4.3
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> SPE v0.8.4.b (c)2003-2007 www.stani.be
+</I>&gt;<i>
+</I>&gt;<i> If spe fails to start:
+</I>&gt;<i>   - type &quot;python SPE.py --debug &gt; debug.txt 2&gt;&amp;1&quot; at the command prompt
+</I>&gt;<i>     (or if you use tcsh: &quot;python SPE.py --debug &gt;&amp; debug.txt&quot;)
+</I>&gt;<i>   - send debug.txt with some info to spe.stani.be[at]gmail.com
+</I>&gt;<i>
+</I>&gt;<i> Blender support disabled (run SPE inside Blender to enable).
+</I>&gt;<i> Encrypted debugging enabled.
+</I>&gt;<i>
+</I>&gt;<i> Spe is running in debugging mode with this configuration:
+</I>&gt;<i> - platform  : linux2
+</I>&gt;<i> - python    : 2.4.3
+</I>&gt;<i> - wxPython  : 2.6.1.2pre
+</I>&gt;<i> - interface : &lt;default&gt;
+</I>&gt;<i> - encoding  : utf-8
+</I>&gt;<i>
+</I>&gt;<i> Launching application...
+</I>&gt;<i> Create: Framework: menu.
+</I>&gt;<i> Create: Framework: toolbar.
+</I>&gt;<i> Create: Framework: statusbar.
+</I>&gt;<i> Creating tabs...
+</I>&gt;<i> 	Shell
+</I>&gt;<i> 	Locals
+</I>&gt;<i> 	Session
+</I>&gt;<i> 	Output
+</I>&gt;<i> 	Find
+</I>&gt;<i> 	Browser
+</I>&gt;<i> 	Recent
+</I>&gt;<i> 	Todo
+</I>&gt;<i> 	Index
+</I>&gt;<i> 	Notes
+</I>&gt;<i> 	Donate
+</I>&gt;<i> Opening /home/carl/dev/apps/uloop/uloop3.py
+</I>&gt;<i> Create: MdiSplit: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt; uloop3.py 
+</I>&gt;<i> /home/carl/dev/apps/uloop/uloop3.py
+</I>&gt;<i> Create: Sdi:   &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.tabs
+</I>&gt;<i> Traceback (most recent call last):
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/_spe/SPE.py&quot;, line 227, in ?
+</I>&gt;<i>      style           = style)
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 1323, in 
+</I>&gt;<i> __init__
+</I>&gt;<i>      wx.App.__init__(self,redirect=not debug)
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/wx-2.6-gtk2-unicode/wx/_core.py&quot;, line 
+</I>&gt;<i> 7473, in __init__
+</I>&gt;<i>      self._BootstrapApp()
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/wx-2.6-gtk2-unicode/wx/_core.py&quot;, line 
+</I>&gt;<i> 7125, in _BootstrapApp
+</I>&gt;<i>      return _core_.PyApp__BootstrapApp(*args, **kwargs)
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 1342, in OnInit
+</I>&gt;<i>      style   = self.style,
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 819, in 
+</I>&gt;<i> __init__
+</I>&gt;<i>      Parent.__init__(self,app=app,page=page,**options)
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 613, in 
+</I>&gt;<i> __init__
+</I>&gt;<i>      parentFrame     = self,
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 341, in 
+</I>&gt;<i> __init__
+</I>&gt;<i>      self.__finish__()
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 617, in 
+</I>&gt;<i> __finish__
+</I>&gt;<i>      Framework.__finish__(self)
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 439, in 
+</I>&gt;<i> __finish__
+</I>&gt;<i>      self.panel.__finish__()
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/_spe/Parent.py&quot;, line 125, in __finish__
+</I>&gt;<i>      self.__frame__()
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/_spe/Parent.py&quot;, line 173, in __frame__
+</I>&gt;<i>      self.__remember__(openFiles=self._openFiles)
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/_spe/Parent.py&quot;, line 193, in __remember__
+</I>&gt;<i>      self.loadWorkspace()
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/_spe/Parent.py&quot;, line 326, in 
+</I>&gt;<i> loadWorkspace
+</I>&gt;<i>      verbose     = True)
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/_spe/Parent.py&quot;, line 897, in openList
+</I>&gt;<i>      child=self.new(name=fileName,source=source,maximize=maximize)
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/_spe/Parent.py&quot;, line 385, in new
+</I>&gt;<i>      maximize    = maximize)
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 1160, in 
+</I>&gt;<i> __init__
+</I>&gt;<i>      extra       = extra,
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 917, in 
+</I>&gt;<i> __init__
+</I>&gt;<i>      extra           = extra,
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 341, in 
+</I>&gt;<i> __init__
+</I>&gt;<i>      self.__finish__()
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 927, in 
+</I>&gt;<i> __finish__
+</I>&gt;<i>      Framework.__finish__(self)
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 439, in 
+</I>&gt;<i> __finish__
+</I>&gt;<i>      self.panel.__finish__()
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/_spe/Child.py&quot;, line 129, in __finish__
+</I>&gt;<i>      self.__source__(self._fileName,self._source)
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/_spe/Child.py&quot;, line 246, in __source__
+</I>&gt;<i>      menu        = self.parentFrame.menuBar.edit)
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/stc.py&quot;, line 95, in __init__
+</I>&gt;<i>      self.update()
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/stc.py&quot;, line 415, in update
+</I>&gt;<i>      if self.getint('ViewLineNumbers'):
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/stc.py&quot;, line 389, in getint
+</I>&gt;<i>      if eval(self.config.get('Default',name)):
+</I>&gt;<i>    File &quot;/usr/lib/python2.4/ConfigParser.py&quot;, line 520, in get
+</I>&gt;<i>      raise NoOptionError(option, section)
+</I>&gt;<i> ConfigParser.NoOptionError: No option 'viewlinenumbers' in section: 'Default'
+</I>&gt;<i>
+</I>&gt;<i> Carl K
+</I>&gt;<i> --
+</I>&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000272.html">[spe-dev] Away notification
+</A></li>
+	<LI>Next message: <A HREF="000270.html">[spe-dev] Opening filenames with spaces
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#269">[ date ]</a>
+              <a href="thread.html#269">[ thread ]</a>
+              <a href="subject.html#269">[ subject ]</a>
+              <a href="author.html#269">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

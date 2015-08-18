@@ -1,0 +1,33 @@
+From carl at personnelware.com  Tue Nov  7 06:06:25 2006
+From: carl at personnelware.com (Carl Karsten)
+Date: Mon, 06 Nov 2006 23:06:25 -0600
+Subject: [spe-dev] option to update from SVN
+Message-ID: <45501451.7010603@personnelware.com>
+
+As a developer tool developer (VFP tools, which no one here will have much 
+interest in)  I appreciate the value in having other developers using the latest 
+version, even if it is not rock solid.  developers have a good idea what to 
+expect, and what is expected of them with regards to reporting bugs, asking for 
+features, complaining, etc.
+
+Which is why I was trying to make it easy to use the SVN version of SPE, and yet 
+not circumvent the package manager which in the past seems to lead to problems.
+
+I am giving up on trying to have a cutting edge spe.deb.  I was told Stani 
+shouldn't add the debian/ dir to his source repo, but that is about the only 
+help I have gotten.  If anyone has anything to say, now would be a great time.
+
+So now I have a new idea:  some sort of 'update from svn' that would update spe 
+in place.  This may be A) a bad idea or B) more trouble than it is worth.
+
+It also got me thinking:  Could SPE have some sort of source control 
+integration?    I am forever forgetting to add new files, and not too good about 
+commits either.  It would be really nice to have SPE do that for me, like when a 
+file is run, or closed, or when SPE is closed.
+
+Given that I have yet to do much phython, don't ask me to code these.  not this 
+week anyway.
+
+Carl K
+
+

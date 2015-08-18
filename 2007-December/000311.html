@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] usage of wxversion
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20usage%20of%20wxversion&In-Reply-To=%3C4762900F.4040002%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000310.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] usage of wxversion</H1>
+    <B>Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20usage%20of%20wxversion&In-Reply-To=%3C4762900F.4040002%40gmail.com%3E"
+       TITLE="[spe-dev] usage of wxversion">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Fri Dec 14 15:15:43 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000310.html">[spe-dev] usage of wxversion
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#311">[ date ]</a>
+              <a href="thread.html#311">[ thread ]</a>
+              <a href="subject.html#311">[ subject ]</a>
+              <a href="author.html#311">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Thanks for reporting, but I am working with MOTU on this:
+<A HREF="https://bugs.launchpad.net/ubuntu/+source/spe/+bug/124896">https://bugs.launchpad.net/ubuntu/+source/spe/+bug/124896</A>
+
+Besides that I would recommmend of using spe from subversion as it 
+contains bug fixes for ubuntu and linux in general.
+Stani
+
+Robert Elsner schreef:
+&gt;<i> Resend - forgot to subscribe to list first. Sorry
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> Hello Everybody,
+</I>&gt;<i> 
+</I>&gt;<i> I am using spe 0.8.3 on Ubuntu 7.10. You are using wxversion to select
+</I>&gt;<i> the correct version of Wx. I found spe not working with wx 2.8.4 which
+</I>&gt;<i> is shipped in Ubuntu. So why not using wxversion to select the
+</I>&gt;<i> recommended version of Wx instead of the latest version available? I
+</I>&gt;<i> patched my spe install and it works smooth (killer python ide by the
+</I>&gt;<i> way). The changes needed for that are
+</I>&gt;<i> 
+</I>&gt;<i> trunk/_spe/SPE.py
+</I>&gt;<i> 
+</I>&gt;<i> --- spe_svn.py  2007-12-14 13:45:49.000000000 +0100
+</I>&gt;<i> +++ spe_changed.py      2007-12-14 13:47:29.000000000 +0100
+</I>&gt;<i> @@ -13,7 +13,7 @@
+</I>&gt;<i>      if sys.modules.has_key('wx') or sys.modules.has_key('wxPython'):
+</I>&gt;<i>          pass    #probably not the first call to this module: wxPython
+</I>&gt;<i> already loaded
+</I>&gt;<i>      else:
+</I>&gt;<i> -        wxversion.ensureMinimal(MIN_WX_VERSION)
+</I>&gt;<i> +        wxversion.select(MIN_WX_VERSION)
+</I>&gt;<i>  except ImportError:
+</I>&gt;<i>      #the old fashioned way as not everyone seems to have wxversion
+</I>&gt;<i> installed
+</I>&gt;<i>      try:
+</I>&gt;<i> 
+</I>&gt;<i> Might give that a thought? Otherwise svn might work with 2.8.4 but cant
+</I>&gt;<i> test her (need this box for work at the moment)
+</I>&gt;<i> 
+</I>&gt;<i> cheers
+</I>&gt;<i> Robert
+</I>&gt;<i> 
+</I>&gt;<i> --
+</I>&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i> 
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000310.html">[spe-dev] usage of wxversion
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#311">[ date ]</a>
+              <a href="thread.html#311">[ thread ]</a>
+              <a href="subject.html#311">[ subject ]</a>
+              <a href="author.html#311">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

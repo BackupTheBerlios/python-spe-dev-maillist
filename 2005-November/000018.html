@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] fixes to new realtime.py
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2005-November/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20fixes%20to%20new%20realtime.py&In-Reply-To=%3C20051104095813.5a31740e%40laptop%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000017.html">
+   <LINK REL="Next"  HREF="000019.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] fixes to new realtime.py</H1>
+    <B>Glenn Washburn</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20fixes%20to%20new%20realtime.py&In-Reply-To=%3C20051104095813.5a31740e%40laptop%3E"
+       TITLE="[spe-dev] fixes to new realtime.py">crass at berlios.de
+       </A><BR>
+    <I>Fri Nov  4 16:58:13 CET 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000017.html">[spe-dev] Bug 4856 on *nix: class crash -&gt; FIXED: URGENT PLEASE CHECK!!
+</A></li>
+        <LI>Next message: <A HREF="000019.html">[spe-dev] patch: fix for bug 4627
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#18">[ date ]</a>
+              <a href="thread.html#18">[ thread ]</a>
+              <a href="subject.html#18">[ subject ]</a>
+              <a href="author.html#18">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I haven't done much explicit testing of the new code in realtime.py.
+But I did find a couple bugs during usage.  The fixes are in
+spe.realtime.patch, and are self explanatory.  I've also included a
+patch to Child.y, which provides the which tab update function was
+called to trigger to the exception in updateSidebar.  Also, I haven't
+changed, but thing should be changed, the error message.  Not all
+exceptions are going to be Bug #4627.  I haven't looked into it, but I
+think that error message could be more appropriately/accurately placed.
+
+Glenn
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: spe.Child.patch
+Type: application/octet-stream
+Size: 988 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051104/1365a8a3/attachment.obj">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051104/1365a8a3/attachment.obj</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: spe.realtime.patch
+Type: application/octet-stream
+Size: 783 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051104/1365a8a3/attachment-0001.obj">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051104/1365a8a3/attachment-0001.obj</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000017.html">[spe-dev] Bug 4856 on *nix: class crash -&gt; FIXED: URGENT PLEASE CHECK!!
+</A></li>
+	<LI>Next message: <A HREF="000019.html">[spe-dev] patch: fix for bug 4627
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#18">[ date ]</a>
+              <a href="thread.html#18">[ thread ]</a>
+              <a href="subject.html#18">[ subject ]</a>
+              <a href="author.html#18">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

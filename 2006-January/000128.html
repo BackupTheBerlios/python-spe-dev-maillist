@@ -1,0 +1,198 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Crash with svn 128 on MacOS X
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2006-January/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Crash%20with%20svn%20128%20on%20MacOS%20X&In-Reply-To=%3C2078a7ad0601060512i3c845e53ice6ec52a7b65b18a%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000123.html">
+   <LINK REL="Next"  HREF="000129.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Crash with svn 128 on MacOS X</H1>
+    <B>SPE Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Crash%20with%20svn%20128%20on%20MacOS%20X&In-Reply-To=%3C2078a7ad0601060512i3c845e53ice6ec52a7b65b18a%40mail.gmail.com%3E"
+       TITLE="[spe-dev] Crash with svn 128 on MacOS X">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Fri Jan  6 14:12:13 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000123.html">[spe-dev] Crash with svn 128 on MacOS X
+</A></li>
+        <LI>Next message: <A HREF="000129.html">[spe-dev] Crash with svn 128 on MacOS X
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#128">[ date ]</a>
+              <a href="thread.html#128">[ thread ]</a>
+              <a href="subject.html#128">[ subject ]</a>
+              <a href="author.html#128">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Thanks, that's a bug. I guess, this would fix it in Parent.py:
+__import__('_spe.tabs.'+tab)
+with
+__import__('tabs.'+tab)
+
+I try it later, but if you are faster let me know.
+
+Stani
+
+On 05 Jan 2006 22:52:12 EST, Richard E. Brown &lt;
+<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Richard.E.Brown at vweb2.dartware.com</A>&gt; wrote:
+&gt;<i>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be/blog/sm_donate">http://pythonide.stani.be/blog/sm_donate</A>
+</I>&gt;<i> <A HREF="svn://svn.berlios.de/python/spe/trunk">svn://svn.berlios.de/python/spe/trunk</A>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Stani:
+</I>&gt;<i>
+</I>&gt;<i> I read on the blog that you could simply invoke spe without installing, so
+</I>&gt;<i> I
+</I>&gt;<i> tried it.
+</I>&gt;<i>
+</I>&gt;<i> I retrieved svn128, then cd' to _spe. I then typed:
+</I>&gt;<i>
+</I>&gt;<i> pythonw SPE.py
+</I>&gt;<i>
+</I>&gt;<i> and a window opened, a &quot;traceback&quot; message appeared briefly, and it
+</I>&gt;<i> crashed. I
+</I>&gt;<i> then tried the debugging command, and got the attached debug.text file.
+</I>&gt;<i> Any
+</I>&gt;<i> clues? Thanks.
+</I>&gt;<i>
+</I>&gt;<i> Rich Brown
+</I>&gt;<i> Hanover, NH USA
+</I>&gt;<i>
+</I>&gt;<i> =================================
+</I>&gt;<i> [Richard-E-Browns-Computer:NewStuff/src/_spe] richb% more debug.txt
+</I>&gt;<i>
+</I>&gt;<i> SPE v0.8.1.d.svn (c)2003-2005 www.stani.be
+</I>&gt;<i>
+</I>&gt;<i> If spe fails to start:
+</I>&gt;<i> - type &quot;pythonw SPE.py --debug &gt; debug.txt 2&gt;&amp;1&quot; at the command prompt
+</I>&gt;<i>    (or if you use tcsh: &quot;pythonw SPE.py --debug &gt;&amp; debug.txt&quot;)
+</I>&gt;<i> - send debug.txt with some info to spe.stani.be[at]gmail.com
+</I>&gt;<i>
+</I>&gt;<i> If spe is unstable, try this interface from the preferences:
+</I>&gt;<i>   &quot;multiple with sash &amp; tabs (mac default,linux default,windows)&quot;
+</I>&gt;<i>
+</I>&gt;<i> Blender support disabled (run SPE inside Blender to enable).
+</I>&gt;<i>
+</I>&gt;<i> Encrypted debugging disabled.
+</I>&gt;<i>   If you prefer encrypted debugging, install the &quot;Python Cryptography
+</I>&gt;<i> Toolkit&quot;
+</I>&gt;<i>   from <A HREF="http://www.amk.ca/python/code/crypto">http://www.amk.ca/python/code/crypto</A>
+</I>&gt;<i>
+</I>&gt;<i> Spe is running in debugging mode with this configuration:
+</I>&gt;<i> - platform  : darwin
+</I>&gt;<i> - python    : 2.4.2
+</I>&gt;<i> - wxPython  : 2.6.1.0.
+</I>&gt;<i> - interface : &lt;default&gt;
+</I>&gt;<i> - encoding  : mac-roman
+</I>&gt;<i>
+</I>&gt;<i> Launching application...
+</I>&gt;<i> Create: Framework: menu.
+</I>&gt;<i> Create: Framework: toolbar.
+</I>&gt;<i> Create: Framework: statusbar.
+</I>&gt;<i> Creating tabs...
+</I>&gt;<i>         Shell
+</I>&gt;<i>         Locals
+</I>&gt;<i>         Session
+</I>&gt;<i>         Output
+</I>&gt;<i> Traceback (most recent call last):
+</I>&gt;<i>   File &quot;SPE.py&quot;, line 209, in ?
+</I>&gt;<i>     style           = style)
+</I>&gt;<i>   File &quot;/Users/richb/Desktop/NewStuff/src/_spe/sm/wxp/smdi.py&quot;, line 1266,
+</I>&gt;<i> in
+</I>&gt;<i> __init__
+</I>&gt;<i>     wx.App.__init__(self,redirect=not debug)
+</I>&gt;<i>   File
+</I>&gt;<i>
+</I>&gt;<i> &quot;//Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/
+</I>&gt;<i> wx-2.6-mac-ans
+</I>&gt;<i> i/wx/_core.py&quot;, line 7473, in __init__
+</I>&gt;<i>     self._BootstrapApp()
+</I>&gt;<i>   File
+</I>&gt;<i>
+</I>&gt;<i> &quot;//Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/
+</I>&gt;<i> wx-2.6-mac-ans
+</I>&gt;<i> i/wx/_core.py&quot;, line 7125, in _BootstrapApp
+</I>&gt;<i>     return _core_.PyApp__BootstrapApp(*args, **kwargs)
+</I>&gt;<i>   File &quot;/Users/richb/Desktop/NewStuff/src/_spe/sm/wxp/smdi.py&quot;, line 1285,
+</I>&gt;<i> in
+</I>&gt;<i> OnInit
+</I>&gt;<i>     style   = self.style,
+</I>&gt;<i>   File &quot;/Users/richb/Desktop/NewStuff/src/_spe/sm/wxp/smdi.py&quot;, line 795,
+</I>&gt;<i> in
+</I>&gt;<i> __init__
+</I>&gt;<i>     Parent.__init__(self,app=app,page=page,**options)
+</I>&gt;<i>   File &quot;/Users/richb/Desktop/NewStuff/src/_spe/sm/wxp/smdi.py&quot;, line 589,
+</I>&gt;<i> in
+</I>&gt;<i> __init__
+</I>&gt;<i>     parentFrame     = self,
+</I>&gt;<i>   File &quot;/Users/richb/Desktop/NewStuff/src/_spe/sm/wxp/smdi.py&quot;, line 321,
+</I>&gt;<i> in
+</I>&gt;<i> __init__
+</I>&gt;<i>     self.__finish__()
+</I>&gt;<i>   File &quot;/Users/richb/Desktop/NewStuff/src/_spe/sm/wxp/smdi.py&quot;, line 593,
+</I>&gt;<i> in
+</I>&gt;<i> __finish__
+</I>&gt;<i>     Framework.__finish__(self)
+</I>&gt;<i>   File &quot;/Users/richb/Desktop/NewStuff/src/_spe/sm/wxp/smdi.py&quot;, line 418,
+</I>&gt;<i> in
+</I>&gt;<i> __finish__
+</I>&gt;<i>     self.panel.__finish__()
+</I>&gt;<i>   File &quot;/Users/richb/Desktop/NewStuff/src/_spe/Parent.py&quot;, line 118, in
+</I>&gt;<i> __finish__
+</I>&gt;<i>     self.__sash__()
+</I>&gt;<i>   File &quot;/Users/richb/Desktop/NewStuff/src/_spe/Parent.py&quot;, line 144, in
+</I>&gt;<i> __sash__
+</I>&gt;<i>     __import__('_spe.tabs.'+tab)
+</I>&gt;<i> ImportError: No module named Output
+</I>&gt;<i> [Richard-E-Browns-Computer:NewStuff/src/_spe] richb%
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Python-spe-dev mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="http://lists.berlios.de/mailman/listinfo/python-spe-dev">http://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i>
+</I>
+
+
+--
+<A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+<A HREF="http://pythonide.stani.be/screenshots">http://pythonide.stani.be/screenshots</A>
+<A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060106/dac88752/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060106/dac88752/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000123.html">[spe-dev] Crash with svn 128 on MacOS X
+</A></li>
+	<LI>Next message: <A HREF="000129.html">[spe-dev] Crash with svn 128 on MacOS X
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#128">[ date ]</a>
+              <a href="thread.html#128">[ thread ]</a>
+              <a href="subject.html#128">[ subject ]</a>
+              <a href="author.html#128">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

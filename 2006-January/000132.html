@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Testing SVN Version
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2006-January/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Testing%20SVN%20Version&In-Reply-To=%3C43BE78F1.6040609%40voidspace.org.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000130.html">
+   <LINK REL="Next"  HREF="000135.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Testing SVN Version</H1>
+    <B>Fuzzyman</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Testing%20SVN%20Version&In-Reply-To=%3C43BE78F1.6040609%40voidspace.org.uk%3E"
+       TITLE="[spe-dev] Testing SVN Version">fuzzyman at voidspace.org.uk
+       </A><BR>
+    <I>Fri Jan  6 15:04:33 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000130.html">[spe-dev] Testing SVN Version
+</A></li>
+        <LI>Next message: <A HREF="000135.html">[spe-dev] tabs/browser relative paths
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#132">[ date ]</a>
+              <a href="thread.html#132">[ thread ]</a>
+              <a href="subject.html#132">[ subject ]</a>
+              <a href="author.html#132">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>SPE Stani's Python Editor wrote:
+
+&gt;<i> [snip..]
+</I>&gt;<i>
+</I>&gt;<i>     SPE.pyw doesn't work. Copying spe.py and renaming works.
+</I>&gt;<i>     If you wrap everything in spe.py in a main function and just call
+</I>&gt;<i>     main,
+</I>&gt;<i>     spe.pyw could just import main from spe.py and run it - this would
+</I>&gt;<i>     save you
+</I>&gt;<i>     having to maintain both.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> The behaviour now makes it more easy (with Blender users in my mind)
+</I>&gt;<i> to run spe from python: just type import spe.SPE I'll look into it.
+</I>&gt;<i>
+</I>Nice to do something helpful occasionally. :-)
+
+&gt;<i>     Shift-ctrl-E now brings up a dialog saying 'are you sure you want
+</I>&gt;<i>     to run
+</I>&gt;<i>     whole script'
+</I>&gt;<i>     It doesn't now just run the whole script without raising *another*
+</I>&gt;<i>     dialog.
+</I>&gt;<i>
+</I>&gt;<i>     I can use ctrl-shift-R instead - with the redirected output, which
+</I>&gt;<i>     is nice.
+</I>&gt;<i>
+</I>&gt;<i>     Even with shift-Ctrl-R I still would like to run some stuff in the
+</I>&gt;<i>     shell
+</I>&gt;<i>     (stuff
+</I>&gt;<i>     that uses raw_input for simple interaction). 
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> I don't know if this is possible. File it as a bug report.
+</I>&gt;<i>
+</I>Actually I really meant &quot;being able to run in the shell without having
+to raise a dialog&quot; - so I think your answer below means this is already
+done.
+
+
+&gt;<i>     Would it be possible to
+</I>&gt;<i>     turn this
+</I>&gt;<i>     dialog off with a preference ?
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Dear fuzzyman, it is already a preference, check editor preferences.
+</I>&gt;<i>
+</I>I thought I had. Oops...  :-o
+
+[snip..]
+
+&gt;<i>     Recent files (which I've only just discovered) is good. Single
+</I>&gt;<i>     clicking on
+</I>&gt;<i>     files opens them and right clicking runs them ! IMHO this is
+</I>&gt;<i>     anti-intuitive.
+</I>&gt;<i>
+</I>&gt;<i>     Double clicking should open. Single clicking should select them,
+</I>&gt;<i>     allowing me to
+</I>&gt;<i>     delete items from the list. Right clicking should open a context menu
+</I>&gt;<i>     allowing
+</I>&gt;<i>     me to delete or run. I'll file this as a feature request. 
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Ok,  I changed right click into double click or pressing ENTER.
+</I>&gt;<i>
+</I>So single click loads, double click or enter runs ?
+
+[snip..]
+
+&gt;<i>     Running a script with raw_input() using Ctrl-R causes an error (it
+</I>&gt;<i>     hangs). Press
+</I>&gt;<i>     Ctrl-R again and it offers to kill the script (warning you SPE might
+</I>&gt;<i>     die). I then
+</I>&gt;<i>     get a core dump. (The instruction 0x0.... referenced memory that could
+</I>&gt;<i>     not be read).
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Does it crash SPE? Bug report as above.
+</I>&gt;<i>
+</I>Will do...
+
+All the best,
+
+Fuzzyman
+<A HREF="http://www.voidspace.org.uk/python/index.shtml">http://www.voidspace.org.uk/python/index.shtml</A>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060106/c2d9c386/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060106/c2d9c386/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000130.html">[spe-dev] Testing SVN Version
+</A></li>
+	<LI>Next message: <A HREF="000135.html">[spe-dev] tabs/browser relative paths
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#132">[ date ]</a>
+              <a href="thread.html#132">[ thread ]</a>
+              <a href="subject.html#132">[ subject ]</a>
+              <a href="author.html#132">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

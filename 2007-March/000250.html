@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev]  Bug Fixed: View as notebook/columns/rows
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20%20Bug%20Fixed%3A%20View%20as%20notebook/columns/rows&In-Reply-To=%3C55E1138A-C279-4308-A14D-62C27F138737%40mac.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000246.html">
+   <LINK REL="Next"  HREF="000257.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev]  Bug Fixed: View as notebook/columns/rows</H1>
+    <B>John Finch</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20%20Bug%20Fixed%3A%20View%20as%20notebook/columns/rows&In-Reply-To=%3C55E1138A-C279-4308-A14D-62C27F138737%40mac.com%3E"
+       TITLE="[spe-dev]  Bug Fixed: View as notebook/columns/rows">johnfinch at mac.com
+       </A><BR>
+    <I>Mon Mar 19 03:06:33 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000246.html">[spe-dev] Bug: View as notebook/columns/rows
+</A></li>
+        <LI>Next message: <A HREF="000257.html">[spe-dev] Bug Fixed: View as notebook/columns/rows
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#250">[ date ]</a>
+              <a href="thread.html#250">[ thread ]</a>
+              <a href="subject.html#250">[ subject ]</a>
+              <a href="author.html#250">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Notebook View fixed for OSX
+Tested with P2.5 and wx2.8.1.
+Please confirm with other versions.
+Replace as_notebook function in parent.py with below:
+
+
+     def as_notebook(self,event):
+         if hasattr(self.frame,'Tile'):
+             self.app.childActive.frame.Maximize()
+         else:
+             tabs  =  getattr(self.frame,'tabs',None)
+             if tabs:
+                 # Have to set selection to first tab and de-Tile before
+                 # starting iterations to show sidebars etc
+                 tabs.ShowTabs(True)
+                 tabs.SetSelection(0)
+                 tabs.Tile(False)
+                 for i in range(tabs.GetPageCount()):
+                     tabs.SetSelection(i)
+                     tabs.Tile(False)
+                     self.app.childActive.source.SetFocus()
+                     self.app.childActive.showSidebar()
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000246.html">[spe-dev] Bug: View as notebook/columns/rows
+</A></li>
+	<LI>Next message: <A HREF="000257.html">[spe-dev] Bug Fixed: View as notebook/columns/rows
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#250">[ date ]</a>
+              <a href="thread.html#250">[ thread ]</a>
+              <a href="subject.html#250">[ subject ]</a>
+              <a href="author.html#250">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

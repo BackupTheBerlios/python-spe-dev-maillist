@@ -1,0 +1,392 @@
+From carl at personnelware.com  Tue Oct 24 20:35:13 2006
+From: carl at personnelware.com (Carl Karsten)
+Date: Tue, 24 Oct 2006 13:35:13 -0500
+Subject: [spe-dev] building spe.deb
+Message-ID: <453E5CE1.2010504@personnelware.com>
+
+good news - using the script below, I just built a .deb using the current ver of 
+spe and Ubuntu edgy (didn't try dapper, but it should be fine.)  It builds, 
+installs and runs.
+
+I caught 2 warnings:
+
+dh_python: This program is deprecated, you should use dh_pysupport or 
+dh_pycentral instead.
+
+dh_builddeb
+dpkg-deb: building package `spe' in `../spe_0.8.3-svn-158_all.deb'.
+tar: -: file name read contains nul character
+
+Plus if you run spe from a shell, you get a spew of messages:
+
+(python:17433): Gdk-CRITICAL **: gdk_draw_drawable: assertion `src != NULL' failed
+
+(python:17433): Gtk-CRITICAL **: gtk_container_remove: assertion `GTK_IS_TOOLBAR 
+(container) || widget->parent == GTK_WIDGET (container)' failed
+
+Exception exceptions.TypeError: "'NoneType' object is not callable" in 
+<wx.lib.pubsub._NodeCallback instance at 0xb4e147ac> ignored
+
+ > Thanks to Marco Ferreira there will be very soon a debian package to install SPE
+
+Marco - you are on this list, right?  (if not, can someone forward this to him? 
+  I don't have his e-mail.
+
+Steve and Matthias, guessing you are on the list but did have yours, so you get 
+extra :)
+
+Carl K
+
+current ver is at https://help.ubuntu.com/community/UpdatingADeb
+
+This will build spe.deb on a fresh Ubuntu install.
+
+# mkspedeb.sh
+# updates the spe.deb
+# based on https://help.ubuntu.com/community/UpdatingADeb
+
+set -xe
+
+# needed to get source, compile and build debs
+sudo apt-get --assume-yes install build-essential fakeroot subversion
+
+# get the spe deps and source from apt repository
+# (and debian/ dir needed to build the .deb)
+sudo apt-get --assume-yes build-dep spe
+
+mkdir spe && cd spe
+apt-get source spe
+
+# cd into the apt-got dir.
+# this will need to be changed as the version changes.
+# I could use find -t d to find a dir and cd into it, but this seemed safer.
+cd spe-0.8.2a+repack
+
+# hide the apt-got source
+mv _spe _spe.apt-got
+
+# get working copy
+svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+
+# bump the version number
+# if this is not done, the new deb will be the same version as the current, so 
+won't install.
+# a few lines need to be prepended to debian/changelog,
+# so put the lines plus existing changelog in changelog.tmp, replace changelog.
+
+cat - debian/changelog >/tmp/changelog.tmp <<EOF
+spe (0.8.3-svn-$(svnversion _spe)) unstable; urgency=low
+
+   * Just based off the Ubuntu packaging -using $0
+
+  -- Carl Karsten <carl at pw.com>  $(date --rfc-2822)
+
+EOF
+mv -f /tmp/changelog.tmp debian/changelog
+
+# build the .deb
+dpkg-buildpackage -rfakeroot -uc -b
+
+# install the deb.
+# using this command, on your own :)
+echo sudo gdebi spe_0.8.3-svn-158_all.deb
+
+
+From spe.stani.be at gmail.com  Fri Oct 27 16:15:13 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Fri, 27 Oct 2006 16:15:13 +0200
+Subject: [spe-dev] building spe.deb
+In-Reply-To: <453E5CE1.2010504@personnelware.com>
+References: <453E5CE1.2010504@personnelware.com>
+Message-ID: <2078a7ad0610270715k41f81a82oda97a862d0b6033f@mail.gmail.com>
+
+Hi Carl,
+Can you send me your latest spe.deb build and the build script as a
+zipped attachment?
+Stani
+
+On 10/24/06, Carl Karsten <carl at personnelware.com> wrote:
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> good news - using the script below, I just built a .deb using the current ver of
+> spe and Ubuntu edgy (didn't try dapper, but it should be fine.)  It builds,
+> installs and runs.
+>
+> I caught 2 warnings:
+>
+> dh_python: This program is deprecated, you should use dh_pysupport or
+> dh_pycentral instead.
+>
+> dh_builddeb
+> dpkg-deb: building package `spe' in `../spe_0.8.3-svn-158_all.deb'.
+> tar: -: file name read contains nul character
+>
+> Plus if you run spe from a shell, you get a spew of messages:
+>
+> (python:17433): Gdk-CRITICAL **: gdk_draw_drawable: assertion `src != NULL' failed
+>
+> (python:17433): Gtk-CRITICAL **: gtk_container_remove: assertion `GTK_IS_TOOLBAR
+> (container) || widget->parent == GTK_WIDGET (container)' failed
+>
+> Exception exceptions.TypeError: "'NoneType' object is not callable" in
+> <wx.lib.pubsub._NodeCallback instance at 0xb4e147ac> ignored
+>
+>  > Thanks to Marco Ferreira there will be very soon a debian package to install SPE
+>
+> Marco - you are on this list, right?  (if not, can someone forward this to him?
+>   I don't have his e-mail.
+>
+> Steve and Matthias, guessing you are on the list but did have yours, so you get
+> extra :)
+>
+> Carl K
+>
+> current ver is at https://help.ubuntu.com/community/UpdatingADeb
+>
+> This will build spe.deb on a fresh Ubuntu install.
+>
+> # mkspedeb.sh
+> # updates the spe.deb
+> # based on https://help.ubuntu.com/community/UpdatingADeb
+>
+> set -xe
+>
+> # needed to get source, compile and build debs
+> sudo apt-get --assume-yes install build-essential fakeroot subversion
+>
+> # get the spe deps and source from apt repository
+> # (and debian/ dir needed to build the .deb)
+> sudo apt-get --assume-yes build-dep spe
+>
+> mkdir spe && cd spe
+> apt-get source spe
+>
+> # cd into the apt-got dir.
+> # this will need to be changed as the version changes.
+> # I could use find -t d to find a dir and cd into it, but this seemed safer.
+> cd spe-0.8.2a+repack
+>
+> # hide the apt-got source
+> mv _spe _spe.apt-got
+>
+> # get working copy
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+>
+> # bump the version number
+> # if this is not done, the new deb will be the same version as the current, so
+> won't install.
+> # a few lines need to be prepended to debian/changelog,
+> # so put the lines plus existing changelog in changelog.tmp, replace changelog.
+>
+> cat - debian/changelog >/tmp/changelog.tmp <<EOF
+> spe (0.8.3-svn-$(svnversion _spe)) unstable; urgency=low
+>
+>    * Just based off the Ubuntu packaging -using $0
+>
+>   -- Carl Karsten <carl at pw.com>  $(date --rfc-2822)
+>
+> EOF
+> mv -f /tmp/changelog.tmp debian/changelog
+>
+> # build the .deb
+> dpkg-buildpackage -rfakeroot -uc -b
+>
+> # install the deb.
+> # using this command, on your own :)
+> echo sudo gdebi spe_0.8.3-svn-158_all.deb
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+
+
+-- 
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From carl at personnelware.com  Fri Oct 27 23:13:15 2006
+From: carl at personnelware.com (Carl K)
+Date: Fri, 27 Oct 2006 16:13:15 -0500
+Subject: [spe-dev] building spe.deb
+In-Reply-To: <2078a7ad0610270715k41f81a82oda97a862d0b6033f@mail.gmail.com>
+References: <453E5CE1.2010504@personnelware.com>
+	<2078a7ad0610270715k41f81a82oda97a862d0b6033f@mail.gmail.com>
+Message-ID: <4542766B.5060801@personnelware.com>
+
+Here is the scrip I used to make a .deb.   it is just to test  if a .deb 
+will build - I am not sure if it does it right, so I wouldn't sugest 
+distributing the .deb -
+
+we need to figure out who knows how to do it right
+
+Carl
+
+SPE Stani's Python Editor wrote:
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> Hi Carl,
+> Can you send me your latest spe.deb build and the build script as a
+> zipped attachment?
+> Stani
+>
+> On 10/24/06, Carl Karsten <carl at personnelware.com> wrote:
+>   
+>> http://pythonide.stani.be
+>> http://pythonide.stani.be/manual/html/manual.html
+>> http://pythonide.stani.be/blog/sm_donate
+>> svn://svn.berlios.de/python/spe/trunk
+>> _______________________________________________
+>> good news - using the script below, I just built a .deb using the current ver of
+>> spe and Ubuntu edgy (didn't try dapper, but it should be fine.)  It builds,
+>> installs and runs.
+>>
+>> I caught 2 warnings:
+>>
+>> dh_python: This program is deprecated, you should use dh_pysupport or
+>> dh_pycentral instead.
+>>
+>> dh_builddeb
+>> dpkg-deb: building package `spe' in `../spe_0.8.3-svn-158_all.deb'.
+>> tar: -: file name read contains nul character
+>>
+>> Plus if you run spe from a shell, you get a spew of messages:
+>>
+>> (python:17433): Gdk-CRITICAL **: gdk_draw_drawable: assertion `src != NULL' failed
+>>
+>> (python:17433): Gtk-CRITICAL **: gtk_container_remove: assertion `GTK_IS_TOOLBAR
+>> (container) || widget->parent == GTK_WIDGET (container)' failed
+>>
+>> Exception exceptions.TypeError: "'NoneType' object is not callable" in
+>> <wx.lib.pubsub._NodeCallback instance at 0xb4e147ac> ignored
+>>
+>>  > Thanks to Marco Ferreira there will be very soon a debian package to install SPE
+>>
+>> Marco - you are on this list, right?  (if not, can someone forward this to him?
+>>   I don't have his e-mail.
+>>
+>> Steve and Matthias, guessing you are on the list but did have yours, so you get
+>> extra :)
+>>
+>> Carl K
+>>
+>> current ver is at https://help.ubuntu.com/community/UpdatingADeb
+>>
+>> This will build spe.deb on a fresh Ubuntu install.
+>>
+>> # mkspedeb.sh
+>> # updates the spe.deb
+>> # based on https://help.ubuntu.com/community/UpdatingADeb
+>>
+>> set -xe
+>>
+>> # needed to get source, compile and build debs
+>> sudo apt-get --assume-yes install build-essential fakeroot subversion
+>>
+>> # get the spe deps and source from apt repository
+>> # (and debian/ dir needed to build the .deb)
+>> sudo apt-get --assume-yes build-dep spe
+>>
+>> mkdir spe && cd spe
+>> apt-get source spe
+>>
+>> # cd into the apt-got dir.
+>> # this will need to be changed as the version changes.
+>> # I could use find -t d to find a dir and cd into it, but this seemed safer.
+>> cd spe-0.8.2a+repack
+>>
+>> # hide the apt-got source
+>> mv _spe _spe.apt-got
+>>
+>> # get working copy
+>> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+>>
+>> # bump the version number
+>> # if this is not done, the new deb will be the same version as the current, so
+>> won't install.
+>> # a few lines need to be prepended to debian/changelog,
+>> # so put the lines plus existing changelog in changelog.tmp, replace changelog.
+>>
+>> cat - debian/changelog >/tmp/changelog.tmp <<EOF
+>> spe (0.8.3-svn-$(svnversion _spe)) unstable; urgency=low
+>>
+>>    * Just based off the Ubuntu packaging -using $0
+>>
+>>   -- Carl Karsten <carl at pw.com>  $(date --rfc-2822)
+>>
+>> EOF
+>> mv -f /tmp/changelog.tmp debian/changelog
+>>
+>> # build the .deb
+>> dpkg-buildpackage -rfakeroot -uc -b
+>>
+>> # install the deb.
+>> # using this command, on your own :)
+>> echo sudo gdebi spe_0.8.3-svn-158_all.deb
+>> _______________________________________________
+>> Python-spe-dev mailing list
+>> Python-spe-dev at lists.berlios.de
+>> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>
+>>     
+>
+>
+>   
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: mkspedeb.zip
+Type: application/x-zip-compressed
+Size: 845 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20061027/0e9b3cf3/attachment.bin>
+
+From chris at seberino.org  Tue Oct 31 21:35:28 2006
+From: chris at seberino.org (chris at seberino.org)
+Date: Tue, 31 Oct 2006 12:35:28 -0800
+Subject: [spe-dev] Want to give SPE presentation to Python group from
+	*anywhere* ?! :)
+Message-ID: <20061031203528.GA23007@seberino.org>
+
+Anyone want to give a SPE introductory talk to a Python Users' Group
+from *anywhere* ?? :)
+
+I am Chris Seberino, the founder of the SnakeCharmers
+(http://snakecharmers.org) Python Users' Group.
+
+We are very interested in SPE and would very much appreciate a talk
+on SPE.  The plan is I would call you anywhere in the world
+and you present your talk via speakerphone.  We could even set up
+a PC so you could control your slides remotely!
+
+If you want to promote your book or your consulting
+services during your presentation that is 100% OK by us too.
+
+We meet every 3rd Thursday of the month in San Diego, CA
+and our talks are at 7pm PST (GMT -700).  The next possible date
+therefore would be December 21, 2006 which is still open.
+
+Please email me if you are interested.
+
+Cheers,
+
+Chris
+
+--
+_______________________________________
+
+Christian Seberino, Ph.D.
+
+Phone: (619) 573-4233
+Email: chris at seberino.org
+_______________________________________
+
+

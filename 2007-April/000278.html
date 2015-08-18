@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Auto-un-indention feature
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Auto-un-indention%20feature&In-Reply-To=%3C4f4806ee0704091815l50c8cd94o887122b3ae7eafa5%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000277.html">
+   <LINK REL="Next"  HREF="000279.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Auto-un-indention feature</H1>
+    <B>Mike Rooney</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Auto-un-indention%20feature&In-Reply-To=%3C4f4806ee0704091815l50c8cd94o887122b3ae7eafa5%40mail.gmail.com%3E"
+       TITLE="[spe-dev] Auto-un-indention feature">mrooney at gmail.com
+       </A><BR>
+    <I>Tue Apr 10 03:15:09 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000277.html">[spe-dev] Auto-un-indention feature
+</A></li>
+        <LI>Next message: <A HREF="000279.html">[spe-dev] Auto-un-indention feature
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#278">[ date ]</a>
+              <a href="thread.html#278">[ thread ]</a>
+              <a href="subject.html#278">[ subject ]</a>
+              <a href="author.html#278">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Ahhh, I understand now. I too come from Eclipse and I am missing a
+couple things, specifically &quot;mark occurrences&quot; from the PyDev
+extensions and the ability to have a hot key to go to the next
+occurrence of the current selection.
+
+The auto un indent does sound like it would be a nice addition and I
+have seen it before. I think you are right about OnKeyDown, it would
+probably be easiest to check for a colon and then see if the previous
+four characters are &quot;else&quot;, and also ensure that nothing but
+spaces/tabs exist before it, so that people like myself who write
+pseudo code in comments don't experience weird behavior in odd cases.
+
+Another thing I miss is the auto &quot;import&quot;, so that when you type &quot;from
+module&quot; and then hit a space, it automatically puts in &quot;import&quot;
+followed by a space. This is another thing that sounds trivial but is
+so nice in practice.
+
+Good luck implementing the auto-un-indent!
+
+- Mike
+
+On 4/9/07, <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">g6m3xcl02 at sneakemail.com</A> &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">g6m3xcl02 at sneakemail.com</A>&gt; wrote:
+&gt;<i> Hi Mike,
+</I>&gt;<i>
+</I>&gt;<i> Sure, let me clarify by giving an example.  If I type a 4-line if/else
+</I>&gt;<i> block, I want to only type the line of code and hit enter every time.  I
+</I>&gt;<i> never want to hit tab, and I never want to hit Backspace in order to
+</I>&gt;<i> &quot;un-tab.&quot;  When I follow this pattern, the 'else:' command ends up indented
+</I>&gt;<i> too far (see code below).  I want SPE to recognize the else: command (or
+</I>&gt;<i> elif) and back up the whole line, and the block that follows it.  I imagine
+</I>&gt;<i> that the best trigger moment for this is the carriage return after typing
+</I>&gt;<i> 'else:', which would identify the code in the preceding line and then
+</I>&gt;<i> &quot;un-indent&quot; it.
+</I>&gt;<i>
+</I>&gt;<i> Current result of typing 4 lines without manually dealing with indentation:
+</I>&gt;<i>
+</I>&gt;<i> if foo == bar:
+</I>&gt;<i>     foobar()
+</I>&gt;<i>     else:
+</I>&gt;<i>         fubar()
+</I>&gt;<i>
+</I>&gt;<i> Desired result of typing 4 lines without manually dealing with indentation:
+</I>&gt;<i>
+</I>&gt;<i> if foo == bar:
+</I>&gt;<i>      foobar()
+</I>&gt;<i> else:
+</I>&gt;<i>      fubar()
+</I>&gt;<i>
+</I>&gt;<i> The current workaround is typing Backspace or Shift-Tab before starting the
+</I>&gt;<i> else command.  That is the keystroke I want to avoid.  It seems trivial
+</I>&gt;<i> written in these terms, but it is something I miss very much from other
+</I>&gt;<i> editors.  I'm coming from the Eclipse environment, and so I am spoiled by a
+</I>&gt;<i> mature IDE.
+</I>&gt;<i>
+</I>&gt;<i> Thanks to Mike's suggestion of poking around Child.py, I followed the trail
+</I>&gt;<i> to sm.wxp.PythonBaseSTC which extends wxp.StyledTextCtrl .  The right place
+</I>&gt;<i> to add this feature appears to be OnKeyDown(self, event), so I'm working on
+</I>&gt;<i> a patch that would apply to that file.  I will post it to berlios as soon as
+</I>&gt;<i> it is worthy of testing.
+</I>&gt;<i>
+</I>&gt;<i> Cheers,
+</I>&gt;<i> Carver
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> On 4/7/07, Mike Rooney mrooney-at-......... |spe-dev mailing list| &lt; ...&gt;
+</I>&gt;<i> wrote:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Hi Carver,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I am not sure if I understand this feature. When I type an else:
+</I>&gt;<i> &gt; followed by enter it puts me where I think it should (4 spaces in for
+</I>&gt;<i> &gt; me with my settings). But I guess that is auto-indent. I am not sure I
+</I>&gt;<i> &gt; understand auto-un-indent. Can you explain this?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; You probably want to look in Child.py but I am not completely sure, I
+</I>&gt;<i> &gt; am new to the codebase as well. If you find a good place for code like
+</I>&gt;<i> &gt; this please let me know!
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; - Mike
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; On 4/6/07, <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">g6m3xcl02 at sneakemail.com</A> &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">g6m3xcl02 at sneakemail.com</A>&gt; wrote:
+</I>&gt;<i> &gt; &gt; I am interested in working on a patch for an auto-un-indentation
+</I>&gt;<i> feature.
+</I>&gt;<i> &gt; &gt; Specifically, if you type &quot;else:&quot; (followed by a carriage return), I
+</I>&gt;<i> think
+</I>&gt;<i> &gt; &gt; it should match the most recent &quot;if:&quot; block level, and the same for
+</I>&gt;<i> &gt; &gt; try/except blocks. Would others find this useful?
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; I'm new to the SPE codebase. Could someone help me get started by
+</I>&gt;<i> pointing
+</I>&gt;<i> &gt; &gt; me to relevant modules?
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; Cheers,
+</I>&gt;<i> &gt; &gt;  Carver
+</I>&gt;<i> &gt; &gt; --
+</I>&gt;<i> &gt; &gt; <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> &gt; &gt; svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;<i> &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; --
+</I>&gt;<i> &gt; Mike Rooney
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">mrooney at .........</A>
+</I>&gt;<i> &gt; --
+</I>&gt;<i> &gt; <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> &gt; svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+
+-- 
+Mike Rooney
+<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">mrooney at gmail.com</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000277.html">[spe-dev] Auto-un-indention feature
+</A></li>
+	<LI>Next message: <A HREF="000279.html">[spe-dev] Auto-un-indention feature
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#278">[ date ]</a>
+              <a href="thread.html#278">[ thread ]</a>
+              <a href="subject.html#278">[ subject ]</a>
+              <a href="author.html#278">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

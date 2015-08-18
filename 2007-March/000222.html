@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Bug: Print UML Preview produces error
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%3A%20Print%20UML%20Preview%20produces%20error&In-Reply-To=%3C1DCCC96B-D52E-48A1-9992-A3EBB462CCC8%40mac.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000230.html">
+   <LINK REL="Next"  HREF="000233.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Bug: Print UML Preview produces error</H1>
+    <B>John Finch</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%3A%20Print%20UML%20Preview%20produces%20error&In-Reply-To=%3C1DCCC96B-D52E-48A1-9992-A3EBB462CCC8%40mac.com%3E"
+       TITLE="[spe-dev] Bug: Print UML Preview produces error">johnfinch at mac.com
+       </A><BR>
+    <I>Sat Mar 17 22:05:09 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000230.html">[spe-dev] Bug: Save UML As... Error dialog loop
+</A></li>
+        <LI>Next message: <A HREF="000233.html">[spe-dev] Bug: Print UML Preview produces error
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#222">[ date ]</a>
+              <a href="thread.html#222">[ thread ]</a>
+              <a href="subject.html#222">[ subject ]</a>
+              <a href="author.html#222">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>OSX
+
+Attempted to preview the UML as it would print. Main pane changes to  
+UML view but nothing else happens. Noted the following error in debug  
+output.
+
+
+
+Spe is running in debugging mode with this configuration:
+- platform  : darwin
+- python    : 2.5
+- wxPython  : 2.8.1.1
+- interface : &lt;default&gt;
+- encoding  : mac-roman
+
+Launching application...
+Create: Framework: menu.
+Create: Framework: toolbar.
+Create: Framework: statusbar.
+Creating tabs...
+         Shell
+         Locals
+         Session
+         Output
+         Find
+         Browser
+         Recent
+         Todo
+         Index
+         Notes
+         Donate
+Opening /Users/johnfinch/_spe/examples/uml_example.py
+Create: MdiSplit: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;  
+uml_example.py /Users/johnfinch/_spe/examples/uml_example.py
+Create: Sdi:   &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.tabs
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: MdiSplit: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt; wxnaj.py / 
+Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: Sdi:   &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.tabs
+Event:  Child: /Users/johnfinch/_spe/examples/uml_example.py: &lt;class  
+'Child.Panel'&gt;.onKillFocus(dead=False)
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(True)
+Event:  Parent: &lt;class 'Parent.Panel'&gt;.onActivate
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(True)
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Size
+Event:  Parent: &lt;class 'Parent.Panel'&gt;.onSize
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Size
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Size
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Size
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Event:  Child: /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py:  
+&lt;class 'Child.Panel'&gt;.onKillFocus(dead=False)
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Size
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Size
+Event:  Child: /Users/johnfinch/_spe/examples/uml_example.py: &lt;class  
+'Child.Panel'&gt;.onKillFocus(dead=False)
+Traceback (most recent call last):
+   File &quot;/Users/johnfinch/_spe/Menu.py&quot;, line 298, in  
+menu_print_uml_preview
+     self.app.childActive.printUmlPreview()
+   File &quot;/Users/johnfinch/_spe/Child.py&quot;, line 420, in printUmlPreview
+     self.uml.OnPrintPreview()
+   File &quot;/Users/johnfinch/_spe/sm/uml.py&quot;, line 156, in OnPrintPreview
+     self._checkPrintSetup()
+   File &quot;/Users/johnfinch/_spe/sm/uml.py&quot;, line 141, in _checkPrintSetup
+     if not self.printSetup: self.OnPrintSetup()
+   File &quot;/Users/johnfinch/_spe/sm/uml.py&quot;, line 146, in OnPrintSetup
+     printerDialog.GetPrintDialogData().SetSetupDialog(True)
+AttributeError: 'PrintDialogData' object has no attribute  
+'SetSetupDialog'
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(False)
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000230.html">[spe-dev] Bug: Save UML As... Error dialog loop
+</A></li>
+	<LI>Next message: <A HREF="000233.html">[spe-dev] Bug: Print UML Preview produces error
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#222">[ date ]</a>
+              <a href="thread.html#222">[ thread ]</a>
+              <a href="subject.html#222">[ subject ]</a>
+              <a href="author.html#222">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

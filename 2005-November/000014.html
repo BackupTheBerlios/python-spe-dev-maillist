@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Bug 4856 on *nix: class crash
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2005-November/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%204856%20on%20%2Anix%3A%20class%20crash&In-Reply-To=%3C2078a7ad0511022154x37921bebpb67b79d4587d3ef1%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000013.html">
+   <LINK REL="Next"  HREF="000015.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Bug 4856 on *nix: class crash</H1>
+    <B>SPE Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%204856%20on%20%2Anix%3A%20class%20crash&In-Reply-To=%3C2078a7ad0511022154x37921bebpb67b79d4587d3ef1%40mail.gmail.com%3E"
+       TITLE="[spe-dev] Bug 4856 on *nix: class crash">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Thu Nov  3 06:54:44 CET 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000013.html">[spe-dev] SPE roadmap
+</A></li>
+        <LI>Next message: <A HREF="000015.html">[spe-dev] Bug 4856 on *nix: class crash -&gt; FIXED: URGENT PLEASE CHECK!!
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#14">[ date ]</a>
+              <a href="thread.html#14">[ thread ]</a>
+              <a href="subject.html#14">[ subject ]</a>
+              <a href="author.html#14">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>This bug is gaving me headaches:
+<A HREF="http://developer.berlios.de/bugs/?func=detailbug&amp;bug_id=4856&amp;group_id=4161">http://developer.berlios.de/bugs/?func=detailbug&amp;bug_id=4856&amp;group_id=4161</A>
+
+This bug does *not* happen on Windows.
+
+
+Thanks to Bill Scherer, a SPE Linux user, we could come quite clause
+to where it happens:
+ 	
+&quot;OK. After several rides through with the debugger, I've found that it
+segfaults on line 442 of
+/usr/lib/python2.4/site-packages/wx-2.6-gtk2-ansi/wx/lib/evtmgr.py,
+which looks like this:
+
+
+438    def handleEvent(self, event):
+439        &quot;&quot;&quot;
+440        In response to a wxWindows event, send a PS message
+441        &quot;&quot;&quot;
+442        self.publisher.sendMessage(topic=self.topic, data=event)
+
+
+What I did was to start winpdb, and launch spe. I pressed F5 to let it
+complete startup by itself. I had previously lauched spe to open
+evtmgr.py, and had it set to remember files. In winpdb, I chose
+File...Open Source, and entered evtmgr.py. I put a break point on line
+438. speedometer.py was also remembered, and was in the topmost tab. I
+clicked into the middle of the speedometer class name, and then when
+back to winpdb and F6'd until all events were processed. I then
+brought the focus back to spe and, noting that the insertion cursor
+was in the middle of the class name, I hit the spacebar. Focusing back
+to winpdb, I F6'd until segfault. The call path progressed through the
+handleEvent code in evtmgr.py several times. The bottommost call in
+your code was from the onUpdateUI method of the PythonBaseSTC class,
+starting on or about line 283. Code from several other files in
+/usr/lib/python2.4/site-packages/wx-2.6-gtk2-ansi/wx/lib was also run.
+On about the fifth or sixth time through line 442, it segfaults. This
+is repeatable.
+
+Let me know what steps I can take from here to isolate the fault.&quot;
+
+I wrote my own version of TreeCtrl and ListCtrl in sm.wxp.realtime and
+I am quite sure they are the root of the problem. These classes are
+developped to be able to easily replace only small items of the
+control, without the need of emptying them first, which is to slow and
+cpu consuming. Also it remembers what's open folded and what not. So
+maybe we need to develop some test framework for them.
+
+Maybe replacing the custom Tree control with the original wx.TreeCtrl
+could prove its guilt, if this bug is not occuring anymore. Same for
+the list control.
+
+Stani
+
+--
+<A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+<A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000013.html">[spe-dev] SPE roadmap
+</A></li>
+	<LI>Next message: <A HREF="000015.html">[spe-dev] Bug 4856 on *nix: class crash -&gt; FIXED: URGENT PLEASE CHECK!!
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#14">[ date ]</a>
+              <a href="thread.html#14">[ thread ]</a>
+              <a href="subject.html#14">[ subject ]</a>
+              <a href="author.html#14">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Bug Fixed: View as notebook/columns/rows
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%20Fixed%3A%20View%20as%20notebook/columns/rows&In-Reply-To=%3C2ADAB7E3-9D56-4D69-9986-E2CE11A36053%40mac.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000257.html">
+   <LINK REL="Next"  HREF="000247.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Bug Fixed: View as notebook/columns/rows</H1>
+    <B>John Finch</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%20Fixed%3A%20View%20as%20notebook/columns/rows&In-Reply-To=%3C2ADAB7E3-9D56-4D69-9986-E2CE11A36053%40mac.com%3E"
+       TITLE="[spe-dev] Bug Fixed: View as notebook/columns/rows">johnfinch at mac.com
+       </A><BR>
+    <I>Mon Mar 19 23:55:00 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000257.html">[spe-dev] Bug Fixed: View as notebook/columns/rows
+</A></li>
+        <LI>Next message: <A HREF="000247.html">[spe-dev] run/stop is maybe fixed, please test
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#258">[ date ]</a>
+              <a href="thread.html#258">[ thread ]</a>
+              <a href="subject.html#258">[ subject ]</a>
+              <a href="author.html#258">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Nope, sorry but it doesn't work Stani. Here's the Traceback:
+
+Traceback (most recent call last):
+   File &quot;/Users/johnfinch/_spe/Menu.py&quot;, line 420, in menu_as_notebook
+     self.parentPanel.as_notebook(event)
+AttributeError: 'Panel' object has no attribute 'as_notebook'
+
+On Mar 19, 2007, at 8:51 AM, Stani's Python Editor wrote:
+
+&gt;&gt;<i>      def as_notebook(self,event):
+</I>&gt;&gt;<i>          if hasattr(self.frame,'Tile'):
+</I>&gt;&gt;<i>              self.app.childActive.frame.Maximize()
+</I>&gt;&gt;<i>          else:
+</I>&gt;&gt;<i>              tabs  =  getattr(self.frame,'tabs',None)
+</I>&gt;&gt;<i>              if tabs:
+</I>&gt;&gt;<i>                  # Have to set selection to first tab and de-Tile  
+</I>&gt;&gt;<i> before
+</I>&gt;&gt;<i>                  # starting iterations to show sidebars etc
+</I>&gt;&gt;<i>                  tabs.Tile(False)
+</I>&gt;&gt;<i>                  for child in app.children:
+</I>&gt;&gt;<i>                      child.showSidebar()
+</I>&gt;&gt;<i>                  tabs.ShowTabs(True)
+</I>&gt;&gt;<i>                  tabs.SetSelection(0)
+</I>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070319/dbc4efb4/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070319/dbc4efb4/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000257.html">[spe-dev] Bug Fixed: View as notebook/columns/rows
+</A></li>
+	<LI>Next message: <A HREF="000247.html">[spe-dev] run/stop is maybe fixed, please test
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#258">[ date ]</a>
+              <a href="thread.html#258">[ thread ]</a>
+              <a href="subject.html#258">[ subject ]</a>
+              <a href="author.html#258">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,3578 @@
+From spe.stani.be at gmail.com  Tue Jan  3 01:12:29 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Tue, 3 Jan 2006 01:12:29 +0100
+Subject: [spe-dev] SVN 119: Nice run improvement
+Message-ID: <2078a7ad0601021612i6ae24952la190714259a1c589@mail.gmail.com>
+
+Happy newyear everyone!
+
+Following a discussion on the wxpython I decided to integrate better the run
+system. Now the output is redirected directly into SPE itself. This is very
+handy. I probably did some other things as well. Probably this will be a new
+SPE release next week.
+
+Stani
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060103/f41c4249/attachment.html>
+
+From fuzzyman at voidspace.org.uk  Thu Jan  5 13:01:54 2006
+From: fuzzyman at voidspace.org.uk (Fuzzyman)
+Date: Thu, 05 Jan 2006 12:01:54 +0000
+Subject: [spe-dev] Running Programs With Movable Python
+Message-ID: <43BD0AB2.3000505@voidspace.org.uk>
+
+Hello Stani (and others),
+
+Congratulations on SPE. I am appreciating it more and more.
+
+There is a slight issue with running programs under movable python. This
+is due to the way Movable Python works - however a very slight fix in
+SPE can get it to work.
+
+Like python there are two executables - ``movpy.exe`` and
+``movpyw.exe``. ``movpyw.exe`` runs programs without a console.
+
+SPE now uses sys.executable to run programs. I prefer to run SPE using
+``movpyw.exe``, which means SPE uses ``movpyw.exe`` to run programs -
+with the result that there is no console box (and no proper stdout/stderr).
+
+The fix is to detect that the executable is movpyw.exe and change this
+to movpy.exe.
+
+Is this ok ?
+
+Thanks
+
+Fuzzyman
+http://www.voidspace.org.uk/python/index.shtml
+
+
+From spe.stani.be at gmail.com  Thu Jan  5 14:43:37 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Thu, 5 Jan 2006 14:43:37 +0100
+Subject: [spe-dev] Running Programs With Movable Python
+In-Reply-To: <43BD0AB2.3000505@voidspace.org.uk>
+References: <43BD0AB2.3000505@voidspace.org.uk>
+Message-ID: <2078a7ad0601050543h663894b1l407a1b955a4a53ee@mail.gmail.com>
+
+On 1/5/06, Fuzzyman <fuzzyman at voidspace.org.uk> wrote:
+>
+>
+> Hello Stani (and others),
+>
+> Congratulations on SPE. I am appreciating it more and more.
+
+
+Thanks (especially because you tested the latest version in SVN)!
+
+There is a slight issue with running programs under movable python. This
+> is due to the way Movable Python works - however a very slight fix in
+> SPE can get it to work.
+>
+> Like python there are two executables - ``movpy.exe`` and
+> ``movpyw.exe``. ``movpyw.exe`` runs programs without a console.
+>
+> SPE now uses sys.executable to run programs. I prefer to run SPE using
+> ``movpyw.exe``, which means SPE uses ``movpyw.exe`` to run programs -
+> with the result that there is no console box (and no proper
+> stdout/stderr).
+>
+> The fix is to detect that the executable is movpyw.exe and change this
+> to movpy.exe.
+>
+> Is this ok ?
+
+
+SPE looks only one time for sys.executable in _spe/info.py (Actually it did
+also somewhere else, but I fixed that now.) So I think it is better to patch
+that file before making Movable Python. I prefer not to have some checking
+code always in SPE as normally it is not the case.
+
+I noticed that winpdb also makes one call to sys.executable in rpdb2.py,
+line 5145:
+python_exec = sys.executable
+So you will have to patch that as well.
+
+But instead of making two patches, it would be much better for Movable
+Python to be able to overwrite the sys.executable immediately in sys.
+Otherwise any program with a call to sys.executable won't work. How to do
+that is another question, but is definitely interesting. Maybe you should
+ask on comp.lang.python.
+
+All the best,
+
+Stani
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060105/89c7a97d/attachment.html>
+
+From fuzzyman at voidspace.org.uk  Thu Jan  5 14:55:35 2006
+From: fuzzyman at voidspace.org.uk (Fuzzyman)
+Date: Thu, 05 Jan 2006 13:55:35 +0000
+Subject: [spe-dev] Running Programs With Movable Python
+In-Reply-To: <2078a7ad0601050543h663894b1l407a1b955a4a53ee@mail.gmail.com>
+References: <43BD0AB2.3000505@voidspace.org.uk> <2078a7ad0601050543h663894b1l407a1b955a4a53ee@mail.gmail.com>
+Message-ID: <43BD2557.1080302@voidspace.org.uk>
+
+SPE Stani's Python Editor wrote:
+
+> On 1/5/06, *Fuzzyman* <fuzzyman at voidspace.org.uk
+> <mailto:fuzzyman at voidspace.org.uk>> wrote:
+>
+>
+>     Hello Stani (and others),
+>
+>     Congratulations on SPE. I am appreciating it more and more.
+>
+>
+> Thanks (especially because you tested the latest version in SVN)!
+>
+>     There is a slight issue with running programs under movable
+>     python. This
+>     is due to the way Movable Python works - however a very slight fix in
+>     SPE can get it to work.
+>
+>     Like python there are two executables - ``movpy.exe`` and
+>     ``movpyw.exe``. ``movpyw.exe`` runs programs without a console.
+>
+>     SPE now uses sys.executable to run programs. I prefer to run SPE
+>     using
+>     ``movpyw.exe``, which means SPE uses ``movpyw.exe`` to run programs -
+>     with the result that there is no console box (and no proper
+>     stdout/stderr).
+>
+>     The fix is to detect that the executable is movpyw.exe and change
+>     this
+>     to movpy.exe.
+>
+>     Is this ok ?
+>
+>
+> SPE looks only one time for sys.executable in _spe/info.py (Actually
+> it did also somewhere else, but I fixed that now.) So I think it is
+> better to patch that file before making Movable Python. I prefer not
+> to have some checking code always in SPE as normally it is not the case.
+>
+> I noticed that winpdb also makes one call to sys.executable in
+> rpdb2.py, line 5145:
+> python_exec = sys.executable
+> So you will have to patch that as well.
+>
+> But instead of making two patches, it would be much better for Movable
+> Python to be able to overwrite the sys.executable immediately in sys.
+> Otherwise any program with a call to sys.executable won't work. How to
+> do that is another question, but is definitely interesting. Maybe you
+> should ask on comp.lang.python.
+
+You can directly assign to sys.executable.  It's a nice fact about
+Python that once you have access to a module's namespace you can assign
+to globals in it. Unfortunately it makes it difficult to optimise Python
+(because you can't know anything about the type of objects in a module
+namespace -because they can be overridden at runtime by another module
+with access to the namespace).
+
+Anyway - running programs with sys.executable works fine. Normally it
+will be the 'right thing'. In this case it isn't. Hmmm... maybe when
+launching SPE I can change sys.executable.
+
+Fuzzyman
+http://ww.voidspace.org.uk/python/index.shtml
+
+>
+> All the best,
+>
+> Stani
+>
+
+
+
+From spe.stani.be at gmail.com  Thu Jan  5 15:08:43 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Thu, 5 Jan 2006 15:08:43 +0100
+Subject: [spe-dev] Running Programs With Movable Python
+In-Reply-To: <43BD2557.1080302@voidspace.org.uk>
+References: <43BD0AB2.3000505@voidspace.org.uk>
+	 <2078a7ad0601050543h663894b1l407a1b955a4a53ee@mail.gmail.com>
+	 <43BD2557.1080302@voidspace.org.uk>
+Message-ID: <2078a7ad0601050608j1b32cadbx47d6655b3b0be655@mail.gmail.com>
+
+On 1/5/06, Fuzzyman <fuzzyman at voidspace.org.uk> wrote:
+>
+> You can directly assign to sys.executable.  It's a nice fact about
+> Python that once you have access to a module's namespace you can assign
+> to globals in it. Unfortunately it makes it difficult to optimise Python
+> (because you can't know anything about the type of objects in a module
+> namespace -because they can be overridden at runtime by another module
+> with access to the namespace).
+
+
+I know you can overwrite, but this is only within the namespace of the
+running script. If a script like SPE launches another script externally like
+winpdb, sys.executable won't be changed there. So be careful about that.
+
+Anyway - running programs with sys.executable works fine. Normally it
+> will be the 'right thing'. In this case it isn't. Hmmm... maybe when
+> launching SPE I can change sys.executable.
+
+
+And also in rpdb2.py. I'm afraid the debugger won't work otherwise.
+
+Stani
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060105/a0574909/attachment.html>
+
+From spe.stani.be at gmail.com  Thu Jan  5 15:11:30 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Thu, 5 Jan 2006 15:11:30 +0100
+Subject: [spe-dev] Anyone using SPE on Ubuntu?
+Message-ID: <2078a7ad0601050611r44238825p750cdf07adcb3819@mail.gmail.com>
+
+Hi,
+I'm playing around with SPE on Ubuntu. This probably will increase the
+quality of SPE on Ubuntu and Linux in general. I already made some
+patches, but I would like to get in contact with SPE users on Ubuntu.
+So if you do, please contact me privately.
+Thanks,
+Stani
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From fuzzyman at voidspace.org.uk  Thu Jan  5 16:34:04 2006
+From: fuzzyman at voidspace.org.uk (Fuzzyman)
+Date: Thu, 05 Jan 2006 15:34:04 +0000
+Subject: [spe-dev] Running Programs With Movable Python
+In-Reply-To: <2078a7ad0601050608j1b32cadbx47d6655b3b0be655@mail.gmail.com>
+References: <43BD0AB2.3000505@voidspace.org.uk>	 <2078a7ad0601050543h663894b1l407a1b955a4a53ee@mail.gmail.com>	 <43BD2557.1080302@voidspace.org.uk> <2078a7ad0601050608j1b32cadbx47d6655b3b0be655@mail.gmail.com>
+Message-ID: <43BD3C6C.4000706@voidspace.org.uk>
+
+SPE Stani's Python Editor wrote:
+
+> On 1/5/06, *Fuzzyman* <fuzzyman at voidspace.org.uk
+> <mailto:fuzzyman at voidspace.org.uk>> wrote:
+>
+>     You can directly assign to sys.executable.  It's a nice fact about
+>     Python that once you have access to a module's namespace you can
+>     assign
+>     to globals in it. Unfortunately it makes it difficult to optimise
+>     Python
+>     (because you can't know anything about the type of objects in a module
+>     namespace -because they can be overridden at runtime by another module
+>     with access to the namespace).
+>
+>
+> I know you can overwrite, but this is only within the namespace of the
+> running script. If a script like SPE launches another script
+> externally like winpdb, sys.executable won't be changed there. So be
+> careful about that.
+
+Scripts are launched by being "exec'd" by movable Python. Changing
+``sys.executable`` there affects all programs they run.
+
+
+>
+>     Anyway - running programs with sys.executable works fine. Normally it
+>     will be the 'right thing'. In this case it isn't. Hmmm... maybe when
+>     launching SPE I can change sys.executable.
+>
+>
+> And also in rpdb2.py. I'm afraid the debugger won't work otherwise.
+>
+I've hit on an acceptable solution. I'll create a third executable
+``movpywc.exe``. It doesn't have a console box (so it is like
+``movpyw.exe``) bit it changes sys.executable to point to ``movpy.exe``.
+That means that programs that use sys.executable to launch programs will
+have a console box as normal.
+
+I can special case SPE to use this - it will also be available to
+programmers to use with their programs that (may) launch subprocesses.
+
+It's kind of a hack (special case), but not 'unuseful'. It's certainly
+easier than maintaining patches against SPE.
+
+All the best,
+
+Fuzzyman
+http://www.voidspace.org.uk/python/index.shtml
+
+> Stani
+>
+> -- 
+> http://pythonide.stani.be
+> http://pythonide.stani.be/screenshots
+> http://pythonide.stani.be/manual/html/manual.html 
+
+
+
+
+From spe.stani.be at gmail.com  Thu Jan  5 16:51:18 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Thu, 5 Jan 2006 16:51:18 +0100
+Subject: [spe-dev] Running Programs With Movable Python
+In-Reply-To: <43BD3C6C.4000706@voidspace.org.uk>
+References: <43BD0AB2.3000505@voidspace.org.uk>
+	 <2078a7ad0601050543h663894b1l407a1b955a4a53ee@mail.gmail.com>
+	 <43BD2557.1080302@voidspace.org.uk>
+	 <2078a7ad0601050608j1b32cadbx47d6655b3b0be655@mail.gmail.com>
+	 <43BD3C6C.4000706@voidspace.org.uk>
+Message-ID: <2078a7ad0601050751q241ef035p1b61b2386a5d3141@mail.gmail.com>
+
+On 1/5/06, Fuzzyman <fuzzyman at voidspace.org.uk> wrote:
+>
+> I've hit on an acceptable solution. I'll create a third executable
+> ``movpywc.exe``. It doesn't have a console box (so it is like
+> ``movpyw.exe``) bit it changes sys.executable to point to ``movpy.exe``.
+> That means that programs that use sys.executable to launch programs will
+> have a console box as normal.
+>
+> I can special case SPE to use this - it will also be available to
+> programmers to use with their programs that (may) launch subprocesses.
+>
+> It's kind of a hack (special case), but not 'unuseful'. It's certainly
+> easier than maintaining patches against SPE.
+
+Good idea, but maybe it should replace sys.executable by itself, as
+winpdb is launched as subprocess, which in its turn will also launch
+subprocesses.
+
+Stani
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From fuzzyman at voidspace.org.uk  Thu Jan  5 16:59:55 2006
+From: fuzzyman at voidspace.org.uk (Fuzzyman)
+Date: Thu, 05 Jan 2006 15:59:55 +0000
+Subject: [spe-dev] Running Programs With Movable Python
+In-Reply-To: <2078a7ad0601050751q241ef035p1b61b2386a5d3141@mail.gmail.com>
+References: <43BD0AB2.3000505@voidspace.org.uk>	 <2078a7ad0601050543h663894b1l407a1b955a4a53ee@mail.gmail.com>	 <43BD2557.1080302@voidspace.org.uk>	 <2078a7ad0601050608j1b32cadbx47d6655b3b0be655@mail.gmail.com>	 <43BD3C6C.4000706@voidspace.org.uk> <2078a7ad0601050751q241ef035p1b61b2386a5d3141@mail.gmail.com>
+Message-ID: <43BD427B.60500@voidspace.org.uk>
+
+SPE Stani's Python Editor wrote:
+
+>http://pythonide.stani.be
+>http://pythonide.stani.be/manual/html/manual.html
+>http://pythonide.stani.be/blog/sm_donate
+>svn://svn.berlios.de/python/spe/trunk
+>_______________________________________________
+>On 1/5/06, Fuzzyman <fuzzyman at voidspace.org.uk> wrote:
+>  
+>
+>>I've hit on an acceptable solution. I'll create a third executable
+>>``movpywc.exe``. It doesn't have a console box (so it is like
+>>``movpyw.exe``) bit it changes sys.executable to point to ``movpy.exe``.
+>>That means that programs that use sys.executable to launch programs will
+>>have a console box as normal.
+>>
+>>I can special case SPE to use this - it will also be available to
+>>programmers to use with their programs that (may) launch subprocesses.
+>>
+>>It's kind of a hack (special case), but not 'unuseful'. It's certainly
+>>easier than maintaining patches against SPE.
+>>    
+>>
+>
+>Good idea, but maybe it should replace sys.executable by itself, as
+>winpdb is launched as subprocess, which in its turn will also launch
+>subprocesses.
+>
+>  
+>
+That would recursively launch subrocesses with no console boxes !
+
+I think one stray console box for the debugger is a price worth paying.
+I'll also look at the SPE code and see if I can build in a
+'cross-version' way that works for Movable Python without adding any
+overhead to normal Python users.
+
+All the best,
+
+Fuzzyman
+http://www.voidspace.org.uk/python/index.shtml
+
+>Stani
+>--
+>http://pythonide.stani.be
+>http://pythonide.stani.be/screenshots
+>http://pythonide.stani.be/manual/html/manual.html
+>_______________________________________________
+>Python-spe-dev mailing list
+>Python-spe-dev at lists.berlios.de
+>http://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>  
+>
+
+
+
+From nick at rockstarvancouver.com  Fri Jan  6 03:09:02 2006
+From: nick at rockstarvancouver.com (Nick Trout)
+Date: Thu, 5 Jan 2006 18:09:02 -0800
+Subject: [spe-dev] multiple paths in the Find tab
+Message-ID: <2BF01B00D2E5074E8F9922AEB41EF5CE56E3D9@ex-2003.rockstarvancouver.com>
+
+I added a patch which allows you to search multiple paths in the Find
+tab. If you type in ';' at the end of a path it will append a browsed
+path to the one there.
+
+Nick
+
+
+
+
+From Richard.E.Brown at vweb2.dartware.com  Fri Jan  6 04:52:12 2006
+From: Richard.E.Brown at vweb2.dartware.com (Richard E. Brown)
+Date: 05 Jan 2006 22:52:12 EST
+Subject: [spe-dev] Crash with svn 128 on MacOS X
+Message-ID: <2098856@blitz.dartware.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060105/774b0caf/attachment.ksh>
+
+From fuzzyman at voidspace.org.uk  Fri Jan  6 09:17:59 2006
+From: fuzzyman at voidspace.org.uk (Fuzzyman)
+Date: Fri, 06 Jan 2006 08:17:59 +0000
+Subject: [spe-dev] Testing SVN Version
+Message-ID: <43BE27B7.9050501@voidspace.org.uk>
+
+Hello Stani,
+
+I've played around with the version of SPE from SVN. There are a couple
+of minor issues.
+
+SPE.pyw doesn't work. Copying spe.py and renaming works.
+If you wrap everything in spe.py in a main function and just call main,
+spe.pyw could just import main from spe.py and run it - this would save you
+having to maintain both.
+
+Shift-ctrl-E now brings up a dialog saying 'are you sure you want to run
+whole script'
+It doesn't now just run the whole script without raising *another* dialog.
+
+I can use ctrl-shift-R instead - with the redirected output, which is nice.
+
+Even with shift-Ctrl-R I still would like to run some stuff in the shell
+(stuff
+that uses raw_input for simple interaction). Would it be possible to
+turn this
+dialog off with a preference ?
+
+When I hit F9 I got the following error (I was running spe.pyw using
+pythonw.exe)
+
+>>> Traceback (most recent call last):
+  File "C:\Python24\Lib\site-packages\_spe\Menu.py", line 442, in
+menu_run_terminal
+    self.app.childActive.run()
+  File "C:\Python24\Lib\site-packages\_spe\Child.py", line 528, in run
+    from _spe.dialogs.runTerminalDialog import RunTerminalDialog
+ImportError: No module named runTerminalDialog
+
+When run from pythonw.exe (as I always do), then shift-F9 opens a
+console box,
+but because sys.executable is used - the program is run using
+pythonw.exe - so
+no output is displayed.
+
+What you probably want to do is patch the following file. This would
+sort the
+same problem for SPE *and* Movable Python :
+
+info.py line 17 becomes :
+
+PYTHON_EXEC                 = sys.executable
+if WIN:
+    if PYTHON_EXEC.endswith('w.exe'):
+        PYTHON_EXEC = PYTHON_EXEC[:-5] + '.exe'
+
+This fix is *already* made in rpd2.py
+
+Recent files (which I've only just discovered) is good. Single clicking on
+files opens them and right clicking runs them ! IMHO this is anti-intuitive.
+
+Double clicking should open. Single clicking should select them,
+allowing me to
+delete items from the list. Right clicking should open a context menu
+allowing
+me to delete or run. I'll file this as a feature request.
+
+It also freezes up (stops working) after right clicking - sometimes this
+freezes SPE altogether. The problem is *probably* related to launching
+programs
+using pythonw or the way programs terminate (or don't) if they have an
+event loop - I'm not sure yet.
+
+
+Error seen once on startup :
+
+  File "C:\Python24\Lib\site-packages\_spe\sm\wxp\NotebookCtrl.py", line
+1867, in OnMouseMotion
+    dx = abs(pt.x - self._dragstartpos.x)
+AttributeError: 'TabCtrl' object has no attribute '_dragstartpos'
+
+
+
+Error seen once running from movpy.exe on startup :
+
+  File "F:\Python Projects\modules in
+progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py", line 1893,
+in OnMouseMotion
+    insidex = self.GetInsideX(pt)
+  File "F:\Python Projects\modules in
+progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py", line 1678,
+in GetInsideX
+    if rects.Inside(pt):
+AttributeError: 'int' object has no attribute 'Inside'
+Traceback (most recent call last):
+  File "F:\Python Projects\modules in
+progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py", line 1893,
+in OnMouseMotion
+    insidex = self.GetInsideX(pt)
+  File "F:\Python Projects\modules in
+progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py", line 1678,
+in GetInsideX
+    if rects.Inside(pt):
+AttributeError: 'int' object has no attribute 'Inside'
+Traceback (most recent call last):
+  File "F:\Python Projects\modules in
+progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py", line 1893,
+in OnMouseMotion
+    insidex = self.GetInsideX(pt)
+  File "F:\Python Projects\modules in
+progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py", line 1678,
+in GetInsideX
+    if rects.Inside(pt):
+AttributeError: 'int' object has no attribute 'Inside'
+Traceback (most recent call last):
+  File "F:\Python Projects\modules in
+progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py", line 1893,
+in OnMouseMotion
+    insidex = self.GetInsideX(pt)
+  File "F:\Python Projects\modules in
+progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py", line 1678,
+in GetInsideX
+    if rects.Inside(pt):
+AttributeError: 'int' object has no attribute 'Inside'
+
+
+Running a script with raw_input() using Ctrl-R causes an error (it
+hangs). Press
+Ctrl-R again and it offers to kill the script (warning you SPE might
+die). I then
+get a core dump. (The instruction 0x0.... referenced memory that could
+not be read).
+
+I get the same error with F9 when running from movpy.
+
+All the best,
+
+Fuzzyman
+http://www.voidspace.org.uk/python/index.shtml
+
+
+From andrea_gavana at tin.it  Fri Jan  6 13:16:49 2006
+From: andrea_gavana at tin.it (Andrea Gavana)
+Date: Fri, 6 Jan 2006 13:16:49 +0100
+Subject: [spe-dev] Testing SVN Version
+References: <43BE27B7.9050501@voidspace.org.uk>
+Message-ID: <005801c612bb$124b8000$e7493852@Gavana>
+
+Hello,
+
+> Error seen once on startup :
+>
+>   File "C:\Python24\Lib\site-packages\_spe\sm\wxp\NotebookCtrl.py", line
+> 1867, in OnMouseMotion
+>     dx = abs(pt.x - self._dragstartpos.x)
+> AttributeError: 'TabCtrl' object has no attribute '_dragstartpos'
+
+I don't know which OS you have and what kind of Python are you using, but
+this is not supposed to happen. It means that your left mouse button is
+*not* down but you are able to drag the mouse (!!!!), which is a nonsense. I
+fixed it by declaring __init__() method of TabCtrl:
+
+self._dragstartpos = wx.Point()
+
+But there is something strange happening with your configuration.
+
+> Traceback (most recent call last):
+>   File "F:\Python Projects\modules in
+> progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py", line 1893,
+> in OnMouseMotion
+>     insidex = self.GetInsideX(pt)
+>   File "F:\Python Projects\modules in
+> progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py", line 1678,
+> in GetInsideX
+>     if rects.Inside(pt):
+> AttributeError: 'int' object has no attribute 'Inside'
+
+This is the same as above. It seems that your OnMouseMotion() is called
+before the first OnPaint() event, that is almost impossible. Which wxPython
+version are you using? Though it shouldn't matter, the OnPaint() thing is
+the first event called by wxPython, whatever you do with your mouse. BTW,
+have you checked that Python behaves the same as movpy in this situation? If
+this is not the case, I am afraid there is some incompatibility between
+Python and movpy.
+I have fixed also this issue (I think), and I am sending the new version of
+NotebookCtrl to Stani. I have never seen that error messages, however ;-)
+
+Andrea.
+
+"Imagination Is The Only Weapon In The War Against Reality."
+http://xoomer.virgilio.it/infinity77
+
+
+
+
+From fuzzyman at voidspace.org.uk  Fri Jan  6 13:29:59 2006
+From: fuzzyman at voidspace.org.uk (Fuzzyman)
+Date: Fri, 06 Jan 2006 12:29:59 +0000
+Subject: [spe-dev] Testing SVN Version
+In-Reply-To: <005801c612bb$124b8000$e7493852@Gavana>
+References: <43BE27B7.9050501@voidspace.org.uk> <005801c612bb$124b8000$e7493852@Gavana>
+Message-ID: <43BE62C7.70102@voidspace.org.uk>
+
+Andrea Gavana wrote:
+
+>http://pythonide.stani.be
+>http://pythonide.stani.be/manual/html/manual.html
+>http://pythonide.stani.be/blog/sm_donate
+>svn://svn.berlios.de/python/spe/trunk
+>_______________________________________________
+>Hello,
+>
+>  
+>
+>>Error seen once on startup :
+>>
+>>  File "C:\Python24\Lib\site-packages\_spe\sm\wxp\NotebookCtrl.py", line
+>>1867, in OnMouseMotion
+>>    dx = abs(pt.x - self._dragstartpos.x)
+>>AttributeError: 'TabCtrl' object has no attribute '_dragstartpos'
+>>    
+>>
+>
+>I don't know which OS you have and what kind of Python are you using, but
+>this is not supposed to happen. It means that your left mouse button is
+>*not* down but you are able to drag the mouse (!!!!), which is a nonsense. I
+>fixed it by declaring __init__() method of TabCtrl:
+>
+>self._dragstartpos = wx.Point()
+>
+>But there is something strange happening with your configuration.
+>
+>  
+>
+
+I use wxPython 2.6.1.0 unicode with Python 2.4.2 and Windows XP SP2.
+
+I see these errors *intermittently* with both normal Python and Movable
+Python.
+
+I wonder if it's caused by mouse movements *whilst* SPE is initialising.
+This might explain why it is only getting half of event pairs.
+
+All the best,
+
+Fuzzyman
+http://www.voidspace.org.uk/python/index.shtml
+
+>>Traceback (most recent call last):
+>>  File "F:\Python Projects\modules in
+>>progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py", line 1893,
+>>in OnMouseMotion
+>>    insidex = self.GetInsideX(pt)
+>>  File "F:\Python Projects\modules in
+>>progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py", line 1678,
+>>in GetInsideX
+>>    if rects.Inside(pt):
+>>AttributeError: 'int' object has no attribute 'Inside'
+>>    
+>>
+>
+>This is the same as above. It seems that your OnMouseMotion() is called
+>before the first OnPaint() event, that is almost impossible. Which wxPython
+>version are you using? Though it shouldn't matter, the OnPaint() thing is
+>the first event called by wxPython, whatever you do with your mouse. BTW,
+>have you checked that Python behaves the same as movpy in this situation? If
+>this is not the case, I am afraid there is some incompatibility between
+>Python and movpy.
+>I have fixed also this issue (I think), and I am sending the new version of
+>NotebookCtrl to Stani. I have never seen that error messages, however ;-)
+>
+>Andrea.
+>
+>"Imagination Is The Only Weapon In The War Against Reality."
+>http://xoomer.virgilio.it/infinity77
+>
+>
+>_______________________________________________
+>Python-spe-dev mailing list
+>Python-spe-dev at lists.berlios.de
+>http://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>  
+>
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060106/725d103c/attachment.html>
+
+From spe.stani.be at gmail.com  Fri Jan  6 14:08:22 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Fri, 6 Jan 2006 14:08:22 +0100
+Subject: [spe-dev] multiple paths in the Find tab
+In-Reply-To: <2BF01B00D2E5074E8F9922AEB41EF5CE56E3D9@ex-2003.rockstarvancouver.com>
+References: <2BF01B00D2E5074E8F9922AEB41EF5CE56E3D9@ex-2003.rockstarvancouver.com>
+Message-ID: <2078a7ad0601060508o4ced4a60hf4bea9813384fa26@mail.gmail.com>
+
+Thanks! Patches can be send to me directly privately. (Saves me a bit time.)
+This is not the case for bug reports and feature requests.
+
+Stani
+
+On 1/6/06, Nick Trout <nick at rockstarvancouver.com> wrote:
+>
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+>
+> I added a patch which allows you to search multiple paths in the Find
+> tab. If you type in ';' at the end of a path it will append a browsed
+> path to the one there.
+>
+> Nick
+>
+>
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060106/11dcd830/attachment.html>
+
+From spe.stani.be at gmail.com  Fri Jan  6 14:12:13 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Fri, 6 Jan 2006 14:12:13 +0100
+Subject: [spe-dev] Crash with svn 128 on MacOS X
+In-Reply-To: <2098856@blitz.dartware.com>
+References: <2098856@blitz.dartware.com>
+Message-ID: <2078a7ad0601060512i3c845e53ice6ec52a7b65b18a@mail.gmail.com>
+
+Thanks, that's a bug. I guess, this would fix it in Parent.py:
+__import__('_spe.tabs.'+tab)
+with
+__import__('tabs.'+tab)
+
+I try it later, but if you are faster let me know.
+
+Stani
+
+On 05 Jan 2006 22:52:12 EST, Richard E. Brown <
+Richard.E.Brown at vweb2.dartware.com> wrote:
+>
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> Stani:
+>
+> I read on the blog that you could simply invoke spe without installing, so
+> I
+> tried it.
+>
+> I retrieved svn128, then cd' to _spe. I then typed:
+>
+> pythonw SPE.py
+>
+> and a window opened, a "traceback" message appeared briefly, and it
+> crashed. I
+> then tried the debugging command, and got the attached debug.text file.
+> Any
+> clues? Thanks.
+>
+> Rich Brown
+> Hanover, NH USA
+>
+> =================================
+> [Richard-E-Browns-Computer:NewStuff/src/_spe] richb% more debug.txt
+>
+> SPE v0.8.1.d.svn (c)2003-2005 www.stani.be
+>
+> If spe fails to start:
+> - type "pythonw SPE.py --debug > debug.txt 2>&1" at the command prompt
+>    (or if you use tcsh: "pythonw SPE.py --debug >& debug.txt")
+> - send debug.txt with some info to spe.stani.be[at]gmail.com
+>
+> If spe is unstable, try this interface from the preferences:
+>   "multiple with sash & tabs (mac default,linux default,windows)"
+>
+> Blender support disabled (run SPE inside Blender to enable).
+>
+> Encrypted debugging disabled.
+>   If you prefer encrypted debugging, install the "Python Cryptography
+> Toolkit"
+>   from http://www.amk.ca/python/code/crypto
+>
+> Spe is running in debugging mode with this configuration:
+> - platform  : darwin
+> - python    : 2.4.2
+> - wxPython  : 2.6.1.0.
+> - interface : <default>
+> - encoding  : mac-roman
+>
+> Launching application...
+> Create: Framework: menu.
+> Create: Framework: toolbar.
+> Create: Framework: statusbar.
+> Creating tabs...
+>         Shell
+>         Locals
+>         Session
+>         Output
+> Traceback (most recent call last):
+>   File "SPE.py", line 209, in ?
+>     style           = style)
+>   File "/Users/richb/Desktop/NewStuff/src/_spe/sm/wxp/smdi.py", line 1266,
+> in
+> __init__
+>     wx.App.__init__(self,redirect=not debug)
+>   File
+>
+> "//Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/
+> wx-2.6-mac-ans
+> i/wx/_core.py", line 7473, in __init__
+>     self._BootstrapApp()
+>   File
+>
+> "//Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/
+> wx-2.6-mac-ans
+> i/wx/_core.py", line 7125, in _BootstrapApp
+>     return _core_.PyApp__BootstrapApp(*args, **kwargs)
+>   File "/Users/richb/Desktop/NewStuff/src/_spe/sm/wxp/smdi.py", line 1285,
+> in
+> OnInit
+>     style   = self.style,
+>   File "/Users/richb/Desktop/NewStuff/src/_spe/sm/wxp/smdi.py", line 795,
+> in
+> __init__
+>     Parent.__init__(self,app=app,page=page,**options)
+>   File "/Users/richb/Desktop/NewStuff/src/_spe/sm/wxp/smdi.py", line 589,
+> in
+> __init__
+>     parentFrame     = self,
+>   File "/Users/richb/Desktop/NewStuff/src/_spe/sm/wxp/smdi.py", line 321,
+> in
+> __init__
+>     self.__finish__()
+>   File "/Users/richb/Desktop/NewStuff/src/_spe/sm/wxp/smdi.py", line 593,
+> in
+> __finish__
+>     Framework.__finish__(self)
+>   File "/Users/richb/Desktop/NewStuff/src/_spe/sm/wxp/smdi.py", line 418,
+> in
+> __finish__
+>     self.panel.__finish__()
+>   File "/Users/richb/Desktop/NewStuff/src/_spe/Parent.py", line 118, in
+> __finish__
+>     self.__sash__()
+>   File "/Users/richb/Desktop/NewStuff/src/_spe/Parent.py", line 144, in
+> __sash__
+>     __import__('_spe.tabs.'+tab)
+> ImportError: No module named Output
+> [Richard-E-Browns-Computer:NewStuff/src/_spe] richb%
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060106/dac88752/attachment.html>
+
+From spe.stani.be at gmail.com  Fri Jan  6 14:46:22 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Fri, 6 Jan 2006 14:46:22 +0100
+Subject: [spe-dev] Crash with svn 128 on MacOS X
+In-Reply-To: <2078a7ad0601060512i3c845e53ice6ec52a7b65b18a@mail.gmail.com>
+References: <2098856@blitz.dartware.com>
+	 <2078a7ad0601060512i3c845e53ice6ec52a7b65b18a@mail.gmail.com>
+Message-ID: <2078a7ad0601060546y21eddbeah4c89e53d85ecb96f@mail.gmail.com>
+
+Sorry Richard,
+These are wrong instructions. What you have todo is uninstall your previous
+SPE (remove _spe from site_packages), otherwise the two get mixed up. I see
+if I could solve that better.
+Stani
+
+On 1/6/06, SPE Stani's Python Editor <spe.stani.be at gmail.com> wrote:
+>
+> Thanks, that's a bug. I guess, this would fix it in Parent.py:
+> __import__('_spe.tabs.'+tab)
+> with
+> __import__('tabs.'+tab)
+>
+> I try it later, but if you are faster let me know.
+>
+> Stani
+>
+> On 05 Jan 2006 22:52:12 EST, Richard E. Brown <
+> Richard.E.Brown at vweb2.dartware.com> wrote:
+> >
+> > http://pythonide.stani.be
+> > http://pythonide.stani.be/manual/html/manual.html
+> > http://pythonide.stani.be/blog/sm_donate
+> > svn://svn.berlios.de/python/spe/trunk
+> > _______________________________________________
+> > Stani:
+> >
+> > I read on the blog that you could simply invoke spe without installing,
+> > so I
+> > tried it.
+> >
+> > I retrieved svn128, then cd' to _spe. I then typed:
+> >
+> > pythonw SPE.py
+> >
+> > and a window opened, a "traceback" message appeared briefly, and it
+> > crashed. I
+> > then tried the debugging command, and got the attached debug.text file.
+> > Any
+> > clues? Thanks.
+> >
+> > Rich Brown
+> > Hanover, NH USA
+> >
+> > =================================
+> > [Richard-E-Browns-Computer:NewStuff/src/_spe] richb% more debug.txt
+> >
+> > SPE v0.8.1.d.svn (c)2003-2005 www.stani.be
+> >
+> > If spe fails to start:
+> > - type "pythonw SPE.py --debug > debug.txt 2>&1" at the command prompt
+> >    (or if you use tcsh: "pythonw SPE.py --debug >& debug.txt")
+> > - send debug.txt with some info to spe.stani.be[at]gmail.com
+> >
+> > If spe is unstable, try this interface from the preferences:
+> >   "multiple with sash & tabs (mac default,linux default,windows)"
+> >
+> > Blender support disabled (run SPE inside Blender to enable).
+> >
+> > Encrypted debugging disabled.
+> >   If you prefer encrypted debugging, install the "Python Cryptography
+> > Toolkit"
+> >   from http://www.amk.ca/python/code/crypto
+> >
+> > Spe is running in debugging mode with this configuration:
+> > - platform  : darwin
+> > - python    : 2.4.2
+> > - wxPython  : 2.6.1.0.
+> > - interface : <default>
+> > - encoding  : mac-roman
+> >
+> > Launching application...
+> > Create: Framework: menu.
+> > Create: Framework: toolbar.
+> > Create: Framework: statusbar.
+> > Creating tabs...
+> >         Shell
+> >         Locals
+> >         Session
+> >         Output
+> > Traceback (most recent call last):
+> >   File "SPE.py", line 209, in ?
+> >     style           = style)
+> >   File "/Users/richb/Desktop/NewStuff/src/_spe/sm/wxp/smdi.py", line
+> > 1266, in
+> > __init__
+> >     wx.App.__init__(self,redirect=not debug)
+> >   File
+> >
+> > "//Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/
+> > wx-2.6-mac-ans
+> > i/wx/_core.py", line 7473, in __init__
+> >     self._BootstrapApp()
+> >   File
+> > "//Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/
+> >
+> > wx-2.6-mac-ans
+> > i/wx/_core.py", line 7125, in _BootstrapApp
+> >     return _core_.PyApp__BootstrapApp(*args, **kwargs)
+> >   File "/Users/richb/Desktop/NewStuff/src/_spe/sm/wxp/smdi.py", line
+> > 1285, in
+> > OnInit
+> >     style   = self.style,
+> >   File "/Users/richb/Desktop/NewStuff/src/_spe/sm/wxp/smdi.py", line
+> > 795, in
+> > __init__
+> >     Parent.__init__(self,app=app,page=page,**options)
+> >   File "/Users/richb/Desktop/NewStuff/src/_spe/sm/wxp/smdi.py", line
+> > 589, in
+> > __init__
+> >     parentFrame     = self,
+> >   File "/Users/richb/Desktop/NewStuff/src/_spe/sm/wxp/smdi.py", line
+> > 321, in
+> > __init__
+> >     self.__finish__()
+> >   File "/Users/richb/Desktop/NewStuff/src/_spe/sm/wxp/smdi.py", line
+> > 593, in
+> > __finish__
+> >     Framework.__finish__(self)
+> >   File "/Users/richb/Desktop/NewStuff/src/_spe/sm/wxp/smdi.py", line
+> > 418, in
+> > __finish__
+> >     self.panel.__finish__()
+> >   File "/Users/richb/Desktop/NewStuff/src/_spe/Parent.py", line 118, in
+> > __finish__
+> >     self.__sash__()
+> >   File "/Users/richb/Desktop/NewStuff/src/_spe/Parent.py", line 144, in
+> > __sash__
+> >     __import__('_spe.tabs.'+tab)
+> > ImportError: No module named Output
+> > [Richard-E-Browns-Computer:NewStuff/src/_spe] richb%
+> > _______________________________________________
+> > Python-spe-dev mailing list
+> > Python-spe-dev at lists.berlios.de
+> > http://lists.berlios.de/mailman/listinfo/python-spe-dev
+> >
+>
+>
+>
+> --
+> http://pythonide.stani.be
+> http://pythonide.stani.be/screenshots
+> http://pythonide.stani.be/manual/html/manual.html
+>
+
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060106/a74cb896/attachment.html>
+
+From spe.stani.be at gmail.com  Fri Jan  6 14:54:29 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Fri, 6 Jan 2006 14:54:29 +0100
+Subject: [spe-dev] Testing SVN Version
+In-Reply-To: <43BE27B7.9050501@voidspace.org.uk>
+References: <43BE27B7.9050501@voidspace.org.uk>
+Message-ID: <2078a7ad0601060554l79843ed8r78b0a435e561a7f6@mail.gmail.com>
+
+On 1/6/06, Fuzzyman <fuzzyman at voidspace.org.uk> wrote:
+>
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> Hello Stani,
+>
+> I've played around with the version of SPE from SVN. There are a couple
+> of minor issues.
+
+
+Always good to know them before releasing ;-)
+
+SPE.pyw doesn't work. Copying spe.py and renaming works.
+> If you wrap everything in spe.py in a main function and just call main,
+> spe.pyw could just import main from spe.py and run it - this would save
+> you
+> having to maintain both.
+
+
+The behaviour now makes it more easy (with Blender users in my mind) to run
+spe from python: just type import spe.SPE I'll look into it.
+
+Shift-ctrl-E now brings up a dialog saying 'are you sure you want to run
+> whole script'
+> It doesn't now just run the whole script without raising *another* dialog.
+>
+>
+I can use ctrl-shift-R instead - with the redirected output, which is nice.
+>
+> Even with shift-Ctrl-R I still would like to run some stuff in the shell
+> (stuff
+> that uses raw_input for simple interaction).
+
+
+I don't know if this is possible. File it as a bug report.
+
+Would it be possible to
+> turn this
+> dialog off with a preference ?
+
+
+Dear fuzzyman, it is already a preference, check editor preferences.
+
+When I hit F9 I got the following error (I was running spe.pyw using
+> pythonw.exe )
+>
+> >>> Traceback (most recent call last):
+>   File "C:\Python24\Lib\site-packages\_spe\Menu.py", line 442, in
+> menu_run_terminal
+>     self.app.childActive.run()
+>   File "C:\Python24\Lib\site-packages\_spe\Child.py", line 528, in run
+>     from _spe.dialogs.runTerminalDialog import RunTerminalDialog
+> ImportError: No module named runTerminalDialog
+>
+> When run from pythonw.exe (as I always do), then shift-F9 opens a
+> console box,
+> but because sys.executable is used - the program is run using
+> pythonw.exe - so
+> no output is displayed.
+>
+> What you probably want to do is patch the following file. This would
+> sort the
+> same problem for SPE *and* Movable Python :
+>
+> info.py line 17 becomes :
+>
+> PYTHON_EXEC                 = sys.executable
+> if WIN:
+>     if PYTHON_EXEC.endswith('w.exe'):
+>         PYTHON_EXEC = PYTHON_EXEC[:-5] + '.exe'
+>
+> This fix is *already* made in rpd2.py
+
+
+Right.
+
+Recent files (which I've only just discovered) is good. Single clicking on
+> files opens them and right clicking runs them ! IMHO this is
+> anti-intuitive.
+>
+> Double clicking should open. Single clicking should select them,
+> allowing me to
+> delete items from the list. Right clicking should open a context menu
+> allowing
+> me to delete or run. I'll file this as a feature request.
+
+
+Ok,  I changed right click into double click or pressing ENTER.
+
+It also freezes up (stops working) after right clicking - sometimes this
+> freezes SPE altogether. The problem is *probably* related to launching
+> programs
+> using pythonw or the way programs terminate (or don't) if they have an
+> event loop - I'm not sure yet.
+
+
+Oops, they still use the old run methods. I'll change it to the new methods.
+
+
+Error seen once on startup :
+>
+>   File "C:\Python24\Lib\site-packages\_spe\sm\wxp\NotebookCtrl.py", line
+> 1867, in OnMouseMotion
+>     dx = abs(pt.x - self._dragstartpos.x)
+> AttributeError: 'TabCtrl' object has no attribute '_dragstartpos'
+>
+>
+> Error seen once running from movpy.exe on startup :
+>
+>   File "F:\Python Projects\modules in
+> progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py", line 1893,
+> in OnMouseMotion
+>     insidex = self.GetInsideX(pt)
+>   File "F:\Python Projects\modules in
+> progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py", line 1678,
+> in GetInsideX
+>     if rects.Inside(pt):
+> AttributeError: 'int' object has no attribute 'Inside'
+> Traceback (most recent call last):
+>   File "F:\Python Projects\modules in
+> progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py", line 1893,
+> in OnMouseMotion
+>     insidex = self.GetInsideX(pt)
+>   File "F:\Python Projects\modules in
+> progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py", line 1678,
+> in GetInsideX
+>     if rects.Inside (pt):
+> AttributeError: 'int' object has no attribute 'Inside'
+> Traceback (most recent call last):
+>   File "F:\Python Projects\modules in
+> progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py", line 1893,
+> in OnMouseMotion
+>     insidex = self.GetInsideX(pt)
+>   File "F:\Python Projects\modules in
+> progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py", line 1678,
+> in GetInsideX
+>     if rects.Inside (pt):
+> AttributeError: 'int' object has no attribute 'Inside'
+> Traceback (most recent call last):
+>   File "F:\Python Projects\modules in
+> progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py", line 1893,
+> in OnMouseMotion
+>     insidex = self.GetInsideX(pt)
+>   File "F:\Python Projects\modules in
+> progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py", line 1678,
+> in GetInsideX
+>     if rects.Inside (pt):
+> AttributeError: 'int' object has no attribute 'Inside'
+
+
+Hi Andrea, I applied your latest version you send me. I recognize this
+error. You can reproduce it easily when running _sm/wxp/smdi.py as a stand
+alone file. Probably this can help you. I get always this error when no tabs
+are added yet.
+
+Running a script with raw_input() using Ctrl-R causes an error (it
+> hangs). Press
+> Ctrl-R again and it offers to kill the script (warning you SPE might
+> die). I then
+> get a core dump. (The instruction 0x0.... referenced memory that could
+> not be read).
+
+
+Does it crash SPE? Bug report as above.
+
+I get the same error with F9 when running from movpy.
+
+
+Thanks, this was really useful.
+Stani
+
+
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060106/cb9c59cf/attachment.html>
+
+From spe.stani.be at gmail.com  Fri Jan  6 14:58:46 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Fri, 6 Jan 2006 14:58:46 +0100
+Subject: [spe-dev] Testing SVN Version
+In-Reply-To: <005801c612bb$124b8000$e7493852@Gavana>
+References: <43BE27B7.9050501@voidspace.org.uk>
+	 <005801c612bb$124b8000$e7493852@Gavana>
+Message-ID: <2078a7ad0601060558h29ea7c2cr12f7080fcfef1348@mail.gmail.com>
+
+On 1/6/06, Andrea Gavana <andrea_gavana at tin.it> wrote:
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> Hello,
+>
+> > Error seen once on startup :
+> >
+> >   File "C:\Python24\Lib\site-packages\_spe\sm\wxp\NotebookCtrl.py", line
+> > 1867, in OnMouseMotion
+> >     dx = abs(pt.x - self._dragstartpos.x)
+> > AttributeError: 'TabCtrl' object has no attribute '_dragstartpos'
+>
+> I don't know which OS you have and what kind of Python are you using, but
+> this is not supposed to happen. It means that your left mouse button is
+> *not* down but you are able to drag the mouse (!!!!), which is a nonsense. I
+> fixed it by declaring __init__() method of TabCtrl:
+>
+> self._dragstartpos = wx.Point()
+>
+> But there is something strange happening with your configuration.
+>
+> > Traceback (most recent call last):
+> >   File "F:\Python Projects\modules in
+> > progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py", line 1893,
+> > in OnMouseMotion
+> >     insidex = self.GetInsideX(pt)
+> >   File "F:\Python Projects\modules in
+> > progress\movpy\movpy\movpy\lib\_spe\sm\wxp\NotebookCtrl.py", line 1678,
+> > in GetInsideX
+> >     if rects.Inside(pt):
+> > AttributeError: 'int' object has no attribute 'Inside'
+>
+> This is the same as above. It seems that your OnMouseMotion() is called
+> before the first OnPaint() event, that is almost impossible. Which wxPython
+> version are you using? Though it shouldn't matter, the OnPaint() thing is
+> the first event called by wxPython, whatever you do with your mouse. BTW,
+> have you checked that Python behaves the same as movpy in this situation? If
+> this is not the case, I am afraid there is some incompatibility between
+> Python and movpy.
+> I have fixed also this issue (I think), and I am sending the new version of
+> NotebookCtrl to Stani. I have never seen that error messages, however ;-)
+>
+> Andrea.
+Hi Andrea, it is not impossible. Try running sm/wxp/smdi.py it will
+give these errors even with your latest version. I just did a commit
+to svn -> 129
+
+Stani
+
+
+From fuzzyman at voidspace.org.uk  Fri Jan  6 15:04:33 2006
+From: fuzzyman at voidspace.org.uk (Fuzzyman)
+Date: Fri, 06 Jan 2006 14:04:33 +0000
+Subject: [spe-dev] Testing SVN Version
+In-Reply-To: <2078a7ad0601060554l79843ed8r78b0a435e561a7f6@mail.gmail.com>
+References: <43BE27B7.9050501@voidspace.org.uk> <2078a7ad0601060554l79843ed8r78b0a435e561a7f6@mail.gmail.com>
+Message-ID: <43BE78F1.6040609@voidspace.org.uk>
+
+SPE Stani's Python Editor wrote:
+
+> [snip..]
+>
+>     SPE.pyw doesn't work. Copying spe.py and renaming works.
+>     If you wrap everything in spe.py in a main function and just call
+>     main,
+>     spe.pyw could just import main from spe.py and run it - this would
+>     save you
+>     having to maintain both.
+>
+>
+> The behaviour now makes it more easy (with Blender users in my mind)
+> to run spe from python: just type import spe.SPE I'll look into it.
+>
+Nice to do something helpful occasionally. :-)
+
+>     Shift-ctrl-E now brings up a dialog saying 'are you sure you want
+>     to run
+>     whole script'
+>     It doesn't now just run the whole script without raising *another*
+>     dialog.
+>
+>     I can use ctrl-shift-R instead - with the redirected output, which
+>     is nice.
+>
+>     Even with shift-Ctrl-R I still would like to run some stuff in the
+>     shell
+>     (stuff
+>     that uses raw_input for simple interaction). 
+>
+>
+> I don't know if this is possible. File it as a bug report.
+>
+Actually I really meant "being able to run in the shell without having
+to raise a dialog" - so I think your answer below means this is already
+done.
+
+
+>     Would it be possible to
+>     turn this
+>     dialog off with a preference ?
+>
+>
+> Dear fuzzyman, it is already a preference, check editor preferences.
+>
+I thought I had. Oops...  :-o
+
+[snip..]
+
+>     Recent files (which I've only just discovered) is good. Single
+>     clicking on
+>     files opens them and right clicking runs them ! IMHO this is
+>     anti-intuitive.
+>
+>     Double clicking should open. Single clicking should select them,
+>     allowing me to
+>     delete items from the list. Right clicking should open a context menu
+>     allowing
+>     me to delete or run. I'll file this as a feature request. 
+>
+>
+> Ok,  I changed right click into double click or pressing ENTER.
+>
+So single click loads, double click or enter runs ?
+
+[snip..]
+
+>     Running a script with raw_input() using Ctrl-R causes an error (it
+>     hangs). Press
+>     Ctrl-R again and it offers to kill the script (warning you SPE might
+>     die). I then
+>     get a core dump. (The instruction 0x0.... referenced memory that could
+>     not be read).
+>
+>
+> Does it crash SPE? Bug report as above.
+>
+Will do...
+
+All the best,
+
+Fuzzyman
+http://www.voidspace.org.uk/python/index.shtml
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060106/c2d9c386/attachment.html>
+
+From andrea_gavana at tin.it  Fri Jan  6 15:13:43 2006
+From: andrea_gavana at tin.it (Andrea Gavana)
+Date: Fri, 6 Jan 2006 15:13:43 +0100
+Subject: [spe-dev] Testing SVN Version
+References: <43BE27B7.9050501@voidspace.org.uk> <005801c612bb$124b8000$e7493852@Gavana> <2078a7ad0601060558h29ea7c2cr12f7080fcfef1348@mail.gmail.com>
+Message-ID: <00a301c612cb$66cd27e0$e7493852@Gavana>
+
+Hello Stani,
+
+    either I don't know what to do, or there is somehing different we are
+doing.
+
+I just closed everything, right clicked on smdi.py => "Open With SPE". This
+is the only file open at that moment. I don't get any error.
+I don't know if I am doing something wrong, but if I can't reproduce them it
+will be difficult to correct them.
+
+This error:
+
+> > > Error seen once on startup :
+> > >
+> > >   File "C:\Python24\Lib\site-packages\_spe\sm\wxp\NotebookCtrl.py",
+line
+> > > 1867, in OnMouseMotion
+> > >     dx = abs(pt.x - self._dragstartpos.x)
+> > > AttributeError: 'TabCtrl' object has no attribute '_dragstartpos'
+
+It's impossible with the latest version. I have added in the __init__ method
+self._dragstartpos = wx.Point(), so it can not happen anymore.
+
+Are you using the NotebookCtrl I sent you today?
+
+Andrea.
+
+"Imagination Is The Only Weapon In The War Against Reality."
+http://xoomer.virgilio.it/infinity77
+
+
+
+
+From spe.stani.be at gmail.com  Fri Jan  6 15:52:14 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Fri, 6 Jan 2006 15:52:14 +0100
+Subject: [spe-dev] Testing SVN Version
+In-Reply-To: <00a301c612cb$66cd27e0$e7493852@Gavana>
+References: <43BE27B7.9050501@voidspace.org.uk>
+	 <005801c612bb$124b8000$e7493852@Gavana>
+	 <2078a7ad0601060558h29ea7c2cr12f7080fcfef1348@mail.gmail.com>
+	 <00a301c612cb$66cd27e0$e7493852@Gavana>
+Message-ID: <2078a7ad0601060652u5988aacy3590a4d65f358484@mail.gmail.com>
+
+On 1/6/06, Andrea Gavana <andrea_gavana at tin.it> wrote:
+>
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> Hello Stani,
+>
+>     either I don't know what to do, or there is somehing different we are
+> doing.
+>
+> I just closed everything, right clicked on smdi.py => "Open With SPE".
+> This
+> is the only file open at that moment. I don't get any error.
+> I don't know if I am doing something wrong, but if I can't reproduce them
+> it
+> will be difficult to correct them.
+
+
+It happens when you move  over the tab area, which appears black for me.
+I?ll send you a screenshot privately.
+
+This error:
+>
+> > > > Error seen once on startup :
+> > > >
+> > > >   File "C:\Python24\Lib\site-packages\_spe\sm\wxp\NotebookCtrl.py",
+> line
+> > > > 1867, in OnMouseMotion
+> > > >     dx = abs(pt.x - self._dragstartpos.x)
+> > > > AttributeError: 'TabCtrl' object has no attribute '_dragstartpos'
+>
+> It's impossible with the latest version. I have added in the __init__
+> method
+> self._dragstartpos = wx.Point(), so it can not happen anymore.
+
+
+Sorry, not this one, it is the other one.
+
+Are you using the NotebookCtrl I sent you today?
+
+
+Yes.
+
+Stani
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060106/f92922cd/attachment.html>
+
+From nick at rockstarvancouver.com  Fri Jan  6 21:41:04 2006
+From: nick at rockstarvancouver.com (Nick Trout)
+Date: Fri, 6 Jan 2006 12:41:04 -0800
+Subject: [spe-dev] tabs/browser relative paths
+Message-ID: <2BF01B00D2E5074E8F9922AEB41EF5CE56E445@ex-2003.rockstarvancouver.com>
+
+
+Made names in tabs browser relative paths to the root directory. This
+makes it easier to use the depth feature and avoids confusion with
+duplicate naming.
+
+Nick
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: Browser.py
+Type: application/octet-stream
+Size: 8102 bytes
+Desc: Browser.py
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060106/e61f21f5/attachment.obj>
+
+From spe.stani.be at gmail.com  Fri Jan  6 23:07:41 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Fri, 6 Jan 2006 23:07:41 +0100
+Subject: [spe-dev] tabs/browser relative paths
+In-Reply-To: <2BF01B00D2E5074E8F9922AEB41EF5CE56E445@ex-2003.rockstarvancouver.com>
+References: <2BF01B00D2E5074E8F9922AEB41EF5CE56E445@ex-2003.rockstarvancouver.com>
+Message-ID: <2078a7ad0601061407j482ed61auf3b855e8ee09bac3@mail.gmail.com>
+
+Thanks. your both patches are applied in the latest svn. Also
+mentioned here: http://pythonide.stani.be/blog
+
+Stani
+
+On 1/6/06, Nick Trout <nick at rockstarvancouver.com> wrote:
+>
+> Made names in tabs browser relative paths to the root directory. This
+> makes it easier to use the depth feature and avoids confusion with
+> duplicate naming.
+>
+> Nick
+>
+>
+>
+>
+>
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From Richard.E.Brown at dartware.com  Sat Jan  7 04:00:52 2006
+From: Richard.E.Brown at dartware.com (Richard E. Brown)
+Date: 06 Jan 2006 22:00:52 EST
+Subject: [spe-dev] Re: Crash with svn 128 on MacOS X
+Message-ID: <2099835@blitz.dartware.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060106/eda0339a/attachment.ksh>
+
+From jose at cybergalvez.com  Mon Jan  9 21:40:19 2006
+From: jose at cybergalvez.com (jose at cybergalvez.com)
+Date: Mon, 09 Jan 2006 13:40:19 -0700
+Subject: [spe-dev] problem with dots and auto complete (bug 6006)
+Message-ID: <20060109134019.793903d9610815a5b69d8e8c16c4233d.ddaa745b5a.wbe@email.email.secureserver.net>
+
+I've been trying to figure out why (). and auto complete are
+incompatible.  Unfortunately it seems to me that the problem is
+embedded in the WX code itself in the _stc, which is compiled.  In any
+event I coded a hack to the stc.py file, specifically the _getWord
+function which kind of fixes the problem, at least it lest to type a
+dot after (), but autocomplete will stop working for that object. 
+Please find the attached modified stc.py file.  I'd be interested to
+know if anyone else finds this hack useful
+Jose
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: stc.py
+Type: text/x-java
+Size: 29499 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060109/5b5ea93d/attachment.java>
+
+From spe.stani.be at gmail.com  Mon Jan  9 22:41:00 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Mon, 9 Jan 2006 22:41:00 +0100
+Subject: [spe-dev] problem with dots and auto complete (bug 6006)
+In-Reply-To: <20060109134019.793903d9610815a5b69d8e8c16c4233d.ddaa745b5a.wbe@email.email.secureserver.net>
+References: <20060109134019.793903d9610815a5b69d8e8c16c4233d.ddaa745b5a.wbe@email.email.secureserver.net>
+Message-ID: <2078a7ad0601091341vbb60732u1db8c6841fb7cbee@mail.gmail.com>
+
+Hi Jose,
+I had a quick look at your patch, but there should be a better
+solution. A quick guess would be that if the last character is ')'
+_getWord should not use self.WordStartPosition but use a custom method
+to find the matching '('  For this I recommend you have a look at the
+OnUpdateUI method which does exactly this. You could extract the code
+from it and share it with OnUpdateUI and _getWord.
+If you manage to get SPE the right (), you need to adjust the evaluate
+method. This normally imports the found word, but in your case you
+need an eval. This might be risky tough, so it could be a preference.
+Friday, I'll probably have more time to look into it. But please try...
+Stani
+
+On 1/9/06, jose at cybergalvez.com <jose at cybergalvez.com> wrote:
+> I've been trying to figure out why (). and auto complete are
+> incompatible.  Unfortunately it seems to me that the problem is
+> embedded in the WX code itself in the _stc, which is compiled.  In any
+> event I coded a hack to the stc.py file, specifically the _getWord
+> function which kind of fixes the problem, at least it lest to type a
+> dot after (), but autocomplete will stop working for that object.
+> Please find the attached modified stc.py file.  I'd be interested to
+> know if anyone else finds this hack useful
+> Jose
+>
+>
+>
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From jose at cybergalvez.com  Tue Jan 10 01:42:59 2006
+From: jose at cybergalvez.com (jose at cybergalvez.com)
+Date: Mon, 09 Jan 2006 17:42:59 -0700
+Subject: [spe-dev] problem with dots and auto complete (bug 6006)
+Message-ID: <20060109174259.793903d9610815a5b69d8e8c16c4233d.3ebd353241.wbe@email.email.secureserver.net>
+
+Thanks for the suggestions, that gives me something to look at.  I
+couldn't agree more that there should be a better patch then the one I
+sent, that's why I called it more of a hack then a patch :).  In any
+event I'll look at the functions you suggested and see what I can come
+up with
+Jose
+
+> -------- Original Message --------
+> Subject: Re: [spe-dev] problem with dots and auto complete (bug 6006)
+> From: "SPE Stani's Python Editor" <spe.stani.be at gmail.com>
+> Date: Mon, January 09, 2006 1:41 pm
+> To: python-spe-dev at berlios.de
+>
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> Hi Jose,
+> I had a quick look at your patch, but there should be a better
+> solution. A quick guess would be that if the last character is ')'
+> _getWord should not use self.WordStartPosition but use a custom method
+> to find the matching '('  For this I recommend you have a look at the
+> OnUpdateUI method which does exactly this. You could extract the code
+> from it and share it with OnUpdateUI and _getWord.
+> If you manage to get SPE the right (), you need to adjust the evaluate
+> method. This normally imports the found word, but in your case you
+> need an eval. This might be risky tough, so it could be a preference.
+> Friday, I'll probably have more time to look into it. But please try...
+> Stani
+>
+> On 1/9/06, jose at cybergalvez.com <jose at cybergalvez.com> wrote:
+> > I've been trying to figure out why (). and auto complete are
+> > incompatible.  Unfortunately it seems to me that the problem is
+> > embedded in the WX code itself in the _stc, which is compiled.  In any
+> > event I coded a hack to the stc.py file, specifically the _getWord
+> > function which kind of fixes the problem, at least it lest to type a
+> > dot after (), but autocomplete will stop working for that object.
+> > Please find the attached modified stc.py file.  I'd be interested to
+> > know if anyone else finds this hack useful
+> > Jose
+> >
+> >
+> >
+>
+>
+> --
+> http://pythonide.stani.be
+> http://pythonide.stani.be/screenshots
+> http://pythonide.stani.be/manual/html/manual.html
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+
+
+
+From jose at cybergalvez.com  Tue Jan 10 22:07:30 2006
+From: jose at cybergalvez.com (jose at cybergalvez.com)
+Date: Tue, 10 Jan 2006 14:07:30 -0700
+Subject: [spe-dev] problem with dots and auto complete (bug 6006)
+Message-ID: <20060110140730.793903d9610815a5b69d8e8c16c4233d.7e2410153f.wbe@email.email.secureserver.net>
+
+
+Dear Stani,
+
+I've changed the _getWord function again to look for txt containing
+closing brackets.  This seems to work pretty well now, although i had
+to add a hack to make it ignore the small string '.' otherwise I
+couldn't type os.listdir('.'), so I'm still thinking if there is a
+better way to ignore that particular string or is just returning ' '
+works well enough.  I've not had time to think of the import vs eval
+issue, but I'll try that later.
+Jose
+
+
+> -------- Original Message --------
+> Subject: Re: [spe-dev] problem with dots and auto complete (bug 6006)
+> From: "SPE Stani's Python Editor" <spe.stani.be at gmail.com>
+> Date: Mon, January 09, 2006 1:41 pm
+> To: python-spe-dev at berlios.de
+>
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> Hi Jose,
+> I had a quick look at your patch, but there should be a better
+> solution. A quick guess would be that if the last character is ')'
+> _getWord should not use self.WordStartPosition but use a custom method
+> to find the matching '('  For this I recommend you have a look at the
+> OnUpdateUI method which does exactly this. You could extract the code
+> from it and share it with OnUpdateUI and _getWord.
+> If you manage to get SPE the right (), you need to adjust the evaluate
+> method. This normally imports the found word, but in your case you
+> need an eval. This might be risky tough, so it could be a preference.
+> Friday, I'll probably have more time to look into it. But please try...
+> Stani
+>
+> On 1/9/06, jose at cybergalvez.com <jose at cybergalvez.com> wrote:
+> > I've been trying to figure out why (). and auto complete are
+> > incompatible.  Unfortunately it seems to me that the problem is
+> > embedded in the WX code itself in the _stc, which is compiled.  In any
+> > event I coded a hack to the stc.py file, specifically the _getWord
+> > function which kind of fixes the problem, at least it lest to type a
+> > dot after (), but autocomplete will stop working for that object.
+> > Please find the attached modified stc.py file.  I'd be interested to
+> > know if anyone else finds this hack useful
+> > Jose
+> >
+> >
+> >
+>
+>
+> --
+> http://pythonide.stani.be
+> http://pythonide.stani.be/screenshots
+> http://pythonide.stani.be/manual/html/manual.html
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: stc.py
+Type: text/x-java
+Size: 29810 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060110/40ec6bc9/attachment.java>
+
+From jose at cybergalvez.com  Tue Jan 10 22:49:42 2006
+From: jose at cybergalvez.com (jose at cybergalvez.com)
+Date: Tue, 10 Jan 2006 14:49:42 -0700
+Subject: [spe-dev] problem with dots and auto complete (bug 6006)
+Message-ID: <20060110144942.793903d9610815a5b69d8e8c16c4233d.9d478e5dd2.wbe@email.email.secureserver.net>
+
+Dear Stani,
+
+What do you think of this.  the _getWord function contains the modified
+code to deal with txt that contains ending brackets.  I also modified
+the getWordObject function to use eval if self.evaluate returns None.  
+Jose
+
+> -------- Original Message --------
+> Subject: RE: [spe-dev] problem with dots and auto complete (bug 6006)
+> From: jose at cybergalvez.com
+> Date: Tue, January 10, 2006 1:07 pm
+> To: python-spe-dev at lists.berlios.de
+> 
+> 
+> Dear Stani,
+> 
+> I've changed the _getWord function again to look for txt containing
+> closing brackets.  This seems to work pretty well now, although i had
+> to add a hack to make it ignore the small string '.' otherwise I
+> couldn't type os.listdir('.'), so I'm still thinking if there is a
+> better way to ignore that particular string or is just returning ' '
+> works well enough.  I've not had time to think of the import vs eval
+> issue, but I'll try that later.
+> Jose
+> 
+> 
+> > -------- Original Message --------
+> > Subject: Re: [spe-dev] problem with dots and auto complete (bug
+> 6006)
+> > From: "SPE Stani's Python Editor" <spe.stani.be at gmail.com>
+> > Date: Mon, January 09, 2006 1:41 pm
+> > To: python-spe-dev at berlios.de
+> >
+> > http://pythonide.stani.be
+> > http://pythonide.stani.be/manual/html/manual.html
+> > http://pythonide.stani.be/blog/sm_donate
+> > svn://svn.berlios.de/python/spe/trunk
+> > _______________________________________________
+> > Hi Jose,
+> > I had a quick look at your patch, but there should be a better
+> > solution. A quick guess would be that if the last character is ')'
+> > _getWord should not use self.WordStartPosition but use a custom
+> method
+> > to find the matching '('  For this I recommend you have a look at
+> the
+> > OnUpdateUI method which does exactly this. You could extract the
+> code
+> > from it and share it with OnUpdateUI and _getWord.
+> > If you manage to get SPE the right (), you need to adjust the
+> evaluate
+> > method. This normally imports the found word, but in your case you
+> > need an eval. This might be risky tough, so it could be a
+> preference.
+> > Friday, I'll probably have more time to look into it. But please
+> try...
+> > Stani
+> >
+> > On 1/9/06, jose at cybergalvez.com <jose at cybergalvez.com> wrote:
+> > > I've been trying to figure out why (). and auto complete are
+> > > incompatible.  Unfortunately it seems to me that the problem is
+> > > embedded in the WX code itself in the _stc, which is compiled.  In
+> any
+> > > event I coded a hack to the stc.py file, specifically the _getWord
+> > > function which kind of fixes the problem, at least it lest to type
+> a
+> > > dot after (), but autocomplete will stop working for that object.
+> > > Please find the attached modified stc.py file.  I'd be interested
+> to
+> > > know if anyone else finds this hack useful
+> > > Jose
+> > >
+> > >
+> > >
+> >
+> >
+> > --
+> > http://pythonide.stani.be
+> > http://pythonide.stani.be/screenshots
+> > http://pythonide.stani.be/manual/html/manual.html
+> > _______________________________________________
+> > Python-spe-dev mailing list
+> > Python-spe-dev at lists.berlios.de
+> > http://lists.berlios.de/mailman/listinfo/python-spe-dev
+> 
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: stc.py
+Type: text/x-java
+Size: 29906 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060110/63dbf77a/attachment.java>
+
+From jose at cybergalvez.com  Wed Jan 11 02:39:09 2006
+From: jose at cybergalvez.com (jose at cybergalvez.com)
+Date: Tue, 10 Jan 2006 18:39:09 -0700
+Subject: [spe-dev] problem with dots and auto complete (bug 6006)
+Message-ID: <20060110183909.793903d9610815a5b69d8e8c16c4233d.ef70da1b10.wbe@email.email.secureserver.net>
+
+You can ignore the last code I sent, there is something really wrong
+with the way I'm evaluating stuff, everyting is comming out as a
+string, when it's not, bummer, I'll have to keep pluggin away at it
+Jose
+
+> -------- Original Message --------
+> Subject: RE: [spe-dev] problem with dots and auto complete (bug 6006)
+> From: jose at cybergalvez.com
+> Date: Tue, January 10, 2006 1:49 pm
+> To: python-spe-dev at lists.berlios.de
+>
+> Dear Stani,
+>
+> What do you think of this.  the _getWord function contains the
+> modified
+> code to deal with txt that contains ending brackets.  I also modified
+> the getWordObject function to use eval if self.evaluate returns None.
+>
+> Jose
+>
+> > -------- Original Message --------
+> > Subject: RE: [spe-dev] problem with dots and auto complete (bug
+> 6006)
+> > From: jose at cybergalvez.com
+> > Date: Tue, January 10, 2006 1:07 pm
+> > To: python-spe-dev at lists.berlios.de
+> >
+> >
+> > Dear Stani,
+> >
+> > I've changed the _getWord function again to look for txt containing
+> > closing brackets.  This seems to work pretty well now, although i
+> had
+> > to add a hack to make it ignore the small string '.' otherwise I
+> > couldn't type os.listdir('.'), so I'm still thinking if there is a
+> > better way to ignore that particular string or is just returning ' '
+> > works well enough.  I've not had time to think of the import vs eval
+> > issue, but I'll try that later.
+> > Jose
+> >
+> >
+> > > -------- Original Message --------
+> > > Subject: Re: [spe-dev] problem with dots and auto complete (bug
+> > 6006)
+> > > From: "SPE Stani's Python Editor" <spe.stani.be at gmail.com>
+> > > Date: Mon, January 09, 2006 1:41 pm
+> > > To: python-spe-dev at berlios.de
+> > >
+> > > http://pythonide.stani.be
+> > > http://pythonide.stani.be/manual/html/manual.html
+> > > http://pythonide.stani.be/blog/sm_donate
+> > > svn://svn.berlios.de/python/spe/trunk
+> > > _______________________________________________
+> > > Hi Jose,
+> > > I had a quick look at your patch, but there should be a better
+> > > solution. A quick guess would be that if the last character is ')'
+> > > _getWord should not use self.WordStartPosition but use a custom
+> > method
+> > > to find the matching '('  For this I recommend you have a look at
+> > the
+> > > OnUpdateUI method which does exactly this. You could extract the
+> > code
+> > > from it and share it with OnUpdateUI and _getWord.
+> > > If you manage to get SPE the right (), you need to adjust the
+> > evaluate
+> > > method. This normally imports the found word, but in your case you
+> > > need an eval. This might be risky tough, so it could be a
+> > preference.
+> > > Friday, I'll probably have more time to look into it. But please
+> > try...
+> > > Stani
+> > >
+> > > On 1/9/06, jose at cybergalvez.com <jose at cybergalvez.com> wrote:
+> > > > I've been trying to figure out why (). and auto complete are
+> > > > incompatible.  Unfortunately it seems to me that the problem is
+> > > > embedded in the WX code itself in the _stc, which is compiled.
+> In
+> > any
+> > > > event I coded a hack to the stc.py file, specifically the
+> _getWord
+> > > > function which kind of fixes the problem, at least it lest to
+> type
+> > a
+> > > > dot after (), but autocomplete will stop working for that
+> object.
+> > > > Please find the attached modified stc.py file.  I'd be
+> interested
+> > to
+> > > > know if anyone else finds this hack useful
+> > > > Jose
+> > > >
+> > > >
+> > > >
+> > >
+> > >
+> > > --
+> > > http://pythonide.stani.be
+> > > http://pythonide.stani.be/screenshots
+> > > http://pythonide.stani.be/manual/html/manual.html
+> > > _______________________________________________
+> > > Python-spe-dev mailing list
+> > > Python-spe-dev at lists.berlios.de
+> > > http://lists.berlios.de/mailman/listinfo/python-spe-dev
+> >
+>
+
+
+
+From jose at cybergalvez.com  Wed Jan 11 03:13:29 2006
+From: jose at cybergalvez.com (jose at cybergalvez.com)
+Date: Tue, 10 Jan 2006 19:13:29 -0700
+Subject: [spe-dev] problem with dots and auto complete (bug 6006)
+Message-ID: <20060110191329.793903d9610815a5b69d8e8c16c4233d.4490c04111.wbe@email.email.secureserver.net>
+
+Ok I'm kind of at a loss now, I've been beating my head against this all
+day and haven't made any progress.  I've got the dot thing fixed
+(assuming Stani like the code suggestion), but I'm having real trouble
+with evaluating the object, which you have to do if you want to get
+some autocomplete for things like "foo()." The problem is by inserting
+an eval into the getWordObject code (eval('word'))  then things like
+this get interpreted incorrectly:
+
+import os
+s = os
+s.
+
+At the "." one would expect the autocomplete list to pick up the list
+from "os" which would happen if "s" was interpreted correctly as an
+instance of 'os', however what I've written has it being interpreted as
+a string!
+
+Any thoughts?  for now I am going to remove all the eval code and just
+leave in the code for dealing with "()." and stuff like that
+Jose
+
+> -------- Original Message --------
+> Subject: RE: [spe-dev] problem with dots and auto complete (bug 6006)
+> From: jose at cybergalvez.com
+> Date: Tue, January 10, 2006 5:39 pm
+> To: python-spe-dev at lists.berlios.de
+>
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> You can ignore the last code I sent, there is something really wrong
+> with the way I'm evaluating stuff, everyting is comming out as a
+> string, when it's not, bummer, I'll have to keep pluggin away at it
+> Jose
+>
+> > -------- Original Message --------
+> > Subject: RE: [spe-dev] problem with dots and auto complete (bug 6006)
+> > From: jose at cybergalvez.com
+> > Date: Tue, January 10, 2006 1:49 pm
+> > To: python-spe-dev at lists.berlios.de
+> >
+> > Dear Stani,
+> >
+> > What do you think of this.  the _getWord function contains the
+> > modified
+> > code to deal with txt that contains ending brackets.  I also modified
+> > the getWordObject function to use eval if self.evaluate returns None.
+> >
+> > Jose
+> >
+> > > -------- Original Message --------
+> > > Subject: RE: [spe-dev] problem with dots and auto complete (bug
+> > 6006)
+> > > From: jose at cybergalvez.com
+> > > Date: Tue, January 10, 2006 1:07 pm
+> > > To: python-spe-dev at lists.berlios.de
+> > >
+> > >
+> > > Dear Stani,
+> > >
+> > > I've changed the _getWord function again to look for txt containing
+> > > closing brackets.  This seems to work pretty well now, although i
+> > had
+> > > to add a hack to make it ignore the small string '.' otherwise I
+> > > couldn't type os.listdir('.'), so I'm still thinking if there is a
+> > > better way to ignore that particular string or is just returning ' '
+> > > works well enough.  I've not had time to think of the import vs eval
+> > > issue, but I'll try that later.
+> > > Jose
+> > >
+> > >
+> > > > -------- Original Message --------
+> > > > Subject: Re: [spe-dev] problem with dots and auto complete (bug
+> > > 6006)
+> > > > From: "SPE Stani's Python Editor" <spe.stani.be at gmail.com>
+> > > > Date: Mon, January 09, 2006 1:41 pm
+> > > > To: python-spe-dev at berlios.de
+> > > >
+> > > > http://pythonide.stani.be
+> > > > http://pythonide.stani.be/manual/html/manual.html
+> > > > http://pythonide.stani.be/blog/sm_donate
+> > > > svn://svn.berlios.de/python/spe/trunk
+> > > > _______________________________________________
+> > > > Hi Jose,
+> > > > I had a quick look at your patch, but there should be a better
+> > > > solution. A quick guess would be that if the last character is ')'
+> > > > _getWord should not use self.WordStartPosition but use a custom
+> > > method
+> > > > to find the matching '('  For this I recommend you have a look at
+> > > the
+> > > > OnUpdateUI method which does exactly this. You could extract the
+> > > code
+> > > > from it and share it with OnUpdateUI and _getWord.
+> > > > If you manage to get SPE the right (), you need to adjust the
+> > > evaluate
+> > > > method. This normally imports the found word, but in your case you
+> > > > need an eval. This might be risky tough, so it could be a
+> > > preference.
+> > > > Friday, I'll probably have more time to look into it. But please
+> > > try...
+> > > > Stani
+> > > >
+> > > > On 1/9/06, jose at cybergalvez.com <jose at cybergalvez.com> wrote:
+> > > > > I've been trying to figure out why (). and auto complete are
+> > > > > incompatible.  Unfortunately it seems to me that the problem is
+> > > > > embedded in the WX code itself in the _stc, which is compiled.
+> > In
+> > > any
+> > > > > event I coded a hack to the stc.py file, specifically the
+> > _getWord
+> > > > > function which kind of fixes the problem, at least it lest to
+> > type
+> > > a
+> > > > > dot after (), but autocomplete will stop working for that
+> > object.
+> > > > > Please find the attached modified stc.py file.  I'd be
+> > interested
+> > > to
+> > > > > know if anyone else finds this hack useful
+> > > > > Jose
+> > > > >
+> > > > >
+> > > > >
+> > > >
+> > > >
+> > > > --
+> > > > http://pythonide.stani.be
+> > > > http://pythonide.stani.be/screenshots
+> > > > http://pythonide.stani.be/manual/html/manual.html
+> > > > _______________________________________________
+> > > > Python-spe-dev mailing list
+> > > > Python-spe-dev at lists.berlios.de
+> > > > http://lists.berlios.de/mailman/listinfo/python-spe-dev
+> > >
+> >
+>
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+
+
+
+From spe.stani.be at gmail.com  Wed Jan 11 15:08:28 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Wed, 11 Jan 2006 15:08:28 +0100
+Subject: [spe-dev] problem with dots and auto complete (bug 6006)
+In-Reply-To: <20060110191329.793903d9610815a5b69d8e8c16c4233d.4490c04111.wbe@email.email.secureserver.net>
+References: <20060110191329.793903d9610815a5b69d8e8c16c4233d.4490c04111.wbe@email.email.secureserver.net>
+Message-ID: <2078a7ad0601110608w632f89a2p1136f2ef9429671d@mail.gmail.com>
+
+Hi Jose,
+Sorry for not reacting earlier, but I have a deadline tomorrow night.
+So I'll look at it over the weekend.
+Thanks for your commitment.
+Stani
+
+On 1/11/06, jose at cybergalvez.com <jose at cybergalvez.com> wrote:
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> Ok I'm kind of at a loss now, I've been beating my head against this all
+> day and haven't made any progress.  I've got the dot thing fixed
+> (assuming Stani like the code suggestion), but I'm having real trouble
+> with evaluating the object, which you have to do if you want to get
+> some autocomplete for things like "foo()." The problem is by inserting
+> an eval into the getWordObject code (eval('word'))  then things like
+> this get interpreted incorrectly:
+>
+> import os
+> s = os
+> s.
+>
+> At the "." one would expect the autocomplete list to pick up the list
+> from "os" which would happen if "s" was interpreted correctly as an
+> instance of 'os', however what I've written has it being interpreted as
+> a string!
+>
+> Any thoughts?  for now I am going to remove all the eval code and just
+> leave in the code for dealing with "()." and stuff like that
+> Jose
+>
+> > -------- Original Message --------
+> > Subject: RE: [spe-dev] problem with dots and auto complete (bug 6006)
+> > From: jose at cybergalvez.com
+> > Date: Tue, January 10, 2006 5:39 pm
+> > To: python-spe-dev at lists.berlios.de
+> >
+> > http://pythonide.stani.be
+> > http://pythonide.stani.be/manual/html/manual.html
+> > http://pythonide.stani.be/blog/sm_donate
+> > svn://svn.berlios.de/python/spe/trunk
+> > _______________________________________________
+> > You can ignore the last code I sent, there is something really wrong
+> > with the way I'm evaluating stuff, everyting is comming out as a
+> > string, when it's not, bummer, I'll have to keep pluggin away at it
+> > Jose
+> >
+> > > -------- Original Message --------
+> > > Subject: RE: [spe-dev] problem with dots and auto complete (bug 6006)
+> > > From: jose at cybergalvez.com
+> > > Date: Tue, January 10, 2006 1:49 pm
+> > > To: python-spe-dev at lists.berlios.de
+> > >
+> > > Dear Stani,
+> > >
+> > > What do you think of this.  the _getWord function contains the
+> > > modified
+> > > code to deal with txt that contains ending brackets.  I also modified
+> > > the getWordObject function to use eval if self.evaluate returns None.
+> > >
+> > > Jose
+> > >
+> > > > -------- Original Message --------
+> > > > Subject: RE: [spe-dev] problem with dots and auto complete (bug
+> > > 6006)
+> > > > From: jose at cybergalvez.com
+> > > > Date: Tue, January 10, 2006 1:07 pm
+> > > > To: python-spe-dev at lists.berlios.de
+> > > >
+> > > >
+> > > > Dear Stani,
+> > > >
+> > > > I've changed the _getWord function again to look for txt containing
+> > > > closing brackets.  This seems to work pretty well now, although i
+> > > had
+> > > > to add a hack to make it ignore the small string '.' otherwise I
+> > > > couldn't type os.listdir('.'), so I'm still thinking if there is a
+> > > > better way to ignore that particular string or is just returning ' '
+> > > > works well enough.  I've not had time to think of the import vs eval
+> > > > issue, but I'll try that later.
+> > > > Jose
+> > > >
+> > > >
+> > > > > -------- Original Message --------
+> > > > > Subject: Re: [spe-dev] problem with dots and auto complete (bug
+> > > > 6006)
+> > > > > From: "SPE Stani's Python Editor" <spe.stani.be at gmail.com>
+> > > > > Date: Mon, January 09, 2006 1:41 pm
+> > > > > To: python-spe-dev at berlios.de
+> > > > >
+> > > > > http://pythonide.stani.be
+> > > > > http://pythonide.stani.be/manual/html/manual.html
+> > > > > http://pythonide.stani.be/blog/sm_donate
+> > > > > svn://svn.berlios.de/python/spe/trunk
+> > > > > _______________________________________________
+> > > > > Hi Jose,
+> > > > > I had a quick look at your patch, but there should be a better
+> > > > > solution. A quick guess would be that if the last character is ')'
+> > > > > _getWord should not use self.WordStartPosition but use a custom
+> > > > method
+> > > > > to find the matching '('  For this I recommend you have a look at
+> > > > the
+> > > > > OnUpdateUI method which does exactly this. You could extract the
+> > > > code
+> > > > > from it and share it with OnUpdateUI and _getWord.
+> > > > > If you manage to get SPE the right (), you need to adjust the
+> > > > evaluate
+> > > > > method. This normally imports the found word, but in your case you
+> > > > > need an eval. This might be risky tough, so it could be a
+> > > > preference.
+> > > > > Friday, I'll probably have more time to look into it. But please
+> > > > try...
+> > > > > Stani
+> > > > >
+> > > > > On 1/9/06, jose at cybergalvez.com <jose at cybergalvez.com> wrote:
+> > > > > > I've been trying to figure out why (). and auto complete are
+> > > > > > incompatible.  Unfortunately it seems to me that the problem is
+> > > > > > embedded in the WX code itself in the _stc, which is compiled.
+> > > In
+> > > > any
+> > > > > > event I coded a hack to the stc.py file, specifically the
+> > > _getWord
+> > > > > > function which kind of fixes the problem, at least it lest to
+> > > type
+> > > > a
+> > > > > > dot after (), but autocomplete will stop working for that
+> > > object.
+> > > > > > Please find the attached modified stc.py file.  I'd be
+> > > interested
+> > > > to
+> > > > > > know if anyone else finds this hack useful
+> > > > > > Jose
+> > > > > >
+> > > > > >
+> > > > > >
+> > > > >
+> > > > >
+> > > > > --
+> > > > > http://pythonide.stani.be
+> > > > > http://pythonide.stani.be/screenshots
+> > > > > http://pythonide.stani.be/manual/html/manual.html
+> > > > > _______________________________________________
+> > > > > Python-spe-dev mailing list
+> > > > > Python-spe-dev at lists.berlios.de
+> > > > > http://lists.berlios.de/mailman/listinfo/python-spe-dev
+> > > >
+> > >
+> >
+> > _______________________________________________
+> > Python-spe-dev mailing list
+> > Python-spe-dev at lists.berlios.de
+> > http://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From spe.stani.be at gmail.com  Mon Jan 16 00:59:54 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Mon, 16 Jan 2006 00:59:54 +0100
+Subject: [spe-dev] SVN 135: problem with dots and auto complete (bug 6006) fixed
+Message-ID: <2078a7ad0601151559t1b8f3f59m8c88f99835d753d6@mail.gmail.com>
+
+Hi Jose,
+
+I fixed it. Digging into the problem, the solution was simpler as I
+thought. So there is no need to find closing brackets etc...
+
+This is the patch:
+
+    def autoComplete(self,object=0):
+        if object:
+            self.AddText('.')
+        word    = self.getWord()
+        if not word: return
+        if object:
+            word+='.'
+        words   = self.getWords(word=word)
+        if word[-1] == '.':
+            try:
+                obj = self.getWordObject(word[:-1])
+                if obj:
+                    for attr in dir(obj):
+                        attr = '%s%s'%(word,attr)
+                        if attr not in words: words.append(attr)
+            except:
+                pass
+        if words:
+            words.sort()
+            try:
+                self.AutoCompShow(len(word), " ".join(words))
+            except:
+                pass
+
+The problem was that SPE didn't add a dot if it couldn't find a word.
+
+On 1/11/06, jose at cybergalvez.com <jose at cybergalvez.com> wrote:
+> Ok I'm kind of at a loss now, I've been beating my head against this all
+> day and haven't made any progress.  I've got the dot thing fixed
+> (assuming Stani like the code suggestion), but I'm having real trouble
+> with evaluating the object, which you have to do if you want to get
+> some autocomplete for things like "foo()." The problem is by inserting
+> an eval into the getWordObject code (eval('word'))  then things like
+> this get interpreted incorrectly:
+>
+> import os
+> s = os
+> s.
+>
+> At the "." one would expect the autocomplete list to pick up the list
+> from "os" which would happen if "s" was interpreted correctly as an
+> instance of 'os',
+This is not possible. SPE is not allowed to execute arbitrary code for
+the excuse of auto-completion. There could be a statement
+eraseMyHardDisk(), which would be a pitty if executed by default.
+
+> however what I've written has it being interpreted as
+> a string!
+>
+> Any thoughts?  for now I am going to remove all the eval code and just
+> leave in the code for dealing with "()." and stuff like that
+
+Sorry, eval is the wrong path. Evaluating expressions between () is a
+security risk. It could execute any code, also infinite loops etc....
+Therefore I prefer not to implement it.
+
+But I hope I can make you happy with the fix. It is in subversion.
+
+Stani
+
+
+From jose at cybergalvez.com  Mon Jan 16 03:08:25 2006
+From: jose at cybergalvez.com (jose at cybergalvez.com)
+Date: Sun, 15 Jan 2006 19:08:25 -0700
+Subject: [spe-dev] SVN 135: problem with dots and auto complete (bug 6006) fixed
+Message-ID: <20060115190825.793903d9610815a5b69d8e8c16c4233d.b8d53a90fc.wbe@email.email.secureserver.net>
+
+Thanks Stani,
+
+I'll give this a try
+Jose
+
+> -------- Original Message --------
+> Subject: [spe-dev] SVN 135: problem with dots and auto complete (bug
+> 6006) fixed
+> From: "SPE Stani's Python Editor" <spe.stani.be at gmail.com>
+> Date: Sun, January 15, 2006 3:59 pm
+> To: python-spe-dev at berlios.de
+> 
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> Hi Jose,
+> 
+> I fixed it. Digging into the problem, the solution was simpler as I
+> thought. So there is no need to find closing brackets etc...
+> 
+> This is the patch:
+> 
+>     def autoComplete(self,object=0):
+>         if object:
+>             self.AddText('.')
+>         word    = self.getWord()
+>         if not word: return
+>         if object:
+>             word+='.'
+>         words   = self.getWords(word=word)
+>         if word[-1] == '.':
+>             try:
+>                 obj = self.getWordObject(word[:-1])
+>                 if obj:
+>                     for attr in dir(obj):
+>                         attr = '%s%s'%(word,attr)
+>                         if attr not in words: words.append(attr)
+>             except:
+>                 pass
+>         if words:
+>             words.sort()
+>             try:
+>                 self.AutoCompShow(len(word), " ".join(words))
+>             except:
+>                 pass
+> 
+> The problem was that SPE didn't add a dot if it couldn't find a word.
+> 
+> On 1/11/06, jose at cybergalvez.com <jose at cybergalvez.com> wrote:
+> > Ok I'm kind of at a loss now, I've been beating my head against this all
+> > day and haven't made any progress.  I've got the dot thing fixed
+> > (assuming Stani like the code suggestion), but I'm having real trouble
+> > with evaluating the object, which you have to do if you want to get
+> > some autocomplete for things like "foo()." The problem is by inserting
+> > an eval into the getWordObject code (eval('word'))  then things like
+> > this get interpreted incorrectly:
+> >
+> > import os
+> > s = os
+> > s.
+> >
+> > At the "." one would expect the autocomplete list to pick up the list
+> > from "os" which would happen if "s" was interpreted correctly as an
+> > instance of 'os',
+> This is not possible. SPE is not allowed to execute arbitrary code for
+> the excuse of auto-completion. There could be a statement
+> eraseMyHardDisk(), which would be a pitty if executed by default.
+> 
+> > however what I've written has it being interpreted as
+> > a string!
+> >
+> > Any thoughts?  for now I am going to remove all the eval code and just
+> > leave in the code for dealing with "()." and stuff like that
+> 
+> Sorry, eval is the wrong path. Evaluating expressions between () is a
+> security risk. It could execute any code, also infinite loops etc....
+> Therefore I prefer not to implement it.
+> 
+> But I hope I can make you happy with the fix. It is in subversion.
+> 
+> Stani
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+
+
+
+From jose at cybergalvez.com  Mon Jan 16 03:29:24 2006
+From: jose at cybergalvez.com (jose at cybergalvez.com)
+Date: Sun, 15 Jan 2006 19:29:24 -0700
+Subject: [spe-dev] SVN 135: problem with dots and auto complete (bug 6006) fixed
+Message-ID: <20060115192924.793903d9610815a5b69d8e8c16c4233d.82ae18cbd3.wbe@email.email.secureserver.net>
+
+Stani,
+Could you take another look at the code, I just updathed from the svn
+and the auto-complete function does not seem to work.  Its checked in
+te preference, but I have to use ctrl-space to bring up the
+auto-complete list
+Jose
+
+> -------- Original Message --------
+> Subject: RE: [spe-dev] SVN 135: problem with dots and auto complete
+> (bug 6006) fixed
+> From: jose at cybergalvez.com
+> Date: Sun, January 15, 2006 6:08 pm
+> To: python-spe-dev at lists.berlios.de
+>
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> Thanks Stani,
+>
+> I'll give this a try
+> Jose
+>
+> > -------- Original Message --------
+> > Subject: [spe-dev] SVN 135: problem with dots and auto complete (bug
+> > 6006) fixed
+> > From: "SPE Stani's Python Editor" <spe.stani.be at gmail.com>
+> > Date: Sun, January 15, 2006 3:59 pm
+> > To: python-spe-dev at berlios.de
+> >
+> > http://pythonide.stani.be
+> > http://pythonide.stani.be/manual/html/manual.html
+> > http://pythonide.stani.be/blog/sm_donate
+> > svn://svn.berlios.de/python/spe/trunk
+> > _______________________________________________
+> > Hi Jose,
+> >
+> > I fixed it. Digging into the problem, the solution was simpler as I
+> > thought. So there is no need to find closing brackets etc...
+> >
+> > This is the patch:
+> >
+> >     def autoComplete(self,object=0):
+> >         if object:
+> >             self.AddText('.')
+> >         word    = self.getWord()
+> >         if not word: return
+> >         if object:
+> >             word+='.'
+> >         words   = self.getWords(word=word)
+> >         if word[-1] == '.':
+> >             try:
+> >                 obj = self.getWordObject(word[:-1])
+> >                 if obj:
+> >                     for attr in dir(obj):
+> >                         attr = '%s%s'%(word,attr)
+> >                         if attr not in words: words.append(attr)
+> >             except:
+> >                 pass
+> >         if words:
+> >             words.sort()
+> >             try:
+> >                 self.AutoCompShow(len(word), " ".join(words))
+> >             except:
+> >                 pass
+> >
+> > The problem was that SPE didn't add a dot if it couldn't find a word.
+> >
+> > On 1/11/06, jose at cybergalvez.com <jose at cybergalvez.com> wrote:
+> > > Ok I'm kind of at a loss now, I've been beating my head against this all
+> > > day and haven't made any progress.  I've got the dot thing fixed
+> > > (assuming Stani like the code suggestion), but I'm having real trouble
+> > > with evaluating the object, which you have to do if you want to get
+> > > some autocomplete for things like "foo()." The problem is by inserting
+> > > an eval into the getWordObject code (eval('word'))  then things like
+> > > this get interpreted incorrectly:
+> > >
+> > > import os
+> > > s = os
+> > > s.
+> > >
+> > > At the "." one would expect the autocomplete list to pick up the list
+> > > from "os" which would happen if "s" was interpreted correctly as an
+> > > instance of 'os',
+> > This is not possible. SPE is not allowed to execute arbitrary code for
+> > the excuse of auto-completion. There could be a statement
+> > eraseMyHardDisk(), which would be a pitty if executed by default.
+> >
+> > > however what I've written has it being interpreted as
+> > > a string!
+> > >
+> > > Any thoughts?  for now I am going to remove all the eval code and just
+> > > leave in the code for dealing with "()." and stuff like that
+> >
+> > Sorry, eval is the wrong path. Evaluating expressions between () is a
+> > security risk. It could execute any code, also infinite loops etc....
+> > Therefore I prefer not to implement it.
+> >
+> > But I hope I can make you happy with the fix. It is in subversion.
+> >
+> > Stani
+> > _______________________________________________
+> > Python-spe-dev mailing list
+> > Python-spe-dev at lists.berlios.de
+> > http://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+
+
+
+From fuzzyman at voidspace.org.uk  Wed Jan 18 09:44:19 2006
+From: fuzzyman at voidspace.org.uk (Fuzzyman)
+Date: Wed, 18 Jan 2006 08:44:19 +0000
+Subject: [spe-dev] Problem with 0.8.1d Installer
+Message-ID: <43CDFFE3.5060200@voidspace.org.uk>
+
+Hello Stani,
+
+I un-installed 0.8.1d (under Python 2.4) and installed the new version.
+I got the following error in the post-install script. This means the
+lovely icons aren't installed :-(
+
+gexmod done
+'import site' failed; use -v for traceback
+Traceback (most recent call last):
+  File "<string>", line 125, in ?
+ImportError: No module named _spe.info
+*** run_installscript: internal error 0xFFFFFFFF ***
+
+I'll build a Python 2.3 installer tonight, using hte current version
+unless you tell me otherwise.
+
+All the best,
+
+Fuzzyman
+http://www.voidspace.org.uk/python/index.shtml
+
+
+From spe.stani.be at gmail.com  Wed Jan 18 17:01:28 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Wed, 18 Jan 2006 17:01:28 +0100
+Subject: [spe-dev] Problem with 0.8.1d Installer
+In-Reply-To: <43CDFFE3.5060200@voidspace.org.uk>
+References: <43CDFFE3.5060200@voidspace.org.uk>
+Message-ID: <2078a7ad0601180801m3b0606ct298bce69373b97ba@mail.gmail.com>
+
+On 1/18/06, Fuzzyman <fuzzyman at voidspace.org.uk> wrote:
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> Hello Stani,
+>
+> I un-installed 0.8.1d (under Python 2.4) and installed the new version.
+Which new version? SPE 0.8.1.d is the new version.
+
+> I got the following error in the post-install script. This means the
+> lovely icons aren't installed :-(
+>
+> gexmod done
+> 'import site' failed; use -v for traceback
+> Traceback (most recent call last):
+>   File "<string>", line 125, in ?
+> ImportError: No module named _spe.info
+> *** run_installscript: internal error 0xFFFFFFFF ***
+Strange, I don't get this. Are you sure you uninstalled SPE completely?
+
+> I'll build a Python 2.3 installer tonight, using hte current version
+> unless you tell me otherwise.
+Don't, there are some (minor) issues, see the blog. Next release
+(released within a week) will fix these.
+
+Thanks, Stani
+
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From fuzzyman at voidspace.org.uk  Wed Jan 18 17:11:27 2006
+From: fuzzyman at voidspace.org.uk (Fuzzyman)
+Date: Wed, 18 Jan 2006 16:11:27 +0000
+Subject: [spe-dev] Problem with 0.8.1d Installer
+In-Reply-To: <2078a7ad0601180801m3b0606ct298bce69373b97ba@mail.gmail.com>
+References: <43CDFFE3.5060200@voidspace.org.uk> <2078a7ad0601180801m3b0606ct298bce69373b97ba@mail.gmail.com>
+Message-ID: <43CE68AF.4090007@voidspace.org.uk>
+
+SPE Stani's Python Editor wrote:
+
+>http://pythonide.stani.be
+>http://pythonide.stani.be/manual/html/manual.html
+>http://pythonide.stani.be/blog/sm_donate
+>svn://svn.berlios.de/python/spe/trunk
+>_______________________________________________
+>On 1/18/06, Fuzzyman <fuzzyman at voidspace.org.uk> wrote:
+>  
+>
+>>http://pythonide.stani.be
+>>http://pythonide.stani.be/manual/html/manual.html
+>>http://pythonide.stani.be/blog/sm_donate
+>>svn://svn.berlios.de/python/spe/trunk
+>>_______________________________________________
+>>Hello Stani,
+>>
+>>I un-installed 0.8.1d (under Python 2.4) and installed the new version.
+>>    
+>>
+>Which new version? SPE 0.8.1.d is the new version.
+>
+>  
+>
+
+I think 0.8.1d-svn was actually my previous version. Sorry.
+
+>>I got the following error in the post-install script. This means the
+>>lovely icons aren't installed :-(
+>>
+>>gexmod done
+>>'import site' failed; use -v for traceback
+>>Traceback (most recent call last):
+>>  File "<string>", line 125, in ?
+>>ImportError: No module named _spe.info
+>>*** run_installscript: internal error 0xFFFFFFFF ***
+>>    
+>>
+>Strange, I don't get this. Are you sure you uninstalled SPE completely?
+>
+>  
+>
+I uninstalled from Add/Remove programs.
+
+
+>>I'll build a Python 2.3 installer tonight, using hte current version
+>>unless you tell me otherwise.
+>>    
+>>
+>Don't, there are some (minor) issues, see the blog. Next release
+>(released within a week) will fix these.
+>
+>  
+>
+Ok - no problem on the installer. I await your command. I'd liek to
+release Movable within a week.... so I doubly await your command.
+
+All the best,
+
+Fuzzyman
+http://www.voidspace.org.uk/python/index.shtml
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060118/68cc021f/attachment.html>
+
+From fuzzyman at voidspace.org.uk  Fri Jan 20 14:46:22 2006
+From: fuzzyman at voidspace.org.uk (Fuzzyman)
+Date: Fri, 20 Jan 2006 13:46:22 +0000
+Subject: [spe-dev] Re: Error With Installer
+Message-ID: <43D0E9AE.30106@voidspace.org.uk>
+
+Hello All,
+
+I tried uninstalling Spe 0.8.1.d (again) and then cleaning the registry
+and re-installing. I got the same error I reported last time.
+
+*However*, when uninstalling I got a warning message 'SPE was developed
+with xwPython 2.6.1.0 You Have 2.6.2.1 installed'. Now SPE works fine...
+but this could be the source of the error ?
+
+All the best,
+
+Fuzzyman
+http://www.voidspace.org.uk/python/index.shtml
+
+
+
+From spe.stani.be at gmail.com  Fri Jan 20 14:49:09 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Fri, 20 Jan 2006 14:49:09 +0100
+Subject: [spe-dev] Re: Error With Installer
+In-Reply-To: <43D0E9AE.30106@voidspace.org.uk>
+References: <43D0E9AE.30106@voidspace.org.uk>
+Message-ID: <2078a7ad0601200549l24e28657n4344177f0bcc851a@mail.gmail.com>
+
+Hi Fuzzy,
+Shall I send you a pre-release installer? I fixed some stuff for
+windows. Answer me privately.
+Stani
+
+On 1/20/06, Fuzzyman <fuzzyman at voidspace.org.uk> wrote:
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> Hello All,
+>
+> I tried uninstalling Spe 0.8.1.d (again) and then cleaning the registry
+> and re-installing. I got the same error I reported last time.
+>
+> *However*, when uninstalling I got a warning message 'SPE was developed
+> with xwPython 2.6.1.0 You Have 2.6.2.1 installed'. Now SPE works fine...
+> but this could be the source of the error ?
+>
+> All the best,
+>
+> Fuzzyman
+> http://www.voidspace.org.uk/python/index.shtml
+>
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From tstone2077 at hotmail.com  Fri Jan 20 20:39:19 2006
+From: tstone2077 at hotmail.com (Thurston Stone)
+Date: Fri, 20 Jan 2006 11:39:19 -0800
+Subject: [spe-dev] Re: Error With Installer
+In-Reply-To: <2078a7ad0601200549l24e28657n4344177f0bcc851a@mail.gmail.com>
+Message-ID: <BAY101-DAV274CE484E267D13A7E2A3DA1F0@phx.gbl>
+
+Hello all,
+
+I've been working on embedding a debugger in SPE.  Unfortunately, I have to
+step away from working on it at the moment.  If anyone would like to pick up
+where I left off and/or work with me on it in the future, please let me know
+and I will send you the code so far.
+
+Attached is a screenshot of the debugger panel as it is right now(and some
+breakpoint functionality that is working).
+
+Let me know if you would like to help on this development.
+
+Thank you,
+Thurston
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: debug_screenshot.jpg
+Type: image/jpeg
+Size: 436720 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060120/a10b9f15/attachment.jpg>
+
+From spe.stani.be at gmail.com  Sat Jan 21 04:20:05 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Sat, 21 Jan 2006 04:20:05 +0100
+Subject: [spe-dev] Call for participation
+Message-ID: <2078a7ad0601201920j27a98309g5f655cf31b6ee21e@mail.gmail.com>
+
+On 1/20/06, Thurston Stone <tstone2077 at hotmail.com> wrote:
+> Hello all,
+>
+> I've been working on embedding a debugger in SPE.  Unfortunately, I have to
+> step away from working on it at the moment.  If anyone would like to pick up
+> where I left off and/or work with me on it in the future, please let me know
+> and I will send you the code so far.
+>
+> Attached is a screenshot of the debugger panel as it is right now(and some
+> breakpoint functionality that is working).
+>
+> Let me know if you would like to help on this development.
+>
+> Thank you,
+> Thurston
+
+Hi Thurston,
+Congratulations! You've done a great job so far together with Nir
+Aides. By finishing the debugger we could proceed to the 0.9 release
+and with
+- a keyboard shortcut editor (by Toni Brkic),
+- configurable colours (by Vladlen Fomushkin)
+- better find/replace functionality (by Nick Trout)
+- some more stability
+-...
+we would be near the 1.0 release. Please if someone wants to
+contribute to SPE, why you don't help one of them a hand. They will
+probably need it (as I didn't here for a while) and appreciate it for
+sure. You can reach them by posting on this list.
+I've been working hard on stability, the documentation (together with
+the whole spe-doc team, especially Dimitri Pater for the tutorials and
+Mario Lacunza for the Spanish translation) and to port SPE to Ubuntu.
+Sorry to bother you, but we need your help!
+Stani
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From spe.stani.be at gmail.com  Sat Jan 21 04:35:28 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Sat, 21 Jan 2006 04:35:28 +0100
+Subject: [spe-dev] SVN 143: please update
+Message-ID: <2078a7ad0601201935i3794d671l7a70682bdac8a60e@mail.gmail.com>
+
+New features:	
+
+    * Inspect interactively after running script in terminal
+    * Debian installer for Ubuntu, etc... by Marco Ferreira
+
+Fixes:	
+
+    * dot bug after ')'
+    * prevent unsplitting by double clicking sidebar sash
+    * tar.gz archive shrinked to 65% of its original size (only 833kb!)
+    * Linux: fix for the Browser (tested on Ubuntu)
+    * Linux: added firefox to webbrowser list and is default browser if present
+    * Linux: run in terminal for konsole and gnome-terminal
+    * Mac: sash is enlarged to 6 pixels
+    * Mac: new feature: browser in sidebar (for wxPython 2.6.2+)
+    * Windows: SPE shortcut in Windows start menu works again
+    * Windows: Run in terminal input
+
+Stani
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+
+
+From fuzzyman at voidspace.org.uk  Sun Jan 22 14:06:27 2006
+From: fuzzyman at voidspace.org.uk (Fuzzyman)
+Date: Sun, 22 Jan 2006 13:06:27 +0000
+Subject: [spe-dev] 0.8.1e Installer
+Message-ID: <43D38353.1060005@voidspace.org.uk>
+
+Hello All,
+
+I've tried the new installer for 0.8.1e (svn) and can confirm that my
+post-install script issues have been resolved.
+
+All the best,
+
+Fuzzyman
+http://www.voidspace.org.uk/python/index.shtml
+
+
+
+
+From spe.stani.be at gmail.com  Mon Jan 23 01:45:59 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Mon, 23 Jan 2006 01:45:59 +0100
+Subject: [spe-dev] SVN 146: Please test for PyCon!!
+Message-ID: <2078a7ad0601221645o2277c488xb072cef83be03fbf@mail.gmail.com>
+
+Hi everyone,
+
+This is a special occasion because the SPE 0.8.2.a release, which normally
+comes out wednesday, will be reviewed on PyCon. SPE competes against Komodo,
+WingIDE and PyDev  (considered most promising IDE's):
+http://wiki.python.org/moin/PyCon2006/Talks#19
+
+Of course it is very important that SPE is bug free. So I'd like everyone to
+test the version in the subversion repository thoroughly. I'll be happy for
+every bug you can find. A lot of things are fixed already, see:
+http://pythonide.stani.be/blog
+
+Vlad send me his work for the style configurator for fonts and colours! This
+is the reason why SPE goes to 0.8.2 It was till quite some work for me to
+fix it, but now it works well (except if you want different background
+colour, it might be a bit stuburn.) So Vlad, thanks a lot for your work!
+I'll answer you later when I have a bit more time, as putting it into SPE
+and reviewing the whole manual kept me more than busy.
+
+Dimitri rewrote his nice tutorial, as SPE changed a lot. Please review and
+comment it at http://www.serpia.org/spe
+
+I tested it on Windows and Ubuntu. I didn't have time yet for the Mac, but
+it would surprise me if it wouldn't work.
+
+Thanks in advance!
+
+Stani
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060123/b0b657d3/attachment.html>
+
+From Richard.E.Brown at DARTWARE.COM  Mon Jan 23 04:07:25 2006
+From: Richard.E.Brown at DARTWARE.COM (Richard E. Brown)
+Date: 22 Jan 2006 22:07:25 EST
+Subject: [spe-dev] SVN 146 - missing file?
+Message-ID: <2118401@blitz.dartware.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060122/5c7d269e/attachment.ksh>
+
+From spe.stani.be at gmail.com  Mon Jan 23 13:26:59 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Mon, 23 Jan 2006 13:26:59 +0100
+Subject: [spe-dev] SVN 146 - missing file?
+In-Reply-To: <2118401@blitz.dartware.com>
+References: <2118401@blitz.dartware.com>
+Message-ID: <2078a7ad0601230426s77d35627lf5ed60f6c006d4b5@mail.gmail.com>
+
+This is a new file, so you are probably right. I'll update it tonight. It
+probably was too late yesterday night ;-)
+Thanks for your quick reply,
+Stani
+
+
+On 22 Jan 2006 22:07:25 EST, Richard E. Brown <Richard.E.Brown at dartware.com>
+wrote:
+>
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> Folks:
+>
+> I just checked out SVN version 146 (0.8.2.a) on my MacOS X box, and got
+> the
+> following error:
+>
+> File "/Users/richb/Desktop/NewStuff/src/_spe/Parent.py", line 15, in ?
+>    import dialogs.stcStyleEditor
+> ImportError: No module named stcStyleEditor
+>
+> Any clues?
+>
+> Rich Brown
+> Hanover, NH USA
+> -------------------------
+> [Richard-E-Browns-Computer:~] richb% getspe
+> U  /Users/richb/Desktop/NewStuff/src/_spe/sm/wxp/stc.py
+> U  /Users/richb/Desktop/NewStuff/src/_spe/sm/wxp/__init__.py
+> U  /Users/richb/Desktop/NewStuff/src/_spe/sm/wxp/NotebookCtrl.py
+> U  /Users/richb/Desktop/NewStuff/src/_spe/Parent.py
+> U  /Users/richb/Desktop/NewStuff/src/_spe/defaults.cfg
+> U  /Users/richb/Desktop/NewStuff/src/_spe/info.py
+> U  /Users/richb/Desktop/NewStuff/src/_spe/dialogs/preferences.wxg
+> U  /Users/richb/Desktop/NewStuff/src/_spe/dialogs/preferencesDialog.py
+> U  /Users/richb/Desktop/NewStuff/src/_spe/tabs/Locals.py
+> U  /Users/richb/Desktop/NewStuff/src/_spe/SPE.py
+> Checked out revision 146.
+> [Richard-E-Browns-Computer:~] richb% spe
+>
+> Spe Warning: Spe was developped on wxPython v2.6.1.0., but v2.6.2.1. was
+> found.
+> If you experience any problems please install wxPython v2.6.1.0.
+>
+>
+> SPE v0.8.2.a.svn (c)2003-2005 www.stani.be
+>
+> If spe fails to start:
+> - type "pythonw SPE.py --debug > debug.txt 2>&1" at the command prompt
+>   (or if you use tcsh: "pythonw SPE.py --debug >& debug.txt")
+> - send debug.txt with some info to spe.stani.be[at]gmail.com
+>
+> If spe is unstable, try this interface from the preferences:
+> "multiple with sash & tabs (mac default,linux default,windows)"
+>
+>
+> Spe Warning: Spe was developped on wxPython v2.6.1.0., but v2.6.2.1. was
+> found.
+> If you experience any problems please install wxPython v2.6.1.0.
+>
+> Traceback (most recent call last):
+> File "/Users/richb/Desktop/NewStuff/src/_spe/SPE.py", line 32, in ?
+>    import Menu,Parent,Child
+> File "/Users/richb/Desktop/NewStuff/src/_spe/Parent.py", line 15, in ?
+>    import dialogs.stcStyleEditor
+> ImportError: No module named stcStyleEditor
+> [Richard-E-Browns-Computer:~] richb%
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+
+
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060123/c3c66d89/attachment.html>
+
+From spe.stani.be at gmail.com  Mon Jan 23 19:44:59 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Mon, 23 Jan 2006 19:44:59 +0100
+Subject: [spe-dev] latest SVN 148
+Message-ID: <2078a7ad0601231044s4cd89432te4f9a537f27d5d6d@mail.gmail.com>
+
+Hi
+I tested it on the Mac and the default font was to small. I've thought 14
+would be a good option. You can play with it yourself by editing the
+_spe/dialogs/stcStyleEditor.py
+in StcStyleEditor.py:
+
+def getDefs():
+    if wx.Platform == '__WXMSW__':
+        commonDefs = {
+            'helv': 'Courier New',
+            'mono': 'Courier New',
+            'lnsize': 10,
+            'backcol': '#FFFFFF',
+            'size': 10}
+    elif wx.Platform =='__WXMAC__':
+        commonDefs = {
+            'helv': 'Helvetica',
+            'mono': 'Courier',
+            'lnsize': 14,
+            'backcol': '#FFFFFF',
+            'size': 14}
+    else:
+        commonDefs = {
+            'helv': 'Helvetica',
+            'mono': 'Courier',
+            'lnsize': 10,
+            'backcol': '#FFFFFF',
+            'size': 10}
+
+You can configure the colors by pressing the button
+'Preferences>Editor>Configure Style...'. You can choose between Boa, Idle,
+SPE and other styles.
+
+Mac issues:
+The dialog was taken from the sample in the wxPython directory and
+unfortunately doesn't display well on Mac, but luckily good enough to be
+minimal operational by using the speedsetting. Another problem on Mac is
+that I had to change the style chatting twice to idle in order it to work.
+I'll look into that wednesday.
+
+Happy testing,
+Stani
+
+--
+http://pythonide.stani.be
+http://pythonide.stani.be/screenshots
+http://pythonide.stani.be/manual/html/manual.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20060123/12f46e36/attachment.html>
+
+From jose at cybergalvez.com  Tue Jan 24 03:53:49 2006
+From: jose at cybergalvez.com (Jose Galvez)
+Date: Mon, 23 Jan 2006 18:53:49 -0800
+Subject: [spe-dev] SVN 135: problem with dots and auto complete (bug 6006)
+ fixed
+In-Reply-To: <20060115192924.793903d9610815a5b69d8e8c16c4233d.82ae18cbd3.wbe@email.email.secureserver.net>
+References: <20060115192924.793903d9610815a5b69d8e8c16c4233d.82ae18cbd3.wbe@email.email.secureserver.net>
+Message-ID: <43D596BD.2020806@cybergalvez.com>
+
+Dear Stani,
+
+I just got back form my travles, updated from the svn and the
+auto-complete works great! Thanks for great work
+Jose
+
+jose at cybergalvez.com wrote:
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> Stani,
+> Could you take another look at the code, I just updathed from the svn
+> and the auto-complete function does not seem to work.  Its checked in
+> te preference, but I have to use ctrl-space to bring up the
+> auto-complete list
+> Jose
+>
+>   
+>> -------- Original Message --------
+>> Subject: RE: [spe-dev] SVN 135: problem with dots and auto complete
+>> (bug 6006) fixed
+>> From: jose at cybergalvez.com
+>> Date: Sun, January 15, 2006 6:08 pm
+>> To: python-spe-dev at lists.berlios.de
+>>
+>> http://pythonide.stani.be
+>> http://pythonide.stani.be/manual/html/manual.html
+>> http://pythonide.stani.be/blog/sm_donate
+>> svn://svn.berlios.de/python/spe/trunk
+>> _______________________________________________
+>> Thanks Stani,
+>>
+>> I'll give this a try
+>> Jose
+>>
+>>     
+>>> -------- Original Message --------
+>>> Subject: [spe-dev] SVN 135: problem with dots and auto complete (bug
+>>> 6006) fixed
+>>> From: "SPE Stani's Python Editor" <spe.stani.be at gmail.com>
+>>> Date: Sun, January 15, 2006 3:59 pm
+>>> To: python-spe-dev at berlios.de
+>>>
+>>> http://pythonide.stani.be
+>>> http://pythonide.stani.be/manual/html/manual.html
+>>> http://pythonide.stani.be/blog/sm_donate
+>>> svn://svn.berlios.de/python/spe/trunk
+>>> _______________________________________________
+>>> Hi Jose,
+>>>
+>>> I fixed it. Digging into the problem, the solution was simpler as I
+>>> thought. So there is no need to find closing brackets etc...
+>>>
+>>> This is the patch:
+>>>
+>>>     def autoComplete(self,object=0):
+>>>         if object:
+>>>             self.AddText('.')
+>>>         word    = self.getWord()
+>>>         if not word: return
+>>>         if object:
+>>>             word+='.'
+>>>         words   = self.getWords(word=word)
+>>>         if word[-1] == '.':
+>>>             try:
+>>>                 obj = self.getWordObject(word[:-1])
+>>>                 if obj:
+>>>                     for attr in dir(obj):
+>>>                         attr = '%s%s'%(word,attr)
+>>>                         if attr not in words: words.append(attr)
+>>>             except:
+>>>                 pass
+>>>         if words:
+>>>             words.sort()
+>>>             try:
+>>>                 self.AutoCompShow(len(word), " ".join(words))
+>>>             except:
+>>>                 pass
+>>>
+>>> The problem was that SPE didn't add a dot if it couldn't find a word.
+>>>
+>>> On 1/11/06, jose at cybergalvez.com <jose at cybergalvez.com> wrote:
+>>>       
+>>>> Ok I'm kind of at a loss now, I've been beating my head against this all
+>>>> day and haven't made any progress.  I've got the dot thing fixed
+>>>> (assuming Stani like the code suggestion), but I'm having real trouble
+>>>> with evaluating the object, which you have to do if you want to get
+>>>> some autocomplete for things like "foo()." The problem is by inserting
+>>>> an eval into the getWordObject code (eval('word'))  then things like
+>>>> this get interpreted incorrectly:
+>>>>
+>>>> import os
+>>>> s = os
+>>>> s.
+>>>>
+>>>> At the "." one would expect the autocomplete list to pick up the list
+>>>> from "os" which would happen if "s" was interpreted correctly as an
+>>>> instance of 'os',
+>>>>         
+>>> This is not possible. SPE is not allowed to execute arbitrary code for
+>>> the excuse of auto-completion. There could be a statement
+>>> eraseMyHardDisk(), which would be a pitty if executed by default.
+>>>
+>>>       
+>>>> however what I've written has it being interpreted as
+>>>> a string!
+>>>>
+>>>> Any thoughts?  for now I am going to remove all the eval code and just
+>>>> leave in the code for dealing with "()." and stuff like that
+>>>>         
+>>> Sorry, eval is the wrong path. Evaluating expressions between () is a
+>>> security risk. It could execute any code, also infinite loops etc....
+>>> Therefore I prefer not to implement it.
+>>>
+>>> But I hope I can make you happy with the fix. It is in subversion.
+>>>
+>>> Stani
+>>> _______________________________________________
+>>> Python-spe-dev mailing list
+>>> Python-spe-dev at lists.berlios.de
+>>> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>>       
+>> _______________________________________________
+>> Python-spe-dev mailing list
+>> Python-spe-dev at lists.berlios.de
+>> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>     
+>
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>
+>   
+
+
+
+From jose at cybergalvez.com  Tue Jan 24 03:54:04 2006
+From: jose at cybergalvez.com (Jose Galvez)
+Date: Mon, 23 Jan 2006 18:54:04 -0800
+Subject: [spe-dev] SVN 135: problem with dots and auto complete (bug 6006)
+ fixed
+In-Reply-To: <20060115192924.793903d9610815a5b69d8e8c16c4233d.82ae18cbd3.wbe@email.email.secureserver.net>
+References: <20060115192924.793903d9610815a5b69d8e8c16c4233d.82ae18cbd3.wbe@email.email.secureserver.net>
+Message-ID: <43D596CC.1010003@cybergalvez.com>
+
+Dear Stani,
+
+I just got back form my travles, updated from the svn and the
+auto-complete works great! Thanks for great work
+Jose
+
+jose at cybergalvez.com wrote:
+> http://pythonide.stani.be
+> http://pythonide.stani.be/manual/html/manual.html
+> http://pythonide.stani.be/blog/sm_donate
+> svn://svn.berlios.de/python/spe/trunk
+> _______________________________________________
+> Stani,
+> Could you take another look at the code, I just updathed from the svn
+> and the auto-complete function does not seem to work.  Its checked in
+> te preference, but I have to use ctrl-space to bring up the
+> auto-complete list
+> Jose
+>
+>   
+>> -------- Original Message --------
+>> Subject: RE: [spe-dev] SVN 135: problem with dots and auto complete
+>> (bug 6006) fixed
+>> From: jose at cybergalvez.com
+>> Date: Sun, January 15, 2006 6:08 pm
+>> To: python-spe-dev at lists.berlios.de
+>>
+>> http://pythonide.stani.be
+>> http://pythonide.stani.be/manual/html/manual.html
+>> http://pythonide.stani.be/blog/sm_donate
+>> svn://svn.berlios.de/python/spe/trunk
+>> _______________________________________________
+>> Thanks Stani,
+>>
+>> I'll give this a try
+>> Jose
+>>
+>>     
+>>> -------- Original Message --------
+>>> Subject: [spe-dev] SVN 135: problem with dots and auto complete (bug
+>>> 6006) fixed
+>>> From: "SPE Stani's Python Editor" <spe.stani.be at gmail.com>
+>>> Date: Sun, January 15, 2006 3:59 pm
+>>> To: python-spe-dev at berlios.de
+>>>
+>>> http://pythonide.stani.be
+>>> http://pythonide.stani.be/manual/html/manual.html
+>>> http://pythonide.stani.be/blog/sm_donate
+>>> svn://svn.berlios.de/python/spe/trunk
+>>> _______________________________________________
+>>> Hi Jose,
+>>>
+>>> I fixed it. Digging into the problem, the solution was simpler as I
+>>> thought. So there is no need to find closing brackets etc...
+>>>
+>>> This is the patch:
+>>>
+>>>     def autoComplete(self,object=0):
+>>>         if object:
+>>>             self.AddText('.')
+>>>         word    = self.getWord()
+>>>         if not word: return
+>>>         if object:
+>>>             word+='.'
+>>>         words   = self.getWords(word=word)
+>>>         if word[-1] == '.':
+>>>             try:
+>>>                 obj = self.getWordObject(word[:-1])
+>>>                 if obj:
+>>>                     for attr in dir(obj):
+>>>                         attr = '%s%s'%(word,attr)
+>>>                         if attr not in words: words.append(attr)
+>>>             except:
+>>>                 pass
+>>>         if words:
+>>>             words.sort()
+>>>             try:
+>>>                 self.AutoCompShow(len(word), " ".join(words))
+>>>             except:
+>>>                 pass
+>>>
+>>> The problem was that SPE didn't add a dot if it couldn't find a word.
+>>>
+>>> On 1/11/06, jose at cybergalvez.com <jose at cybergalvez.com> wrote:
+>>>       
+>>>> Ok I'm kind of at a loss now, I've been beating my head against this all
+>>>> day and haven't made any progress.  I've got the dot thing fixed
+>>>> (assuming Stani like the code suggestion), but I'm having real trouble
+>>>> with evaluating the object, which you have to do if you want to get
+>>>> some autocomplete for things like "foo()." The problem is by inserting
+>>>> an eval into the getWordObject code (eval('word'))  then things like
+>>>> this get interpreted incorrectly:
+>>>>
+>>>> import os
+>>>> s = os
+>>>> s.
+>>>>
+>>>> At the "." one would expect the autocomplete list to pick up the list
+>>>> from "os" which would happen if "s" was interpreted correctly as an
+>>>> instance of 'os',
+>>>>         
+>>> This is not possible. SPE is not allowed to execute arbitrary code for
+>>> the excuse of auto-completion. There could be a statement
+>>> eraseMyHardDisk(), which would be a pitty if executed by default.
+>>>
+>>>       
+>>>> however what I've written has it being interpreted as
+>>>> a string!
+>>>>
+>>>> Any thoughts?  for now I am going to remove all the eval code and just
+>>>> leave in the code for dealing with "()." and stuff like that
+>>>>         
+>>> Sorry, eval is the wrong path. Evaluating expressions between () is a
+>>> security risk. It could execute any code, also infinite loops etc....
+>>> Therefore I prefer not to implement it.
+>>>
+>>> But I hope I can make you happy with the fix. It is in subversion.
+>>>
+>>> Stani
+>>> _______________________________________________
+>>> Python-spe-dev mailing list
+>>> Python-spe-dev at lists.berlios.de
+>>> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>>       
+>> _______________________________________________
+>> Python-spe-dev mailing list
+>> Python-spe-dev at lists.berlios.de
+>> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>     
+>
+> _______________________________________________
+> Python-spe-dev mailing list
+> Python-spe-dev at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>
+>   
+
+
+
+From spe.stani.be at gmail.com  Thu Jan 26 00:36:43 2006
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Thu, 26 Jan 2006 00:36:43 +0100
+Subject: [spe-dev] Re: [spe-mac] Editor window update/refresh is slow
+In-Reply-To: <2121621@blitz.dartware.com>
+References: <2121621@blitz.dartware.com>
+Message-ID: <2078a7ad0601251536o6f061f03ra78d8fbf0e20927e@mail.gmail.com>
+
+Hi Richard and Rudolph,
+
+On 25 Jan 2006 09:09:39 EST, Richard E. Brown <Richard.E.Brown at dartware.com>
+wrote:
+>
+> --- Rudolph van der Merwe wrote:
+> I'm experiencing quite slow scrolling and window updating in the main
+> editor window of SPE. Is this normal?
+
+
+Rudolph can you confirm if the "window updating" is the one Richard
+describes below or do you have other issues? If you work with large files,
+it is better to set "check realtime with" to none in Preferences>Editor if
+typing would get slow.
+
+I'm running SPE on a Rev.E Powerbook G4 (1.67Ghz) with 2GB of memory
+> (OS X 10.4.4)
+
+
+ Ha, I wished I had one of these ;-)
+
+--- end of quote ---
+>
+> I have been waiting 'til we had a good version before mentioning this,
+
+
+Please don't wait!
+
+and I
+> think it's a good time now.
+>
+> I think there are two items here.
+>
+> 1)      I've noticed that the scrolling in SPE was slow on my TiBook - to
+> the point
+> that it feels a little sluggish. I just tried 0.8.1.d on my Windows laptop
+> (similar speed) and it was pretty snappy.
+
+
+Can you check if this is a wxPython issue, by copying&pasting the same file
+in the wxPython demo and see if it behaves the same. I wouldn't know what
+would cause it too be slow. I'm afraid it is a wxMac issue.
+
+I guess snappy is the opposite of sluggish? It might prove it is a wxMac
+issue. Stefan, any thoughts about this?
+
+2)      The newest SPE (SVN 149) had very peculiar window updating on my Mac
+> (I
+> didn't try it on the Windows box).
+
+The various panes would open very large, then
+> shrink to their proper size each time a new file opened. Here's what I
+> saw:
+>
+> -       On initial launch, the python terminal session openedin the full
+> window; then
+> shrunk down to the bottom third as normal.
+
+
+The main window is a splitterwindow, it normally only updates its size at an
+on Idle event. I forced it using the UpdateSize method and it seems to be
+fixed now. (I'll update soon to the SVN.)
+
+-       There's an error "Error opening workspace file : No section:
+> 'openfiles'"
+> displayed there.
+
+
+Fixed, now only displayed in statusbar if SPE is in debugging mode.
+
+-       Opening a source file showed the entire source file filling the top
+> pane (left
+> to right edges), then the split bar dividing the top pane, then a section
+> of a
+> file hierarchy in the left pane (don't know what that was)
+
+
+The browser is back in town! It is the last tab of the sidebar. I strongly
+recommend everyone to read the new SPE tutorial of Dimitri:
+http://www.serpia.org/spe The browser is explained there.
+
+Anyway, the browser before (wxPython 2.6.1 ) was buggy and was left out.
+

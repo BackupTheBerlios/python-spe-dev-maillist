@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] [Fwd: Re: [wxPython-users] toolbar on Mac with 16x16 pixels not possible on 2.8?]
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20%5BFwd%3A%20Re%3A%20%5BwxPython-users%5D%20toolbar%20on%20Mac%20with%2016x16%0A%20pixels%20not%20possible%20on%202.8%3F%5D&In-Reply-To=%3C45F9E4CE.4020601%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000201.html">
+   <LINK REL="Next"  HREF="000203.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] [Fwd: Re: [wxPython-users] toolbar on Mac with 16x16 pixels not possible on 2.8?]</H1>
+    <B>Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20%5BFwd%3A%20Re%3A%20%5BwxPython-users%5D%20toolbar%20on%20Mac%20with%2016x16%0A%20pixels%20not%20possible%20on%202.8%3F%5D&In-Reply-To=%3C45F9E4CE.4020601%40gmail.com%3E"
+       TITLE="[spe-dev] [Fwd: Re: [wxPython-users] toolbar on Mac with 16x16 pixels not possible on 2.8?]">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Fri Mar 16 01:29:02 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000201.html">[spe-dev] winpdb update
+</A></li>
+        <LI>Next message: <A HREF="000203.html">[spe-dev] [Fwd: Re: [wxPython-users] toolbar on Mac with 16x16 pixels not possible on 2.8?]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#202">[ date ]</a>
+              <a href="thread.html#202">[ thread ]</a>
+              <a href="subject.html#202">[ subject ]</a>
+              <a href="author.html#202">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Nothing much to do about it, unless using 24x24 bitmaps maybe. I 
+postpone this bug. John, can you make a bug report about this on the spe 
+berlios website?
+Stani
+
+-------- Original Message --------
+Subject: 	Re: [wxPython-users] toolbar on Mac with 16x16 pixels not 
+possible on 2.8?
+Date: 	Thu, 15 Mar 2007 17:17:47 -0700
+From: 	Kevin Ollivier &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">kevino at theolliviers.com</A>&gt;
+Reply-To: 	<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">wxPython-users at lists.wxwidgets.org</A>
+To: 	<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">wxPython-users at lists.wxwidgets.org</A>
+References: 	&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">2078a7ad0703151151s56ba11d0md95890a084697b25 at mail.gmail.com</A>&gt;
+
+
+
+Hi Stani,
+
+On Mar 15, 2007, at 11:51 AM, SPE Stani's Python Editor wrote:
+
+&gt;<i> Hi,
+</I>&gt;<i> SPE mac users report that the toolbar icons of SPE look blurred.
+</I>&gt;<i> Investigating the issue, showed that wxPython2.8 (this does not happen
+</I>&gt;<i> on 2.6) forces 24x24 pixels although in my code I have:
+</I>&gt;<i> self.SetToolBitmapSize((16,16))
+</I>&gt;<i>
+</I>&gt;<i> Is there no way to let mac use 16x16 as I prefer not to start shipping
+</I>&gt;<i> 24x24 pixels icons. At the moment I have no access to my Mac myself,
+</I>&gt;<i> so I couldn't verify it. If you want to try out, get SPE from
+</I>&gt;<i> subversion:
+</I>&gt;<i> svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>
+This is a result of using the native Mac toolbar control, which  
+scales up icons below it's minimum threshold. There's an option to  
+turn it off, but unfortunately I'm pretty sure you have to turn it  
+off when you compile wxPython. ;-/
+
+Regards,
+
+Kevin
+
+&gt;<i> Stani
+</I>&gt;<i>
+</I>&gt;<i> ---------------------------------------------------------------------
+</I>&gt;<i> To unsubscribe, e-mail: <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">wxPython-users-unsubscribe at lists.wxwidgets.org</A>
+</I>&gt;<i> For additional commands, e-mail: wxPython-users- 
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">help at lists.wxwidgets.org</A>
+</I>&gt;<i>
+</I>
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">wxPython-users-unsubscribe at lists.wxwidgets.org</A>
+For additional commands, e-mail: <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">wxPython-users-help at lists.wxwidgets.org</A>
+
+
+
+
+
+-------- Original Message --------
+Subject: 	Re: [wxPython-users] toolbar on Mac with 16x16 pixels not 
+possible on 2.8?
+Date: 	Thu, 15 Mar 2007 21:07:01 +0100
+From: 	Frank Niessink &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">frank at niessink.com</A>&gt;
+Reply-To: 	<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">wxPython-users at lists.wxwidgets.org</A>
+To: 	<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">wxPython-users at lists.wxwidgets.org</A>
+References: 	&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">2078a7ad0703151151s56ba11d0md95890a084697b25 at mail.gmail.com</A>&gt;
+
+
+
+Hi Stani,
+
+2007/3/15, SPE Stani's Python Editor &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">spe.stani.be at gmail.com</A>&gt;:
+&gt;<i> Hi,
+</I>&gt;<i> SPE mac users report that the toolbar icons of SPE look blurred.
+</I>&gt;<i> Investigating the issue, showed that wxPython2.8 (this does not happen
+</I>&gt;<i> on 2.6) forces 24x24 pixels although in my code I have:
+</I>&gt;<i> self.SetToolBitmapSize((16,16))
+</I>
+I have a similar issue with Task Coach on the Mac. Small 16x16 toolbar
+icons are displayed 24x24 (or maybe 22x22) and 22x22 icons are
+displayed as 16x16 icons. 32x32 icons are fine. I don't have a
+solution, sorry.
+
+Cheers, Frank
+
+PS: Your Jakarta book was reviewed in the Volkskrant today. Congratulations.
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">wxPython-users-unsubscribe at lists.wxwidgets.org</A>
+For additional commands, e-mail: <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">wxPython-users-help at lists.wxwidgets.org</A>
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070316/8edd2f9e/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070316/8edd2f9e/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000201.html">[spe-dev] winpdb update
+</A></li>
+	<LI>Next message: <A HREF="000203.html">[spe-dev] [Fwd: Re: [wxPython-users] toolbar on Mac with 16x16 pixels not possible on 2.8?]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#202">[ date ]</a>
+              <a href="thread.html#202">[ thread ]</a>
+              <a href="subject.html#202">[ subject ]</a>
+              <a href="author.html#202">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

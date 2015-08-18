@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Improvement to run with args dialog
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Improvement%20to%20run%20with%20args%20dialog&In-Reply-To=%3C2078a7ad0606301120o39feee8fxb9562f7fc82582bb%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000176.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Improvement to run with args dialog</H1>
+    <B>SPE Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Improvement%20to%20run%20with%20args%20dialog&In-Reply-To=%3C2078a7ad0606301120o39feee8fxb9562f7fc82582bb%40mail.gmail.com%3E"
+       TITLE="[spe-dev] Improvement to run with args dialog">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Fri Jun 30 20:20:12 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000176.html">[spe-dev] Improvement to run with args dialog
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#177">[ date ]</a>
+              <a href="thread.html#177">[ thread ]</a>
+              <a href="subject.html#177">[ subject ]</a>
+              <a href="author.html#177">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Please submit as a patch on the berlios site. In july I'll try to
+implement all registered patches.
+Stani
+
+On 6/30/06, Eliot Blennerhassett &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">eblennerhassett at audioscience.com</A>&gt; wrote:
+&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be/blog/sm_donate">http://pythonide.stani.be/blog/sm_donate</A>
+</I>&gt;<i> <A HREF="svn://svn.berlios.de/python/spe/trunk">svn://svn.berlios.de/python/spe/trunk</A>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Towards the end, only add current arguments to list if they are not
+</I>&gt;<i> already there.  Insert new arguments at the front of the list.
+</I>&gt;<i>
+</I>&gt;<i> Parent.py line 620
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>     def run(self):
+</I>&gt;<i>         if self.output.IsBusy():
+</I>&gt;<i>             if self.messageConfirm('SPE will try to kill the running
+</I>&gt;<i> script.\n\nWarning:this might kill SPE as well.\nIt is highly
+</I>&gt;<i> recommended to save all scripts first.\n\nAre you sure you want to
+</I>&gt;<i> continue?'):
+</I>&gt;<i>                 self.output.Kill()
+</I>&gt;<i>             else:
+</I>&gt;<i>                 self.output._check_run(False)
+</I>&gt;<i>             return
+</I>&gt;<i>         child = self.app.childActive
+</I>&gt;<i>         if not child.confirmSave():
+</I>&gt;<i>             return
+</I>&gt;<i>         from _spe.dialogs.runDialog import RunDialog
+</I>&gt;<i>         runDialog           = RunDialog(child.fileName,
+</I>&gt;<i>                                 self.argumentsPrevious,
+</I>&gt;<i>                                 self.beepPrevious,
+</I>&gt;<i>                                 parent=self.frame,
+</I>&gt;<i>                                 id=-1)
+</I>&gt;<i>         answer              = runDialog.ShowModal()
+</I>&gt;<i>         arguments           = runDialog.arguments.GetValue()
+</I>&gt;<i>         beep                = runDialog.beep.GetValue()
+</I>&gt;<i>         runDialog.Destroy()
+</I>&gt;<i>         if answer == wx.ID_OK:
+</I>&gt;<i>             if not (arguments in self.argumentsPrevious):
+</I>&gt;<i>                 self.argumentsPrevious.insert(0,arguments)
+</I>&gt;<i>             self.beepPrevious   = beep
+</I>&gt;<i>             self.run_with_arguments(arguments,beep=beep,confirm=False)
+</I>&gt;<i>         else:
+</I>&gt;<i>             self.output._check_run(False)
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> Eliot Blennerhassett                       *:-{)&gt;
+</I>&gt;<i> AudioScience, Inc. (New Zealand Office)
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Python-spe-dev mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="http://lists.berlios.de/mailman/listinfo/python-spe-dev">http://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i>
+</I>
+
+-- 
+<A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+<A HREF="http://pythonide.stani.be/screenshots">http://pythonide.stani.be/screenshots</A>
+<A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000176.html">[spe-dev] Improvement to run with args dialog
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#177">[ date ]</a>
+              <a href="thread.html#177">[ thread ]</a>
+              <a href="subject.html#177">[ subject ]</a>
+              <a href="author.html#177">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

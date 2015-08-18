@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Trouble with berlios.de?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Trouble%20with%20berlios.de%3F&In-Reply-To=%3C6064-88131%40sneakemail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000294.html">
+   <LINK REL="Next"  HREF="000297.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Trouble with berlios.de?</H1>
+    <B>g6m3xcl02 at sneakemail.com</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Trouble%20with%20berlios.de%3F&In-Reply-To=%3C6064-88131%40sneakemail.com%3E"
+       TITLE="[spe-dev] Trouble with berlios.de?">g6m3xcl02 at sneakemail.com
+       </A><BR>
+    <I>Mon Apr 23 21:50:14 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000294.html">[spe-dev] Trouble with berlios.de?
+</A></li>
+        <LI>Next message: <A HREF="000297.html">[spe-dev] Open workspace: crash
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#296">[ date ]</a>
+              <a href="thread.html#296">[ thread ]</a>
+              <a href="subject.html#296">[ subject ]</a>
+              <a href="author.html#296">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hm, thanks for the info Carl.  That was a ridiculously long outage.
+
+Anyone up for a move to sourceforge?
+
+On 4/21/07, Carl Karsten carl-at-personnelware.com |jason carver on spe-dev|&lt;
+...&gt; wrote:
+&gt;<i>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">g6m3xcl02 at sneakemail.com</A> wrote:
+</I>&gt;<i> &gt; Is anyone else having trouble accessing berlios.de?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I keep getting this message:
+</I>&gt;<i> &gt; &quot;The connection to the server was reset while the page was loading.&quot;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; This is affecting me on www.berlios.de and developer.berlios.de, but not
+</I>&gt;<i> &gt; svn.berlios.de
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I am not having trouble with any other websites.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I saw a new patch for matching braces, and am excited to try it out, but
+</I>&gt;<i> I
+</I>&gt;<i> &gt; started having the problems about the same time and couldn't download it
+</I>&gt;<i> &gt; :(.
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I>&gt;<i> www and developer are the same IP, so basically the same web server, which
+</I>&gt;<i> is
+</I>&gt;<i> closed.  (I have no clue why, but until the port is open, not much point
+</I>&gt;<i> in trying.)
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">carl at dell17</A>:~$ host www.berlios.de
+</I>&gt;<i> www.berlios.de is an alias for unicorn.berlios.de.
+</I>&gt;<i> unicorn.berlios.de has address 195.37.77.138
+</I>&gt;<i> www.berlios.de is an alias for unicorn.berlios.de.
+</I>&gt;<i> www.berlios.de is an alias for unicorn.berlios.de.
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">carl at dell17</A>:~$ host developer.berlios.de
+</I>&gt;<i> developer.berlios.de is an alias for unicorn.berlios.de.
+</I>&gt;<i> unicorn.berlios.de has address 195.37.77.138
+</I>&gt;<i> developer.berlios.de is an alias for unicorn.berlios.de.
+</I>&gt;<i> developer.berlios.de is an alias for unicorn.berlios.de.
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">carl at dell17</A>:~$ host svn.berlios.de
+</I>&gt;<i> svn.berlios.de has address 195.37.77.137
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">root at shaz</A>:/var/www # nmap www.berlios.de
+</I>&gt;<i>
+</I>&gt;<i> Starting Nmap 4.03 ( <A HREF="http://www.insecure.org/nmap/">http://www.insecure.org/nmap/</A> ) at 2007-04-21 19:19
+</I>&gt;<i> CDT
+</I>&gt;<i> Interesting ports on unicorn.berlios.de (195.37.77.138):
+</I>&gt;<i> (The 1667 ports scanned but not shown below are in state: filtered)
+</I>&gt;<i> PORT     STATE  SERVICE
+</I>&gt;<i> 20/tcp   closed ftp-data
+</I>&gt;<i> 22/tcp   open   ssh
+</I>&gt;<i> 80/tcp   closed http
+</I>&gt;<i>
+</I>&gt;<i> Carl K
+</I>&gt;<i> --
+</I>&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070423/7feb54fd/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070423/7feb54fd/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000294.html">[spe-dev] Trouble with berlios.de?
+</A></li>
+	<LI>Next message: <A HREF="000297.html">[spe-dev] Open workspace: crash
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#296">[ date ]</a>
+              <a href="thread.html#296">[ thread ]</a>
+              <a href="subject.html#296">[ subject ]</a>
+              <a href="author.html#296">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] SVN 135: problem with dots and auto complete (bug 6006) fixed
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2006-January/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20SVN%20135%3A%20problem%20with%20dots%20and%20auto%20complete%20%28bug%206006%29%20fixed&In-Reply-To=%3C20060115192924.793903d9610815a5b69d8e8c16c4233d.82ae18cbd3.wbe%40email.email.secureserver.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000147.html">
+   <LINK REL="Next"  HREF="000162.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] SVN 135: problem with dots and auto complete (bug 6006) fixed</H1>
+    <B>jose at cybergalvez.com</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20SVN%20135%3A%20problem%20with%20dots%20and%20auto%20complete%20%28bug%206006%29%20fixed&In-Reply-To=%3C20060115192924.793903d9610815a5b69d8e8c16c4233d.82ae18cbd3.wbe%40email.email.secureserver.net%3E"
+       TITLE="[spe-dev] SVN 135: problem with dots and auto complete (bug 6006) fixed">jose at cybergalvez.com
+       </A><BR>
+    <I>Mon Jan 16 03:29:24 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000147.html">[spe-dev] SVN 135: problem with dots and auto complete (bug 6006) fixed
+</A></li>
+        <LI>Next message: <A HREF="000162.html">[spe-dev] SVN 135: problem with dots and auto complete (bug 6006) fixed
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#148">[ date ]</a>
+              <a href="thread.html#148">[ thread ]</a>
+              <a href="subject.html#148">[ subject ]</a>
+              <a href="author.html#148">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Stani,
+Could you take another look at the code, I just updathed from the svn
+and the auto-complete function does not seem to work.  Its checked in
+te preference, but I have to use ctrl-space to bring up the
+auto-complete list
+Jose
+
+&gt;<i> -------- Original Message --------
+</I>&gt;<i> Subject: RE: [spe-dev] SVN 135: problem with dots and auto complete
+</I>&gt;<i> (bug 6006) fixed
+</I>&gt;<i> From: <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">jose at cybergalvez.com</A>
+</I>&gt;<i> Date: Sun, January 15, 2006 6:08 pm
+</I>&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be/blog/sm_donate">http://pythonide.stani.be/blog/sm_donate</A>
+</I>&gt;<i> <A HREF="svn://svn.berlios.de/python/spe/trunk">svn://svn.berlios.de/python/spe/trunk</A>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Thanks Stani,
+</I>&gt;<i>
+</I>&gt;<i> I'll give this a try
+</I>&gt;<i> Jose
+</I>&gt;<i>
+</I>&gt;<i> &gt; -------- Original Message --------
+</I>&gt;<i> &gt; Subject: [spe-dev] SVN 135: problem with dots and auto complete (bug
+</I>&gt;<i> &gt; 6006) fixed
+</I>&gt;<i> &gt; From: &quot;SPE Stani's Python Editor&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">spe.stani.be at gmail.com</A>&gt;
+</I>&gt;<i> &gt; Date: Sun, January 15, 2006 3:59 pm
+</I>&gt;<i> &gt; To: <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">python-spe-dev at berlios.de</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> &gt; <A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+</I>&gt;<i> &gt; <A HREF="http://pythonide.stani.be/blog/sm_donate">http://pythonide.stani.be/blog/sm_donate</A>
+</I>&gt;<i> &gt; <A HREF="svn://svn.berlios.de/python/spe/trunk">svn://svn.berlios.de/python/spe/trunk</A>
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; Hi Jose,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I fixed it. Digging into the problem, the solution was simpler as I
+</I>&gt;<i> &gt; thought. So there is no need to find closing brackets etc...
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; This is the patch:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;     def autoComplete(self,object=0):
+</I>&gt;<i> &gt;         if object:
+</I>&gt;<i> &gt;             self.AddText('.')
+</I>&gt;<i> &gt;         word    = self.getWord()
+</I>&gt;<i> &gt;         if not word: return
+</I>&gt;<i> &gt;         if object:
+</I>&gt;<i> &gt;             word+='.'
+</I>&gt;<i> &gt;         words   = self.getWords(word=word)
+</I>&gt;<i> &gt;         if word[-1] == '.':
+</I>&gt;<i> &gt;             try:
+</I>&gt;<i> &gt;                 obj = self.getWordObject(word[:-1])
+</I>&gt;<i> &gt;                 if obj:
+</I>&gt;<i> &gt;                     for attr in dir(obj):
+</I>&gt;<i> &gt;                         attr = '%s%s'%(word,attr)
+</I>&gt;<i> &gt;                         if attr not in words: words.append(attr)
+</I>&gt;<i> &gt;             except:
+</I>&gt;<i> &gt;                 pass
+</I>&gt;<i> &gt;         if words:
+</I>&gt;<i> &gt;             words.sort()
+</I>&gt;<i> &gt;             try:
+</I>&gt;<i> &gt;                 self.AutoCompShow(len(word), &quot; &quot;.join(words))
+</I>&gt;<i> &gt;             except:
+</I>&gt;<i> &gt;                 pass
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; The problem was that SPE didn't add a dot if it couldn't find a word.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; On 1/11/06, <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">jose at cybergalvez.com</A> &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">jose at cybergalvez.com</A>&gt; wrote:
+</I>&gt;<i> &gt; &gt; Ok I'm kind of at a loss now, I've been beating my head against this all
+</I>&gt;<i> &gt; &gt; day and haven't made any progress.  I've got the dot thing fixed
+</I>&gt;<i> &gt; &gt; (assuming Stani like the code suggestion), but I'm having real trouble
+</I>&gt;<i> &gt; &gt; with evaluating the object, which you have to do if you want to get
+</I>&gt;<i> &gt; &gt; some autocomplete for things like &quot;foo().&quot; The problem is by inserting
+</I>&gt;<i> &gt; &gt; an eval into the getWordObject code (eval('word'))  then things like
+</I>&gt;<i> &gt; &gt; this get interpreted incorrectly:
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; import os
+</I>&gt;<i> &gt; &gt; s = os
+</I>&gt;<i> &gt; &gt; s.
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; At the &quot;.&quot; one would expect the autocomplete list to pick up the list
+</I>&gt;<i> &gt; &gt; from &quot;os&quot; which would happen if &quot;s&quot; was interpreted correctly as an
+</I>&gt;<i> &gt; &gt; instance of 'os',
+</I>&gt;<i> &gt; This is not possible. SPE is not allowed to execute arbitrary code for
+</I>&gt;<i> &gt; the excuse of auto-completion. There could be a statement
+</I>&gt;<i> &gt; eraseMyHardDisk(), which would be a pitty if executed by default.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; &gt; however what I've written has it being interpreted as
+</I>&gt;<i> &gt; &gt; a string!
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; Any thoughts?  for now I am going to remove all the eval code and just
+</I>&gt;<i> &gt; &gt; leave in the code for dealing with &quot;().&quot; and stuff like that
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Sorry, eval is the wrong path. Evaluating expressions between () is a
+</I>&gt;<i> &gt; security risk. It could execute any code, also infinite loops etc....
+</I>&gt;<i> &gt; Therefore I prefer not to implement it.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; But I hope I can make you happy with the fix. It is in subversion.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Stani
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; Python-spe-dev mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> &gt; <A HREF="http://lists.berlios.de/mailman/listinfo/python-spe-dev">http://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Python-spe-dev mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="http://lists.berlios.de/mailman/listinfo/python-spe-dev">http://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000147.html">[spe-dev] SVN 135: problem with dots and auto complete (bug 6006) fixed
+</A></li>
+	<LI>Next message: <A HREF="000162.html">[spe-dev] SVN 135: problem with dots and auto complete (bug 6006) fixed
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#148">[ date ]</a>
+              <a href="thread.html#148">[ thread ]</a>
+              <a href="subject.html#148">[ subject ]</a>
+              <a href="author.html#148">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

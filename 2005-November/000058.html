@@ -1,0 +1,567 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] notebookctrl on Mac
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2005-November/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20notebookctrl%20on%20Mac&In-Reply-To=%3C2078a7ad0511301247m72895868wdb4db2d317c32c%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000057.html">
+   <LINK REL="Next"  HREF="000059.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] notebookctrl on Mac</H1>
+    <B>SPE Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20notebookctrl%20on%20Mac&In-Reply-To=%3C2078a7ad0511301247m72895868wdb4db2d317c32c%40mail.gmail.com%3E"
+       TITLE="[spe-dev] notebookctrl on Mac">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Wed Nov 30 21:47:03 CET 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000057.html">[spe-dev] NotebookCtrl Widget Problem On Mac FIXED!!
+</A></li>
+        <LI>Next message: <A HREF="000059.html">[spe-dev] Close bug fixed!
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#58">[ date ]</a>
+              <a href="thread.html#58">[ thread ]</a>
+              <a href="subject.html#58">[ subject ]</a>
+              <a href="author.html#58">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Andrea,
+
+FIX
+
+So this how I would fix the control. I leave it up to your preference of
+design how you want to implement it. In the beginning of the NotebookCtrl.py,
+I would define a constant like this:
+
+if wx.Platform == '__WXMAC__':
+    DEFAULT_SIZE = wx.Size(28,28) #or any value you prefer
+else:
+    DEFAULT_SIZE = wx.DefaultSize
+
+Then replace EVERYWHERE wx.DefaultSize by DEFAULT_SIZE, also in
+NotebookCtrlDemo.py in fact if you replace line 942 with the following, the
+demo works already:
+        NC.NotebookCtrl.__init__(self, parent, id, pos=wx.DefaultPosition,
+                                 size=wx.Size(28,28),
+notebookctrlstyle=style)
+
+I noticed in your code that you used once wx.Size(20,20) but that's not
+enough as the size is passed through as an argument and wx.Size(20,20) is
+then replaced by wx.DefaultSize
+
+Unfortunately I can not use the control yet for SPE as closing a tab with a
+close button causes a crash.
+
+BUGS
+
+1
+A bug on Mac is that the PopupWindow is not implemented appearantly. Maybe
+you could ask to Stefan Csomor if this is a wxMac problem or a wxPythonMac
+problem. As it is unclear when it will be implemented the best way is
+probably to catch the expression with a try except NotImplementedError
+clausule:
+
+Traceback (most recent call last):
+  File
+&quot;//Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/wx-
+2.6-mac-unicode/wx/_misc.py&quot;, line 1137, in Notify
+    self.notify()
+  File &quot;/Users/stani/Python/NotebookCtrl/NotebookCtrl.py&quot;, line 1300, in
+OnShowToolTip
+    self._currentwinsize)
+  File &quot;/Users/stani/Python/NotebookCtrl/NotebookCtrl.py&quot;, line 2447, in
+__init__
+    wx.PopupWindow.__init__(self, parent, flags=wx.SIMPLE_BORDER)
+  File
+&quot;//Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/wx-
+2.6-mac-unicode/wx/_windows.py&quot;, line 1786, in __init__
+    newobj = _windows_.new_PopupWindow(*args, **kwargs)
+NotImplementedError
+
+2 (This is related to 1) You could check with if 'self.nb._tipwindow is
+None', try except or hasattr(self.nb._tipwindow,'Destroy')
+Traceback (most recent call last):
+  File &quot;/Users/stani/Python/NotebookCtrl/NotebookCtrl.py&quot;, line 1878, in
+OnMouseMotion
+    self.nb._tipwindow.Destroy()
+AttributeError: 'NoneType' object has no attribute 'Destroy'
+
+3 CLOSE BUTTONS DO NOT WORK ;-)
+Closing a tab, causes a deep fatal error. I'll try to see if with winpdb I
+can see what goes wrong.
+
+This is a Mac error report, something for Stefan, it is too much Chinese for
+me ;-):
+Date/Time:      2005-11-30 21:33:55.874 +0100
+OS Version:     10.4.2 (Build 8D40)
+Report Version: 3
+
+Command: Python
+Path:
+/Library/Frameworks/Python.framework/Versions/2.4/Resources/Python.app/Contents/MacOS/Python
+Parent:  bash [1171]
+
+Version: 2.4a0 (2.4.2.8.199943)
+
+PID:    1172
+Thread: 0
+
+Exception:  EXC_BAD_ACCESS (0x0001)
+Codes:      KERN_PROTECTION_FAILURE (0x0002) at 0x00000000
+
+Thread 0 Crashed:
+0   libwx_macud-2.6.0.dylib            0x010fc08c
+wxWindow::MacUpdateControlFont() + 56 (icplusplus.c:27)
+1   libwx_macud-2.6.0.dylib            0x010fc14c wxWindow::SetFont(wxFont
+const&amp;) + 36 (icplusplus.c:27)
+2   _core_.so                          0x0045de4c wxGBSpan_helper(_object*,
+wxGBSpan**) + 321420
+3   org.activestate.ActivePython24     0x1000badc PyObject_Call + 48 (
+abstract.c:1757)
+4   org.activestate.ActivePython24     0x1007cce8 ext_do_call + 972 (ceval.c
+:<i>3835)
+</I>5   org.activestate.ActivePython24     0x1007a03c PyEval_EvalFrame + 9128 (
+ceval.c:2206)
+6   org.activestate.ActivePython24     0x1007b0b4 PyEval_EvalCodeEx + 2152 (
+ceval.c:2736)
+7   org.activestate.ActivePython24     0x1007c780 fast_function + 356 (
+ceval.c:3655)
+8   org.activestate.ActivePython24     0x1007c578 call_function + 1172 (
+ceval.c:3579)
+9   org.activestate.ActivePython24     0x10079f4c PyEval_EvalFrame + 8888 (
+ceval.c:2163)
+10  org.activestate.ActivePython24     0x1007b0b4 PyEval_EvalCodeEx + 2152 (
+ceval.c:2736)
+11  org.activestate.ActivePython24     0x10025a48 function_call + 344 (
+funcobject.c:548)
+12  org.activestate.ActivePython24     0x1000badc PyObject_Call + 48 (
+abstract.c:1757)
+13  org.activestate.ActivePython24     0x1001526c instancemethod_call + 796
+(classobject.c:2448)
+14  org.activestate.ActivePython24     0x1000badc PyObject_Call + 48 (
+abstract.c:1757)
+15  org.activestate.ActivePython24     0x1007c0a0
+PyEval_CallObjectWithKeywords + 256 (ceval.c:3426)
+16  _core_.so                          0x0040a8f4
+wxPyCallback::EventThunker(wxEvent&amp;) + 416
+17  libwx_macud-2.6.0.dylib            0x01093c34
+wxEvtHandler::ProcessEventIfMatches(wxEventTableEntryBase const&amp;,
+wxEvtHandler*, wxEvent&amp;) + 156 (icplusplus.c:27)
+18  libwx_macud-2.6.0.dylib            0x010941e4
+wxEvtHandler::SearchDynamicEventTable(wxEvent&amp;) + 160 (icplusplus.c:27)
+19  libwx_macud-2.6.0.dylib            0x01093de8
+wxEvtHandler::ProcessEvent(wxEvent&amp;) + 208 (icplusplus.c:27)
+20  libwx_macud-2.6.0.dylib            0x01192624
+wxWindowBase::TryParent(wxEvent&amp;) + 168 (icplusplus.c:27)
+21  _core_.so                          0x00432298 wxGBSpan_helper(_object*,
+wxGBSpan**) + 142296
+22  org.activestate.ActivePython24     0x1000badc PyObject_Call + 48 (
+abstract.c:1757)
+23  org.activestate.ActivePython24     0x1007cce8 ext_do_call + 972 (ceval.c
+:<i>3835)
+</I>24  org.activestate.ActivePython24     0x1007a03c PyEval_EvalFrame + 9128 (
+ceval.c:2206)
+25  org.activestate.ActivePython24     0x1007b0b4 PyEval_EvalCodeEx + 2152 (
+ceval.c:2736)
+26  org.activestate.ActivePython24     0x1007c780 fast_function + 356 (
+ceval.c:3655)
+27  org.activestate.ActivePython24     0x1007c578 call_function + 1172 (
+ceval.c:3579)
+28  org.activestate.ActivePython24     0x10079f4c PyEval_EvalFrame + 8888 (
+ceval.c:2163)
+29  org.activestate.ActivePython24     0x1007b0b4 PyEval_EvalCodeEx + 2152 (
+ceval.c:2736)
+30  org.activestate.ActivePython24     0x10025a48 function_call + 344 (
+funcobject.c:548)
+31  org.activestate.ActivePython24     0x1000badc PyObject_Call + 48 (
+abstract.c:1757)
+32  org.activestate.ActivePython24     0x1001526c instancemethod_call + 796
+(classobject.c:2448)
+33  org.activestate.ActivePython24     0x1000badc PyObject_Call + 48 (
+abstract.c:1757)
+34  org.activestate.ActivePython24     0x1007c0a0
+PyEval_CallObjectWithKeywords + 256 (ceval.c:3426)
+35  _core_.so                          0x0040a8f4
+wxPyCallback::EventThunker(wxEvent&amp;) + 416
+36  libwx_macud-2.6.0.dylib            0x01093c34
+wxEvtHandler::ProcessEventIfMatches(wxEventTableEntryBase const&amp;,
+wxEvtHandler*, wxEvent&amp;) + 156 (icplusplus.c:27)
+37  libwx_macud-2.6.0.dylib            0x010941e4
+wxEvtHandler::SearchDynamicEventTable(wxEvent&amp;) + 160 (icplusplus.c:27)
+38  libwx_macud-2.6.0.dylib            0x01093de8
+wxEvtHandler::ProcessEvent(wxEvent&amp;) + 208 (icplusplus.c:27)
+39  libwx_macud-2.6.0.dylib            0x010f703c
+wxMacTopLevelMouseEventHandler(OpaqueEventHandlerCallRef*, OpaqueEventRef*,
+void*) + 976 (icplusplus.c:27)
+40  libwx_macud-2.6.0.dylib            0x010f7dc4
+wxMacTopLevelEventHandler(OpaqueEventHandlerCallRef*, OpaqueEventRef*,
+void*) + 196 (icplusplus.c:27)
+41  com.apple.HIToolbox                0x931229f4
+DispatchEventToHandlers(EventTargetRec*, OpaqueEventRef*, HandlerCallRec*) +
+692
+42  com.apple.HIToolbox                0x9312214c
+SendEventToEventTargetInternal(OpaqueEventRef*, OpaqueEventTargetRef*,
+HandlerCallRec*) + 372
+43  com.apple.HIToolbox                0x93128ed0 SendEventToEventTarget +
+40
+44  com.apple.HIToolbox                0x931b5530
+HandleMouseEventForWindow(OpaqueWindowPtr*, OpaqueEventRef*, unsigned short)
++ 236
+45  com.apple.HIToolbox                0x931b4aa8
+HandleMouseEvent(OpaqueEventRef*) + 368
+46  com.apple.HIToolbox                0x9312923c
+ToolboxEventDispatcherHandler(OpaqueEventHandlerCallRef*, OpaqueEventRef*,
+void*) + 496
+47  com.apple.HIToolbox                0x93122c44
+DispatchEventToHandlers(EventTargetRec*, OpaqueEventRef*, HandlerCallRec*) +
+1284
+48  com.apple.HIToolbox                0x9312214c
+SendEventToEventTargetInternal(OpaqueEventRef*, OpaqueEventTargetRef*,
+HandlerCallRec*) + 372
+49  com.apple.HIToolbox                0x93128ed0 SendEventToEventTarget +
+40
+50  libwx_macud-2.6.0.dylib            0x010b04f0
+wxApp::MacHandleOneEvent(void*) + 44 (icplusplus.c:27)
+51  libwx_macud-2.6.0.dylib            0x010b0488 wxApp::MacDoOneEvent() +
+156 (icplusplus.c:27)
+52  libwx_macud-2.6.0.dylib            0x010b0020 wxApp::MainLoop() + 36 (
+icplusplus.c:27)
+53  _core_.so                          0x00406a4c wxPyApp::MainLoop() + 84
+54  _core_.so                          0x00449d74 wxGBSpan_helper(_object*,
+wxGBSpan**) + 239284
+55  org.activestate.ActivePython24     0x1000badc PyObject_Call + 48 (
+abstract.c:1757)
+56  org.activestate.ActivePython24     0x1007cce8 ext_do_call + 972 (ceval.c
+:<i>3835)
+</I>57  org.activestate.ActivePython24     0x1007a03c PyEval_EvalFrame + 9128 (
+ceval.c:2206)
+58  org.activestate.ActivePython24     0x1007b0b4 PyEval_EvalCodeEx + 2152 (
+ceval.c:2736)
+59  org.activestate.ActivePython24     0x10025a48 function_call + 344 (
+funcobject.c:548)
+60  org.activestate.ActivePython24     0x1000badc PyObject_Call + 48 (
+abstract.c:1757)
+61  org.activestate.ActivePython24     0x1001526c instancemethod_call + 796
+(classobject.c:2448)
+62  org.activestate.ActivePython24     0x1000badc PyObject_Call + 48 (
+abstract.c:1757)
+63  org.activestate.ActivePython24     0x1007c898 do_call + 136 (ceval.c
+:<i>3766)
+</I>64  org.activestate.ActivePython24     0x1007c590 call_function + 1196 (
+ceval.c:3583)
+65  org.activestate.ActivePython24     0x10079f4c PyEval_EvalFrame + 8888 (
+ceval.c:2163)
+66  org.activestate.ActivePython24     0x1007c6f0 fast_function + 212 (
+ceval.c:3642)
+67  org.activestate.ActivePython24     0x1007c578 call_function + 1172 (
+ceval.c:3579)
+68  org.activestate.ActivePython24     0x10079f4c PyEval_EvalFrame + 8888 (
+ceval.c:2163)
+69  org.activestate.ActivePython24     0x1007c6f0 fast_function + 212 (
+ceval.c:3642)
+70  org.activestate.ActivePython24     0x1007c578 call_function + 1172 (
+ceval.c:3579)
+71  org.activestate.ActivePython24     0x10079f4c PyEval_EvalFrame + 8888 (
+ceval.c:2163)
+72  org.activestate.ActivePython24     0x1007b0b4 PyEval_EvalCodeEx + 2152 (
+ceval.c:2736)
+73  org.activestate.ActivePython24     0x1007e52c PyEval_EvalCode + 48 (
+ceval.c:484)
+74  org.activestate.ActivePython24     0x100b2ebc run_node + 76 (pythonrun.c
+:<i>1265)
+</I>75  org.activestate.ActivePython24     0x100b2648 PyRun_SimpleFileExFlags +
+592 (pythonrun.c:863)
+76  org.activestate.ActivePython24     0x100bf6e0 Py_Main + 2604 (main.c
+:<i>487)
+</I>77  org.activestate.ActivePython24     0x000018d0 0x1000 + 2256
+78  dyld                               0x8fe01048 _dyld_start + 60
+
+Thread 0 crashed with PPC Thread State 64:
+  srr0: 0x00000000010fc08c srr1: 0x000000000200f030
+vrsave: 0x0000000000000000
+    cr: 0x22244422          xer: 0x0000000020000004   lr:
+0x00000000010fc07c  ctr: 0x00000000013b44c4
+    r0: 0x00000000010fc14c   r1: 0x00000000bfffcb50   r2:
+0x0000000000000000   r3: 0x00000000bfffcb90
+    r4: 0x00000000019c1a00   r5: 0x00000000013180e4   r6:
+0x0000000001318140   r7: 0x0000000001318140
+    r8: 0x000000000118e034   r9: 0x00000000ffffffff  r10:
+0x000000000146e034  r11: 0x0000000000000000
+   r12: 0x00000000013b44c4  r13: 0x0000000000000000  r14:
+0x00000000003bdf24  r15: 0x00000000003bdf1c
+   r16: 0x0000000000000000  r17: 0x0000000000000000  r18:
+0x0000000000000000  r19: 0x00000000003bdf24
+   r20: 0x00000000000da55c  r21: 0x0000000000000000  r22:
+0x0000000000000000  r23: 0x000000000024cd50
+   r24: 0x0000000000000000  r25: 0x0000000002602e18  r26:
+0x0000000000000002  r27: 0x00000000bfffcbc0
+   r28: 0x0000000000000000  r29: 0x00000000019c1a00  r30:
+0x00000000019c1a00  r31: 0x000000000045dc88
+
+Binary Images Description:
+    0x1000 -     0x1fff org.activestate.ActivePython24 2.4a0
+(2.4.2.8.199943)
+/Library/Frameworks/Python.framework/Versions/2.4/Resources/Python.app/Contents/MacOS/Python
+   0x8a000 -    0x8cfff _locale.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/lib-dynload/_locale.so
+  0x405000 -   0x4cbfff _core_.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/wx-
+2.6-mac-unicode/wx/_core_.so
+ 0x1008000 -  0x145ffff libwx_macud-2.6.0.dylib     /usr/local/lib/wxPython-
+unicode-2.6.1.0/lib/libwx_macud-2.6.0.dylib
+ 0x17f2000 -  0x17f3fff math.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/lib-dynload/math.so
+ 0x2020000 -  0x2022fff binascii.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/lib-dynload/binascii.so
+ 0x202a000 -  0x202bfff _random.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/lib-dynload/_random.so
+ 0x2031000 -  0x2031fff _bisect.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/lib-dynload/_bisect.so
+ 0x2036000 -  0x2037fff MacOS.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/lib-dynload/MacOS.so
+ 0x207e000 -  0x20ebfff _gdi_.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/wx-
+2.6-mac-unicode/wx/_gdi_.so
+ 0x2101000 -  0x2102fff cStringIO.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/lib-dynload/cStringIO.so
+ 0x210a000 -  0x210dfff strop.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/lib-dynload/strop.so
+ 0x2118000 -  0x211afff zlib.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/lib-dynload/zlib.so
+ 0x2130000 -  0x2132fff com.apple.textencoding.unicode 2.0
+/System/Library/TextEncodings/Unicode Encodings.bundle/Contents/MacOS/Unicode
+Encodings
+ 0x21bc000 -  0x2252fff _windows_.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/wx-
+2.6-mac-unicode/wx/_windows_.so
+ 0x22fc000 -  0x23b0fff _controls_.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/wx-
+2.6-mac-unicode/wx/_controls_.so
+ 0x245c000 -  0x24fafff _misc_.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/wx-
+2.6-mac-unicode/wx/_misc_.so
+ 0x2558000 -  0x25b8fff _grid.so
+/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/wx-
+2.6-mac-unicode/wx/_grid.so
+0x10000000 - 0x100fbfff org.activestate.ActivePython24 2.4.2.8 (
+2.4.2.8.199943)    /Library/Frameworks/Python.framework/Versions/2.4/Python
+0x8fe00000 - 0x8fe51fff dyld 43.1    /usr/lib/dyld
+0x90000000 - 0x901a6fff libSystem.B.dylib     /usr/lib/libSystem.B.dylib
+0x901fe000 - 0x90202fff libmathCommon.A.dylib
+/usr/lib/system/libmathCommon.A.dylib
+0x90204000 - 0x90257fff com.apple.CoreText 1.0.0 (???)
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/CoreText.framework/Versions/A/CoreText
+0x90284000 - 0x90335fff ATS
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ATS.framework/Versions/A/ATS
+0x90364000 - 0x9069dfff com.apple.CoreGraphics 1.256.14 (???)
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics
+0x90728000 - 0x90801fff com.apple.CoreFoundation 6.4.2 (368.11)
+/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation
+0x9084a000 - 0x9084afff com.apple.CoreServices 10.4 (???)
+/System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices
+0x9084c000 - 0x9094efff libicucore.A.dylib     /usr/lib/libicucore.A.dylib
+0x909a8000 - 0x90a2cfff libobjc.A.dylib     /usr/lib/libobjc.A.dylib
+0x90a56000 - 0x90acafff com.apple.framework.IOKit 1.4.1 (???)
+/System/Library/Frameworks/IOKit.framework/Versions/A/IOKit
+0x90ae4000 - 0x90af6fff libauto.dylib     /usr/lib/libauto.dylib
+0x90afd000 - 0x90dc2fff com.apple.CoreServices.CarbonCore 10.4.1 (611.1)
+/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/CarbonCore
+0x90e25000 - 0x90ea5fff com.apple.CoreServices.OSServices 4.0 (4.0.0)
+/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/OSServices.framework/Versions/A/OSServices
+0x90eef000 - 0x90f2ffff com.apple.CFNetwork 10.4.2 (80)
+/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CFNetwork.framework/Versions/A/CFNetwork
+0x90f44000 - 0x90f5cfff com.apple.WebServices 1.1.2 (1.1.0)
+/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/WebServicesCore.framework/Versions/A/WebServicesCore
+0x90f6c000 - 0x90feafff com.apple.SearchKit 1.0.3
+/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/SearchKit.framework/Versions/A/SearchKit
+0x9102f000 - 0x91056fff com.apple.Metadata 1.1 (121.6)
+/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Metadata
+0x91066000 - 0x91073fff libz.1.dylib     /usr/lib/libz.1.dylib
+0x91076000 - 0x91238fff com.apple.security 4.0.1 (223)
+/System/Library/Frameworks/Security.framework/Versions/A/Security
+0x9133a000 - 0x91343fff com.apple.DiskArbitration 2.1
+/System/Library/Frameworks/DiskArbitration.framework/Versions/A/DiskArbitration
+0x9134a000 - 0x91371fff com.apple.SystemConfiguration 1.8.0
+/System/Library/Frameworks/SystemConfiguration.framework/Versions/A/SystemConfiguration
+0x91384000 - 0x9138cfff libbsm.dylib     /usr/lib/libbsm.dylib
+0x91390000 - 0x9140efff com.apple.audio.CoreAudio 3.0.1
+/System/Library/Frameworks/CoreAudio.framework/Versions/A/CoreAudio
+0x9144c000 - 0x9144cfff com.apple.ApplicationServices 10.4 (???)
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/ApplicationServices
+0x9144e000 - 0x91486fff com.apple.AE 1.5 (297)
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/AE.framework/Versions/A/AE
+0x914a1000 - 0x9156cfff com.apple.ColorSync 4.4
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ColorSync.framework/Versions/A/ColorSync
+0x915c1000 - 0x91654fff com.apple.print.framework.PrintCore 4.0 (172.1)
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/PrintCore.framework/Versions/A/PrintCore
+0x9169a000 - 0x91757fff com.apple.QD 3.8.6 (???)
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/QD.framework/Versions/A/QD
+0x91795000 - 0x917f3fff com.apple.HIServices 1.5.0 (???)
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/HIServices.framework/Versions/A/HIServices
+0x91821000 - 0x91844fff com.apple.LangAnalysis 1.6
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/LangAnalysis.framework/Versions/A/LangAnalysis
+0x91858000 - 0x9187dfff com.apple.FindByContent 1.5
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/FindByContent.framework/Versions/A/FindByContent
+0x91890000 - 0x918d1fff com.apple.LaunchServices 10.4.4 (159)
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/LaunchServices
+0x918ec000 - 0x91900fff com.apple.speech.synthesis.framework 3.3
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/SpeechSynthesis.framework/Versions/A/SpeechSynthesis
+0x9190e000 - 0x91944fff com.apple.ImageIO.framework 1.0.2
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/ImageIO
+0x91958000 - 0x91a1afff libcrypto.0.9.7.dylib
+/usr/lib/libcrypto.0.9.7.dylib
+0x91a66000 - 0x91a7bfff libcups.2.dylib     /usr/lib/libcups.2.dylib
+0x91a80000 - 0x91a9cfff libJPEG.dylib
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/Resources/libJPEG.dylib
+0x91aa1000 - 0x91b10fff libJP2.dylib
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/Resources/libJP2.dylib
+0x91b27000 - 0x91b2bfff libGIF.dylib
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/Resources/libGIF.dylib
+0x91b2d000 - 0x91b45fff libRaw.dylib
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/Resources/libRaw.dylib
+0x91b48000 - 0x91b8bfff libTIFF.dylib
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/Resources/libTIFF.dylib
+0x91b92000 - 0x91babfff libPng.dylib
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/Resources/libPng.dylib
+0x91bb0000 - 0x91bb3fff libRadiance.dylib
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/Resources/libRadiance.dylib
+0x91bb5000 - 0x91bb5fff com.apple.Accelerate 1.1.1 (Accelerate 1.1.1)
+/System/Library/Frameworks/Accelerate.framework/Versions/A/Accelerate
+0x91bb7000 - 0x91ca1fff com.apple.vImage 2.0
+/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vImage.framework/Versions/A/vImage
+0x91d34000 - 0x91d54fff libmx.A.dylib     /usr/lib/libmx.A.dylib
+0x91d5a000 - 0x91dbffff libvMisc.dylib
+/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libvMisc.dylib
+0x91dc9000 - 0x91e5bfff libvDSP.dylib
+/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libvDSP.dylib
+0x91e75000 - 0x92405fff libBLAS.dylib
+/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib
+0x9244d000 - 0x9275dfff libLAPACK.dylib
+/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libLAPACK.dylib
+0x9278a000 - 0x92815fff com.apple.DesktopServices 1.3
+/System/Library/PrivateFrameworks/DesktopServicesPriv.framework/Versions/A/DesktopServicesPriv
+0x92857000 - 0x92a80fff com.apple.Foundation 6.4.1 (567.12)
+/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation
+0x92b9e000 - 0x92c7cfff libxml2.2.dylib     /usr/lib/libxml2.2.dylib
+0x92c9c000 - 0x92d8afff libiconv.2.dylib     /usr/lib/libiconv.2.dylib
+0x92d9c000 - 0x92dbafff libGL.dylib
+/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib
+0x92dc5000 - 0x92e1ffff libGLU.dylib
+/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGLU.dylib
+0x92e3d000 - 0x92e3dfff com.apple.Carbon 10.4 (???)
+/System/Library/Frameworks/Carbon.framework/Versions/A/Carbon
+0x92e3f000 - 0x92e53fff com.apple.ImageCapture 3.0
+/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/ImageCapture.framework/Versions/A/ImageCapture
+0x92e6b000 - 0x92e7bfff com.apple.speech.recognition.framework 3.4
+/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/SpeechRecognition.framework/Versions/A/SpeechRecognition
+0x92e87000 - 0x92e9cfff com.apple.securityhi 2.0 (203)
+/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/SecurityHI.framework/Versions/A/SecurityHI
+0x92eae000 - 0x92f35fff com.apple.ink.framework 101.2 (69)
+/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/Ink.framework/Versions/A/Ink
+0x92f49000 - 0x92f54fff com.apple.help 1.0.3 (32)
+/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/Help.framework/Versions/A/Help
+0x92f5e000 - 0x92f8bfff com.apple.openscripting 1.2.2 (???)
+/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/OpenScripting.framework/Versions/A/OpenScripting
+0x92fa5000 - 0x92fb5fff com.apple.print.framework.Print 4.0 (187)
+/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/Print.framework/Versions/A/Print
+0x92fc1000 - 0x93027fff com.apple.htmlrendering 1.1.2
+/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/HTMLRendering.framework/Versions/A/HTMLRendering
+0x93058000 - 0x930aafff com.apple.NavigationServices 3.4.1 (3.4)
+/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/NavigationServices.framework/Versions/A/NavigationServices
+0x930d6000 - 0x930f3fff com.apple.audio.SoundManager 3.9
+/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/CarbonSound.framework/Versions/A/CarbonSound
+0x93105000 - 0x93112fff com.apple.CommonPanels 1.2.2 (73)
+/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/CommonPanels.framework/Versions/A/CommonPanels
+0x9311b000 - 0x9342bfff com.apple.HIToolbox 1.4.2 (???)
+/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/HIToolbox.framework/Versions/A/HIToolbox
+0x93576000 - 0x93582fff com.apple.opengl 1.4.1
+/System/Library/Frameworks/OpenGL.framework/Versions/A/OpenGL
+0x935f4000 - 0x935f4fff com.apple.Cocoa 6.4 (???)
+/System/Library/Frameworks/Cocoa.framework/Versions/A/Cocoa
+0x935f6000 - 0x93c27fff com.apple.AppKit 6.4.1 (824.1)
+/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit
+0x93fb3000 - 0x9401dfff com.apple.CoreData 1.0 (46)
+/System/Library/Frameworks/CoreData.framework/Versions/A/CoreData
+0x94055000 - 0x9411ffff com.apple.audio.toolbox.AudioToolbox 1.4.1
+/System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox
+0x94173000 - 0x94173fff com.apple.audio.units.AudioUnit 1.4
+/System/Library/Frameworks/AudioUnit.framework/Versions/A/AudioUnit
+0x94175000 - 0x942d4fff com.apple.QuartzCore 1.4.1
+/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore
+0x9431c000 - 0x94359fff libsqlite3.0.dylib     /usr/lib/libsqlite3.0.dylib
+0x94361000 - 0x943acfff libGLImage.dylib
+/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGLImage.dylib
+0x9454c000 - 0x9455bfff libCGATS.A.dylib
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/CoreGraphics.framework/Versions/A/Resources/libCGATS.A.dylib
+0x94563000 - 0x9456ffff libCSync.A.dylib
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/CoreGraphics.framework/Versions/A/Resources/libCSync.A.dylib
+0x945b4000 - 0x945c8fff libRIP.A.dylib
+/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/CoreGraphics.framework/Versions/A/Resources/libRIP.A.dylib
+0x945ce000 - 0x94830fff com.apple.QuickTime 7.0.1
+/System/Library/Frameworks/QuickTime.framework/Versions/A/QuickTime
+0x94903000 - 0x94922fff com.apple.vecLib 3.1.1 (vecLib 3.1.1)
+/System/Library/Frameworks/vecLib.framework/Versions/A/vecLib
+0x952e0000 - 0x9536afff com.apple.WebKit 412.6
+/System/Library/Frameworks/WebKit.framework/Versions/A/WebKit
+0x953c4000 - 0x954a6fff com.apple.JavaScriptCore 412.3
+/System/Library/Frameworks/WebKit.framework/Versions/A/Frameworks/JavaScriptCore.framework/Versions/A/JavaScriptCore
+0x954fa000 - 0x957e8fff com.apple.WebCore 415.11
+/System/Library/Frameworks/WebKit.framework/Versions/A/Frameworks/WebCore.framework/Versions/A/WebCore
+0x95969000 - 0x95992fff libxslt.1.dylib     /usr/lib/libxslt.1.dylib
+
+Model: PowerMac10,2, BootROM 4.9.4f1, 1 processors, PowerPC G4 (1.2),
+1.5GHz, 512 MB
+Graphics: ATI Radeon 9200, ATY,RV280, AGP, 64 MB
+Memory Module: DIMM0/J11, 512 MB, DDR SDRAM, PC3200U-30330
+AirPort: AirPort Extreme, 400.17 (3.90.34.0.p11)
+Bluetooth: Version 1.6.3f2, 2 service, 1 devices, 1 incoming serial ports
+Network Service: Built-in Ethernet, Ethernet, en0
+PCI Card: pci106b,4318, sppci_othernetwork, SLOT-B
+Parallel ATA Device: ST9808211A, 74.53 GB
+Parallel ATA Device: MATSHITACD-RW  CW-8124,
+USB Device: Bluetooth HCI, , Up to 12 Mb/sec, 500 mA
+
+This is it for now. Please send me the new version privately by email, so I
+can test it.
+
+Stani
+
+--
+<A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+<A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051130/a4a1967d/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051130/a4a1967d/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000057.html">[spe-dev] NotebookCtrl Widget Problem On Mac FIXED!!
+</A></li>
+	<LI>Next message: <A HREF="000059.html">[spe-dev] Close bug fixed!
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#58">[ date ]</a>
+              <a href="thread.html#58">[ thread ]</a>
+              <a href="subject.html#58">[ subject ]</a>
+              <a href="author.html#58">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

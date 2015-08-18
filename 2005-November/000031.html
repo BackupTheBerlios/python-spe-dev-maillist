@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] realtime.py &amp; mini-roadmap &amp; patches
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2005-November/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20realtime.py%20%26%20mini-roadmap%20%26%20patches&In-Reply-To=%3C2078a7ad0511071800m5616b94fn20c6189b39ed80aa%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000030.html">
+   <LINK REL="Next"  HREF="000032.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] realtime.py &amp; mini-roadmap &amp; patches</H1>
+    <B>SPE Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20realtime.py%20%26%20mini-roadmap%20%26%20patches&In-Reply-To=%3C2078a7ad0511071800m5616b94fn20c6189b39ed80aa%40mail.gmail.com%3E"
+       TITLE="[spe-dev] realtime.py &amp; mini-roadmap &amp; patches">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Tue Nov  8 03:00:59 CET 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000030.html">[spe-dev] remembering files out of order, patch to fix file reloading
+</A></li>
+        <LI>Next message: <A HREF="000032.html">[spe-dev] Bug in realtime.py
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#31">[ date ]</a>
+              <a href="thread.html#31">[ thread ]</a>
+              <a href="subject.html#31">[ subject ]</a>
+              <a href="author.html#31">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+SVN is down. This file _spe/sm/wxp/realtime.py fixes a bug with the
+explorer tree. More bugs with the explore tree are welcome, as this is
+at the core of SPE, as such it has to be fast &amp; bullet proof. I need
+still to rewrite it for the listctrl. I just provide it for those who
+like to work with the latest files. This week I won't have too much
+time. My mini roadmap is now:
+- fix realtime.py
+- disable genericdirctrl in child.py for mac
+- fix smdi.py
+- test these core files on the mac
+- first alpha release 0.8.0.a
+
+If they are not well written, SPE can never be stable on any platform.
+I'll take care of them and if I need help with it, I will do. But for
+now it is ok and no patches for these files are necessary.
+and at the same time apply all patches which are brought you.
+
+This week I will be a bit less responsive till next Tuesday, but I'll
+try to work on SPE on lost moments.
+
+Glenn, don't worry all your patches will make their way to SVN. Maybe
+it's time for a more sofisticated remember state: which stores all
+possible properties of a SPE child window, like its size, position,
+... If you want to make an independent  custom wxNotebook class to
+make moving tabs possible, I will only support it and integrate it in
+SPE. Also I prefer patches as whole files. I use winmerge which is
+very easy to work with whole files and my files might have changed in
+the meantime. You could send them also privately if it would too much
+spam this list.
+
+Stani
+--
+<A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+<A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: realtime.py
+Type: text/x-python
+Size: 12063 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051108/6e00f79e/attachment.py">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20051108/6e00f79e/attachment.py</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000030.html">[spe-dev] remembering files out of order, patch to fix file reloading
+</A></li>
+	<LI>Next message: <A HREF="000032.html">[spe-dev] Bug in realtime.py
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#31">[ date ]</a>
+              <a href="thread.html#31">[ thread ]</a>
+              <a href="subject.html#31">[ subject ]</a>
+              <a href="author.html#31">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

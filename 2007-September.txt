@@ -1,0 +1,78 @@
+From spe.stani.be at gmail.com  Sun Sep  2 20:47:00 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Sun, 02 Sep 2007 20:47:00 +0200
+Subject: [spe-dev] Winpdb 1.2.2, wxGlade0.6 & XRCed 0.1.8-5...
+In-Reply-To: <90cae1530705301135y543a483bk602fa6f930df19d1@mail.gmail.com>
+References: <90cae1530705301135y543a483bk602fa6f930df19d1@mail.gmail.com>
+Message-ID: <46DB0524.5010800@gmail.com>
+
+...all landed in subversion (rev255). wxGlade and XRCed are taken from
+their repositories, so they might be bleeding edge. Thanks to Diaa Sami
+some issues on Windows are fixed (eg running files with spaces). Check
+out the new SPE in the usual way:
+
+    svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+
+Enjoy,
+Stani
+
+
+From spe.stani.be at gmail.com  Sun Sep  2 21:20:23 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Sun, 02 Sep 2007 21:20:23 +0200
+Subject: [spe-dev] about sending patches
+Message-ID: <46DB0CF7.1060501@gmail.com>
+
+Hi all,
+Some of you have sent patches to berlios. Because svn changes more
+quickly than I review the patches it is too cumbersome to work with
+these. Instead I prefer if you send me the full files (of course always
+against latest svn) on this mailing list or privately.
+With meld I can apply the patches then in a more comfortable way.
+Thanks for your understanding,
+Stani
+
+
+From dr0id at bluewin.ch  Thu Sep 13 20:23:16 2007
+From: dr0id at bluewin.ch (DR0ID)
+Date: Thu, 13 Sep 2007 20:23:16 +0200
+Subject: [spe-dev] tabs bug
+In-Reply-To: <46DB0CF7.1060501@gmail.com>
+References: <46DB0CF7.1060501@gmail.com>
+Message-ID: <46E98014.1060602@bluewin.ch>
+
+Hi all
+
+First, sorry if you get this twice (have not seen my other post on the 
+list).
+
+Is it just me or does the tabs closing button not work properly? I'm 
+using the last svn version on winxp and python2.5 and wxpython2.8.4.2.
+
+If I hit the black close button on the tab, the tab disappears but is 
+not closed. Go to Window and check which windows are still open! The 
+tabs close if you click on the (gray) close button at the top right, but 
+this appears only if you have more than one tab open and you have 
+switched at least once (why could this button not be always visible?)
+
+File->Close removes the tabs and the button, but the file is still open 
+and visible! At this point you have no chance to close it.
+
+I have tried to find the bug, but since I'm not familiar with the code 
+and dont know wxpython either, I had little success :-( . I think its in 
+_spe\sm\wxp\NotebookCtrl.py , but I'm not sure. Would be nice if someone 
+could fix it (it is a bit annoying). As said I would like to help, but 
+cant find it.
+
+Another thing: if I close all windows (checking in menu Window) and exit 
+spe, why does it open the last file I have closed the next time I start 
+it? Could it be related to the tab problem?
+
+
+Thx for spe.
+
+~DR0ID
+
+
+
+

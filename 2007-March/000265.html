@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] v 236 crashes on launch
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20v%20236%20crashes%20on%20launch&In-Reply-To=%3C460B4379.7000407%40personnelware.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000262.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] v 236 crashes on launch</H1>
+    <B>Carl Karsten</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20v%20236%20crashes%20on%20launch&In-Reply-To=%3C460B4379.7000407%40personnelware.com%3E"
+       TITLE="[spe-dev] v 236 crashes on launch">carl at personnelware.com
+       </A><BR>
+    <I>Thu Mar 29 06:41:29 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000262.html">[spe-dev] SPE &quot;Explore&quot; Tab shows commented elements
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#265">[ date ]</a>
+              <a href="thread.html#265">[ thread ]</a>
+              <a href="subject.html#265">[ subject ]</a>
+              <a href="author.html#265">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>svn ver 158 worked, 236 crashes with the following:
+
+$ python /usr/lib/python2.4/site-packages/_spe/SPE.py --debug &gt;spedebug.txt 2&gt;&amp;1
+
+(python:13871): Gdk-CRITICAL **: gdk_draw_drawable: assertion `src != NULL' failed
+$ python -V
+Python 2.4.3
+
+
+SPE v0.8.4.b (c)2003-2007 www.stani.be
+
+If spe fails to start:
+  - type &quot;python SPE.py --debug &gt; debug.txt 2&gt;&amp;1&quot; at the command prompt
+    (or if you use tcsh: &quot;python SPE.py --debug &gt;&amp; debug.txt&quot;)
+  - send debug.txt with some info to spe.stani.be[at]gmail.com
+
+Blender support disabled (run SPE inside Blender to enable).
+Encrypted debugging enabled.
+
+Spe is running in debugging mode with this configuration:
+- platform  : linux2
+- python    : 2.4.3
+- wxPython  : 2.6.1.2pre
+- interface : &lt;default&gt;
+- encoding  : utf-8
+
+Launching application...
+Create: Framework: menu.
+Create: Framework: toolbar.
+Create: Framework: statusbar.
+Creating tabs...
+	Shell
+	Locals
+	Session
+	Output
+	Find
+	Browser
+	Recent
+	Todo
+	Index
+	Notes
+	Donate
+Opening /home/carl/dev/apps/uloop/uloop3.py
+Create: MdiSplit: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt; uloop3.py 
+/home/carl/dev/apps/uloop/uloop3.py
+Create: Sdi:   &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.tabs
+Traceback (most recent call last):
+   File &quot;/usr/lib/python2.4/site-packages/_spe/SPE.py&quot;, line 227, in ?
+     style           = style)
+   File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 1323, in 
+__init__
+     wx.App.__init__(self,redirect=not debug)
+   File &quot;/usr/lib/python2.4/site-packages/wx-2.6-gtk2-unicode/wx/_core.py&quot;, line 
+7473, in __init__
+     self._BootstrapApp()
+   File &quot;/usr/lib/python2.4/site-packages/wx-2.6-gtk2-unicode/wx/_core.py&quot;, line 
+7125, in _BootstrapApp
+     return _core_.PyApp__BootstrapApp(*args, **kwargs)
+   File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 1342, in OnInit
+     style   = self.style,
+   File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 819, in 
+__init__
+     Parent.__init__(self,app=app,page=page,**options)
+   File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 613, in 
+__init__
+     parentFrame     = self,
+   File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 341, in 
+__init__
+     self.__finish__()
+   File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 617, in 
+__finish__
+     Framework.__finish__(self)
+   File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 439, in 
+__finish__
+     self.panel.__finish__()
+   File &quot;/usr/lib/python2.4/site-packages/_spe/Parent.py&quot;, line 125, in __finish__
+     self.__frame__()
+   File &quot;/usr/lib/python2.4/site-packages/_spe/Parent.py&quot;, line 173, in __frame__
+     self.__remember__(openFiles=self._openFiles)
+   File &quot;/usr/lib/python2.4/site-packages/_spe/Parent.py&quot;, line 193, in __remember__
+     self.loadWorkspace()
+   File &quot;/usr/lib/python2.4/site-packages/_spe/Parent.py&quot;, line 326, in 
+loadWorkspace
+     verbose     = True)
+   File &quot;/usr/lib/python2.4/site-packages/_spe/Parent.py&quot;, line 897, in openList
+     child=self.new(name=fileName,source=source,maximize=maximize)
+   File &quot;/usr/lib/python2.4/site-packages/_spe/Parent.py&quot;, line 385, in new
+     maximize    = maximize)
+   File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 1160, in 
+__init__
+     extra       = extra,
+   File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 917, in 
+__init__
+     extra           = extra,
+   File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 341, in 
+__init__
+     self.__finish__()
+   File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 927, in 
+__finish__
+     Framework.__finish__(self)
+   File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 439, in 
+__finish__
+     self.panel.__finish__()
+   File &quot;/usr/lib/python2.4/site-packages/_spe/Child.py&quot;, line 129, in __finish__
+     self.__source__(self._fileName,self._source)
+   File &quot;/usr/lib/python2.4/site-packages/_spe/Child.py&quot;, line 246, in __source__
+     menu        = self.parentFrame.menuBar.edit)
+   File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/stc.py&quot;, line 95, in __init__
+     self.update()
+   File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/stc.py&quot;, line 415, in update
+     if self.getint('ViewLineNumbers'):
+   File &quot;/usr/lib/python2.4/site-packages/_spe/sm/wxp/stc.py&quot;, line 389, in getint
+     if eval(self.config.get('Default',name)):
+   File &quot;/usr/lib/python2.4/ConfigParser.py&quot;, line 520, in get
+     raise NoOptionError(option, section)
+ConfigParser.NoOptionError: No option 'viewlinenumbers' in section: 'Default'
+
+Carl K
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000262.html">[spe-dev] SPE &quot;Explore&quot; Tab shows commented elements
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#265">[ date ]</a>
+              <a href="thread.html#265">[ thread ]</a>
+              <a href="subject.html#265">[ subject ]</a>
+              <a href="author.html#265">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,326 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Bug: Open Workspace crash
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%3A%20Open%20Workspace%20crash&In-Reply-To=%3CBD549CA0-29DC-4147-89C4-2395A5ABFC04%40mac.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000242.html">
+   <LINK REL="Next"  HREF="000215.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Bug: Open Workspace crash</H1>
+    <B>John Finch</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%3A%20Open%20Workspace%20crash&In-Reply-To=%3CBD549CA0-29DC-4147-89C4-2395A5ABFC04%40mac.com%3E"
+       TITLE="[spe-dev] Bug: Open Workspace crash">johnfinch at mac.com
+       </A><BR>
+    <I>Sat Mar 17 16:58:16 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000242.html">[spe-dev] Copyright dates need bringing up to 2007?
+</A></li>
+        <LI>Next message: <A HREF="000215.html">[spe-dev] Bug: Open Workspace crash
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#207">[ date ]</a>
+              <a href="thread.html#207">[ thread ]</a>
+              <a href="subject.html#207">[ subject ]</a>
+              <a href="author.html#207">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>OSX P2.5 wx2.8.1 SVN225
+
+When I try to open a workspace I am offered the default (I never  
+saved one before). I try to open the default and the open box re- 
+appears again. I try open the default a second time and SPE sometimes  
+crashes with a bus error or seg fault.
+
+Note: I tried to reproduce this a few times but could not, until I  
+realised that it seems to work ok with double clicking but fails when  
+I use the Open Button!
+
+Two debug scripts below.
+
+Bus Error:
+
+Spe is running in debugging mode with this configuration:
+- platform  : darwin
+- python    : 2.5
+- wxPython  : 2.8.1.1
+- interface : &lt;default&gt;
+- encoding  : mac-roman
+
+Launching application...
+Create: Framework: menu.
+Create: Framework: toolbar.
+Create: Framework: statusbar.
+Creating tabs...
+         Shell
+         Locals
+         Session
+         Output
+         Find
+         Browser
+         Recent
+         Todo
+         Index
+         Notes
+         Donate
+Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: MdiSplit: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt; wxnaj.py / 
+Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: Sdi:   &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.tabs
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(True)
+Event:  Parent: &lt;class 'Parent.Panel'&gt;.onActivate
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(True)
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Size
+Event:  Parent: &lt;class 'Parent.Panel'&gt;.onSize
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Size
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Size
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Size
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(False)
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(True)
+Event:  Parent: &lt;class 'Parent.Panel'&gt;.onActivate
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(True)
+Event&lt;: Child: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close  
+returns True
+Event&gt;: Child: &lt;class 'wx._core._wxPyDeadObject'&gt;.Close returns True
+Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: MdiSplit: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt; wxnaj.py / 
+Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: Sdi:   &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.tabs
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(False)
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(True)
+Event:  Parent: &lt;class 'Parent.Panel'&gt;.onActivate
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(True)
+Event&lt;: Child: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close  
+returns True
+Event&gt;: Child: &lt;class 'wx._core._wxPyDeadObject'&gt;.Close returns True
+Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: MdiSplit: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt; wxnaj.py / 
+Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: Sdi:   &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.tabs
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(False)
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(True)
+Event:  Parent: &lt;class 'Parent.Panel'&gt;.onActivate
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(True)
+Event&lt;: Child: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close  
+returns True
+Event&gt;: Child: &lt;class 'wx._core._wxPyDeadObject'&gt;.Close returns True
+Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: MdiSplit: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt; wxnaj.py / 
+Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: Sdi:   &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.tabs
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(False)
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(True)
+Event:  Parent: &lt;class 'Parent.Panel'&gt;.onActivate
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(True)
+Event&lt;: Child: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close  
+returns True
+Event&gt;: Child: &lt;class 'wx._core._wxPyDeadObject'&gt;.Close returns True
+Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: MdiSplit: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt; wxnaj.py / 
+Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: Sdi:   &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.tabs
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Bus error
+
+
+Seg fault:
+
+Spe is running in debugging mode with this configuration:
+- platform  : darwin
+- python    : 2.5
+- wxPython  : 2.8.1.1
+- interface : &lt;default&gt;
+- encoding  : mac-roman
+
+Launching application...
+Create: Framework: menu.
+Create: Framework: toolbar.
+Create: Framework: statusbar.
+Creating tabs...
+         Shell
+         Locals
+         Session
+         Output
+         Find
+         Browser
+         Recent
+         Todo
+         Index
+         Notes
+         Donate
+Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: MdiSplit: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt; wxnaj.py / 
+Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: Sdi:   &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.tabs
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(True)
+Event:  Parent: &lt;class 'Parent.Panel'&gt;.onActivate
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(True)
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Size
+Event:  Parent: &lt;class 'Parent.Panel'&gt;.onSize
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Size
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Size
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Size
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(False)
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(True)
+Event:  Parent: &lt;class 'Parent.Panel'&gt;.onActivate
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(True)
+Event&lt;: Child: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close  
+returns True
+Event&gt;: Child: &lt;class 'wx._core._wxPyDeadObject'&gt;.Close returns True
+Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: MdiSplit: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt; wxnaj.py / 
+Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: Sdi:   &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.tabs
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(False)
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(True)
+Event:  Parent: &lt;class 'Parent.Panel'&gt;.onActivate
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(True)
+Event&lt;: Child: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close  
+returns True
+Event&gt;: Child: &lt;class 'wx._core._wxPyDeadObject'&gt;.Close returns True
+Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: MdiSplit: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt; wxnaj.py / 
+Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: Sdi:   &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.tabs
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(False)
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(True)
+Event:  Parent: &lt;class 'Parent.Panel'&gt;.onActivate
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(True)
+Event&lt;: Child: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close  
+returns True
+Event&gt;: Child: &lt;class 'wx._core._wxPyDeadObject'&gt;.Close returns True
+Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: MdiSplit: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt; wxnaj.py / 
+Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: Sdi:   &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.tabs
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(False)
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(True)
+Event:  Parent: &lt;class 'Parent.Panel'&gt;.onActivate
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitParentFrame'&gt;.Activate 
+(True)
+Event&lt;: Child: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Close  
+returns True
+Event&gt;: Child: &lt;class 'wx._core._wxPyDeadObject'&gt;.Close returns True
+Opening /Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: MdiSplit: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt; wxnaj.py / 
+Users/johnfinch/Documents/WorkingwxNAJ/wxnaj.py
+Create: Sdi:   &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.tabs
+Event&lt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Event&gt;: Framework: &lt;class 'sm.wxp.smdi.MdiSplitChildFrame'&gt;.Activate 
+(True)
+Segmentation fault
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000242.html">[spe-dev] Copyright dates need bringing up to 2007?
+</A></li>
+	<LI>Next message: <A HREF="000215.html">[spe-dev] Bug: Open Workspace crash
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#207">[ date ]</a>
+              <a href="thread.html#207">[ thread ]</a>
+              <a href="subject.html#207">[ subject ]</a>
+              <a href="author.html#207">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,496 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Python-spe-dev Digest, Vol 5, Issue 2
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Python-spe-dev%20Digest%2C%20Vol%205%2C%20Issue%202&In-Reply-To=%3C45F92EEC.70307%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000193.html">
+   <LINK REL="Next"  HREF="000199.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Python-spe-dev Digest, Vol 5, Issue 2</H1>
+    <B>Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Python-spe-dev%20Digest%2C%20Vol%205%2C%20Issue%202&In-Reply-To=%3C45F92EEC.70307%40gmail.com%3E"
+       TITLE="[spe-dev] Python-spe-dev Digest, Vol 5, Issue 2">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Thu Mar 15 12:33:00 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000193.html">[spe-dev] Python-spe-dev Digest, Vol 5, Issue 2
+</A></li>
+        <LI>Next message: <A HREF="000199.html">[spe-dev] winpdb update
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#194">[ date ]</a>
+              <a href="thread.html#194">[ thread ]</a>
+              <a href="subject.html#194">[ subject ]</a>
+              <a href="author.html#194">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Brian,
+You are using wxPython2.8. You should remove the previous SPE (which 
+only works with wxPython2.6). Make sure this folder is *completely* removed:
+
+/opt/local/Library/Frameworks/Python.framework/Versions/2.4/lib/python2.4/site-packages/_spe/
+
+and download SPE from subversion:
+
+svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+<A HREF="http://pythonide.blogspot.com/2007/02/how-to-download-latest-spe-from_26.html">http://pythonide.blogspot.com/2007/02/how-to-download-latest-spe-from_26.html</A>
+
+You can put it back in site-packages, but it also runs fine from any 
+location with:
+pythonw SPE.py (pythonw is mac only)
+
+Stani
+
+
+Brian Myers wrote:
+&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be/blog/sm_donate">http://pythonide.stani.be/blog/sm_donate</A>
+</I>&gt;<i> <A HREF="svn://svn.berlios.de/python/spe/trunk">svn://svn.berlios.de/python/spe/trunk</A>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> I don't know what's going on here, but I've had some trouble getting  
+</I>&gt;<i> the right versions of wxWindows, wxPython, and python working  
+</I>&gt;<i> together on OSX. Everything is finally installed through DarwinPorts,  
+</I>&gt;<i> but the following message comes up when I try to start SPE:
+</I>&gt;<i>
+</I>&gt;<i> defaults-powerbook-g4-17:~ Tarka$ /opt/local/lib/python2.4/site- 
+</I>&gt;<i> packages/wx-2.8-mac-unicode/wx/_core.py:13698: UserWarning: wxPython/ 
+</I>&gt;<i> wxWidgets release number mismatch
+</I>&gt;<i>    warnings.warn(&quot;wxPython/wxWidgets release number mismatch&quot;)
+</I>&gt;<i> Traceback (most recent call last):
+</I>&gt;<i>    File &quot;/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+</I>&gt;<i> bin/spe&quot;, line 3, in ?
+</I>&gt;<i>      import _spe.SPE
+</I>&gt;<i>    File &quot;/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+</I>&gt;<i> lib/python2.4/site-packages/_spe/SPE.py&quot;, line 209, in ?
+</I>&gt;<i>      style           = style)
+</I>&gt;<i>    File &quot;/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+</I>&gt;<i> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 1278, in __init__
+</I>&gt;<i>      wx.App.__init__(self,redirect=not debug)
+</I>&gt;<i>    File &quot;/opt/local/lib/python2.4/site-packages/wx-2.8-mac-unicode/wx/ 
+</I>&gt;<i> _core.py&quot;, line 7757, in __init__
+</I>&gt;<i>      self._BootstrapApp()
+</I>&gt;<i>    File &quot;/opt/local/lib/python2.4/site-packages/wx-2.8-mac-unicode/wx/ 
+</I>&gt;<i> _core.py&quot;, line 7354, in _BootstrapApp
+</I>&gt;<i>      return _core_.PyApp__BootstrapApp(*args, **kwargs)
+</I>&gt;<i>    File &quot;/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+</I>&gt;<i> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 1297, in OnInit
+</I>&gt;<i>      style   = self.style,
+</I>&gt;<i>    File &quot;/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+</I>&gt;<i> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 801, in __init__
+</I>&gt;<i>      Parent.__init__(self,app=app,page=page,**options)
+</I>&gt;<i>    File &quot;/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+</I>&gt;<i> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 595, in __init__
+</I>&gt;<i>      parentFrame     = self,
+</I>&gt;<i>    File &quot;/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+</I>&gt;<i> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 326, in __init__
+</I>&gt;<i>      self.__finish__()
+</I>&gt;<i>    File &quot;/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+</I>&gt;<i> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 599, in  
+</I>&gt;<i> __finish__
+</I>&gt;<i>      Framework.__finish__(self)
+</I>&gt;<i>    File &quot;/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+</I>&gt;<i> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 424, in  
+</I>&gt;<i> __finish__
+</I>&gt;<i>      self.panel.__finish__()
+</I>&gt;<i>    File &quot;/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+</I>&gt;<i> lib/python2.4/site-packages/_spe/Parent.py&quot;, line 121, in __finish__
+</I>&gt;<i>      self.__frame__()
+</I>&gt;<i>    File &quot;/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+</I>&gt;<i> lib/python2.4/site-packages/_spe/Parent.py&quot;, line 169, in __frame__
+</I>&gt;<i>      self.__remember__(openFiles=self._openFiles)
+</I>&gt;<i>    File &quot;/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+</I>&gt;<i> lib/python2.4/site-packages/_spe/Parent.py&quot;, line 189, in __remember__
+</I>&gt;<i>      self.loadWorkspace()
+</I>&gt;<i>    File &quot;/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+</I>&gt;<i> lib/python2.4/site-packages/_spe/Parent.py&quot;, line 322, in loadWorkspace
+</I>&gt;<i>      verbose     = True)
+</I>&gt;<i>    File &quot;/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+</I>&gt;<i> lib/python2.4/site-packages/_spe/Parent.py&quot;, line 867, in openList
+</I>&gt;<i>      child=self.new(name=fileName,source=source,maximize=maximize)
+</I>&gt;<i>    File &quot;/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+</I>&gt;<i> lib/python2.4/site-packages/_spe/Parent.py&quot;, line 379, in new
+</I>&gt;<i>      maximize    = maximize)
+</I>&gt;<i>    File &quot;/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+</I>&gt;<i> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 1125, in __init__
+</I>&gt;<i>      extra       = extra,
+</I>&gt;<i>    File &quot;/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+</I>&gt;<i> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 889, in __init__
+</I>&gt;<i>      extra           = extra,
+</I>&gt;<i>    File &quot;/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+</I>&gt;<i> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 326, in __init__
+</I>&gt;<i>      self.__finish__()
+</I>&gt;<i>    File &quot;/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+</I>&gt;<i> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 899, in  
+</I>&gt;<i> __finish__
+</I>&gt;<i>      Framework.__finish__(self)
+</I>&gt;<i>    File &quot;/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+</I>&gt;<i> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 422, in  
+</I>&gt;<i> __finish__
+</I>&gt;<i>      self.setTitle(self.page,self.extra)
+</I>&gt;<i>    File &quot;/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+</I>&gt;<i> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 1150, in setTitle
+</I>&gt;<i>      Child.setTitle(self,page,extra,new)
+</I>&gt;<i>    File &quot;/opt/local/Library/Frameworks/Python.framework/Versions/2.4/ 
+</I>&gt;<i> lib/python2.4/site-packages/_spe/sm/wxp/smdi.py&quot;, line 991, in setTitle
+</I>&gt;<i>      self.SetTitle(self.pageTitle)
+</I>&gt;<i> AttributeError: 'MdiSplitChildFrame' object has no attribute 'SetTitle'
+</I>&gt;<i> Exception exceptions.TypeError: &quot;'NoneType' object is not callable&quot;  
+</I>&gt;<i> in &lt;wx.lib.pubsub._NodeCallback instance at 0x530c350&gt; ignored
+</I>&gt;<i>
+</I>&gt;<i> What's going on here?
+</I>&gt;<i>
+</I>&gt;<i> Brian
+</I>&gt;<i>
+</I>&gt;<i> On Mar 15, 2007, at 1:20 AM, <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">python-spe-dev-request at lists.berlios.de</A>  
+</I>&gt;<i> wrote:
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Send Python-spe-dev mailing list submissions to
+</I>&gt;&gt;<i> 	<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">python-spe-dev at lists.berlios.de</A>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> To subscribe or unsubscribe via the World Wide Web, visit
+</I>&gt;&gt;<i> 	<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;&gt;<i> or, via email, send a message with subject or body 'help' to
+</I>&gt;&gt;<i> 	<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">python-spe-dev-request at lists.berlios.de</A>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> You can reach the person managing the list at
+</I>&gt;&gt;<i> 	<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">python-spe-dev-owner at lists.berlios.de</A>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> When replying, please edit your Subject line so it is more specific
+</I>&gt;&gt;<i> than &quot;Re: Contents of Python-spe-dev digest...&quot;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;&gt;<i> <A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+</I>&gt;&gt;<i> <A HREF="http://pythonide.stani.be/blog/sm_donate">http://pythonide.stani.be/blog/sm_donate</A>  
+</I>&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Today's Topics:
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>    1. PyChecker, WinPdb &amp; XRCed updated (Stani's Python Editor)
+</I>&gt;&gt;<i>    2. Pychecker hot key description still wrong OSX (John Finch)
+</I>&gt;&gt;<i>    3. Fuzzy icons OSX (John Finch)
+</I>&gt;&gt;<i>    4. Kiki window position Fix (John Finch)
+</I>&gt;&gt;<i>    5. Testing version 216: MacBook Pro, Mac OS X 10.4.8 (Pietje Puk)
+</I>&gt;&gt;<i>    6. Pychecker: there are *two* hotkey descriptions for	pychecker
+</I>&gt;&gt;<i>       (Pietje Puk)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Message: 1
+</I>&gt;&gt;<i> Date: Thu, 15 Mar 2007 00:28:19 +0100
+</I>&gt;&gt;<i> From: Stani's Python Editor &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">spe.stani.be at gmail.com</A>&gt;
+</I>&gt;&gt;<i> Subject: [spe-dev] PyChecker, WinPdb &amp; XRCed updated
+</I>&gt;&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">python-spe-dev at lists.berlios.de</A>
+</I>&gt;&gt;<i> Message-ID: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">45F88513.20004 at gmail.com</A>&gt;
+</I>&gt;&gt;<i> Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Hi,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> All the major plugins of SPE are now updated to the latest version and
+</I>&gt;&gt;<i> tested on Ubuntu:
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> *WinPdb debugger version 1.0.9:
+</I>&gt;&gt;<i> <A HREF="http://pythonide.blogspot.com/2007/03/last-winpdb-debugger-109-in-">http://pythonide.blogspot.com/2007/03/last-winpdb-debugger-109-in-</A> 
+</I>&gt;&gt;<i> spe.html
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> *XRCed: latest version from cvs is now included with SPE as often
+</I>&gt;&gt;<i> python-wxpython-tools contains an older version.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> *PyChecker:
+</I>&gt;&gt;<i> I managed to update pychecker to the latest version and get it  
+</I>&gt;&gt;<i> working.
+</I>&gt;&gt;<i> The problem was if SPE was not installed in the site-packages dir that
+</I>&gt;&gt;<i> pychecker was not starting. Now everything should be ok. Please check
+</I>&gt;&gt;<i> pychecker on windows and mac.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Please keep on testing subversion:
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;&gt;<i> <A HREF="http://pythonide.blogspot.com/2007/02/how-to-download-latest-spe-">http://pythonide.blogspot.com/2007/02/how-to-download-latest-spe-</A> 
+</I>&gt;&gt;<i> from_26.html
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> A known issue is that the links in the menu to SPE webpages don't work
+</I>&gt;&gt;<i> for the simple reason I have to choose a host and put up the SPE  
+</I>&gt;&gt;<i> website.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Stani
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> John Finch wrote:
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> Ubuntu
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Pychecker does not show text in left tab pane. Text seems to very  
+</I>&gt;&gt;&gt;<i> quickly flash up the pane but then leaves it blank. There seems to  
+</I>&gt;&gt;&gt;<i> be no pychecker responses printed in the pane even when there is  
+</I>&gt;&gt;&gt;<i> something wrong with the file it is checking.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Message: 2
+</I>&gt;&gt;<i> Date: Wed, 14 Mar 2007 23:34:20 -0400
+</I>&gt;&gt;<i> From: John Finch &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">johnfinch at mac.com</A>&gt;
+</I>&gt;&gt;<i> Subject: [spe-dev] Pychecker hot key description still wrong OSX
+</I>&gt;&gt;<i> To: Mailing list for spe developpers &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">python-spe-dev at lists.berlios.de</A>&gt;
+</I>&gt;&gt;<i> Message-ID: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">080E8E70-4A50-44AC-BDA8-194B7B285864 at mac.com</A>&gt;
+</I>&gt;&gt;<i> Content-Type: text/plain; charset=US-ASCII; format=flowed
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> OSX
+</I>&gt;&gt;<i> Should say Cmd_Alt_C for shortcut
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Message: 3
+</I>&gt;&gt;<i> Date: Wed, 14 Mar 2007 23:39:57 -0400
+</I>&gt;&gt;<i> From: John Finch &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">johnfinch at mac.com</A>&gt;
+</I>&gt;&gt;<i> Subject: [spe-dev] Fuzzy icons OSX
+</I>&gt;&gt;<i> To: Mailing list for spe developpers &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">python-spe-dev at lists.berlios.de</A>&gt;
+</I>&gt;&gt;<i> Message-ID: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">B900DD4C-8D38-4977-B0F7-331EE674571F at mac.com</A>&gt;
+</I>&gt;&gt;<i> Content-Type: text/plain; charset=US-ASCII; format=flowed
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Does anyone else think the icons are fuzzy on OSX?
+</I>&gt;&gt;<i> I think it is because they are only 16x16. Need to be 64x64.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> The tiny icons are good.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Message: 4
+</I>&gt;&gt;<i> Date: Wed, 14 Mar 2007 23:24:51 -0400
+</I>&gt;&gt;<i> From: John Finch &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">johnfinch at mac.com</A>&gt;
+</I>&gt;&gt;<i> Subject: [spe-dev] Kiki window position Fix
+</I>&gt;&gt;<i> To: Mailing list for spe developpers &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">python-spe-dev at lists.berlios.de</A>&gt;
+</I>&gt;&gt;<i> Message-ID: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">AC159230-F63C-46AC-9F0F-FD0C4964F7F2 at mac.com</A>&gt;
+</I>&gt;&gt;<i> Content-Type: text/plain; charset=&quot;us-ascii&quot;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Been working on this problem tonight. I have a good fix for the Kiki
+</I>&gt;&gt;<i> window bug now for both Windows, OSX and Ubuntu
+</I>&gt;&gt;<i> Changes below are for Kiki.py. Here's loadSettings with changes
+</I>&gt;&gt;<i> highlighted. Tested in OSX and Windows and Ubuntu.
+</I>&gt;&gt;<i> To test I deleted the kiki configuration file in .spe so it acted as
+</I>&gt;&gt;<i> though spe was first installed.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Please confirm fix works for you.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Changes........
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>      def loadSettings(self):
+</I>&gt;&gt;<i>          &quot;&quot;&quot;Loads GUI settings from the settings system.&quot;&quot;&quot;
+</I>&gt;&gt;<i>          # load some size settings
+</I>&gt;&gt;<i>          # set window size and position; make sure it's on screen
+</I>&gt;&gt;<i>          # and has a reasonable size
+</I>&gt;&gt;<i>          system = wx.SystemSettings_GetMetric
+</I>&gt;&gt;<i>          pos = list(settings.get(WINDOWPOSITION, (-1,-1)))
+</I>&gt;&gt;<i>          x = system(wx.SYS_SCREEN_X)
+</I>&gt;&gt;<i>          y = system(wx.SYS_SCREEN_Y)
+</I>&gt;&gt;<i>          if pos[0]&lt;=-1: pos[0] = (x/2)-320
+</I>&gt;&gt;<i>          if pos[1]&lt;=-1: pos[1] = (y/2)-240
+</I>&gt;&gt;<i>          if pos[0]&gt;system(wx.SYS_SCREEN_X)-50:
+</I>&gt;&gt;<i>              pos[0] = 0
+</I>&gt;&gt;<i>          if pos[1]&gt;system(wx.SYS_SCREEN_Y)-50:
+</I>&gt;&gt;<i>              pos[1] = 0
+</I>&gt;&gt;<i>          self.SetPosition(pos)
+</I>&gt;&gt;<i>          size = list(settings.get(WINDOWSIZE, (-1, -1)))
+</I>&gt;&gt;<i>          if size[0]&gt;system(wx.SYS_SCREEN_X):
+</I>&gt;&gt;<i>              size[0] = 640
+</I>&gt;&gt;<i>          if size[1]&gt;system(wx.SYS_SCREEN_Y):
+</I>&gt;&gt;<i>              size[1] = 480
+</I>&gt;&gt;<i>          size[0] = max(size[0], 640)
+</I>&gt;&gt;<i>          size[1] = max(size[1], 480)
+</I>&gt;&gt;<i>          self.SetSize(size)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>          # load the sample text and regex last used
+</I>&gt;&gt;<i>          self.SampleText.SetValue(settings.get(SAMPLETEXT, &quot;&quot;))
+</I>&gt;&gt;<i>          self.RegexBox.SetValue(settings.get(REGEX, &quot;&quot;))
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>          # load the flags and desired type of re functionality
+</I>&gt;&gt;<i>          for flag in self.flagmapper.keys():
+</I>&gt;&gt;<i>              self.flagmapper[flag].SetValue(settings.get(flag, False))
+</I>&gt;&gt;<i>          self.MethodBox.SetSelection(settings.get(SEARCHTYPE, 0))
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>          # other settings
+</I>&gt;&gt;<i>          self.SplitterWindow.SetSashPosition(settings.get
+</I>&gt;&gt;<i> (SASHPOSITION, 100))
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Here's speCreate in full. Changed speCreate by removing
+</I>&gt;&gt;<i> Kiki.CentreOnParent(wx.BOTH):
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> def speCreate(parent, info=None):
+</I>&gt;&gt;<i>      &quot;&quot;&quot;Integration of Kiki into spe (<A HREF="http://spe.pycs.net">http://spe.pycs.net</A>)&quot;&quot;&quot;
+</I>&gt;&gt;<i>      global settings
+</I>&gt;&gt;<i>      settings = Settings(dirname=&quot;.spe&quot;, filename=&quot;kikicfg.py&quot;,
+</I>&gt;&gt;<i> debugfile=&quot;kikidebug&quot;)
+</I>&gt;&gt;<i>      Kiki = MyFrameWithEvents(parent, -1, &quot;&quot;)
+</I>&gt;&gt;<i>      Kiki.SetTitle(Kiki.GetTitle() + &quot; - the ferret in your Spe&quot;)
+</I>&gt;&gt;<i>      if info and info.has_key('kikiPath'):
+</I>&gt;&gt;<i>          kikipath = info['kikiPath']
+</I>&gt;&gt;<i>      else:
+</I>&gt;&gt;<i>          kikipath = os.path.join(os.path.dirname(sys.argv[0]),
+</I>&gt;&gt;<i> &quot;framework/contributions&quot;)
+</I>&gt;&gt;<i>      Kiki.icon(kikipath)
+</I>&gt;&gt;<i>      Kiki.Show(1)
+</I>&gt;&gt;<i>      return Kiki
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> -------------- next part --------------
+</I>&gt;&gt;<i> An HTML attachment was scrubbed...
+</I>&gt;&gt;<i> URL: <A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/">https://lists.berlios.de/pipermail/python-spe-dev/attachments/</A> 
+</I>&gt;&gt;<i> 20070314/01fd12d6/attachment-0001.html
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Message: 5
+</I>&gt;&gt;<i> Date: Thu, 15 Mar 2007 09:10:26 +0100
+</I>&gt;&gt;<i> From: Pietje Puk &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">pietjepuk314 at yahoo.co.uk</A>&gt;
+</I>&gt;&gt;<i> Subject: [spe-dev] Testing version 216: MacBook Pro, Mac OS X 10.4.8
+</I>&gt;&gt;<i> To: Mailing list for spe developpers &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">python-spe-dev at lists.berlios.de</A>&gt;
+</I>&gt;&gt;<i> Message-ID: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">C3DA27A9-F2B8-4E15-AE53-4E48B2DC7FF7 at yahoo.co.uk</A>&gt;
+</I>&gt;&gt;<i> Content-Type: text/plain; charset=US-ASCII; delsp=yes; format=flowed
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> PyChecker: looks OK. Filename gets chopped off at the right instead
+</I>&gt;&gt;<i> of at the left, so that the actual file cannot be found. (Looks like
+</I>&gt;&gt;<i> a non-Mac specific bug. I made a small function that can be used to
+</I>&gt;&gt;<i> get a shortened path:)
+</I>&gt;&gt;<i> def clip_filename(path, number_of_directories = 2):
+</I>&gt;&gt;<i>      &quot;&quot;&quot;
+</I>&gt;&gt;<i>      Clips a pathname string to only used the last two subdirectories.
+</I>&gt;&gt;<i>      These examples assume a UNIX environment:
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;&gt;&gt;<i> print os.sep
+</I>&gt;&gt;&gt;&gt;&gt;<i>           
+</I>&gt;&gt;<i>      '/'
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;&gt;&gt;<i> clip_filename(&quot;home/file.py&quot;)
+</I>&gt;&gt;&gt;&gt;&gt;<i>           
+</I>&gt;&gt;<i>      home/file.py
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;&gt;&gt;<i> clip_filename(&quot;this/a/path/file.py&quot;)
+</I>&gt;&gt;&gt;&gt;&gt;<i>           
+</I>&gt;&gt;<i>      .../a/path/file.py
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;&gt;&gt;<i> clip_filename(&quot;/a/path/file.py&quot;)
+</I>&gt;&gt;&gt;&gt;&gt;<i>           
+</I>&gt;&gt;<i>      /a/path/file.py
+</I>&gt;&gt;<i>      &quot;&quot;&quot;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>      # We only clip if there are more slashes (or whatever sep is)
+</I>&gt;&gt;<i>      # than the number of directories to be shown.
+</I>&gt;&gt;<i>      # Find the clipping point by counting back.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>      if path[3:].count(os.sep) &lt;= number_of_directories:
+</I>&gt;&gt;<i>          return path
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>      slashpos = path.rfind(os.sep)
+</I>&gt;&gt;<i>      for i in range(number_of_directories):
+</I>&gt;&gt;<i>          slashpos = path.rfind(os.sep, 0, slashpos)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>      return '...' + path[slashpos:]
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ------------------------------
+</I>&gt;&gt;<i> Hotkey for Pychecker: OK in toolbar
+</I>&gt;&gt;<i> -------------------------------
+</I>&gt;&gt;<i> Fuzzy icons on toolbar: yes that's true. Designing 64*64 icons should
+</I>&gt;&gt;<i> be left to a professional (Stani?!)
+</I>&gt;&gt;<i> ------------------------------
+</I>&gt;&gt;<i> Kiki: I'll pass here, since I never used Kiki.
+</I>&gt;&gt;<i> ---------------------------------
+</I>&gt;&gt;<i> Hope this helps.
+</I>&gt;&gt;<i> - Jurjen
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> 		
+</I>&gt;&gt;<i> ___________________________________________________________
+</I>&gt;&gt;<i> The all-new Yahoo! Mail goes wherever you go - free your email  
+</I>&gt;&gt;<i> address from your Internet provider. <A HREF="http://uk.docs.yahoo.com/">http://uk.docs.yahoo.com/</A> 
+</I>&gt;&gt;<i> nowyoucan.html
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Message: 6
+</I>&gt;&gt;<i> Date: Thu, 15 Mar 2007 09:12:28 +0100
+</I>&gt;&gt;<i> From: Pietje Puk &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">pietjepuk314 at yahoo.co.uk</A>&gt;
+</I>&gt;&gt;<i> Subject: [spe-dev] Pychecker: there are *two* hotkey descriptions for
+</I>&gt;&gt;<i> 	pychecker
+</I>&gt;&gt;<i> To: Mailing list for spe developpers &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">python-spe-dev at lists.berlios.de</A>&gt;
+</I>&gt;&gt;<i> Message-ID: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">10FF9F70-572C-4164-89CD-5DD8476FBECB at yahoo.co.uk</A>&gt;
+</I>&gt;&gt;<i> Content-Type: text/plain; charset=US-ASCII; delsp=yes; format=flowed
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I just discovered that one hotkey description is OK (the one on the
+</I>&gt;&gt;<i> toolbar), but the other isn't (the one in the top line of the empty
+</I>&gt;&gt;<i> check output window).
+</I>&gt;&gt;<i> - Jurjen
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> 		
+</I>&gt;&gt;<i> ___________________________________________________________
+</I>&gt;&gt;<i> Try the all-new Yahoo! Mail. &quot;The New Version is radically easier  
+</I>&gt;&gt;<i> to use&quot; &#8211; The Wall Street Journal
+</I>&gt;&gt;<i> <A HREF="http://uk.docs.yahoo.com/nowyoucan.html">http://uk.docs.yahoo.com/nowyoucan.html</A>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;<i> Python-spe-dev mailing list
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> End of Python-spe-dev Digest, Vol 5, Issue 2
+</I>&gt;&gt;<i> ********************************************
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Python-spe-dev mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070315/04bb3d2d/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070315/04bb3d2d/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000193.html">[spe-dev] Python-spe-dev Digest, Vol 5, Issue 2
+</A></li>
+	<LI>Next message: <A HREF="000199.html">[spe-dev] winpdb update
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#194">[ date ]</a>
+              <a href="thread.html#194">[ thread ]</a>
+              <a href="subject.html#194">[ subject ]</a>
+              <a href="author.html#194">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

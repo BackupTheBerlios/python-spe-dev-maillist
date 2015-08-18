@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] The dirty flag and undo
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20The%20dirty%20flag%20and%20undo&In-Reply-To=%3C7933-77838%40sneakemail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000285.html">
+   <LINK REL="Next"  HREF="000282.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] The dirty flag and undo</H1>
+    <B>g6m3xcl02 at sneakemail.com</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20The%20dirty%20flag%20and%20undo&In-Reply-To=%3C7933-77838%40sneakemail.com%3E"
+       TITLE="[spe-dev] The dirty flag and undo">g6m3xcl02 at sneakemail.com
+       </A><BR>
+    <I>Fri Apr 13 18:21:52 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000285.html">[spe-dev] The dirty flag and undo
+</A></li>
+        <LI>Next message: <A HREF="000282.html">[spe-dev] pannel resizer ui issue
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#286">[ date ]</a>
+              <a href="thread.html#286">[ thread ]</a>
+              <a href="subject.html#286">[ subject ]</a>
+              <a href="author.html#286">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Oh, great find.  Yes, that fix should be as simple as you say.  We just need
+a SetSavePoint() in the method that reverts.  I'm flying to Boston today
+(which I understand is where Stani will be too).  So I may not get to
+patching the patch until I get back (early next week).
+
+~Carver
+
+On 4/13/07, Mike Rooney mxr-at-qvii.com |jason carver on spe-dev| &lt;
+...&gt; wrote:
+&gt;<i>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">g6m3xcl02 at sneakemail.com</A> wrote:
+</I>&gt;<i> &gt; Just a quick update - the dirty flag bothered me, so I submitted a
+</I>&gt;<i> &gt; patch for it:
+</I>&gt;<i> &gt;
+</I>&gt;<i> <A HREF="https://developer.berlios.de/patch/?func=detailpatch&amp;patch_id=1954&amp;group_id=4161">https://developer.berlios.de/patch/?func=detailpatch&amp;patch_id=1954&amp;group_id=4161</A>
+</I>&gt;<i> &gt; &lt;
+</I>&gt;<i> <A HREF="https://developer.berlios.de/patch/?func=detailpatch&amp;patch_id=1954&amp;group_id=4161">https://developer.berlios.de/patch/?func=detailpatch&amp;patch_id=1954&amp;group_id=4161</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Summary of functionality:
+</I>&gt;<i> &gt; Previously, the source tab was marked dirty (with an asterisk) after
+</I>&gt;<i> &gt; any changes, and the only way to remove it was by saving.  Typing
+</I>&gt;<i> &gt; ctrl-z back to the original file would not get rid of the dirty flag.
+</I>&gt;<i> &gt; Now, using the above patch, if the source is either undone or redone
+</I>&gt;<i> &gt; back to the saved state, the dirty flag will disappear.
+</I>&gt;<i>
+</I>&gt;<i> I found another bug, which causes your fix to behave oddly as well. If a
+</I>&gt;<i> file is changed outside of SPE, a dialog will ask if the user wants to
+</I>&gt;<i> revert. When you click yes though, the file is marked as dirty, even
+</I>&gt;<i> though obviously it isn't...you just reverted. Maybe with your
+</I>&gt;<i> familiarity of the dirty flag handling this wouldn't be hard to fix
+</I>&gt;<i> either? The secondary problem this causes is that now if you undo the
+</I>&gt;<i> revert (which oddly enough takes TWO undos, the first of which just
+</I>&gt;<i> moves the cursor seemingly), the dirty flag is removed (assuming the
+</I>&gt;<i> file was not dirty before the revert). This is deceptive as the file
+</I>&gt;<i> actually is dirty! I think making reverts mark the file as clean would
+</I>&gt;<i> fix both of these issues. What do you think?
+</I>&gt;<i>
+</I>&gt;<i> - Mike
+</I>&gt;<i> --
+</I>&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070413/ec129bf7/attachment.html">https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070413/ec129bf7/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000285.html">[spe-dev] The dirty flag and undo
+</A></li>
+	<LI>Next message: <A HREF="000282.html">[spe-dev] pannel resizer ui issue
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#286">[ date ]</a>
+              <a href="thread.html#286">[ thread ]</a>
+              <a href="subject.html#286">[ subject ]</a>
+              <a href="author.html#286">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

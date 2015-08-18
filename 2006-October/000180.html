@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] building spe.deb
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2006-October/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20building%20spe.deb&In-Reply-To=%3C2078a7ad0610270715k41f81a82oda97a862d0b6033f%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000179.html">
+   <LINK REL="Next"  HREF="000181.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] building spe.deb</H1>
+    <B>SPE Stani's Python Editor</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20building%20spe.deb&In-Reply-To=%3C2078a7ad0610270715k41f81a82oda97a862d0b6033f%40mail.gmail.com%3E"
+       TITLE="[spe-dev] building spe.deb">spe.stani.be at gmail.com
+       </A><BR>
+    <I>Fri Oct 27 16:15:13 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000179.html">[spe-dev] building spe.deb
+</A></li>
+        <LI>Next message: <A HREF="000181.html">[spe-dev] building spe.deb
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#180">[ date ]</a>
+              <a href="thread.html#180">[ thread ]</a>
+              <a href="subject.html#180">[ subject ]</a>
+              <a href="author.html#180">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Carl,
+Can you send me your latest spe.deb build and the build script as a
+zipped attachment?
+Stani
+
+On 10/24/06, Carl Karsten &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">carl at personnelware.com</A>&gt; wrote:
+&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be/blog/sm_donate">http://pythonide.stani.be/blog/sm_donate</A>
+</I>&gt;<i> <A HREF="svn://svn.berlios.de/python/spe/trunk">svn://svn.berlios.de/python/spe/trunk</A>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> good news - using the script below, I just built a .deb using the current ver of
+</I>&gt;<i> spe and Ubuntu edgy (didn't try dapper, but it should be fine.)  It builds,
+</I>&gt;<i> installs and runs.
+</I>&gt;<i>
+</I>&gt;<i> I caught 2 warnings:
+</I>&gt;<i>
+</I>&gt;<i> dh_python: This program is deprecated, you should use dh_pysupport or
+</I>&gt;<i> dh_pycentral instead.
+</I>&gt;<i>
+</I>&gt;<i> dh_builddeb
+</I>&gt;<i> dpkg-deb: building package `spe' in `../spe_0.8.3-svn-158_all.deb'.
+</I>&gt;<i> tar: -: file name read contains nul character
+</I>&gt;<i>
+</I>&gt;<i> Plus if you run spe from a shell, you get a spew of messages:
+</I>&gt;<i>
+</I>&gt;<i> (python:17433): Gdk-CRITICAL **: gdk_draw_drawable: assertion `src != NULL' failed
+</I>&gt;<i>
+</I>&gt;<i> (python:17433): Gtk-CRITICAL **: gtk_container_remove: assertion `GTK_IS_TOOLBAR
+</I>&gt;<i> (container) || widget-&gt;parent == GTK_WIDGET (container)' failed
+</I>&gt;<i>
+</I>&gt;<i> Exception exceptions.TypeError: &quot;'NoneType' object is not callable&quot; in
+</I>&gt;<i> &lt;wx.lib.pubsub._NodeCallback instance at 0xb4e147ac&gt; ignored
+</I>&gt;<i>
+</I>&gt;<i>  &gt; Thanks to Marco Ferreira there will be very soon a debian package to install SPE
+</I>&gt;<i>
+</I>&gt;<i> Marco - you are on this list, right?  (if not, can someone forward this to him?
+</I>&gt;<i>   I don't have his e-mail.
+</I>&gt;<i>
+</I>&gt;<i> Steve and Matthias, guessing you are on the list but did have yours, so you get
+</I>&gt;<i> extra :)
+</I>&gt;<i>
+</I>&gt;<i> Carl K
+</I>&gt;<i>
+</I>&gt;<i> current ver is at <A HREF="https://help.ubuntu.com/community/UpdatingADeb">https://help.ubuntu.com/community/UpdatingADeb</A>
+</I>&gt;<i>
+</I>&gt;<i> This will build spe.deb on a fresh Ubuntu install.
+</I>&gt;<i>
+</I>&gt;<i> # mkspedeb.sh
+</I>&gt;<i> # updates the spe.deb
+</I>&gt;<i> # based on <A HREF="https://help.ubuntu.com/community/UpdatingADeb">https://help.ubuntu.com/community/UpdatingADeb</A>
+</I>&gt;<i>
+</I>&gt;<i> set -xe
+</I>&gt;<i>
+</I>&gt;<i> # needed to get source, compile and build debs
+</I>&gt;<i> sudo apt-get --assume-yes install build-essential fakeroot subversion
+</I>&gt;<i>
+</I>&gt;<i> # get the spe deps and source from apt repository
+</I>&gt;<i> # (and debian/ dir needed to build the .deb)
+</I>&gt;<i> sudo apt-get --assume-yes build-dep spe
+</I>&gt;<i>
+</I>&gt;<i> mkdir spe &amp;&amp; cd spe
+</I>&gt;<i> apt-get source spe
+</I>&gt;<i>
+</I>&gt;<i> # cd into the apt-got dir.
+</I>&gt;<i> # this will need to be changed as the version changes.
+</I>&gt;<i> # I could use find -t d to find a dir and cd into it, but this seemed safer.
+</I>&gt;<i> cd spe-0.8.2a+repack
+</I>&gt;<i>
+</I>&gt;<i> # hide the apt-got source
+</I>&gt;<i> mv _spe _spe.apt-got
+</I>&gt;<i>
+</I>&gt;<i> # get working copy
+</I>&gt;<i> svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;<i>
+</I>&gt;<i> # bump the version number
+</I>&gt;<i> # if this is not done, the new deb will be the same version as the current, so
+</I>&gt;<i> won't install.
+</I>&gt;<i> # a few lines need to be prepended to debian/changelog,
+</I>&gt;<i> # so put the lines plus existing changelog in changelog.tmp, replace changelog.
+</I>&gt;<i>
+</I>&gt;<i> cat - debian/changelog &gt;/tmp/changelog.tmp &lt;&lt;EOF
+</I>&gt;<i> spe (0.8.3-svn-$(svnversion _spe)) unstable; urgency=low
+</I>&gt;<i>
+</I>&gt;<i>    * Just based off the Ubuntu packaging -using $0
+</I>&gt;<i>
+</I>&gt;<i>   -- Carl Karsten &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">carl at pw.com</A>&gt;  $(date --rfc-2822)
+</I>&gt;<i>
+</I>&gt;<i> EOF
+</I>&gt;<i> mv -f /tmp/changelog.tmp debian/changelog
+</I>&gt;<i>
+</I>&gt;<i> # build the .deb
+</I>&gt;<i> dpkg-buildpackage -rfakeroot -uc -b
+</I>&gt;<i>
+</I>&gt;<i> # install the deb.
+</I>&gt;<i> # using this command, on your own :)
+</I>&gt;<i> echo sudo gdebi spe_0.8.3-svn-158_all.deb
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Python-spe-dev mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i>
+</I>
+
+-- 
+<A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+<A HREF="http://pythonide.stani.be/screenshots">http://pythonide.stani.be/screenshots</A>
+<A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000179.html">[spe-dev] building spe.deb
+</A></li>
+	<LI>Next message: <A HREF="000181.html">[spe-dev] building spe.deb
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#180">[ date ]</a>
+              <a href="thread.html#180">[ thread ]</a>
+              <a href="subject.html#180">[ subject ]</a>
+              <a href="author.html#180">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Bug in realtime.py
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2005-November/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%20in%20realtime.py&In-Reply-To=%3C20051111145307.6bb28a97%40laptop%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000034.html">
+   <LINK REL="Next"  HREF="000036.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Bug in realtime.py</H1>
+    <B>Glenn Washburn</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Bug%20in%20realtime.py&In-Reply-To=%3C20051111145307.6bb28a97%40laptop%3E"
+       TITLE="[spe-dev] Bug in realtime.py">crass at berlios.de
+       </A><BR>
+    <I>Fri Nov 11 21:53:07 CET 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000034.html">[spe-dev] Bug in realtime.py
+</A></li>
+        <LI>Next message: <A HREF="000036.html">[spe-dev] new notebookctrl
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#35">[ date ]</a>
+              <a href="thread.html#35">[ thread ]</a>
+              <a href="subject.html#35">[ subject ]</a>
+              <a href="author.html#35">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>The particular problem I addressed does not cause crashing any longer,
+however it still causes problems.  If you repeat the process, then
+double click on one of the tree items with the same parent as the
+function you duplicated and then changed the name of, an exception is
+thrown.  Somehow the data for the tree item is a string, whereas it
+should be a num (representing the line number).  Below is a backtrace,
+with the first two lines being my own output.  The first line is before
+the function duplication takes place and activating a tree item, and the
+second is after the duplication and activating a tree item.
+
+Glenn
+
+----- Back Trace -----
+onSourceFromExplore 266
+onSourceFromExplore OnNewProject(self, event)
+Traceback (most recent call last):
+  File &quot;/usr/src/wxPython-src-2.6.1.0/wxPython/wx/lib/evtmgr.py&quot;, line
+442, in handleEvent self.publisher.sendMessage(topic=self.topic,
+data=event) File &quot;/usr/src/wxPython-src-2.6.1.0/wxPython/wx/lib/
+pubsub.py&quot;, line 752, in sendMessage self.__deliveryCount += \
+  File &quot;/usr/src/wxPython-src-2.6.1.0/wxPython/wx/lib/pubsub.py&quot;, line
+465, in sendMessage deliveryCount += node.sendMessage(message)
+  File &quot;/usr/src/wxPython-src-2.6.1.0/wxPython/wx/lib/pubsub.py&quot;, line
+302, in sendMessage listener(message)
+  File &quot;/usr/src/wxPython-src-2.6.1.0/wxPython/wx/lib/evtmgr.py&quot;, line
+480, in deliverEvent self.eventHandler(event)    # Perform the call as
+wxWindows would File &quot;/root/spe_svn/spe/trunk/_spe/Child.py&quot;, line 896,
+in onSourceFromExplore self.scrollTo(line,select='line')
+  File &quot;/root/spe_svn/spe/trunk/_spe/Child.py&quot;, line 1018, in scrollTo
+    source.EnsureVisible(line)
+  File &quot;/usr/src/wxPython-src-2.6.1.0/wxPython/wx/stc.py&quot;, line 2868,
+in EnsureVisible return _stc.StyledTextCtrl_EnsureVisible(*args,
+**kwargs) TypeError: argument number 2: a 'number' is expected, 'unicode
+(OnNewProject(self, event))' is received
+
+On Fri, 11 Nov 2005 15:51:00 +0100
+&quot;SPE Stani's Python Editor&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">spe.stani.be at gmail.com</A>&gt; wrote:
+
+&gt;<i> I hope these patches fix the problem. I don't have acces to SVN now,
+</I>&gt;<i> so I send the files as an attachment:
+</I>&gt;<i> _spe/Child.py
+</I>&gt;<i> _spe/sm/wxp/realtime.py
+</I>&gt;<i> 
+</I>&gt;<i> I tested it positively quickly, but more testing may be necessary.
+</I>&gt;<i> Still only test the Tree class through the class explorer.
+</I>&gt;<i> 
+</I>&gt;<i> Glenn, thanks again for the bug report. It's important to get fast
+</I>&gt;<i> feedback on the code which is written now, as it is meant to make SPE
+</I>&gt;<i> stable.
+</I>&gt;<i> 
+</I>&gt;<i> If these patches are stable I'll fix the ListCtrl for the index and
+</I>&gt;<i> todo.
+</I>&gt;<i> 
+</I>&gt;<i> Stani
+</I>&gt;<i> 
+</I>&gt;<i> On 11/10/05, SPE Stani's Python Editor &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">spe.stani.be at gmail.com</A>&gt; wrote:
+</I>&gt;<i> &gt; Thanks, I'll try to fix that. I'm now travelling in Paris, so it
+</I>&gt;<i> &gt; will be only next week.
+</I>&gt;<i> &gt; Stani
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; On 11/9/05, Glenn Washburn &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">crass at berlios.de</A>&gt; wrote:
+</I>&gt;<i> &gt; &gt; _______________________________________________
+</I>&gt;<i> &gt; &gt; <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> &gt; &gt; <A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+</I>&gt;<i> &gt; &gt; <A HREF="http://pythonide.stani.be/blog/sm_donate">http://pythonide.stani.be/blog/sm_donate</A>
+</I>&gt;<i> &gt; &gt; _______________________________________________ There is a bug in
+</I>&gt;<i> &gt; &gt; realtime.py where a deleted wx.TreeItemId is being reused,
+</I>&gt;<i> &gt; &gt; causing a crash.  This can be created by creating a function (eg:
+</I>&gt;<i> &gt; &gt; 'def test(): pass').  Copy and paste the function in the same
+</I>&gt;<i> &gt; &gt; source window, such that there are now two functions of the same
+</I>&gt;<i> &gt; &gt; name and defined exactly the same.  Now modify the name of the
+</I>&gt;<i> &gt; &gt; copied function.  This causes a crash under gtk, and I would
+</I>&gt;<i> &gt; &gt; suspect other problems on other platforms.
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; I've spent some time debugging this, but haven't come up with a
+</I>&gt;<i> &gt; &gt; satisfactory patch.  If one adds 'assert not to.deleted' at the
+</I>&gt;<i> &gt; &gt; beginning of Tree.CopyItemTo, then instead of a crash the
+</I>&gt;<i> &gt; &gt; exception is caught and the improper error message is displayed
+</I>&gt;<i> &gt; &gt; (which I've noted in previous emails).  This indicated that a
+</I>&gt;<i> &gt; &gt; deleted item is being reused. Since Tree.CopyItemTo is only
+</I>&gt;<i> &gt; &gt; called in Tree._Update, where an unused item is reused, but there
+</I>&gt;<i> &gt; &gt; is no check to determine is the widget has been deleted.  I've
+</I>&gt;<i> &gt; &gt; fixed this, however there are still problems with the tree not
+</I>&gt;<i> &gt; &gt; removing the old item.
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; I believe that some where in the mix there is a problem being
+</I>&gt;<i> &gt; &gt; caused by the fact that Tree.items is indexed by the TreeItem.id,
+</I>&gt;<i> &gt; &gt; which is not unique in the above case, nor should it be assumed
+</I>&gt;<i> &gt; &gt; to be in general.  I think this is a problem that will require a
+</I>&gt;<i> &gt; &gt; fair amount of restructuring.
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; Glenn
+</I>&gt;<i> &gt; &gt; _______________________________________________
+</I>&gt;<i> &gt; &gt; Python-spe-dev mailing list
+</I>&gt;<i> &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; <A HREF="http://lists.berlios.de/mailman/listinfo/python-spe-dev">http://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; --
+</I>&gt;<i> &gt; <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> &gt; <A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> --
+</I>&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> <A HREF="http://pythonide.stani.be/manual/html/manual.html">http://pythonide.stani.be/manual/html/manual.html</A>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000034.html">[spe-dev] Bug in realtime.py
+</A></li>
+	<LI>Next message: <A HREF="000036.html">[spe-dev] new notebookctrl
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#35">[ date ]</a>
+              <a href="thread.html#35">[ thread ]</a>
+              <a href="subject.html#35">[ subject ]</a>
+              <a href="author.html#35">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

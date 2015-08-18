@@ -1,0 +1,2017 @@
+From s.masterov at tochka.ru  Mon Apr  2 21:29:54 2007
+From: s.masterov at tochka.ru (=?windows-1251?Q?=D1=E5=F0=E3=E5=E9?=)
+Date: Mon, 2 Apr 2007 23:29:54 +0400
+Subject: [spe-dev] Problems with v. 236
+Message-ID: <919573085.20070402232954@tochka.ru>
+
+Hi
+The problem is that I can't get auto complete feature working.
+So when i for example type os. I am not getting that nice list of
+functions and classes.
+
+
+
+From spe.stani.be at gmail.com  Tue Apr  3 02:57:46 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Tue, 03 Apr 2007 02:57:46 +0200
+Subject: [spe-dev] Away notification
+Message-ID: <4611A68A.3080304@gmail.com>
+
+Hi all,
+
+Due to a show in Boston, I will be away for a month.
+
+I might fix some errors in SPE, but don't wait for me to hunt down bugs 
+and send patches. (Thanks Mike for looking for spaces. Probably this is 
+an os related patch, so I have to study it to make sure it works on all 
+platforms. ) You can send patches on the spe-dev list, but please 
+include patch in the subject or send them to berlios. I had hoped to 
+release a new version of SPE now, but I feel it is not stable enough 
+yet. So I prefer the approach of people using svn and doing a release in 
+may when I am back. I'll try to follow the list with a distant eye.
+
+Stani
+
+BTW: Anyone in the neighbourhood of Boston is kindly invited for the 
+opening of my show, which opens on the 6th of April:
+http://www.bcaonline.org/exhibitions.htm
+I hope to visit several cities in the USA, so if you happen to live 
+there and would like to meet, send me an email privately.
+
+
+
+From spe.stani.be at gmail.com  Tue Apr  3 02:59:44 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Tue, 03 Apr 2007 02:59:44 +0200
+Subject: [spe-dev] Problems with v. 236
+In-Reply-To: <919573085.20070402232954@tochka.ru>
+References: <919573085.20070402232954@tochka.ru>
+Message-ID: <4611A700.5060501@gmail.com>
+
+Confirmed! I'll fix that as soon as I have time. You can get a partial 
+auto-complete working by pressing ctrl+space but maybe not just after 
+the dot. Anyway, this irritates me as well, so it will be solved.
+Stani
+
+?????? wrote:
+> Hi
+> The problem is that I can't get auto complete feature working.
+> So when i for example type os. I am not getting that nice list of
+> functions and classes.
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>   
+
+
+
+From spe.stani.be at gmail.com  Tue Apr  3 03:01:17 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Tue, 03 Apr 2007 03:01:17 +0200
+Subject: [spe-dev] v 236 crashes on launch
+In-Reply-To: <460B4379.7000407@personnelware.com>
+References: <460B4379.7000407@personnelware.com>
+Message-ID: <4611A75D.1000103@gmail.com>
+
+It looks like an upgrade didn't work well. Please remove any _spe folder 
+from your python path and reinstall SPE from svn.
+Stani
+
+Carl Karsten wrote:
+> svn ver 158 worked, 236 crashes with the following:
+>
+> $ python /usr/lib/python2.4/site-packages/_spe/SPE.py --debug >spedebug.txt 2>&1
+>
+> (python:13871): Gdk-CRITICAL **: gdk_draw_drawable: assertion `src != NULL' failed
+> $ python -V
+> Python 2.4.3
+>
+>
+> SPE v0.8.4.b (c)2003-2007 www.stani.be
+>
+> If spe fails to start:
+>   - type "python SPE.py --debug > debug.txt 2>&1" at the command prompt
+>     (or if you use tcsh: "python SPE.py --debug >& debug.txt")
+>   - send debug.txt with some info to spe.stani.be[at]gmail.com
+>
+> Blender support disabled (run SPE inside Blender to enable).
+> Encrypted debugging enabled.
+>
+> Spe is running in debugging mode with this configuration:
+> - platform  : linux2
+> - python    : 2.4.3
+> - wxPython  : 2.6.1.2pre
+> - interface : <default>
+> - encoding  : utf-8
+>
+> Launching application...
+> Create: Framework: menu.
+> Create: Framework: toolbar.
+> Create: Framework: statusbar.
+> Creating tabs...
+> 	Shell
+> 	Locals
+> 	Session
+> 	Output
+> 	Find
+> 	Browser
+> 	Recent
+> 	Todo
+> 	Index
+> 	Notes
+> 	Donate
+> Opening /home/carl/dev/apps/uloop/uloop3.py
+> Create: MdiSplit: <class 'sm.wxp.smdi.MdiSplitChildFrame'> uloop3.py 
+> /home/carl/dev/apps/uloop/uloop3.py
+> Create: Sdi:   <class 'sm.wxp.smdi.MdiSplitChildFrame'>.tabs
+> Traceback (most recent call last):
+>    File "/usr/lib/python2.4/site-packages/_spe/SPE.py", line 227, in ?
+>      style           = style)
+>    File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 1323, in 
+> __init__
+>      wx.App.__init__(self,redirect=not debug)
+>    File "/usr/lib/python2.4/site-packages/wx-2.6-gtk2-unicode/wx/_core.py", line 
+> 7473, in __init__
+>      self._BootstrapApp()
+>    File "/usr/lib/python2.4/site-packages/wx-2.6-gtk2-unicode/wx/_core.py", line 
+> 7125, in _BootstrapApp
+>      return _core_.PyApp__BootstrapApp(*args, **kwargs)
+>    File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 1342, in OnInit
+>      style   = self.style,
+>    File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 819, in 
+> __init__
+>      Parent.__init__(self,app=app,page=page,**options)
+>    File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 613, in 
+> __init__
+>      parentFrame     = self,
+>    File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 341, in 
+> __init__
+>      self.__finish__()
+>    File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 617, in 
+> __finish__
+>      Framework.__finish__(self)
+>    File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 439, in 
+> __finish__
+>      self.panel.__finish__()
+>    File "/usr/lib/python2.4/site-packages/_spe/Parent.py", line 125, in __finish__
+>      self.__frame__()
+>    File "/usr/lib/python2.4/site-packages/_spe/Parent.py", line 173, in __frame__
+>      self.__remember__(openFiles=self._openFiles)
+>    File "/usr/lib/python2.4/site-packages/_spe/Parent.py", line 193, in __remember__
+>      self.loadWorkspace()
+>    File "/usr/lib/python2.4/site-packages/_spe/Parent.py", line 326, in 
+> loadWorkspace
+>      verbose     = True)
+>    File "/usr/lib/python2.4/site-packages/_spe/Parent.py", line 897, in openList
+>      child=self.new(name=fileName,source=source,maximize=maximize)
+>    File "/usr/lib/python2.4/site-packages/_spe/Parent.py", line 385, in new
+>      maximize    = maximize)
+>    File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 1160, in 
+> __init__
+>      extra       = extra,
+>    File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 917, in 
+> __init__
+>      extra           = extra,
+>    File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 341, in 
+> __init__
+>      self.__finish__()
+>    File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 927, in 
+> __finish__
+>      Framework.__finish__(self)
+>    File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/smdi.py", line 439, in 
+> __finish__
+>      self.panel.__finish__()
+>    File "/usr/lib/python2.4/site-packages/_spe/Child.py", line 129, in __finish__
+>      self.__source__(self._fileName,self._source)
+>    File "/usr/lib/python2.4/site-packages/_spe/Child.py", line 246, in __source__
+>      menu        = self.parentFrame.menuBar.edit)
+>    File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/stc.py", line 95, in __init__
+>      self.update()
+>    File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/stc.py", line 415, in update
+>      if self.getint('ViewLineNumbers'):
+>    File "/usr/lib/python2.4/site-packages/_spe/sm/wxp/stc.py", line 389, in getint
+>      if eval(self.config.get('Default',name)):
+>    File "/usr/lib/python2.4/ConfigParser.py", line 520, in get
+>      raise NoOptionError(option, section)
+> ConfigParser.NoOptionError: No option 'viewlinenumbers' in section: 'Default'
+>
+> Carl K
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>   
+
+
+
+From spe.stani.be at gmail.com  Tue Apr  3 03:02:14 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Tue, 03 Apr 2007 03:02:14 +0200
+Subject: [spe-dev] Opening filenames with spaces
+In-Reply-To: <460A89EB.7070303@qvii.com>
+References: <E55F31F0-C936-4263-BEDD-0B09EDFBCDFB@mac.com>	<460A8386.8050802@qvii.com>
+	<460A89EB.7070303@qvii.com>
+Message-ID: <4611A796.7080204@gmail.com>
+
+This needs to be tested on linux and mac.
+Stani
+
+Mike Rooney wrote:
+> Mike Rooney wrote:
+>   
+>> John Finch wrote:
+>>   
+>>     
+>>> Interesting! I had the spaces problem on Ubuntu but Stani fixed it. 
+>>> Must have been an OS specific fix?
+>>> Good catch!
+>>>     
+>>>       
+>> Okay, I had trouble duplicating it but now I got it again. It seems to 
+>> be some weird issue with double
+>> quotes:
+>>
+>>  ""C:\Documents and Settings\mxr\Desktop\qvi_inspect\managetab.py""
+>>  C:\Python25\python.exe: can't open file 'C:\Documents': [Errno 2] No 
+>> such file or directory
+>>  Script terminated.
+>>
+>> As you might notice the string has quotes inside of itself. Windows 
+>> returns paths as quoted
+>> strings when they contain spaces, so it might be something to do with 
+>> that? Not sure why
+>> it seems to work sometimes, though. Unfortunately there was no full 
+>> traceback from SPE
+>> or it would have been super easy to follow. Oh well, I will try to find 
+>> it anyway!
+>>   
+>>     
+>
+> I fixed it! First of all, my confusion was because I didn't understand 
+> the problem. SPE can open files with spaces in their path just fine, it 
+> was that it can't RUN them. That behavior is consistent for me here on 
+> WinXP. The fix was changing line 680 of Parent.py to:
+>
+>         params          = { 'file':         
+> info.path(child.fileName).strip('"'),
+>
+> Four lines down, in the string format, quotes are wrapped around the 
+> 'file' entry, so it assumes they weren't already there. But Windows puts 
+> them in for you if the path contains spaces. I am not sure if this will 
+> have other consequences, but I can run files with and without spaces in 
+> their paths now, with that fix.
+>
+> - Mike
+>   
+>>   
+>>     
+>>> On Mar 26, 2007, at 9:33 AM, Rooney, Mike (ext. 324) wrote:
+>>>
+>>>     
+>>>       
+>>>> Hello,
+>>>>
+>>>> Is anyone else having a problem opening filenames containing spaces?
+>>>> For example on Windows XP the desktop is located at typically:
+>>>> C:\documents and settings\user\desktop. When I try to open a file there
+>>>> I get (in the Output window):
+>>>>
+>>>>  ""C:\Documents and Settings\mxr\Desktop\smarttree-trunk\smarttree.pyw""
+>>>> C:\Python25\python.exe: can't open file 'C:\Documents': [Errno 2] No 
+>>>> such file or directory
+>>>> Script terminated.
+>>>>
+>>>> Also in reporting this I have found that copying from the Output window
+>>>> is a little awkward, Ctrl+C does not seem to work, so my next instinct
+>>>> was to right-click and select copy but no menu came up. I had to go to
+>>>> Edit -> Copy. Not a huge deal, just something I noticed.
+>>>>
+>>>> I assume this is not really system specific but my specs are SPE
+>>>> revision 236, python 2.5, wxPython 2.8.1.1, on Windows XP.
+>>>>
+>>>> Thanks for your time,
+>>>> Mike
+>>>>
+>>>> --
+>>>> http://pythonide.stani.be
+>>>> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+>>>> Python-spe-dev at lists.berlios.de <mailto:Python-spe-dev at lists.berlios.de>
+>>>> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>>>       
+>>>>         
+>>> ------------------------------------------------------------------------
+>>>
+>>> --
+>>> http://pythonide.stani.be
+>>> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+>>> Python-spe-dev at lists.berlios.de
+>>> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>>   
+>>>     
+>>>       
+>> --
+>> http://pythonide.stani.be
+>> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+>> Python-spe-dev at lists.berlios.de
+>> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>   
+>>     
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>   
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070403/dc2031f4/attachment.html>
+
+From spe.stani.be at gmail.com  Tue Apr  3 03:04:00 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Tue, 03 Apr 2007 03:04:00 +0200
+Subject: [spe-dev] Bug Fixed: View as notebook/columns/rows
+In-Reply-To: <2ADAB7E3-9D56-4D69-9986-E2CE11A36053@mac.com>
+References: <45FC6D98.5050609@gmail.com>	<B5C9EC4A-4316-4D03-A9CE-53C15B93D727@mac.com>	<45FC7DAE.4020706@gmail.com>	<9A7646C3-C388-495A-82C4-EC9BACA9CA89@mac.com>	<45FD5314.5050505@gmail.com>	<BADE9D09-A144-463D-8BA9-539B55F833CC@mac.com>	<45FD75AD.1090806@gmail.com>	<55E1138A-C279-4308-A14D-62C27F138737@mac.com>	<45FE875E.4040003@gmail.com>
+	<2ADAB7E3-9D56-4D69-9986-E2CE11A36053@mac.com>
+Message-ID: <4611A800.1060307@gmail.com>
+
+Hi John,
+I don't understand. If you define a method "parentPanel.as_notebook", 
+how can it be missing?
+Stani
+
+John Finch wrote:
+> Nope, sorry but it doesn't work Stani. Here's the Traceback:
+>
+> Traceback (most recent call last):
+>   File "/Users/johnfinch/_spe/Menu.py", line 420, in menu_as_notebook
+>     self.parentPanel.as_notebook(event)
+> AttributeError: 'Panel' object has no attribute 'as_notebook'
+>
+> On Mar 19, 2007, at 8:51 AM, Stani's Python Editor wrote:
+>
+>>>      def as_notebook(self,event):
+>>>
+>>>          if hasattr(self.frame,'Tile'):
+>>>
+>>>              self.app.childActive.frame.Maximize()
+>>>
+>>>          else:
+>>>
+>>>              tabs  =  getattr(self.frame,'tabs',None)
+>>>
+>>>              if tabs:
+>>>
+>>>                  # Have to set selection to first tab and de-Tile 
+>>> before
+>>>
+>>>                  # starting iterations to show sidebars etc
+>>>
+>>>                  tabs.Tile(False)
+>>>
+>>>                  for child in app.children:
+>>>
+>>>                      child.showSidebar()
+>>>
+>>>                  tabs.ShowTabs(True)
+>>>
+>>>                  tabs.SetSelection(0)
+>>>
+>
+> ------------------------------------------------------------------------
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>   
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070403/ecfcb456/attachment.html>
+
+From johnfinch at mac.com  Tue Apr  3 03:05:41 2007
+From: johnfinch at mac.com (John Finch)
+Date: Mon, 2 Apr 2007 21:05:41 -0400
+Subject: [spe-dev] Away notification
+In-Reply-To: <4611A68A.3080304@gmail.com>
+References: <4611A68A.3080304@gmail.com>
+Message-ID: <E1485014-19BD-4F2C-868D-8E363D2C3FB2@mac.com>
+
+Congratulations! Hope you have a great time Stani. We'll keep up the  
+group in your absence.
+
+John
+
+On Apr 2, 2007, at 8:57 PM, Stani's Python Editor wrote:
+
+> Hi all,
+>
+> Due to a show in Boston, I will be away for a month.
+>
+> I might fix some errors in SPE, but don't wait for me to hunt down  
+> bugs
+> and send patches. (Thanks Mike for looking for spaces. Probably  
+> this is
+> an os related patch, so I have to study it to make sure it works on  
+> all
+> platforms. ) You can send patches on the spe-dev list, but please
+> include patch in the subject or send them to berlios. I had hoped to
+> release a new version of SPE now, but I feel it is not stable enough
+> yet. So I prefer the approach of people using svn and doing a  
+> release in
+> may when I am back. I'll try to follow the list with a distant eye.
+>
+> Stani
+>
+> BTW: Anyone in the neighbourhood of Boston is kindly invited for the
+> opening of my show, which opens on the 6th of April:
+> http://www.bcaonline.org/exhibitions.htm
+> I hope to visit several cities in the USA, so if you happen to live
+> there and would like to meet, send me an email privately.
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+
+
+
+From johnfinch at mac.com  Tue Apr  3 03:08:24 2007
+From: johnfinch at mac.com (John Finch)
+Date: Mon, 2 Apr 2007 21:08:24 -0400
+Subject: [spe-dev] Bug Fixed: View as notebook/columns/rows
+In-Reply-To: <4611A800.1060307@gmail.com>
+References: <45FC6D98.5050609@gmail.com>
+	<B5C9EC4A-4316-4D03-A9CE-53C15B93D727@mac.com>
+	<45FC7DAE.4020706@gmail.com>
+	<9A7646C3-C388-495A-82C4-EC9BACA9CA89@mac.com>
+	<45FD5314.5050505@gmail.com>
+	<BADE9D09-A144-463D-8BA9-539B55F833CC@mac.com>
+	<45FD75AD.1090806@gmail.com>
+	<55E1138A-C279-4308-A14D-62C27F138737@mac.com>
+	<45FE875E.4040003@gmail.com>
+	<2ADAB7E3-9D56-4D69-9986-E2CE11A36053@mac.com>
+	<4611A800.1060307@gmail.com>
+Message-ID: <8444ECD6-4D39-49FC-BFBB-90ABF5FE9F0D@mac.com>
+
+I'll look into it some more :)
+
+
+On Apr 2, 2007, at 9:04 PM, Stani's Python Editor wrote:
+
+> Hi John,
+> I don't understand. If you define a method  
+> "parentPanel.as_notebook", how can it be missing?
+> Stani
+>
+> John Finch wrote:
+>> Nope, sorry but it doesn't work Stani. Here's the Traceback:
+>>
+>> Traceback (most recent call last):
+>>   File "/Users/johnfinch/_spe/Menu.py", line 420, in menu_as_notebook
+>>     self.parentPanel.as_notebook(event)
+>> AttributeError: 'Panel' object has no attribute 'as_notebook'
+>>
+>> On Mar 19, 2007, at 8:51 AM, Stani's Python Editor wrote:
+>>
+>>>>      def as_notebook(self,event):
+>>>>
+>>>>          if hasattr(self.frame,'Tile'):
+>>>>
+>>>>              self.app.childActive.frame.Maximize()
+>>>>
+>>>>          else:
+>>>>
+>>>>              tabs  =  getattr(self.frame,'tabs',None)
+>>>>
+>>>>              if tabs:
+>>>>
+>>>>                  # Have to set selection to first tab and de- 
+>>>> Tile before
+>>>>
+>>>>                  # starting iterations to show sidebars etc
+>>>>
+>>>>                  tabs.Tile(False)
+>>>>
+>>>>                  for child in app.children:
+>>>>
+>>>>                      child.showSidebar()
+>>>>
+>>>>                  tabs.ShowTabs(True)
+>>>>
+>>>>                  tabs.SetSelection(0)
+>>>>
+>>
+>> --
+>> http://pythonide.stani.be
+>> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+>> Python-spe-dev at lists.berlios.de
+>> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070402/edbf9acc/attachment.html>
+
+From spe.stani.be at gmail.com  Tue Apr  3 03:28:11 2007
+From: spe.stani.be at gmail.com (SPE Stani's Python Editor)
+Date: Tue, 3 Apr 2007 03:28:11 +0200
+Subject: [spe-dev] SPE "Explore" Tab shows commented elements
+In-Reply-To: <4f4806ee0703262058n73905b67qdde14ddc7abfb186@mail.gmail.com>
+References: <4f4806ee0703262058n73905b67qdde14ddc7abfb186@mail.gmail.com>
+Message-ID: <2078a7ad0704021828u7f8b5fe0l52b73d9906c7b9e@mail.gmail.com>
+
+Hi Mike,
+
+
+On 3/27/07, Mike Rooney <mrooney at gmail.com> wrote:
+> Hello,
+>
+> I noticed that SPE will show imports, functions, and classes that are
+> triple-quoted. Is this by design? I noticed it when making a TODO list
+> of things to implement, and found it to be kind of annoying, but maybe
+> it is intended. See the attached screen shot.
+This is because the code analysis is kept as light as possible, to not
+consume too much cpu and memory. But of course there is always room
+for improvement.
+>
+> Also, is there no way to have these lists sorted, at least the methods
+> on a class? Browsing the methods of some wx classes is pretty nasty
+> without alphabetical order. Personally, I think single clicking on
+> anything in the Explore tab should go to its location, double-clicking
+> should expand/collapse it if it has children (this will also go to it
+> as a single-click will be processed), and right clicking should
+> display a menu for sorting by file order or alphabetical order. The
+> double clicking behavior I mentioned is consistent with most trees,
+> and the single clicking is how other explorers in IDEs I have used
+> behave. Any thoughts on this? Maybe it should have been a separate
+> email...
+Sorting and context menus are certainly doable if you know wxPython.
+Probably more easily for todo and index, then for explore. So it is
+more waiting until someone wants to contribute this code. For myself
+it is not top priority, but I am open to accept patches on this.
+
+> Anyway I have been having lots of fun with this great editor!
+Good!
+
+Stani
+
+>
+> --
+> Mike Rooney
+> mrooney at gmail.com
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>
+>
+
+
+-- 
+http://pythonide.stani.be
+
+
+From g6m3xcl02 at sneakemail.com  Sat Apr  7 04:43:50 2007
+From: g6m3xcl02 at sneakemail.com (g6m3xcl02 at sneakemail.com)
+Date: Fri, 6 Apr 2007 19:43:50 -0700
+Subject: [spe-dev] Auto-un-indention feature
+Message-ID: <16596-30071@sneakemail.com>
+
+I am interested in working on a patch for an auto-un-indentation feature.
+Specifically, if you type "else:" (followed by a carriage return), I think
+it should match the most recent "if:" block level, and the same for
+try/except blocks. Would others find this useful?
+
+I'm new to the SPE codebase. Could someone help me get started by pointing
+me to relevant modules?
+
+Cheers,
+Carver
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070406/3e0a0dd4/attachment.html>
+
+From mrooney at gmail.com  Sat Apr  7 15:10:53 2007
+From: mrooney at gmail.com (Mike Rooney)
+Date: Sat, 7 Apr 2007 09:10:53 -0400
+Subject: [spe-dev] Auto-un-indention feature
+In-Reply-To: <16596-30071@sneakemail.com>
+References: <16596-30071@sneakemail.com>
+Message-ID: <4f4806ee0704070610s34def798l3bddb079b03ccfd1@mail.gmail.com>
+
+Hi Carver,
+
+I am not sure if I understand this feature. When I type an else:
+followed by enter it puts me where I think it should (4 spaces in for
+me with my settings). But I guess that is auto-indent. I am not sure I
+understand auto-un-indent. Can you explain this?
+
+You probably want to look in Child.py but I am not completely sure, I
+am new to the codebase as well. If you find a good place for code like
+this please let me know!
+
+- Mike
+
+On 4/6/07, g6m3xcl02 at sneakemail.com <g6m3xcl02 at sneakemail.com> wrote:
+> I am interested in working on a patch for an auto-un-indentation feature.
+> Specifically, if you type "else:" (followed by a carriage return), I think
+> it should match the most recent "if:" block level, and the same for
+> try/except blocks. Would others find this useful?
+>
+> I'm new to the SPE codebase. Could someone help me get started by pointing
+> me to relevant modules?
+>
+> Cheers,
+>  Carver
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>
+
+
+-- 
+Mike Rooney
+mrooney at gmail.com
+
+
+From g6m3xcl02 at sneakemail.com  Tue Apr 10 02:35:36 2007
+From: g6m3xcl02 at sneakemail.com (g6m3xcl02 at sneakemail.com)
+Date: Mon, 9 Apr 2007 17:35:36 -0700
+Subject: [spe-dev] Auto-un-indention feature
+In-Reply-To: <4f4806ee0704070610s34def798l3bddb079b03ccfd1@mail.gmail.com>
+References: <16596-30071@sneakemail.com>
+	<4f4806ee0704070610s34def798l3bddb079b03ccfd1@mail.gmail.com>
+Message-ID: <17995-00399@sneakemail.com>
+
+Hi Mike,
+
+Sure, let me clarify by giving an example.  If I type a 4-line if/else
+block, I want to only type the line of code and hit enter every time.  I
+never want to hit tab, and I never want to hit Backspace in order to
+"un-tab."  When I follow this pattern, the 'else:' command ends up indented
+too far (see code below).  I want SPE to recognize the else: command (or
+elif) and back up the whole line, and the block that follows it.  I imagine
+that the best trigger moment for this is the carriage return after typing
+'else:', which would identify the code in the preceding line and then
+"un-indent" it.
+
+Current result of typing 4 lines without manually dealing with indentation:
+
+if foo == bar:
+    foobar()
+    else:
+        fubar()
+
+Desired result of typing 4 lines without manually dealing with indentation:
+
+if foo == bar:
+    foobar()
+else:
+    fubar()
+
+The current workaround is typing Backspace or Shift-Tab before starting the
+else command.  That is the keystroke I want to avoid.  It seems trivial
+written in these terms, but it is something I miss very much from other
+editors.  I'm coming from the Eclipse environment, and so I am spoiled by a
+mature IDE.
+
+Thanks to Mike's suggestion of poking around Child.py, I followed the trail
+to sm.wxp.PythonBaseSTC which extends wxp.StyledTextCtrl .  The right place
+to add this feature appears to be OnKeyDown(self, event), so I'm working on
+a patch that would apply to that file.  I will post it to berlios as soon as
+it is worthy of testing.
+
+Cheers,
+Carver
+
+On 4/7/07, Mike Rooney mrooney-at-......... |spe-dev mailing list| <
+...> wrote:
+>
+> Hi Carver,
+>
+> I am not sure if I understand this feature. When I type an else:
+> followed by enter it puts me where I think it should (4 spaces in for
+> me with my settings). But I guess that is auto-indent. I am not sure I
+> understand auto-un-indent. Can you explain this?
+>
+> You probably want to look in Child.py but I am not completely sure, I
+> am new to the codebase as well. If you find a good place for code like
+> this please let me know!
+>
+> - Mike
+>
+> On 4/6/07, g6m3xcl02 at sneakemail.com <g6m3xcl02 at sneakemail.com> wrote:
+> > I am interested in working on a patch for an auto-un-indentation
+> feature.
+> > Specifically, if you type "else:" (followed by a carriage return), I
+> think
+> > it should match the most recent "if:" block level, and the same for
+> > try/except blocks. Would others find this useful?
+> >
+> > I'm new to the SPE codebase. Could someone help me get started by
+> pointing
+> > me to relevant modules?
+> >
+> > Cheers,
+> >  Carver
+> > --
+> > http://pythonide.stani.be
+> > svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> > Python-spe-dev at lists.berlios.de
+> > https://lists.berlios.de/mailman/listinfo/python-spe-dev
+> >
+> >
+>
+>
+> --
+> Mike Rooney
+> mrooney at .........
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070409/83d4bf84/attachment.html>
+
+From mrooney at gmail.com  Tue Apr 10 03:15:09 2007
+From: mrooney at gmail.com (Mike Rooney)
+Date: Mon, 9 Apr 2007 21:15:09 -0400
+Subject: [spe-dev] Auto-un-indention feature
+In-Reply-To: <17995-00399@sneakemail.com>
+References: <16596-30071@sneakemail.com>
+	<4f4806ee0704070610s34def798l3bddb079b03ccfd1@mail.gmail.com>
+	<17995-00399@sneakemail.com>
+Message-ID: <4f4806ee0704091815l50c8cd94o887122b3ae7eafa5@mail.gmail.com>
+
+Ahhh, I understand now. I too come from Eclipse and I am missing a
+couple things, specifically "mark occurrences" from the PyDev
+extensions and the ability to have a hot key to go to the next
+occurrence of the current selection.
+
+The auto un indent does sound like it would be a nice addition and I
+have seen it before. I think you are right about OnKeyDown, it would
+probably be easiest to check for a colon and then see if the previous
+four characters are "else", and also ensure that nothing but
+spaces/tabs exist before it, so that people like myself who write
+pseudo code in comments don't experience weird behavior in odd cases.
+
+Another thing I miss is the auto "import", so that when you type "from
+module" and then hit a space, it automatically puts in "import"
+followed by a space. This is another thing that sounds trivial but is
+so nice in practice.
+
+Good luck implementing the auto-un-indent!
+
+- Mike
+
+On 4/9/07, g6m3xcl02 at sneakemail.com <g6m3xcl02 at sneakemail.com> wrote:
+> Hi Mike,
+>
+> Sure, let me clarify by giving an example.  If I type a 4-line if/else
+> block, I want to only type the line of code and hit enter every time.  I
+> never want to hit tab, and I never want to hit Backspace in order to
+> "un-tab."  When I follow this pattern, the 'else:' command ends up indented
+> too far (see code below).  I want SPE to recognize the else: command (or
+> elif) and back up the whole line, and the block that follows it.  I imagine
+> that the best trigger moment for this is the carriage return after typing
+> 'else:', which would identify the code in the preceding line and then
+> "un-indent" it.
+>
+> Current result of typing 4 lines without manually dealing with indentation:
+>
+> if foo == bar:
+>     foobar()
+>     else:
+>         fubar()
+>
+> Desired result of typing 4 lines without manually dealing with indentation:
+>
+> if foo == bar:
+>      foobar()
+> else:
+>      fubar()
+>
+> The current workaround is typing Backspace or Shift-Tab before starting the
+> else command.  That is the keystroke I want to avoid.  It seems trivial
+> written in these terms, but it is something I miss very much from other
+> editors.  I'm coming from the Eclipse environment, and so I am spoiled by a
+> mature IDE.
+>
+> Thanks to Mike's suggestion of poking around Child.py, I followed the trail
+> to sm.wxp.PythonBaseSTC which extends wxp.StyledTextCtrl .  The right place
+> to add this feature appears to be OnKeyDown(self, event), so I'm working on
+> a patch that would apply to that file.  I will post it to berlios as soon as
+> it is worthy of testing.
+>
+> Cheers,
+> Carver
+>
+>
+> On 4/7/07, Mike Rooney mrooney-at-......... |spe-dev mailing list| < ...>
+> wrote:
+> >
+> > Hi Carver,
+> >
+> > I am not sure if I understand this feature. When I type an else:
+> > followed by enter it puts me where I think it should (4 spaces in for
+> > me with my settings). But I guess that is auto-indent. I am not sure I
+> > understand auto-un-indent. Can you explain this?
+> >
+> > You probably want to look in Child.py but I am not completely sure, I
+> > am new to the codebase as well. If you find a good place for code like
+> > this please let me know!
+> >
+> > - Mike
+> >
+> > On 4/6/07, g6m3xcl02 at sneakemail.com <g6m3xcl02 at sneakemail.com> wrote:
+> > > I am interested in working on a patch for an auto-un-indentation
+> feature.
+> > > Specifically, if you type "else:" (followed by a carriage return), I
+> think
+> > > it should match the most recent "if:" block level, and the same for
+> > > try/except blocks. Would others find this useful?
+> > >
+> > > I'm new to the SPE codebase. Could someone help me get started by
+> pointing
+> > > me to relevant modules?
+> > >
+> > > Cheers,
+> > >  Carver
+> > > --
+> > > http://pythonide.stani.be
+> > > svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> > > Python-spe-dev at lists.berlios.de
+> > >
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+> > >
+> > >
+> >
+> >
+> > --
+> > Mike Rooney
+> > mrooney at .........
+> > --
+> > http://pythonide.stani.be
+> > svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> > Python-spe-dev at lists.berlios.de
+> >
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+> >
+>
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>
+
+
+-- 
+Mike Rooney
+mrooney at gmail.com
+
+
+From spe.stani.be at gmail.com  Tue Apr 10 05:22:25 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Mon, 09 Apr 2007 23:22:25 -0400
+Subject: [spe-dev] Auto-un-indention feature
+In-Reply-To: <17995-00399@sneakemail.com>
+References: <16596-30071@sneakemail.com>	<4f4806ee0704070610s34def798l3bddb079b03ccfd1@mail.gmail.com>
+	<17995-00399@sneakemail.com>
+Message-ID: <461B02F1.6000203@gmail.com>
+
+Hi Carver,
+I am travelling around so not really working on SPE until May, but go 
+ahead: it is a nice idea. You have indeed to implement it with the 
+OnKeyDown. Define a function like needsUnindent similar to:
+            if stripped and 
+self.needsIndent(firstWord,lastChar=stripped[-1]):
+                padding += self.indentation
+            elif self.needsDedent(firstWord):
+                padding  = padding[:-self.tabWidth]
+
+Stani
+
+g6m3xcl02 at sneakemail.com wrote:
+> Hi Mike,
+>
+> Sure, let me clarify by giving an example.  If I type a 4-line if/else 
+> block, I want to only type the line of code and hit enter every time.  
+> I never want to hit tab, and I never want to hit Backspace in order to 
+> "un-tab."  When I follow this pattern, the 'else:' command ends up 
+> indented too far (see code below).  I want SPE to recognize the else: 
+> command (or elif) and back up the whole line, and the block that 
+> follows it.  I imagine that the best trigger moment for this is the 
+> carriage return after typing 'else:', which would identify the code in 
+> the preceding line and then "un-indent" it.
+>
+> Current result of typing 4 lines without manually dealing with 
+> indentation:
+>
+> if foo == bar:
+>     foobar()
+>     else:
+>         fubar()
+>
+> Desired result of typing 4 lines without manually dealing with 
+> indentation:
+>
+> if foo == bar:
+>     foobar()
+> else:
+>     fubar()
+>
+> The current workaround is typing Backspace or Shift-Tab before 
+> starting the else command.  That is the keystroke I want to avoid.  It 
+> seems trivial written in these terms, but it is something I miss very 
+> much from other editors.  I'm coming from the Eclipse environment, and 
+> so I am spoiled by a mature IDE.
+>
+> Thanks to Mike's suggestion of poking around Child.py, I followed the 
+> trail to sm.wxp.PythonBaseSTC which extends wxp.StyledTextCtrl .  The 
+> right place to add this feature appears to be OnKeyDown(self, event), 
+> so I'm working on a patch that would apply to that file.  I will post 
+> it to berlios as soon as it is worthy of testing.
+>
+> Cheers,
+> Carver
+>
+> On 4/7/07, *Mike Rooney mrooney-at-......... 
+> <http://mrooney-at-.........> |spe-dev mailing list|* < ... 
+> <mailto:...>> wrote:
+>
+>     Hi Carver,
+>
+>     I am not sure if I understand this feature. When I type an else:
+>     followed by enter it puts me where I think it should (4 spaces in for
+>     me with my settings). But I guess that is auto-indent. I am not sure I
+>     understand auto-un-indent. Can you explain this?
+>
+>     You probably want to look in Child.py but I am not completely sure, I
+>     am new to the codebase as well. If you find a good place for code like
+>     this please let me know!
+>
+>     - Mike
+>
+>     On 4/6/07, g6m3xcl02 at sneakemail.com
+>     <mailto:g6m3xcl02 at sneakemail.com> <g6m3xcl02 at sneakemail.com
+>     <mailto:g6m3xcl02 at sneakemail.com>> wrote:
+>     > I am interested in working on a patch for an auto-un-indentation
+>     feature.
+>     > Specifically, if you type "else:" (followed by a carriage
+>     return), I think
+>     > it should match the most recent "if:" block level, and the same for
+>     > try/except blocks. Would others find this useful?
+>     >
+>     > I'm new to the SPE codebase. Could someone help me get started
+>     by pointing
+>     > me to relevant modules?
+>     >
+>     > Cheers,
+>     >  Carver
+>     > --
+>     > http://pythonide.stani.be
+>     > svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+>     > Python-spe-dev at lists.berlios.de
+>     <mailto:Python-spe-dev at lists.berlios.de>
+>     > https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>     <https://lists.berlios.de/mailman/listinfo/python-spe-dev>
+>     >
+>     >
+>
+>
+>     --
+>     Mike Rooney
+>     mrooney at ......... <mailto:mrooney at .........>
+>     --
+>     http://pythonide.stani.be
+>     svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+>     Python-spe-dev at lists.berlios.de
+>     <mailto:Python-spe-dev at lists.berlios.de>
+>     https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>
+> ------------------------------------------------------------------------
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>   
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070409/e772b3b9/attachment.html>
+
+From g6m3xcl02 at sneakemail.com  Tue Apr 10 07:29:19 2007
+From: g6m3xcl02 at sneakemail.com (g6m3xcl02 at sneakemail.com)
+Date: Mon, 9 Apr 2007 22:29:19 -0700
+Subject: [spe-dev] Auto-un-indention feature
+In-Reply-To: <461B02F1.6000203@gmail.com>
+References: <16596-30071@sneakemail.com>
+	<4f4806ee0704070610s34def798l3bddb079b03ccfd1@mail.gmail.com>
+	<17995-00399@sneakemail.com> <461B02F1.6000203@gmail.com>
+Message-ID: <23550-20633@sneakemail.com>
+
+Fantastic, thanks for your help, Mike and Stani!
+
+I have a working prototype now, and it appears to be safe to apply this
+patch to revision 236 for testing.
+http://developer.berlios.de/patch/?func=detailpatch&patch_id=1952&group_id=4161
+
+As a test, try typing this code exactly as is:
+if 1:
+a = 2
+elif 3:
+b = 4
+else:
+c = 5
+
+Notice that it indents a, b and c (as it did before), but it also un-indents
+the elif and the else.  A known "design flaw" is that nested if/else blocks
+still require some manual un-indentation, because of genuine ambiguity.
+There are multiple 'legal' indentations that have different meanings when
+compiled.  (ie~ the following three commands make the indentation of the 4th
+command ambiguous: if, if, elif, else)
+
+Cheers,
+Carver
+
+On 4/9/07, Stani's Python Editor spe.stani.be-at-......... |spe-dev mailing
+list| <...> wrote:
+>
+>  Hi Carver,
+> I am travelling around so not really working on SPE until May, but go
+> ahead: it is a nice idea. You have indeed to implement it with the
+> OnKeyDown. Define a function like needsUnindent similar to:
+>             if stripped and self.needsIndent
+> (firstWord,lastChar=stripped[-1]):
+>                 padding += self.indentation
+>             elif self.needsDedent(firstWord):
+>                 padding  = padding[:-self.tabWidth]
+>
+> Stani
+>
+> g6m3xcl02 at sneakemail.com wrote:
+>
+> Hi Mike,
+>
+> Sure, let me clarify by giving an example.  If I type a 4-line if/else
+> block, I want to only type the line of code and hit enter every time.  I
+> never want to hit tab, and I never want to hit Backspace in order to
+> "un-tab."  When I follow this pattern, the 'else:' command ends up indented
+> too far (see code below).  I want SPE to recognize the else: command (or
+> elif) and back up the whole line, and the block that follows it.  I imagine
+> that the best trigger moment for this is the carriage return after typing
+> 'else:', which would identify the code in the preceding line and then
+> "un-indent" it.
+>
+> Current result of typing 4 lines without manually dealing with
+> indentation:
+>
+> if foo == bar:
+>     foobar()
+>     else:
+>         fubar()
+>
+> Desired result of typing 4 lines without manually dealing with
+> indentation:
+>
+> if foo == bar:
+>     foobar()
+> else:
+>     fubar()
+>
+> The current workaround is typing Backspace or Shift-Tab before starting
+> the else command.  That is the keystroke I want to avoid.  It seems trivial
+> written in these terms, but it is something I miss very much from other
+> editors.  I'm coming from the Eclipse environment, and so I am spoiled by a
+> mature IDE.
+>
+> Thanks to Mike's suggestion of poking around Child.py, I followed the
+> trail to sm.wxp.PythonBaseSTC which extends wxp.StyledTextCtrl .  The
+> right place to add this feature appears to be OnKeyDown(self, event), so I'm
+> working on a patch that would apply to that file.  I will post it to berlios
+> as soon as it is worthy of testing.
+>
+> Cheers,
+> Carver
+>
+> On 4/7/07, *Mike Rooney mrooney-at-......... |spe-dev mailing list|* < ...>
+> wrote:
+>
+> Hi Carver,
+>
+> I am not sure if I understand this feature. When I type an else:
+> followed by enter it puts me where I think it should (4 spaces in for
+> me with my settings). But I guess that is auto-indent. I am not sure I
+> understand auto-un-indent. Can you explain this?
+>
+> You probably want to look in Child.py but I am not completely sure, I
+> am new to the codebase as well. If you find a good place for code like
+> this please let me know!
+>
+> - Mike
+>
+> On 4/6/07, g6m3xcl02 at sneakemail.com <g6m3xcl02 at sneakemail.com> wrote:
+> > I am interested in working on a patch for an auto-un-indentation
+> feature.
+> > Specifically, if you type "else:" (followed by a carriage return), I
+> think
+> > it should match the most recent "if:" block level, and the same for
+> > try/except blocks. Would others find this useful?
+> >
+> > I'm new to the SPE codebase. Could someone help me get started by
+> pointing
+> > me to relevant modules?
+> >
+> > Cheers,
+> >  Carver
+> > --
+> > http://pythonide.stani.be
+> > svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> > Python-spe-dev at lists.berlios.de
+> > https://lists.berlios.de/mailman/listinfo/python-spe-dev
+> >
+> >
+>
+>
+> --
+> Mike Rooney
+> mrooney at .........
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>
+> ------------------------------
+>
+> --http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.dehttps://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070409/6250b45b/attachment.html>
+
+From g6m3xcl02 at sneakemail.com  Wed Apr 11 10:05:17 2007
+From: g6m3xcl02 at sneakemail.com (g6m3xcl02 at sneakemail.com)
+Date: Wed, 11 Apr 2007 01:05:17 -0700
+Subject: [spe-dev] The dirty flag and undo
+Message-ID: <27220-60073@sneakemail.com>
+
+Just a quick update - the dirty flag bothered me, so I submitted a patch for
+it:
+https://developer.berlios.de/patch/?func=detailpatch&patch_id=1954&group_id=4161
+
+Summary of functionality:
+Previously, the source tab was marked dirty (with an asterisk) after any
+changes, and the only way to remove it was by saving.  Typing ctrl-z back to
+the original file would not get rid of the dirty flag.
+Now, using the above patch, if the source is either undone or redone back to
+the saved state, the dirty flag will disappear.
+
+Try applying the patch, and test it out.
+(For svn newbies out there, download TortoiseSVN.  It makes applying patches
+to _spe/ a simple point-and-click operation...).
+
+Cheers,
+Carver
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070411/bb8c2b30/attachment.html>
+
+From carl at personnelware.com  Thu Apr 12 00:26:22 2007
+From: carl at personnelware.com (Carl Karsten)
+Date: Wed, 11 Apr 2007 17:26:22 -0500
+Subject: [spe-dev] pannel resizer ui issue
+Message-ID: <461D608E.8090409@personnelware.com>
+
+2 things changed 'reciently' (been a few months sense I grabbed an update)
+
+1, the left panel can now be resized to any size (good)
+2. as you are resizing, there is a gray bar to show the size (good)
+
+3. the mouse doesn't tun into a double headed arrow when you are over the thing 
+that you grab to resize (bad)  (same with the lower panel.  (are the areas 
+called panels?)
+
+It also seems the thing is 'small' - like maybe a width of 1.  I am guessing if 
+someone tries to debug 3 they will see everything I have seen.
+
+Carl K
+
+
+From carl at personnelware.com  Thu Apr 12 01:56:21 2007
+From: carl at personnelware.com (Carl Karsten)
+Date: Wed, 11 Apr 2007 18:56:21 -0500
+Subject: [spe-dev] pannel resizer ui issue
+In-Reply-To: <461D608E.8090409@personnelware.com>
+References: <461D608E.8090409@personnelware.com>
+Message-ID: <461D75A5.6020108@personnelware.com>
+
+Carl Karsten wrote:
+> 2 things changed 'reciently' (been a few months sense I grabbed an update)
+> 
+> 1, the left panel can now be resized to any size (good)
+> 2. as you are resizing, there is a gray bar to show the size (good)
+> 
+> 3. the mouse doesn't tun into a double headed arrow when you are over the thing 
+> that you grab to resize (bad)  (same with the lower panel.  (are the areas 
+> called panels?)
+> 
+> It also seems the thing is 'small' - like maybe a width of 1.  I am guessing if 
+> someone tries to debug 3 they will see everything I have seen.
+
+Also, this seems odd: I find the spot to grab, I move a bit and see the gray 
+resize bar - I let go, careful to not move the mouse, the panel's resize.  Now I 
+click, but I am no longer over the thing to grab (which is different than the 
+few apps I just checked)
+
+Carl K
+
+
+From mxr at qvii.com  Thu Apr 12 14:59:40 2007
+From: mxr at qvii.com (Mike Rooney)
+Date: Thu, 12 Apr 2007 08:59:40 -0400
+Subject: [spe-dev] The dirty flag and undo
+In-Reply-To: <27220-60073@sneakemail.com>
+References: <27220-60073@sneakemail.com>
+Message-ID: <461E2D3C.2000700@qvii.com>
+
+g6m3xcl02 at sneakemail.com wrote:
+> Just a quick update - the dirty flag bothered me, so I submitted a 
+> patch for it:
+> https://developer.berlios.de/patch/?func=detailpatch&patch_id=1954&group_id=4161 
+> <https://developer.berlios.de/patch/?func=detailpatch&patch_id=1954&group_id=4161>
+>
+> Summary of functionality:
+> Previously, the source tab was marked dirty (with an asterisk) after 
+> any changes, and the only way to remove it was by saving.  Typing 
+> ctrl-z back to the original file would not get rid of the dirty flag.
+> Now, using the above patch, if the source is either undone or redone 
+> back to the saved state, the dirty flag will disappear.
+>
+> Try applying the patch, and test it out.
+> (For svn newbies out there, download TortoiseSVN.  It makes applying 
+> patches to _spe/ a simple point-and-click operation...).
+>
+
+
+Thanks, I have applied both this patch and the auto unindent patch and 
+they work great, at least after some basic testing. I will be sure to 
+post if I have any issues.
+
+- Mike
+
+
+From mxr at qvii.com  Fri Apr 13 17:37:46 2007
+From: mxr at qvii.com (Mike Rooney)
+Date: Fri, 13 Apr 2007 11:37:46 -0400
+Subject: [spe-dev] The dirty flag and undo
+In-Reply-To: <27220-60073@sneakemail.com>
+References: <27220-60073@sneakemail.com>
+Message-ID: <461FA3CA.5050707@qvii.com>
+
+g6m3xcl02 at sneakemail.com wrote:
+> Just a quick update - the dirty flag bothered me, so I submitted a 
+> patch for it:
+> https://developer.berlios.de/patch/?func=detailpatch&patch_id=1954&group_id=4161 
+> <https://developer.berlios.de/patch/?func=detailpatch&patch_id=1954&group_id=4161>
+>
+> Summary of functionality:
+> Previously, the source tab was marked dirty (with an asterisk) after 
+> any changes, and the only way to remove it was by saving.  Typing 
+> ctrl-z back to the original file would not get rid of the dirty flag.
+> Now, using the above patch, if the source is either undone or redone 
+> back to the saved state, the dirty flag will disappear.
+
+I found another bug, which causes your fix to behave oddly as well. If a 
+file is changed outside of SPE, a dialog will ask if the user wants to 
+revert. When you click yes though, the file is marked as dirty, even 
+though obviously it isn't...you just reverted. Maybe with your 
+familiarity of the dirty flag handling this wouldn't be hard to fix 
+either? The secondary problem this causes is that now if you undo the 
+revert (which oddly enough takes TWO undos, the first of which just 
+moves the cursor seemingly), the dirty flag is removed (assuming the 
+file was not dirty before the revert). This is deceptive as the file 
+actually is dirty! I think making reverts mark the file as clean would 
+fix both of these issues. What do you think?
+
+- Mike
+
+
+From g6m3xcl02 at sneakemail.com  Fri Apr 13 18:21:52 2007
+From: g6m3xcl02 at sneakemail.com (g6m3xcl02 at sneakemail.com)
+Date: Fri, 13 Apr 2007 09:21:52 -0700
+Subject: [spe-dev] The dirty flag and undo
+In-Reply-To: <461FA3CA.5050707@qvii.com>
+References: <27220-60073@sneakemail.com> <461FA3CA.5050707@qvii.com>
+Message-ID: <7933-77838@sneakemail.com>
+
+Oh, great find.  Yes, that fix should be as simple as you say.  We just need
+a SetSavePoint() in the method that reverts.  I'm flying to Boston today
+(which I understand is where Stani will be too).  So I may not get to
+patching the patch until I get back (early next week).
+
+~Carver
+
+On 4/13/07, Mike Rooney mxr-at-qvii.com |jason carver on spe-dev| <
+...> wrote:
+>
+> g6m3xcl02 at sneakemail.com wrote:
+> > Just a quick update - the dirty flag bothered me, so I submitted a
+> > patch for it:
+> >
+> https://developer.berlios.de/patch/?func=detailpatch&patch_id=1954&group_id=4161
+> > <
+> https://developer.berlios.de/patch/?func=detailpatch&patch_id=1954&group_id=4161
+> >
+> >
+> > Summary of functionality:
+> > Previously, the source tab was marked dirty (with an asterisk) after
+> > any changes, and the only way to remove it was by saving.  Typing
+> > ctrl-z back to the original file would not get rid of the dirty flag.
+> > Now, using the above patch, if the source is either undone or redone
+> > back to the saved state, the dirty flag will disappear.
+>
+> I found another bug, which causes your fix to behave oddly as well. If a
+> file is changed outside of SPE, a dialog will ask if the user wants to
+> revert. When you click yes though, the file is marked as dirty, even
+> though obviously it isn't...you just reverted. Maybe with your
+> familiarity of the dirty flag handling this wouldn't be hard to fix
+> either? The secondary problem this causes is that now if you undo the
+> revert (which oddly enough takes TWO undos, the first of which just
+> moves the cursor seemingly), the dirty flag is removed (assuming the
+> file was not dirty before the revert). This is deceptive as the file
+> actually is dirty! I think making reverts mark the file as clean would
+> fix both of these issues. What do you think?
+>
+> - Mike
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070413/ec129bf7/attachment.html>
+
+From carl at personnelware.com  Sat Apr 14 19:47:05 2007
+From: carl at personnelware.com (Carl Karsten)
+Date: Sat, 14 Apr 2007 12:47:05 -0500
+Subject: [spe-dev] bug link not on spe home
+Message-ID: <46211399.5030801@personnelware.com>
+
+Assuming this is still the place:
+Project: Stani's Python Tools - Bugs
+http://developer.berlios.de/bugs/?group_id=4161
+
+there should really be a link to it from http://pythonide.stani.be
+
+all that is there is:
+Links
+     * Download
+     * Subversion
+     * Submit a patch
+     * Mailing lists
+     * Forums
+     * Video tutorials
+
+Carl K
+
+
+From spe.stani.be at gmail.com  Thu Apr 19 07:25:12 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Thu, 19 Apr 2007 07:25:12 +0200
+Subject: [spe-dev] auto-completion solved (Re:  Problems with v. 236)
+In-Reply-To: <919573085.20070402232954@tochka.ru>
+References: <919573085.20070402232954@tochka.ru>
+Message-ID: <4626FD38.3010802@gmail.com>
+
+Sending        sm/wxp/stc.py
+Transmitting file data ..
+Committed revision 237.
+
+Autocomplete works ok again:
+- when you type a dot
+- when you type ctrl+space
+
+I am still on holiday but I found the some time to kill this annoying 
+bug on the plane from New Orleans to Chicago, where I am now. In May I 
+will look to the other patches. I need plain files for this, rather than 
+patch files.
+
+Stani
+
+?????? wrote:
+> Hi
+> The problem is that I can't get auto complete feature working.
+> So when i for example type os. I am not getting that nice list of
+> functions and classes.
+>
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>   
+
+
+
+From carl at personnelware.com  Thu Apr 19 15:11:12 2007
+From: carl at personnelware.com (Carl Karsten)
+Date: Thu, 19 Apr 2007 08:11:12 -0500
+Subject: [spe-dev] auto-completion solved (Re:  Problems with v. 236)
+In-Reply-To: <4626FD38.3010802@gmail.com>
+References: <919573085.20070402232954@tochka.ru> <4626FD38.3010802@gmail.com>
+Message-ID: <46276A70.5080607@personnelware.com>
+
+> bug on the plane from New Orleans to Chicago, where I am now. 
+
+Me too.  will you be here May 10?  That is the next ChiPy meeting.  currently we 
+are going to have a talk on setup tools and distutils.  we normally have 2 
+talks, and I personally would like to a demo of SPE. :)
+
+Carl K
+
+
+From spe.stani.be at gmail.com  Fri Apr 20 09:49:38 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Fri, 20 Apr 2007 09:49:38 +0200
+Subject: [spe-dev] auto-completion solved (Re:  Problems with v. 236)
+In-Reply-To: <46276A70.5080607@personnelware.com>
+References: <919573085.20070402232954@tochka.ru> <4626FD38.3010802@gmail.com>
+	<46276A70.5080607@personnelware.com>
+Message-ID: <46287092.4040508@gmail.com>
+
+Hi Carl,
+I only stay in Chicago till the 23rd of april. Afterwards I fly to New 
+York. Send me your cell phone and I'll call you. Saturday there will 
+probably a release event of Feisty Fawn between 12-4pm in Chicago. Maybe 
+we can meet there or another time. Probably we should continue this 
+topic privately.
+Stani
+
+Carl Karsten wrote:
+>> bug on the plane from New Orleans to Chicago, where I am now. 
+>>     
+>
+> Me too.  will you be here May 10?  That is the next ChiPy meeting.  currently we 
+> are going to have a talk on setup tools and distutils.  we normally have 2 
+> talks, and I personally would like to a demo of SPE. :)
+>
+> Carl K
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>   
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070420/2af237f1/attachment.html>
+
+From carl at personnelware.com  Fri Apr 20 18:13:06 2007
+From: carl at personnelware.com (Carl Karsten)
+Date: Fri, 20 Apr 2007 11:13:06 -0500
+Subject: [spe-dev] auto-completion solved (Re:  Problems with v. 236)
+In-Reply-To: <46287092.4040508@gmail.com>
+References: <919573085.20070402232954@tochka.ru>
+	<4626FD38.3010802@gmail.com>	<46276A70.5080607@personnelware.com>
+	<46287092.4040508@gmail.com>
+Message-ID: <4628E692.9030602@personnelware.com>
+
+Sounds good - I don't have your private e-mail.  looks like you have mine.
+
+Carl K
+
+Stani's Python Editor wrote:
+> Hi Carl,
+> I only stay in Chicago till the 23rd of april. Afterwards I fly to New 
+> York. Send me your cell phone and I'll call you. Saturday there will 
+> probably a release event of Feisty Fawn between 12-4pm in Chicago. Maybe 
+> we can meet there or another time. Probably we should continue this 
+> topic privately.
+> Stani
+> 
+> Carl Karsten wrote:
+>>> bug on the plane from New Orleans to Chicago, where I am now.     
+>>
+>> Me too.  will you be here May 10?  That is the next ChiPy meeting.  
+>> currently we are going to have a talk on setup tools and distutils.  
+>> we normally have 2 talks, and I personally would like to a demo of 
+>> SPE. :)
+>>
+>> Carl K
+>> -- 
+>> http://pythonide.stani.be
+>> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+>> Python-spe-dev at lists.berlios.de
+>> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>
+>>   
+> 
+> 
+> 
+> ------------------------------------------------------------------------
+> 
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+
+
+From spe.stani.be at gmail.com  Fri Apr 20 18:27:02 2007
+From: spe.stani.be at gmail.com (Stani's Python Editor)
+Date: Fri, 20 Apr 2007 18:27:02 +0200
+Subject: [spe-dev] auto-completion solved (Re:  Problems with v. 236)
+In-Reply-To: <4628E692.9030602@personnelware.com>
+References: <919573085.20070402232954@tochka.ru>	<4626FD38.3010802@gmail.com>	<46276A70.5080607@personnelware.com>	<46287092.4040508@gmail.com>
+	<4628E692.9030602@personnelware.com>
+Message-ID: <4628E9D6.60205@gmail.com>
+
+You can send to spe.stani.be at gmail.com or s_t_a_n_i at gmx.net or call me 
+on my us mobile 6173809737. My schedule is a bit improvised. I am mostly 
+seeing art and architecture. If that is also interesting for you, it 
+will be easy to join in. Tonight we go to some opening in a gallery of  
+contemporary art for example.
+Stani
+
+Carl Karsten wrote:
+> Sounds good - I don't have your private e-mail.  looks like you have mine.
+>
+> Carl K
+>
+> Stani's Python Editor wrote:
+>   
+>> Hi Carl,
+>> I only stay in Chicago till the 23rd of april. Afterwards I fly to New 
+>> York. Send me your cell phone and I'll call you. Saturday there will 
+>> probably a release event of Feisty Fawn between 12-4pm in Chicago. Maybe 
+>> we can meet there or another time. Probably we should continue this 
+>> topic privately.
+>> Stani
+>>
+>> Carl Karsten wrote:
+>>     
+>>>> bug on the plane from New Orleans to Chicago, where I am now.     
+>>>>         
+>>> Me too.  will you be here May 10?  That is the next ChiPy meeting.  
+>>> currently we are going to have a talk on setup tools and distutils.  
+>>> we normally have 2 talks, and I personally would like to a demo of 
+>>> SPE. :)
+>>>
+>>> Carl K
+>>> -- 
+>>> http://pythonide.stani.be
+>>> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+>>> Python-spe-dev at lists.berlios.de
+>>> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>>
+>>>   
+>>>       
+>>
+>> ------------------------------------------------------------------------
+>>
+>> --
+>> http://pythonide.stani.be
+>> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+>> Python-spe-dev at lists.berlios.de
+>> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>>     
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+>   
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070420/e835ad63/attachment.html>
+
+From g6m3xcl02 at sneakemail.com  Sat Apr 21 22:04:00 2007
+From: g6m3xcl02 at sneakemail.com (g6m3xcl02 at sneakemail.com)
+Date: Sat, 21 Apr 2007 13:04:00 -0700
+Subject: [spe-dev] Trouble with berlios.de?
+Message-ID: <30542-27010@sneakemail.com>
+
+Is anyone else having trouble accessing berlios.de?
+
+I keep getting this message:
+"The connection to the server was reset while the page was loading."
+
+This is affecting me on www.berlios.de and developer.berlios.de, but not
+svn.berlios.de
+
+I am not having trouble with any other websites.
+
+I saw a new patch for matching braces, and am excited to try it out, but I
+started having the problems about the same time and couldn't download it :(.
+
+Any ideas?
+Carver
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070421/4bf4acba/attachment.html>
+
+From carl at personnelware.com  Sun Apr 22 02:29:08 2007
+From: carl at personnelware.com (Carl Karsten)
+Date: Sat, 21 Apr 2007 19:29:08 -0500
+Subject: [spe-dev] Trouble with berlios.de?
+In-Reply-To: <30542-27010@sneakemail.com>
+References: <30542-27010@sneakemail.com>
+Message-ID: <462AAC54.9070005@personnelware.com>
+
+g6m3xcl02 at sneakemail.com wrote:
+> Is anyone else having trouble accessing berlios.de?
+> 
+> I keep getting this message:
+> "The connection to the server was reset while the page was loading."
+> 
+> This is affecting me on www.berlios.de and developer.berlios.de, but not
+> svn.berlios.de
+> 
+> I am not having trouble with any other websites.
+> 
+> I saw a new patch for matching braces, and am excited to try it out, but I
+> started having the problems about the same time and couldn't download it 
+> :(.
+> 
+
+www and developer are the same IP, so basically the same web server, which is 
+closed.  (I have no clue why, but until the port is open, not much point in trying.)
+
+carl at dell17:~$ host www.berlios.de
+www.berlios.de is an alias for unicorn.berlios.de.
+unicorn.berlios.de has address 195.37.77.138
+www.berlios.de is an alias for unicorn.berlios.de.
+www.berlios.de is an alias for unicorn.berlios.de.
+
+carl at dell17:~$ host developer.berlios.de
+developer.berlios.de is an alias for unicorn.berlios.de.
+unicorn.berlios.de has address 195.37.77.138
+developer.berlios.de is an alias for unicorn.berlios.de.
+developer.berlios.de is an alias for unicorn.berlios.de.
+
+carl at dell17:~$ host svn.berlios.de
+svn.berlios.de has address 195.37.77.137
+
+root at shaz:/var/www # nmap www.berlios.de
+
+Starting Nmap 4.03 ( http://www.insecure.org/nmap/ ) at 2007-04-21 19:19 CDT
+Interesting ports on unicorn.berlios.de (195.37.77.138):
+(The 1667 ports scanned but not shown below are in state: filtered)
+PORT     STATE  SERVICE
+20/tcp   closed ftp-data
+22/tcp   open   ssh
+80/tcp   closed http
+
+Carl K
+
+
+From g6m3xcl02 at sneakemail.com  Mon Apr 23 21:40:08 2007
+From: g6m3xcl02 at sneakemail.com (g6m3xcl02 at sneakemail.com)
+Date: Mon, 23 Apr 2007 12:40:08 -0700
+Subject: [spe-dev] Matching Brackets Patch Review
+Message-ID: <30984-18536@sneakemail.com>
+
+Excellent patch, falan!  I'd like to see this go in the next svn commit.
+http://developer.berlios.de/patch/?func=detailpatch&patch_id=1967&group_id=4161
+
+Parens/brackets work exactly as expected, and the TAB jump is nice too...
+(Note that it is off rev. 236, which TortoiseSVN handled transparently even
+though I am updated to 237!  I love that program...)
+
+A couple comments/suggestions for future work: Stacked parens work well, but
+I think we need more thought on what to do with stacked quotes (perhaps
+automatically escape them, except that would make it difficult to
+triple-quote the beginning of a string).  Additionally, I expect backspace
+to delete the matched brace, so if I hit '{', then backspace, I don't want
+the orphan '}' still there.
+
+Finally, a bit of commentary from code review:
+Most of it looks very clean to me.  You have the undone work of turning
+matching parens into an option (which should described with a "# todo:").
+Also, there is some repeated code that should be cleaned up: in OnChar() the
+"if aiPairBracket !='disable':" block is repeated under both CallTipActive()
+alternatives.  Since you are doing the same thing in either case, it should
+be pulled out of the block altogether.
+
+Most of what I wrote is critiquing what you did or should do next.  Of
+course, if you think I am wrong, please tell me rather than silently curse
+me.  Please recognize that I am taking the time to review this because it is
+a useful patch, and I'd like to see you contribute more.  The project is
+better off for your contribution.
+
+Cheers,
+Carver
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070423/afaa52a2/attachment.html>
+
+From g6m3xcl02 at sneakemail.com  Mon Apr 23 21:50:14 2007
+From: g6m3xcl02 at sneakemail.com (g6m3xcl02 at sneakemail.com)
+Date: Mon, 23 Apr 2007 12:50:14 -0700
+Subject: [spe-dev] Trouble with berlios.de?
+In-Reply-To: <462AAC54.9070005@personnelware.com>
+References: <30542-27010@sneakemail.com> <462AAC54.9070005@personnelware.com>
+Message-ID: <6064-88131@sneakemail.com>
+
+Hm, thanks for the info Carl.  That was a ridiculously long outage.
+
+Anyone up for a move to sourceforge?
+
+On 4/21/07, Carl Karsten carl-at-personnelware.com |jason carver on spe-dev|<
+...> wrote:
+>
+> g6m3xcl02 at sneakemail.com wrote:
+> > Is anyone else having trouble accessing berlios.de?
+> >
+> > I keep getting this message:
+> > "The connection to the server was reset while the page was loading."
+> >
+> > This is affecting me on www.berlios.de and developer.berlios.de, but not
+> > svn.berlios.de
+> >
+> > I am not having trouble with any other websites.
+> >
+> > I saw a new patch for matching braces, and am excited to try it out, but
+> I
+> > started having the problems about the same time and couldn't download it
+> > :(.
+> >
+>
+> www and developer are the same IP, so basically the same web server, which
+> is
+> closed.  (I have no clue why, but until the port is open, not much point
+> in trying.)
+>
+> carl at dell17:~$ host www.berlios.de
+> www.berlios.de is an alias for unicorn.berlios.de.
+> unicorn.berlios.de has address 195.37.77.138
+> www.berlios.de is an alias for unicorn.berlios.de.
+> www.berlios.de is an alias for unicorn.berlios.de.
+>
+> carl at dell17:~$ host developer.berlios.de
+> developer.berlios.de is an alias for unicorn.berlios.de.
+> unicorn.berlios.de has address 195.37.77.138
+> developer.berlios.de is an alias for unicorn.berlios.de.
+> developer.berlios.de is an alias for unicorn.berlios.de.
+>
+> carl at dell17:~$ host svn.berlios.de
+> svn.berlios.de has address 195.37.77.137
+>
+> root at shaz:/var/www # nmap www.berlios.de
+>
+> Starting Nmap 4.03 ( http://www.insecure.org/nmap/ ) at 2007-04-21 19:19
+> CDT
+> Interesting ports on unicorn.berlios.de (195.37.77.138):
+> (The 1667 ports scanned but not shown below are in state: filtered)
+> PORT     STATE  SERVICE
+> 20/tcp   closed ftp-data
+> 22/tcp   open   ssh
+> 80/tcp   closed http
+>
+> Carl K
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/python-spe-dev/attachments/20070423/7feb54fd/attachment.html>
+
+From pietjepuk314 at yahoo.co.uk  Tue Apr 24 09:38:08 2007
+From: pietjepuk314 at yahoo.co.uk (Pietje Puk)
+Date: Tue, 24 Apr 2007 09:38:08 +0200
+Subject: [spe-dev] Open workspace: crash
+In-Reply-To: <6064-88131@sneakemail.com>
+References: <30542-27010@sneakemail.com> <462AAC54.9070005@personnelware.com>
+	<6064-88131@sneakemail.com>
+Message-ID: <1B6972B5-5D8E-470A-8BDE-304DFBD4B1F4@yahoo.co.uk>
+
+There seems to be a bug in open_workspace, with closing the dialog  
+box when there is an exception. (I don't know where this exception  
+occurs, nor what it is.)
+The bug must be in Parent.py, in the Panel class.
+
+I tried to fix it using a try...finally block, as follows:
+
+     def open_workspace(self):
+         """Open file dialog."""
+         try:
+             defaultDir=info.dirname(self.workspace['file'])
+         except:
+             defaultDir=''
+         try:
+             dlg = wx.FileDialog(self, "Choose a file - www.stani.be",
+                 defaultDir=defaultDir, defaultFile="",
+                 wildcard=info.WORKSPACE_WILDCARD,
+                 style=wx.OPEN)
+             if dlg.ShowModal() == wx.ID_OK:
+                 file = dlg.GetPath()
+                 try:                    self.set 
+("currentworkspace",file)
+                     self.__openWorkspace__()
+                     self.loadWorkspace()
+                 except Exception,e:
+                     self.message("Could not open workspace:%s\n%s"% 
+(file,e))
+         finally:
+             dlg.Destroy()
+
+and, just to be sure, I did save_workspace too, where I found a like  
+bug earlier:
+     def save_workspace_as(self):
+         """Save file dialog."""
+         try:
+             defaultFile = self.workspace['file']
+         except:
+             defaultFile = ''        if info.WIN:
+            defaultFile  = defaultFile.replace("/","\\")
+         try:
+             dlg             = wx.FileDialog(self, "Save Workspace As  
+- www.stani.be",
+                 defaultFile = defaultFile,
+                 defaultDir  = info.dirname(defaultFile),
+                 wildcard    = info.WORKSPACE_WILDCARD,
+                 style       = wx.SAVE|wx.OVERWRITE_PROMPT| 
+wx.CHANGE_DIR)
+             if dlg.ShowModal() == wx.ID_OK:
+                 file = dlg.GetPath()
+                 try:
+                     self.set("currentworkspace",file)
+                     self.saveWorkspace(file)
+                 except Exception,e:
+                     self.message("Could not save workspace:%s\n%s"% 
+(file,e))
+         finally:
+             dlg.Destroy()
+
+The effect is that I can open a workspace, and that everything looks  
+fine, but then all of a sudden it shows *another* file dialog! On  
+clicking cancel, SPE goes down in a bang.
+Reopening it gives the correct new workspace, however.
+I am running SPE, latest checkout plus above changes, on a MacBook Pro.
+
+Any ideas?
+- Jurjen
+
+	
+	
+		
+___________________________________________________________ 
+All new Yahoo! Mail "The new Interface is stunning in its simplicity and ease of use." - PC Magazine 
+http://uk.docs.yahoo.com/nowyoucan.html
+
+
+From johnfinch at mac.com  Tue Apr 24 13:19:09 2007
+From: johnfinch at mac.com (John Finch)
+Date: Tue, 24 Apr 2007 07:19:09 -0400
+Subject: [spe-dev] Open workspace: crash
+In-Reply-To: <1B6972B5-5D8E-470A-8BDE-304DFBD4B1F4@yahoo.co.uk>
+References: <30542-27010@sneakemail.com> <462AAC54.9070005@personnelware.com>
+	<6064-88131@sneakemail.com>
+	<1B6972B5-5D8E-470A-8BDE-304DFBD4B1F4@yahoo.co.uk>
+Message-ID: <2B9FAA37-0F4A-4967-A039-D34141092766@mac.com>
+
+Stani had asked Thurston Stone to have a look at this one. I think  
+Thurston was the original writer of the workspace source.
+
+On Apr 24, 2007, at 3:38 AM, Pietje Puk wrote:
+
+> There seems to be a bug in open_workspace, with closing the dialog
+> box when there is an exception. (I don't know where this exception
+> occurs, nor what it is.)
+> The bug must be in Parent.py, in the Panel class.
+>
+> I tried to fix it using a try...finally block, as follows:
+>
+>      def open_workspace(self):
+>          """Open file dialog."""
+>          try:
+>              defaultDir=info.dirname(self.workspace['file'])
+>          except:
+>              defaultDir=''
+>          try:
+>              dlg = wx.FileDialog(self, "Choose a file - www.stani.be",
+>                  defaultDir=defaultDir, defaultFile="",
+>                  wildcard=info.WORKSPACE_WILDCARD,
+>                  style=wx.OPEN)
+>              if dlg.ShowModal() == wx.ID_OK:
+>                  file = dlg.GetPath()
+>                  try:                    self.set
+> ("currentworkspace",file)
+>                      self.__openWorkspace__()
+>                      self.loadWorkspace()
+>                  except Exception,e:
+>                      self.message("Could not open workspace:%s\n%s"%
+> (file,e))
+>          finally:
+>              dlg.Destroy()
+>
+> and, just to be sure, I did save_workspace too, where I found a like
+> bug earlier:
+>      def save_workspace_as(self):
+>          """Save file dialog."""
+>          try:
+>              defaultFile = self.workspace['file']
+>          except:
+>              defaultFile = ''        if info.WIN:
+>             defaultFile  = defaultFile.replace("/","\\")
+>          try:
+>              dlg             = wx.FileDialog(self, "Save Workspace As
+> - www.stani.be",
+>                  defaultFile = defaultFile,
+>                  defaultDir  = info.dirname(defaultFile),
+>                  wildcard    = info.WORKSPACE_WILDCARD,
+>                  style       = wx.SAVE|wx.OVERWRITE_PROMPT|
+> wx.CHANGE_DIR)
+>              if dlg.ShowModal() == wx.ID_OK:
+>                  file = dlg.GetPath()
+>                  try:
+>                      self.set("currentworkspace",file)
+>                      self.saveWorkspace(file)
+>                  except Exception,e:
+>                      self.message("Could not save workspace:%s\n%s"%
+> (file,e))
+>          finally:
+>              dlg.Destroy()
+>
+> The effect is that I can open a workspace, and that everything looks
+> fine, but then all of a sudden it shows *another* file dialog! On
+> clicking cancel, SPE goes down in a bang.
+> Reopening it gives the correct new workspace, however.
+> I am running SPE, latest checkout plus above changes, on a MacBook  
+> Pro.
+>
+> Any ideas?
+> - Jurjen
+>
+> 	
+> 	
+> 		
+> ___________________________________________________________
+> All new Yahoo! Mail "The new Interface is stunning in its  
+> simplicity and ease of use." - PC Magazine
+> http://uk.docs.yahoo.com/nowyoucan.html
+> --
+> http://pythonide.stani.be
+> svn checkout svn://svn.berlios.de/python/spe/trunk/_spe
+> Python-spe-dev at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/python-spe-dev
+
+
+

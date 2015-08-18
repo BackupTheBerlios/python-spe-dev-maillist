@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] usage of wxversion
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20usage%20of%20wxversion&In-Reply-To=%3C1197638513.13335.12.camel%40robert-laptop%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000311.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] usage of wxversion</H1>
+    <B>Robert Elsner</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20usage%20of%20wxversion&In-Reply-To=%3C1197638513.13335.12.camel%40robert-laptop%3E"
+       TITLE="[spe-dev] usage of wxversion">mlist at re-factory.de
+       </A><BR>
+    <I>Fri Dec 14 14:21:53 CET 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000311.html">[spe-dev] usage of wxversion
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#310">[ date ]</a>
+              <a href="thread.html#310">[ thread ]</a>
+              <a href="subject.html#310">[ subject ]</a>
+              <a href="author.html#310">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Resend - forgot to subscribe to list first. Sorry
+
+
+Hello Everybody,
+
+I am using spe 0.8.3 on Ubuntu 7.10. You are using wxversion to select
+the correct version of Wx. I found spe not working with wx 2.8.4 which
+is shipped in Ubuntu. So why not using wxversion to select the
+recommended version of Wx instead of the latest version available? I
+patched my spe install and it works smooth (killer python ide by the
+way). The changes needed for that are
+
+trunk/_spe/SPE.py
+
+--- spe_svn.py  2007-12-14 13:45:49.000000000 +0100
++++ spe_changed.py      2007-12-14 13:47:29.000000000 +0100
+@@ -13,7 +13,7 @@
+     if sys.modules.has_key('wx') or sys.modules.has_key('wxPython'):
+         pass    #probably not the first call to this module: wxPython
+already loaded
+     else:
+-        wxversion.ensureMinimal(MIN_WX_VERSION)
++        wxversion.select(MIN_WX_VERSION)
+ except ImportError:
+     #the old fashioned way as not everyone seems to have wxversion
+installed
+     try:
+
+Might give that a thought? Otherwise svn might work with 2.8.4 but cant
+test her (need this box for work at the moment)
+
+cheers
+Robert
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000311.html">[spe-dev] usage of wxversion
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#310">[ date ]</a>
+              <a href="thread.html#310">[ thread ]</a>
+              <a href="subject.html#310">[ subject ]</a>
+              <a href="author.html#310">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>

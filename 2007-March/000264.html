@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [spe-dev] Opening filenames with spaces
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/python-spe-dev/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Opening%20filenames%20with%20spaces&In-Reply-To=%3C460A89EB.7070303%40qvii.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000263.html">
+   <LINK REL="Next"  HREF="000262.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[spe-dev] Opening filenames with spaces</H1>
+    <B>Mike Rooney</B> 
+    <A HREF="mailto:python-spe-dev%40lists.berlios.de?Subject=Re%3A%20%5Bspe-dev%5D%20Opening%20filenames%20with%20spaces&In-Reply-To=%3C460A89EB.7070303%40qvii.com%3E"
+       TITLE="[spe-dev] Opening filenames with spaces">mxr at qvii.com
+       </A><BR>
+    <I>Wed Mar 28 17:29:47 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000263.html">[spe-dev] Opening filenames with spaces
+</A></li>
+        <LI>Next message: <A HREF="000262.html">[spe-dev] SPE &quot;Explore&quot; Tab shows commented elements
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#264">[ date ]</a>
+              <a href="thread.html#264">[ thread ]</a>
+              <a href="subject.html#264">[ subject ]</a>
+              <a href="author.html#264">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Mike Rooney wrote:
+&gt;<i> John Finch wrote:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Interesting! I had the spaces problem on Ubuntu but Stani fixed it. 
+</I>&gt;&gt;<i> Must have been an OS specific fix?
+</I>&gt;&gt;<i> Good catch!
+</I>&gt;&gt;<i>     
+</I>&gt;<i> Okay, I had trouble duplicating it but now I got it again. It seems to 
+</I>&gt;<i> be some weird issue with double
+</I>&gt;<i> quotes:
+</I>&gt;<i>
+</I>&gt;<i>  &quot;&quot;C:\Documents and Settings\mxr\Desktop\qvi_inspect\managetab.py&quot;&quot;
+</I>&gt;<i>  C:\Python25\python.exe: can't open file 'C:\Documents': [Errno 2] No 
+</I>&gt;<i> such file or directory
+</I>&gt;<i>  Script terminated.
+</I>&gt;<i>
+</I>&gt;<i> As you might notice the string has quotes inside of itself. Windows 
+</I>&gt;<i> returns paths as quoted
+</I>&gt;<i> strings when they contain spaces, so it might be something to do with 
+</I>&gt;<i> that? Not sure why
+</I>&gt;<i> it seems to work sometimes, though. Unfortunately there was no full 
+</I>&gt;<i> traceback from SPE
+</I>&gt;<i> or it would have been super easy to follow. Oh well, I will try to find 
+</I>&gt;<i> it anyway!
+</I>&gt;<i>   
+</I>
+I fixed it! First of all, my confusion was because I didn't understand 
+the problem. SPE can open files with spaces in their path just fine, it 
+was that it can't RUN them. That behavior is consistent for me here on 
+WinXP. The fix was changing line 680 of Parent.py to:
+
+        params          = { 'file':         
+info.path(child.fileName).strip('&quot;'),
+
+Four lines down, in the string format, quotes are wrapped around the 
+'file' entry, so it assumes they weren't already there. But Windows puts 
+them in for you if the path contains spaces. I am not sure if this will 
+have other consequences, but I can run files with and without spaces in 
+their paths now, with that fix.
+
+- Mike
+&gt;<i>   
+</I>&gt;&gt;<i> On Mar 26, 2007, at 9:33 AM, Rooney, Mike (ext. 324) wrote:
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> Hello,
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Is anyone else having a problem opening filenames containing spaces?
+</I>&gt;&gt;&gt;<i> For example on Windows XP the desktop is located at typically:
+</I>&gt;&gt;&gt;<i> C:\documents and settings\user\desktop. When I try to open a file there
+</I>&gt;&gt;&gt;<i> I get (in the Output window):
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  &quot;&quot;C:\Documents and Settings\mxr\Desktop\smarttree-trunk\smarttree.pyw&quot;&quot;
+</I>&gt;&gt;&gt;<i> C:\Python25\python.exe: can't open file 'C:\Documents': [Errno 2] No 
+</I>&gt;&gt;&gt;<i> such file or directory
+</I>&gt;&gt;&gt;<i> Script terminated.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Also in reporting this I have found that copying from the Output window
+</I>&gt;&gt;&gt;<i> is a little awkward, Ctrl+C does not seem to work, so my next instinct
+</I>&gt;&gt;&gt;<i> was to right-click and select copy but no menu came up. I had to go to
+</I>&gt;&gt;&gt;<i> Edit -&gt; Copy. Not a huge deal, just something I noticed.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> I assume this is not really system specific but my specs are SPE
+</I>&gt;&gt;&gt;<i> revision 236, python 2.5, wxPython 2.8.1.1, on Windows XP.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Thanks for your time,
+</I>&gt;&gt;&gt;<i> Mike
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> --
+</I>&gt;&gt;&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;&gt;&gt;<i> svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A> &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>&gt;
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i> ------------------------------------------------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> --
+</I>&gt;&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;&gt;<i> svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> <A HREF="http://pythonide.stani.be">http://pythonide.stani.be</A>
+</I>&gt;<i> svn checkout <A HREF="svn://svn.berlios.de/python/spe/trunk/_spe">svn://svn.berlios.de/python/spe/trunk/_spe</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">Python-spe-dev at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/python-spe-dev">https://lists.berlios.de/mailman/listinfo/python-spe-dev</A>
+</I>&gt;<i>   
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000263.html">[spe-dev] Opening filenames with spaces
+</A></li>
+	<LI>Next message: <A HREF="000262.html">[spe-dev] SPE &quot;Explore&quot; Tab shows commented elements
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#264">[ date ]</a>
+              <a href="thread.html#264">[ thread ]</a>
+              <a href="subject.html#264">[ subject ]</a>
+              <a href="author.html#264">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/python-spe-dev">More information about the Python-spe-dev
+mailing list</a><br>
+</body></html>
